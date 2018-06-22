@@ -1,0 +1,118 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+/// Mixin to size an element
+/// @author Hugo Giraudel
+/// @param {Length} $width
+/// @param {Length} $height
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+  
+/// Mixin to adjust position an element
+/// @param {String} $position
+/// @param {top [val] left [val] right [val] bottom [val]} $args
+@mixin position($position, $args) {
+    @each $o in top right bottom left {
+        $i: index($args, $o);
+
+        @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number  {
+            #{$o}: nth($args, $i + 1);
+        }
+    }
+
+    position: $position;
+}
+  
+/// Mixin position absolute
+/// @param {top [val] left [val] right [val] bottom [val]} $args
+@mixin absolute($args) {
+    @include position("absolute", $args);
+}
+  
+/// Mixin position fixed
+/// @param {top [val] left [val] right [val] bottom [val]} $args
+@mixin fixed($args) {
+    @include position("fixed", $args);
+}
+  
+/// Mixin position relative
+/// @param {top [val] left [val] right [val] bottom [val]} $args
+@mixin relative($args) {
+    @include position("relative", $args);
+}
+  
+/// Mixin to add vendor prefix easily
+/// @param {($prop: $value)} $map
+/// @param {webkit moz ms o} $vendors
+@mixin prefix($map, $vendors: webkit moz ms o) {
+    @each $prop, $value in $map {
+        @if $vendors {
+            @each $vendor in $vendors {
+                #{"-" + $vendor + "-" + $prop}: #{$value};
+            }
+        }
+        // Dump regular property anyway
+        #{$prop}: #{$value};
+    }
+}
+  
+/// Mixin to add vendor prefix for property transform
+/// @author Achmad Ricky Budianto
+/// @extends prefix
+/// @param {e.g. rotate(42deg)} $value
+@mixin transform($value) {
+    @include prefix((transform: $value), webkit moz ms o);
+}
+// INFO: add code above this comment if you want to add any extends from prefix
+  
+/// Mixin breakpoint for responsive purpose
+/// @param {$breakpoints key} $name
+/// @require content
+@mixin breakpoint($name) {
+    @if map-has-key($breakpoints, $name) {
+        @media #{inspect(map-get($breakpoints, $name))} {
+            @content;
+        }
+    }
+    @else {
+        @warn "Couldn't find a breakpoint named `#{$name}`.";
+    }
+}
+
+@mixin transition($val...) {
+    -webkit-transition: $val;
+	-moz-transition: $val; 
+	-o-transition: $val; 
+	transition: $val; 
+}
+
+@mixin btn-theme($btn-color, $text-color) {
+    color: $text-color;
+    background-color: $btn-color;
+    &:hover, &:active {
+        background-color: darken($btn-color, 6%);
+    }
+
+    &.btn--inverted {
+        color: $btn-color;
+        border: 1px solid $btn-color;
+        background-color: transparent;
+
+        &:hover, &:active {
+            color: $btn-text-color-light;
+            background-color: darken($btn-color, 6%);
+        }
+    }
+}
+
+@mixin select-box-theme($select-box-color, $select-box-font-color) {
+    color: $select-box-font-color;
+    background-color: $select-box-color;
+}

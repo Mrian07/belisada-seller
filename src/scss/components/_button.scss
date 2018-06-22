@@ -1,0 +1,253 @@
+/**
+ * @atom Button Variant Shapes
+ * @section Elements > Buttons
+ * @description
+ *  Buttons for various shapes
+ * @modifiers
+ *  .btn--rounded rounded button
+ *  .btn--inverted inverted button
+ *  .btn--rounded.btn--inverted rounded and inverted button
+ * @markup
+ *  <button class="btn btn--blue">
+ *    btn--blue
+ *  </button>
+ *  <button class="btn btn--inverted btn--blue">
+ *    btn--inverted btn--blue
+ *  </button>
+ *  <button class="btn btn--rounded btn--blue">
+ *    btn--rounded btn--blue
+ *  </button>
+ *  <button class="btn btn--rounded btn--inverted btn--blue">
+ *    btn--rounded btn--inverted btn--blue
+ *  </button>
+ */
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    border: 0;
+    font-weight: 300;
+    font-size: 1.2rem;
+    cursor:pointer;
+	text: {
+        decoration: none;
+    }
+    &:focus {
+        outline: 0;
+    }
+    
+    @include prefix((
+        box-shadow: 0px 3px 6px 0px rgba($color-black, .15),
+        transition: .2s ease-in-out
+    ), webkit moz ms o);
+
+    &.btn--rounded {
+        border-radius: 2rem;
+    }
+}
+
+
+/**
+ * @atom Button Variant Colors (colorful)
+ * @section Elements > Buttons
+ * @description
+ *  Buttons for various colors (colorful).
+ * @modifiers
+ *  .btn--blue-sky button with blue sky color
+ *  .btn--orange button with orange color
+ *  .btn--yellow button with yellow color
+ *  .btn--green button with green color
+ *  .btn--purple button with purple color
+ *  .btn--blue button with blue color
+ * @markup
+ *  <button class="btn btn--blue-sky">
+ *    btn--blue-sky
+ *  </button>
+ *  <button class="btn btn--orange">
+ *    btn--orange
+ *  </button>
+ *  <button class="btn btn--yellow">
+ *    btn--yellow
+ *  </button>
+ *  <button class="btn btn--green">
+ *    btn--green
+ *  </button>
+ *  <button class="btn btn--purple">
+ *    btn--purple
+ *  </button>
+ *  <button class="btn btn--blue">
+ *    btn--blue
+ *  </button>
+ */
+.btn--blue-sky {
+    $btn-color: btn-color("blue-sky");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--orange {
+    $btn-color: btn-color("orange");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--yellow {
+    $btn-color: btn-color("yellow");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--green {
+    $btn-color: btn-color("green");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--purple {
+    $btn-color: btn-color("purple");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--blue {
+    $btn-color: btn-color("blue");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+
+/**
+ * @atom Button Variant Colors (monochrome)
+ * @section Elements > Buttons
+ * @description
+ *  Buttons for various colors (monochrome).
+ * @modifiers
+ *  .btn--silver button with silver color
+ *  .btn--ash button with ash color
+ *  .btn--grey button with grey color
+ *  .btn--navy button with navy color
+ *  .btn--dark-grey button with dark-grey color
+ *  .btn--black button with black color
+ * @markup
+ *  <button class="btn btn--silver">
+ *    btn--silver
+ *  </button>
+ *  <button class="btn btn--ash">
+ *    btn--ash
+ *  </button>
+ *  <button class="btn btn--grey">
+ *    btn--grey
+ *  </button>
+ *  <button class="btn btn--navy">
+ *    btn--navy
+ *  </button>
+ *  <button class="btn btn--dark-grey">
+ *    btn--dark-grey
+ *  </button>
+ *  <button class="btn btn--black">
+ *    btn--black
+ *  </button>
+ */
+.btn--silver {
+    $btn-color: btn-color("silver");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--ash {
+    $btn-color: btn-color("ash");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--grey {
+    $btn-color: btn-color("grey");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--navy {
+    $btn-color: btn-color("navy");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--dark-grey {
+    $btn-color: btn-color("dark-grey");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn--black {
+    $btn-color: btn-color("black");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+
+.btn-orange-disabled {
+    cursor: not-allowed;
+    $btn-color: btn-color("orange");
+    @include btn-theme($btn-color, $btn-text-color-light);
+}
+.btn-size-100 {
+    width: 100%;
+}
+.btn-size-80 {
+    width: 80%;
+}
+.btn-size-55 {
+    width: 55%;
+}
+.btn-size-30 {
+    width: 30%;
+}
+
+.btn-alert-ok {
+    color: #000;
+    background: #fff;
+    padding:10px 40px 10px 40px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.btn-alert-ok:hover {
+    color: #000;
+    background: #ededed;
+}
+
+.btn-alert-cancel {
+    color: #000;
+    background: #f1c145;
+    padding:10px 40px 10px 40px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.btn-alert-ok:hover {
+    color: #000;
+    background: #f8d375;
+}
+
+.input-group{
+  display: table;
+  border-collapse: collapse;
+  width:100%;
+}
+
+.input-group > div{
+  display: table-cell;
+  border: 1px solid #ffffff;
+  vertical-align: middle;  /* needed for Safari */
+}
+
+.input-group-icon{
+  background:#eee;
+  color: #777;
+  padding: 0 49px
+
+}
+
+.input-group-area{
+  width:100%;
+}
+
+.input-group input{
+  border: 0;
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
+.b-white{
+    border: 5px solid #ffffff;
+    border-radius: 5px;
+}
+
+.border-btn{
+    width: 90%;
+}

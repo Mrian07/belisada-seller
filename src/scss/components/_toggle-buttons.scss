@@ -1,0 +1,94 @@
+.switch {
+    @include size(10rem, 3.4rem);
+    position: relative;
+    display: inline-block;
+
+    input {
+        display:none;
+    }
+
+    &.small {
+        @include size(6rem, 3.4rem);
+
+        input:checked + .slider:before {
+            @include prefix((transform: translateX(2.6rem)), webkit moz ms o);
+        
+        }
+    }
+}
+
+.slider {
+    @include position(absolute, top 0 left 0 right 0 bottom 0);
+    @include prefix((transition: .4s), webkit moz ms o);
+    cursor: pointer;
+    color: $color--proteus-green;
+    background-color: $color--ash;
+    // border: 1px solid $color--ash;
+
+    &:before {
+        @include position(absolute, left .4rem bottom .4rem);
+        @include prefix((transition: .4s), webkit moz ms o);
+        @include size(2.6rem);
+        z-index: z('default');
+        content: "";
+        background-color: $color--white;
+    }
+}
+
+input:checked + .slider {
+    background-color: $color--proteus-green;
+    color: $color--ash;
+    // border: .1rem solid $color--ash;
+}
+
+input:checked + .slider:before {
+    @include prefix((transform: translateX(6.5rem)), webkit moz ms o);
+}
+
+/*------ ADDED CSS ---------*/
+.true {
+    display: none;
+}
+
+.true, .false {
+    @include position(absolute, top 50% left 50%);
+    transform: translate(-50%,-50%);
+    font-size: 1rem;
+}
+
+input:checked + .slider .true {
+    display: block;
+}
+
+input:checked + .slider .false {
+    display: none;
+}
+
+/*--------- END --------*/
+
+/* Square sliders */
+.slider.square {
+    border-radius: 0;
+}
+
+.slider.square:before {
+    border-radius: 0;
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 3.4rem;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Small rounded sliders */
+.slider.small-round {
+    border-radius: .4rem;
+}
+
+.slider.small-round:before {
+    border-radius: .4rem;
+}

@@ -1,0 +1,11 @@
+.containPage{
+    width: 100%;
+    padding: 0 2rem;
+    margin: 0px auto;
+    padding-bottom:10px;
+    padding-top:10px;
+
+    &.has-header {
+        padding-top: 60px;
+    }
+}

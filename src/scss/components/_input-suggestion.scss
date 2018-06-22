@@ -1,0 +1,17 @@
+.input-suges {
+    list-style-type: none;
+    position: absolute;
+    background: #eee;
+    max-height: 300px;
+    overflow: auto;
+    padding: 0px;
+    z-index: 2;
+}
+.input-suges li {
+    padding: 3px 15px;
+}
+.input-suges li:hover {
+    background: darkgrey;
+    color: darkgoldenrod;
+    cursor: pointer;
+}

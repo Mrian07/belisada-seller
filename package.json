@@ -20,8 +20,14 @@
     "@angular/platform-browser": "^6.0.0",
     "@angular/platform-browser-dynamic": "^6.0.0",
     "@angular/router": "^6.0.0",
+    "@fortawesome/angular-fontawesome": "0.1.0-10",
+    "@fortawesome/fontawesome-svg-core": "^1.2.0-11",
+    "@fortawesome/free-brands-svg-icons": "^5.1.0-11",
+    "@fortawesome/free-regular-svg-icons": "^5.1.0-11",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
+    "sweetalert2": "^7.22.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

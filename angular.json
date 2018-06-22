@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "bss",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
@@ -20,6 +20,7 @@
             "outputPath": "dist/belisada-seller",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "showCircularDependencies": false,
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
@@ -27,8 +28,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/scss"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -76,7 +80,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/scss/styles.scss"
             ],
             "scripts": [],
             "assets": [

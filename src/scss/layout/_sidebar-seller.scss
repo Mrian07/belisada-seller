@@ -1,0 +1,39 @@
+.title-sidebar-seller {
+    font-size: 30px;
+    text-align: center;
+    display: block;
+}
+.border-sidebar-seller {
+    border: 1px solid #eee;
+}
+.dummy-backgorund {
+    background-color: #eee;
+    // width: 300px;
+    margin: 10px;
+    cursor: pointer;
+    border-right: 5px solid #f57b2a;
+}
+
+.dummy-backgorund:hover {
+    background-color: #f6f6f6;
+    border-right: 5px solid #f57b2a;
+}
+
+.profile-toko-text {
+    color: black !important;
+    text-transform: uppercase;
+}
+
+.img-small-store-for-sidebar {
+    width: 37px;
+    padding-left: 11px;
+    padding-top: 10px;
+    padding-right: 3px;
+
+}
+.right-pull {
+    text-align: right;
+    position: absolute;
+    right: 78%;
+    top: 31.5%;
+}

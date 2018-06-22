@@ -1,0 +1,73 @@
+@import "styles";
+
+label {
+    font-weight: 400;
+}
+
+.add-product-form-wrapper {
+    padding-left: 5rem;
+}
+
+.cardlist {
+    padding: 1.4rem;
+    border-radius: .3rem;
+    border: 1px solid $color--grey;
+}
+
+.drick-select-container {
+    width: 200px;
+    position: relative;
+}
+
+.drick-select__text {
+    width: 100%;
+
+    &.active {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-bottom: 1px solid transparent !important;
+    }
+}
+
+.drick-select-container--toggle {
+    width: 100%;
+    max-height: 200px;
+    border: 1px solid rgba(34,36,38,.15);
+    border-top: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    left: 0;
+    top: 45px;
+    z-index: 2;
+    background: #fff;
+    display: none;
+    transition: all .2s;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    &.active {
+        display: block;
+        border-color: $color--dark-grey;
+    }
+}
+
+.drick-select-list {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    li {
+        padding: 5px 15px;
+        color: rgba(0,0,0,.87);
+        transition: all .2s;
+        font-size: 1.4rem;
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(0,0,0,.1);
+        }
+    }
+}

@@ -1,0 +1,192 @@
+<div>
+    <h2 class="test">Ubah Gambar Produk</h2>
+    <p>Geser gambar untuk mengubah susunan. Minimal gambar 2 dan maksimal gambar produk 5, geser untuk menyusun foto</p>
+
+    <div class="add-product-form-wrapper">
+        <ul class="add_product_image clearfix" id="image-list">
+            <li class="u-inline-list-gap" *ngFor="let item of apr.imageUrl; let i = index">
+                <div class="image-preview" [ngStyle]="{'background-image': 'url(' + item + ')'}">
+                    <span class="action-button" (click)="removeImage(i)">
+                        <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                    </span>
+                </div>
+            </li>
+            <li>
+                <div class="pikcker-wrapper picker-add-image" *ngIf="(apr.imageUrl.length < 5)">
+                    <input type="file" accept="image/jpeg,.jpeg,.jpg,image/png,.png" (change)="getSelectedFiles($event)">
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <h2>Informasi Produk</h2>
+    <div class="add-product-form-wrapper">
+        <div class="row f-group">
+            <label for="staticEmail" class="col-3 middle">Nama Produk</label>
+            <div class="col-9">
+                <input type="text" [(ngModel)]="apr.name" class="f-control" placeholder="Nama Produk">
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Merek</label>
+            <div class="col-9">
+                <!-- <input type="text" class="f-control" placeholder="Merek"> -->
+
+                <div class="drick-select-container">
+                    <div class="ui icon input parent">
+                        <input class="f-control drick-select__text" [ngClass]="{'active':onBrandFocus}" type="text" [(ngModel)]="brandName"
+                            (keyup)="searchBrand()"
+                            (focus)="onBrandFocus = true" (focusout)="onBrandBlur()" placeholder="Select one">
+                        <i class="drick-select__icon caret down icon"></i>
+                    </div>
+                    <div class="drick-select-container--toggle" [ngClass]="{'active':onBrandFocus}"
+                        id="drick-scroll-container--brand"
+                        (scroll)="onBrandScrollDown()">
+                        <ul class="drick-select-list">
+                            <li *ngFor="let i of brandList.data" (click)="selectBrand(i)">
+                                {{i.name}}
+                            </li>
+                            <li *ngIf="(brandList.data.length === 0)">
+                                Brand tidak ditemukan
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Kategori Produk</label>
+            <div class="col-9">
+                <!-- <input type="text" class="f-control" placeholder="Kategori Produk"> -->
+
+                <div class="drick-select-container">
+                    <div class="ui icon input parent">
+                        <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus}" type="text" [(ngModel)]="categoryName"
+                            (keyup)="searchCategory()" [ngModelOptions]="{standalone: true}"
+                            (focus)="onCategoryFocus = true" (focusout)="onCategoryBlur()" placeholder="Select one">
+                        <i class="drick-select__icon caret down icon"></i>
+                    </div>
+                    <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus}"
+                        id="drick-scroll-container--category"
+                        (scroll)="onCategoryScrollDown()">
+                        <ul class="drick-select-list">
+                            <li *ngFor="let i of categoryList.data" (click)="selectCategory(i)">
+                                {{i.name}}
+                            </li>
+                            <li *ngIf="(categoryList.data.length === 0)">
+                                Category tidak ditemukan
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Deskripsi</label>
+            <div class="col-9">
+                <textarea [(ngModel)]="apr.description" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Spesifikasi Produk</label>
+            <div class="col-4">
+                <label *ngIf="categoryAttributes.length === 0" class="middle">*Silahkan pilih kategori terlebih dahulu</label>
+                <div class="f-group" *ngFor="let categoryAttribute of categoryAttributes">
+                    <input type="text" [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control"
+                        [placeholder]="categoryAttribute.name" *ngIf="categoryAttribute.isInstanceAttribute === true"
+                        [attr.required]="categoryAttribute.isMandatory"/>
+                    <select [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control" *ngIf="categoryAttribute.isInstanceAttribute === false"
+                        [attr.required]="categoryAttribute.isMandatory">
+                            <option value="" disabled>{{ categoryAttribute.name }}</option>
+                            <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Harga dan Stok</h2>
+    <div class="add-product-form-wrapper">
+        <div class="row f-group">
+            <label class="col-3">Kondisi Barang</label>
+            <div class="col-9">
+                <span *ngFor="let i of classification">
+                    <input id="{{ i.statusCode }}" type="radio" name="classification"
+                        [(ngModel)]="apr.classification" [value]="i.statusCode"/>
+                            <label for="{{ i.statusCode }}">{{ i.status }}</label>
+                </span>
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Harga</label>
+            <div class="col-3">
+                <input [(ngModel)]="apr.pricelist" type="text" class="f-control" placeholder="Harga">
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Stok</label>
+            <div class="col-9">
+                <span *ngFor="let i of stock">
+                    <input id="{{ i.statusCode }}" type="radio" name="stock"
+                        [(ngModel)]="apr.qtyType" [value]="i.statusCode"/>
+                        <label for="{{ i.statusCode }}">{{ i.status }}</label>
+                </span>
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Garansi</label>
+            <div class="col-3">
+                <!-- <input type="text" class="f-control" placeholder="Garansi"> -->
+                <select [(ngModel)]="apr.guaranteeTime" class="f-control">
+                    <option value="" *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h2>Pengiriman</h2>
+    <div class="add-product-form-wrapper">
+        <div class="row f-group">
+            <label class="col-3 middle">Berat</label>
+            <div class="col-6">
+                <input [(ngModel)]="apr.weight" type="text" class="f-control" placeholder="Berat">
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Dimensi</label>
+            <div class="col-2">
+                <input [(ngModel)]="apr.dimensionsWidth" type="text" class="f-control" placeholder="P">
+            </div>
+            <div class="col-2">
+                <input [(ngModel)]="apr.dimensionslength" type="text" class="f-control" placeholder="L">
+            </div>
+            <div class="col-2">
+                <input [(ngModel)]="apr.dimensionsheight" type="text" class="f-control" placeholder="T">
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Delivery Service</label>
+            <div class="col-6">
+                <div class="cardlist">
+                    <table class="table">
+                        <tr *ngFor="let courier of couriers">
+                            <td>{{ courier.name }}</td>
+                            <!-- <td>i</td> -->
+                            <td class="right">
+                                <label class="switch small">
+                                    <input (change)="onChangeCourier(courier.code, $event.target.checked)"
+                                        [value]="courier.code" type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <input type="button" (click)="onProductSubmit()" class="btn btn--yellow" value="Simpan">
+        <input type="button" class="btn" value="Batal">
+    </div>
+</div>

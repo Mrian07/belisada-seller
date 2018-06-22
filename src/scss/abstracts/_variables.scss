@@ -1,0 +1,73 @@
+/// Z-indexes map, gathering all Z layers of the application
+/// @access public
+/// @type Map
+/// @prop {String} key - Layer's name
+/// @prop {Number} value - Z value mapped to the key
+$z-indexes: (
+    'modal': 5000,
+    'dropdown': 4000,
+    'header': 100,
+    'default': 1,
+    'below': -1,
+);
+
+$btn-colors: (
+    "blue-sky": #65D3E3,
+    "orange": #ED7425,
+    "yellow": #F7BC20,
+    "green": #34B66B,
+    "purple": #9675CC,
+    "blue": #1B74B6,
+    "silver": #D2D6D9,
+    "ash": #7B8A97,
+    "grey": #455A64,
+    "navy": #34495E,
+    "dark-grey": #263238,
+    "black": #000000
+);
+
+$select-box-colors: (
+    "orange": #ED7425
+);
+$select-box-width: 15rem;
+
+/**
+ * A red color variable.
+ *
+ * @color
+ * @section Message Colors
+ */
+$btn-text-color-light: #fff;
+$btn-text-color-dark: #4A6C80;
+
+// COLORS
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-grey: #aeaeae;
+$color-grey-light-1: #f7f7f7;
+$color-grey-dark: #777;
+$color-white: #fff;
+$color-black: #000;
+
+// COLOR PALATTE
+$color--black: #000000;
+$color--dark-grey: #333333;
+$color--grey: #8d8d8d;
+$color--ash: #cccccc;
+$color--light-grey: #dddddd;
+$color--highlight: #eeeeee;
+$color--white: #ffffff;
+
+$color--proteus-red: #f03e41;
+$color--proteus-green: #57ad68;
+$color--link-blue: #1aa5df;
+
+// Font size
+// $font-size--placeholder: 15px;
+
+// GRID
+$grid-width: 114rem;
+$gutter-vertical: 3rem;
+$gutter-horizontal: 3rem;

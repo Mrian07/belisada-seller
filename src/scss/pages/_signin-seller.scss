@@ -1,0 +1,84 @@
+.img-store{
+    font-size: 20px;
+    text-align: center;
+    color: #111111;
+    font-size: 30px;
+}
+
+.conStore{
+    width: 1300px;
+}
+
+.backHome{
+    font-size: 20px;
+    color: #111111;
+    text-align: right;
+    font-weight: bold;
+}
+
+.backHome:hover{
+    color: #636261;
+    cursor: pointer;
+}
+
+.barStore{
+    // border-right: 3px solid #dddddd;
+    // border-bottom: 3px solid #dddddd;
+    padding: 20px;
+    margin-bottom:20px;
+}
+
+.conLoginStore{
+    text-align: center;
+}
+
+.title-store-login{
+    color:#111111;
+    font-size:40px;
+}
+
+.b-form{
+    border:1px solid #292827;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow:  0 8px 6px -6px #8f8d8d;
+}
+
+.input-login-form{
+    border: 1px solid #dddddd;
+    padding: 16px;
+    border-radius: 0px 5px 5px 0px;
+    width: 380px;
+}
+
+.storeIcon{
+    border-top: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 7px;
+    border-radius: 5px 0px 0px 5px;
+    width: 65px;
+    float: left;
+    background: #dddddd;
+    font-size: 20px;
+}
+
+.text-login{
+    font-size: 20px;
+}
+
+.alert-error-store{
+    border: 1px solid #fc010d;
+    background: #ffffff;
+    border-radius:5px;
+    padding:10px;
+    color: #e81923;
+    margin-bottom:10px;
+}
+
+.togel{
+    margin-top:-36px;
+    margin-right: -330px;
+    margin-bottom:20px;
+    cursor: pointer;
+}

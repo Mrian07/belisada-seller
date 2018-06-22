@@ -1,0 +1,44 @@
+.text-center { text-align: center; }
+
+.u-margin-bottom-8 { margin-bottom: 8rem; }
+
+.centered-block-element { margin: 0 auto }
+
+.u-display-block {
+    display: block;
+}
+
+a.link-text:link {
+    color: #37aeee;
+    text-decoration: none;
+}
+
+a.link-text:visited {
+    color: #37aeee;
+}
+
+a.link-text:hover{
+    color: #5bc2f9;
+    text-decoration: none;
+}
+
+.component-center{
+    text-align: center;
+}
+
+.panel{
+    border: 1px solid #dddddd;
+    box-shadow: 2px 4px #ebeaea;
+    padding:10px;
+    border-radius:5px;
+    margin-bottom:10px;
+}
+
+.center { text-align:center; }
+
+.left { text-align:left; }
+
+.right { text-align:right; }
+
+.show-element { display: block; }
+.hide-element { display: none; }

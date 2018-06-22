@@ -1,0 +1,91 @@
+.bs-header > div {
+    float: left;
+}
+
+.cursor-on-profile {
+    cursor: pointer;
+}
+
+.bs-header {
+    @include position(fixed, top 0 left 0);
+    z-index: z(header);
+    height: 6rem;
+    width: 100%;
+    background-color: #ffffff;
+    @include prefix((
+        box-shadow: 0px 3px 6px 0px rgba($color-black, .15)
+    ), webkit moz ms o);
+
+    &__logo-box {
+        padding: 1rem 0 1rem 2rem;
+        height: 6rem;
+        width: 25rem;
+    }
+
+    &__logo {
+    }
+
+    &__search-box {
+        width: calc(100% - (25rem * 2));
+        padding: 1.3rem 0 1rem;
+        height: 6rem;
+
+        .search-by-category-wrapper {
+            @include clearfix;
+        }
+        .search-by-category-wrapper > div {
+            float: left;
+        }
+    }
+
+    &__account-box {
+        width: 25rem;
+
+        ul {
+            list-style-type: none;
+
+            li {
+                float: left;
+                padding: 1.5rem;
+                height: 6rem;
+                position: relative;
+
+                .img-circle {
+                    height: 2rem;
+                }
+                .text-profile {
+                    line-height: 2rem;
+                    font-size: 1.2rem;
+                }
+
+                .country-flag {
+                    float: left;
+                }
+                .text-language {
+                    float: left;
+                    line-height: 1rem;
+                    text-align: center;
+                    padding: .5rem;
+                }
+
+                .account-menu {
+
+                    &--trigger {
+                        cursor: pointer;
+                    }
+
+                    &__container {
+                        position: absolute;
+                        top: 6rem;
+                        padding: 1rem 1.5rem;
+                        background-color: $color-white;
+                        @include prefix((
+                            box-shadow: 0px 0px 6px 0px rgba($color-black, .15)
+                        ), webkit moz ms o);
+                    }
+                }
+            }
+        }
+    }
+}
+
