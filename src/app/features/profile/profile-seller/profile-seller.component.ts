@@ -135,6 +135,7 @@ export class ProfileSellerComponent implements OnInit {
     this.onViewAddress = false;
   }
   saveAddress(form: NgForm) {
+    console.log('form: ', form);
     const data: UpdateStoreRequest = new UpdateStoreRequest();
     data.address = this.store.address;
     data.villageId = this.store.villageId;

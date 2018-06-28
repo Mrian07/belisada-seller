@@ -89,7 +89,7 @@
                 <button class="btn btn--yellow" *ngIf="onViewAddress" (click)="editAddress()">
                     <fa-icon [icon]="['far', 'edit']"></fa-icon>
                     Edit</button>
-                <button type="submit" class="btn btn--yellow" *ngIf="!addrForm.pristine">
+                <button type="submit" class="btn btn--yellow" *ngIf="!onViewAddress">
                     <fa-icon [icon]="['far', 'save']"></fa-icon>
                     Save</button>
             </div>
