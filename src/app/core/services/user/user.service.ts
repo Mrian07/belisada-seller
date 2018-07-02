@@ -65,6 +65,7 @@ export class UserService {
   */
 
   signin(request: SigninRequest): Observable<SigninResponse> {
+    request.userType = 'seller';
     return this.http.post(this.config.apiURL + '/account/login', request)
       .pipe(
         map(response => response as SigninResponse)

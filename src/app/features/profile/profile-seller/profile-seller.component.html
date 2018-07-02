@@ -1,3 +1,11 @@
+<div class="heading-padding" *ngIf="store.statusCode === 'NA'">
+    <div class="border-store-seller">
+        <span class="text-center">
+            Toko anda sedang di review.
+        </span>
+    </div>
+</div>
+
 <div class="row">
     <form class="col-4" #descForm="ngForm" (ngSubmit)="saveDesc()">
     <!-- <form class="col-4" (ngSubmit)="saveDesc()"> -->
@@ -19,7 +27,7 @@
         </div>
         <!-- <textarea [(ngModel)]="store.description" [disabled]="onViewDesc" name="description" #description="ngModel" class="border-ket-toko" title="klik untuk mengubah" style="resize:none;"></textarea> -->
         <textarea [(ngModel)]="store.description" [disabled]="onViewDesc" name="description" #description="ngModel" class="border-ket-toko" title="klik untuk mengubah" style="resize:none;"></textarea>
-        <div class="edit-ket-toko">
+        <div class="edit-ket-toko" *ngIf="store.statusCode !== 'NA'">
             <button type="button" *ngIf="onViewDesc" class="btn btn--yellow" (click)="editDesc()">
                 <fa-icon [icon]="['far', 'edit']"></fa-icon>
                 Edit</button>
@@ -45,47 +53,47 @@
             </div>
         </div>
         <form class="ui form" (ngSubmit)="saveAddress(addrForm)" #addrForm="ngForm" autocomplete="off">
-            <div class="row view-line">
+            <div class="row without-margin-bot view-line">
                 <div class="col-3 title-line">URL Toko</div>
-                <div class="col-9 title-line">{{store.url}}</div>
+                <div class="col-9 title-line static-label">https://belisada.id/{{store.storeUrl}}</div>
             </div>
-            <div class="row view-line">
+            <div class="row without-margin-bot view-line">
                 <div class="col-3 title-line">Nama Toko</div>
-                <div class="col-9 title-line">{{store.name}}</div>
+                <div class="col-9 title-line static-label">{{store.name}}</div>
             </div>
-            <div class="row view-line">
+            <div class="row without-margin-bot view-line">
                 <div class="col-3 title-line">Alamat Toko</div>
                 <div class="col-9 title-line"><textarea [(ngModel)]="store.address" [disabled]="onViewAddress" name="address" #address="ngModel" class="input-style-text input-editable" title="klik untuk mengubah" style="resize:none;" (change)="setUpdate(address)"></textarea></div>
             </div>
-            <div class="row view-line">
+            <div class="row without-margin-bot view-line">
                 <div class="col-3 title-line">Provinsi</div>
                 <div class="col-9 title-line">
                     <input type="text" title="klik untuk mengubah" class="input-style-text input-editable" [disabled]="onViewAddress" [(ngModel)]="store.regionName" name="regionName" #regionName="ngModel" (focus)="getRegion()" (blur)="hideRegionSuggest()">
                     <ul class="input-suges" #regionSuggest [hidden]="provinces == undefined"><li *ngFor="let r of provinces | filter:store.regionName:'regionName'" (click)="setRegion(r)">{{r.regionName}}</li></ul>
                 </div>
             </div>
-            <div class="row view-line" *ngIf="store.regionName">
+            <div class="row without-margin-bot view-line" *ngIf="store.regionName">
                 <div class="col-3 title-line">Kota/ Kabupaten</div>
                 <div class="col-9 title-line">
                     <input type="text" title="klik untuk mengubah" class="input-style-text input-editable" [disabled]="onViewAddress" [(ngModel)]="store.cityName" name="cityName" #cityName="ngModel" (focus)="getCity()" (blur)="hideCitySuggest()">
                     <ul class="input-suges" *ngIf="cities" #citySug><li *ngFor="let c of cities | filter:store.cityName:'cityName'" (click)="setCity(c)">{{c.cityName}}</li></ul>
                 </div>
             </div>
-            <div class="row view-line" *ngIf="store.cityName && store.regionName">
+            <div class="row without-margin-bot view-line" *ngIf="store.cityName && store.regionName">
                 <div class="col-3 title-line">Kecamatan</div>
                 <div class="col-9 title-line">
                     <input type="text" title="klik untuk mengubah" class="input-style-text input-editable" [disabled]="onViewAddress" [(ngModel)]="store.districtName" name="districtName" #districName="ngModel" (focus)="getDistrict()" (blur)="hideDistrictSuggest()">
                     <ul class="input-suges" *ngIf="districts" #citySug><li *ngFor="let d of districts | filter:store.districtName:'districtName'" (click)="setDistrict(d)">{{d.districtName}}</li></ul>
                 </div>
             </div>
-            <div class="row view-line" *ngIf="store.districtName && store.cityName && store.regionName">
+            <div class="row without-margin-bot view-line" *ngIf="store.districtName && store.cityName && store.regionName">
                 <div class="col-3 title-line">Kelurahan</div>
                 <div class="col-9 title-line">
                     <input type="text" title="klik untuk mengubah" class="input-style-text input-editable" [disabled]="onViewAddress" [(ngModel)]="store.villageName" name="villageName" #villageName="ngModel" (focus)="getVillage()" (blur)="hideVillageSuggest()">
                     <ul class="input-suges" *ngIf="villages" #citySug><li *ngFor="let v of villages | filter: store.villageName:'villageName'" (click)="setVillage(v)">{{v.villageName}}</li></ul>
                 </div>
             </div>
-            <div class="edit-profile-toko">
+            <div class="edit-profile-toko" *ngIf="store.statusCode !== 'NA'">
                 <button class="btn btn--yellow" *ngIf="onViewAddress" (click)="editAddress()">
                     <fa-icon [icon]="['far', 'edit']"></fa-icon>
                     Edit</button>
@@ -93,6 +101,6 @@
                     <fa-icon [icon]="['far', 'save']"></fa-icon>
                     Save</button>
             </div>
-        </form>    
+        </form>
     </div>
 </div>

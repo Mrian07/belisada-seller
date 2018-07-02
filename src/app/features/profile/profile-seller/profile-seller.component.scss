@@ -1,0 +1,10 @@
+.row:not(:last-child).without-margin-bot {
+    margin-bottom: 0;
+}
+
+.static-label {
+    padding: 10px 20px;
+    margin: 8px 0;
+    font-size: 1.4rem;
+    font-family: 'Roboto', sans-serif;
+}

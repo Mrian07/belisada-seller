@@ -37,6 +37,7 @@ export class SignupResponse {
 export class SigninRequest {
     email: string;
     password: string;
+    userType: string;
 
     constructor() {}
 }
