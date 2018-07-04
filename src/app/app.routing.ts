@@ -1,3 +1,4 @@
+import { ActivationComponent } from './features/activation/activation.component';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './features/profile/profile.component';
@@ -27,6 +28,12 @@ const routes: Routes = [
         },
       }
     ],
+  },
+  { path: 'activasi',
+    component: ActivationComponent,
+    data: {
+      title: ''
+    },
   },
   { path: 'auth', loadChildren: 'app/features/auth/auth.module#AuthModule' },
   // { path: 'account', loadChildren: 'app/features/auth/auth.module#AuthModule' },
