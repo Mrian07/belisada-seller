@@ -143,3 +143,9 @@ export class UserSignupGuest {
     city?: string;
     country?: string;
 }
+
+export class ActivationSeller {
+    status: number;
+    message?: string;
+    key: string;
+}

@@ -1,4 +1,4 @@
-<div class="frame-activasi">
+<div class="frame-activasi" *ngIf="viewSuccess==true">
   <img src="assets/img/logo.png" width="200" border="0">
   <div class="text-normal">
     Selamat aktivasi akun seller Anda berhasil.
@@ -9,6 +9,12 @@
   </div>
   <div class="text-small">Dalam hitungan 5 detik halaman akan dialihkan ke halaman login.<br>Atau klik tombol <b>Enter</b> untuk langsung ke halaman login.</div>
   <div class="btn-enter" (click)="login()">Enter</div>
+</div>
+<div class="frame-activasi" *ngIf="viewSuccess==false">
+    <img src="assets/img/logo.png" width="200" border="0">
+    <div class="text-normal">
+      Maaf aktifasi gagal silakan dicoba kembali.
+    </div>
 </div>
 
 

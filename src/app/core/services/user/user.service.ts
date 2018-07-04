@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   SignupResponse, SignupData, SigninRequest, ResetPasswdResponse, SendEmailRequest, SendEmailResponse,
   SigninResponse, ActivationRequest, ActivationResponse, EmailChecking, UserLocalStorage, UserData,
-  ResetPasswdRequest, Profile, EditProfileResponse, EditProfileRequest, User, UserSignupGuest
+  ResetPasswdRequest, Profile, EditProfileResponse, EditProfileRequest, User, UserSignupGuest,ActivationSeller
 } from '@belisada-seller/core/models';
 
 import { JWTUtil } from '@belisada-seller/core/util';
@@ -30,6 +30,13 @@ export class UserService {
     private config: Configuration,
     private jwtUtil: JWTUtil
   ) { }
+
+  activationSeller(data) {
+    return this.http.post(this.config.apiURL + '/account/activation', data)
+      .pipe(
+        map(res => res as ActivationSeller)
+      );
+  }
 
   create1(user: User) {
     return this.http.post('/api/users', user);
