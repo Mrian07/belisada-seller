@@ -1,3 +1,4 @@
+import { ActivationComponent } from './features/activation/activation.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy, APP_BASE_HREF } from '@angular/common';
@@ -27,7 +28,8 @@ library.add(fas, far, fab);
     AppComponent,
     ProfileComponent,
     ProfileSellerComponent,
-    AddProductComponent
+    AddProductComponent,
+    ActivationComponent
   ],
   imports: [
     BrowserModule,
