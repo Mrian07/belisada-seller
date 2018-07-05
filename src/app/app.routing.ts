@@ -9,7 +9,6 @@ import { AddProductComponent } from '@belisada-seller/features/product/add-produ
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: ProfileComponent,
     canActivateChild: [OnlyLoggedInUsersGuard],
     children: [

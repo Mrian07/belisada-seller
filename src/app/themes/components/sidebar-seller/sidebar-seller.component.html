@@ -4,12 +4,16 @@
         <span class="title-sidebar-seller">MERCHANT</span>
         <div class="border-sidebar-seller">
         <div class="dummy-backgorund">
-            <img class="img-small-store-for-sidebar" src="assets/img/store_icon.png">
-            <span class="profile-toko-text" (click)="storeProfile()">Profil Toko</span>
+            <!-- <img class="img-small-store-for-sidebar" src="assets/img/store_icon.png"> -->
+            <a class="profile-toko-text" [routerLink]="['/']">Profil Toko</a>
             <!-- <fa-icon [icon]="['fas', 'bell']"></fa-icon> -->
         </div>
         <div class="dummy-backgorund">
-            <a>Add Product</a>
+            <a class="profile-toko-text" [routerLink]="['/add-product']">Add Product</a>
+        </div>
+
+        <div class="dummy-backgorund">
+            <a class="profile-toko-text" (click)="logout()">Logout</a>
         </div>
         </div>
     </div>

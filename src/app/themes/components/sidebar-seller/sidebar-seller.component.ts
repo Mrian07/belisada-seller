@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import swal from 'sweetalert2';
+import { LocalStorageEnum } from '@belisada-seller/core/enum';
 
 @Component({
     selector: 'bss-sidebar-seller',
@@ -8,15 +10,46 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 })
 export class SidebarSellerComponent implements OnInit {
 
-    constructor(
-        private router: Router,
-    ) { }
+  constructor(
+    private router: Router,
+  ) { }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+  }
 
-    storeProfile() {
-        this.router.navigateByUrl('/seller/profile-seller');
-    }
+  storeProfile() {
+    this.router.navigateByUrl('/seller/profile-seller');
+  }
+
+  logout() {
+    swal({
+      title: 'belisada.co.id',
+      text: 'Anda yakin akan logout?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Iya',
+      cancelButtonText: 'Tidak',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        if (localStorage.getItem('isRemember') === 'true') {
+          localStorage.removeItem(LocalStorageEnum.TOKEN_KEY);
+        } else {
+          sessionStorage.clear();
+          localStorage.removeItem('isRemember');
+        }
+        swal(
+          'Success!',
+          'Anda sudah keluar dari Account Area.',
+          'success'
+        ).then(() => {
+          this.router.navigateByUrl('/');
+          location.reload();
+        });
+      }
+    });
+  }
 
 }

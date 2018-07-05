@@ -41,7 +41,7 @@ export class SignInComponent implements OnInit {
     if (localStorage.getItem('isRemember') === 'true') {
       this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
     } else {
-    console.log('userData : ', this.userData);
+      console.log('userData : ', this.userData);
       if (isPlatformBrowser(this.platformId)) {
         const sess = sessionStorage.getItem(LocalStorageEnum.TOKEN_KEY);
         this.userData = this.userService.getUserData(sess);
