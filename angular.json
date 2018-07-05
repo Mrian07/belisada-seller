@@ -52,18 +52,29 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "belisada-seller:build",
+            "browserTarget": "belisada-seller:build:local",
             "port": 4300
           },
           "configurations": {
             "production": {
               "browserTarget": "belisada-seller:build:production"
+            },
+            "local": {
+              "browserTarget": "belisada-seller:build:local"
             }
           }
         },

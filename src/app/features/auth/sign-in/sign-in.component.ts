@@ -1,3 +1,4 @@
+import { environment } from '@env/environment';
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -27,15 +28,16 @@ export class SignInComponent implements OnInit {
   isRemember: any;
   userData: UserData = new UserData();
   isLogin: Boolean = false;
-
+  baseUrl: string;
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrlBuyer;
     if (localStorage.getItem('isRemember') === 'true') {
       this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
     } else {

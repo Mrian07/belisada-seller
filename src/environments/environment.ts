@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api0.belisada.id/belisada'
+  apiUrl: 'https://api0.belisada.id/belisada',
+  baseUrlSeller: 'https://seller0.belisada.id',
+  baseUrlBuyer: 'https://dev.belisada.id'
 };
 
 /*
