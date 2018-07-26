@@ -5,6 +5,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { ProfileSellerComponent } from './features/profile/profile-seller/profile-seller.component';
 import { OnlyLoggedInUsersGuard } from '@belisada-seller/core/services';
 import { AddProductComponent } from '@belisada-seller/features/product/add-product/add-product.component';
+import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,13 @@ const routes: Routes = [
       {
         path: 'add-product',
         component: AddProductComponent,
+        data: {
+          title: ''
+        },
+      },
+      {
+        path: 'listing-product',
+        component: ListingProductComponent,
         data: {
           title: ''
         },

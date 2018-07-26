@@ -20,6 +20,7 @@ import { CoreModule } from '@belisada-seller/core/core.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from '@belisada-seller/core/interceptors';
 import { AddProductComponent } from '@belisada-seller/features/product/add-product/add-product.component';
+import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
 
 library.add(fas, far, fab);
 
@@ -29,7 +30,8 @@ library.add(fas, far, fab);
     ProfileComponent,
     ProfileSellerComponent,
     AddProductComponent,
-    ActivationComponent
+    ActivationComponent,
+    ListingProductComponent
   ],
   imports: [
     BrowserModule,
