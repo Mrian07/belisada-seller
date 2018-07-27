@@ -432,7 +432,7 @@ export class AddProductComponent implements OnInit {
         response.message,
         'success'
       );
-      this.router.navigate(['/seller']);
+      this.router.navigate(['/listing-product']);
     });
   }
 }

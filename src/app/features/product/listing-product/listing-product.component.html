@@ -1,10 +1,13 @@
 <div class="row">
     <div class="col-12">
         <span class="w__myProduk">My Produk</span>
-        <div class="w_bor">  
-                <!-- <fa name="caret-down"></fa> -->
-                <fa-icon height="200" [icon]="faCoffee"></fa-icon>
-                <!-- <fa-icon [icon]="['fa-plus-circle']"></fa-icon> -->
+        <div class="w_bor">
+            <div></div>
+            <div class="w_col-3"> <fa-icon [icon]="['fas', 'plus-circle']" size="7x" style="color:#5bb84f;  padding-top: 4%;" pull="right"></fa-icon>
+            <div>
+                <span (click)="gotoAddPro()" class="w__text--tambah--produk">Tambah Produk Baru</span>
+            </div>
+            </div>
     </div>
     <div class="col-12" *ngFor="let item of proddetail.data">
         <div class="row w__bacground--border">
