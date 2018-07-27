@@ -1,0 +1,99 @@
+
+.w__myProduk {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.w_bor {
+    height: 300px;
+    border: 1px solid;
+}
+.wrapper-w__for--listing--product {
+    display: grid;
+grid-template-columns: 20% 27% 54%;
+grid-gap: 10px;
+
+}
+
+.w__bacground--border {
+    background-color: #f0f0f0;
+    color: #444;
+    border-radius: 6px;
+}
+
+.image-box {
+    height: 70px;
+}
+
+.w__margin--right {
+    margin-right: 7px;
+    padding: 13%;
+}
+.w__float--left {
+    float: left;
+}
+.m__margin--top {
+    margin-top: 20px;
+}
+.wrapper-X {
+    grid-template-columns: 100%;
+}
+.w__kosongkan_stok {
+    display: block;
+}
+.w__margin--input {
+    margin-left: 5rem;
+}
+
+.wrapper__three {
+    display: grid;
+    grid-template-columns: 45% 26% 25%;
+}
+.w__margin--switch {
+    margin-left: 3rem;
+}
+
+.w__middle {
+    line-height: 6.7rem;
+    text-align: center;
+}
+.wrapper__tiga {
+    display: grid;
+    grid-template-columns:40% 31% 29%
+}
+.kadal {
+    display: grid;
+    grid-template-columns:30% 40% 30%;
+    .w__nmbarang {
+        display: block;
+    }
+    .w__nmBarang {
+        font-weight: bold;
+        display: block;
+    }
+    .w__hrgaBarang {
+        display: block;
+        padding-top: 15px;
+    }
+    
+}
+.w__descr {
+    border: 1px solid #dfdfdf;
+}
+.row {
+    margin-bottom: 4px !important;
+}
+
+
+.con-image{
+    // width: 481px;
+    text-align: center;
+}
+.show-image-small{
+    border: 1px solid #dddddd;
+    margin-left:10px;
+    padding: 10px;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom:8px;
+}
