@@ -33,10 +33,17 @@ export class AddProductComponent implements OnInit {
   onBrandFocus: Boolean = false;
 
   categoryList: CategoryList = new CategoryList();
+  categoryListC2: CategoryList = new CategoryList();
+  categoryListC3: CategoryList = new CategoryList();
   currentPgCategory: number;
   limitCategory: Number = 20;
   categoryName: string;
+  categoryNameC2: string;
+  categoryNameC3: string;
   onCategoryFocus: Boolean = false;
+
+  onCategoryFocusC2: Boolean = false;
+  onCategoryFocusC3: Boolean = false;
 
   categoryAttributes: CategoryAttribute[];
 
@@ -58,6 +65,8 @@ export class AddProductComponent implements OnInit {
   ) {
     this.brandList.data = [];
     this.categoryList.data = [];
+    this.categoryListC2.data = [];
+    this.categoryListC3.data = [];
     this.categoryAttributes = [];
     this.apr.couriers = [];
     this.apr.imageUrl = [];
@@ -69,7 +78,8 @@ export class AddProductComponent implements OnInit {
     this.currentPgCategory = 1;
 
     this.getBrandInit();
-    this.getCategoryInit();
+    this.getCategoryInitC1();
+    //this.getCategoryInit();
     this.getClasificationInit();
     this.getStockInit();
     this.getWarrantyInit();
@@ -162,20 +172,28 @@ export class AddProductComponent implements OnInit {
   /**
    * Product Category Search
    */
-  getCategoryInit() {
-    const queryParams = {
-      page: this.currentPgCategory,
-      itemperpage: this.limitCategory,
-      name: this.categoryName === undefined ? '' : this.categoryName,
-      type: CategoryTypeEnum.C3
-    };
-    this.categoryService.getListCategory(queryParams).subscribe(response => {
-      this.categoryList = response;
-    });
-  }
+  // getCategoryInit() {
+  //   const queryParams = {
+  //     page: this.currentPgCategory,
+  //     itemperpage: this.limitCategory,
+  //     name: this.categoryName === undefined ? '' : this.categoryName,
+  //     type: CategoryTypeEnum.C3
+  //   };
+  //   this.categoryService.getListCategory(queryParams).subscribe(response => {
+  //     this.categoryList = response;
+  //   });
+  // }
 
   onCategoryBlur() {
     setTimeout(() => { this.onCategoryFocus = false; }, 200);
+  }
+
+  onCategoryBlurC2() {
+    setTimeout(() => { this.onCategoryFocusC2 = false; }, 200);
+  }
+
+  onCategoryBlurC3() {
+    setTimeout(() => { this.onCategoryFocusC3 = false; }, 200);
   }
 
   searchCategory() {
@@ -184,10 +202,36 @@ export class AddProductComponent implements OnInit {
       page: this.currentPgCategory = 1,
       itemperpage: this.limitCategory,
       name: this.categoryName === undefined ? '' : this.categoryName,
-      type: CategoryTypeEnum.C3
+      type: CategoryTypeEnum.C1
     };
     this.categoryService.getListCategory(queryParams).subscribe(response => {
       this.categoryList = response;
+    });
+  }
+
+  searchCategoryC2() {
+    const qsCategory = this.categoryName;
+    const queryParams = {
+      page: this.currentPgCategory = 1,
+      itemperpage: this.limitCategory,
+      name: this.categoryName === undefined ? '' : this.categoryName,
+      type: CategoryTypeEnum.C2
+    };
+    this.categoryService.getListCategory(queryParams).subscribe(response => {
+      this.categoryListC2 = response;
+    });
+  }
+
+  searchCategoryC3() {
+    const qsCategory = this.categoryName;
+    const queryParams = {
+      page: this.currentPgCategory = 1,
+      itemperpage: this.limitCategory,
+      name: this.categoryName === undefined ? '' : this.categoryName,
+      type: CategoryTypeEnum.C3
+    };
+    this.categoryService.getListCategory(queryParams).subscribe(response => {
+      this.categoryListC3 = response;
     });
   }
 
@@ -199,9 +243,91 @@ export class AddProductComponent implements OnInit {
     };
     this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
       this.categoryAttributes = response;
-      console.log('this.categoryAttributes: ', this.categoryAttributes);
+
+
+      this.getCategoryInitC2(category.categoryId);
     });
   }
+
+  selectCategoryC2(category) {
+    this.categoryNameC2 = category.name;
+    this.apr.categoryThreeId = category.categoryId;
+    const queryParams = {
+      categoryid: category.categoryId
+    };
+    this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
+      this.categoryAttributes = response;
+
+
+      this.getCategoryInitC3(category.categoryId);
+    });
+  }
+
+  selectCategoryC3(category) {
+    this.categoryNameC3 = category.name;
+    this.apr.categoryThreeId = category.categoryId;
+    const queryParams = {
+      categoryid: category.categoryId
+    };
+    this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
+      this.categoryAttributes = response;
+    });
+  }
+
+  getCategoryInitC1() {
+    const queryParams = {
+      page: this.currentPgCategory,
+      itemperpage: this.limitCategory,
+      name: this.categoryName === undefined ? '' : this.categoryName,
+      type: CategoryTypeEnum.C1
+    };
+    this.categoryService.getListCategory(queryParams).subscribe(response => {
+      this.categoryList = response;
+    });
+  }
+
+  getCategoryInitC2(id) {
+    const queryParams = {
+      type: CategoryTypeEnum.C2,
+      parentid: id,
+      all: true,
+    };
+    this.categoryService.getListCategory(queryParams).subscribe(response => {
+      this.categoryListC2 = response;
+      console.log('list nya c2', response);
+    });
+  }
+
+  getCategoryInitC3(id) {
+    const queryParams = {
+      type: CategoryTypeEnum.C3,
+      parentid: id,
+      all: true,
+    };
+    this.categoryService.getListCategory(queryParams).subscribe(response => {
+      this.categoryListC3 = response;
+      console.log('list nya c3', response);
+    });
+  }
+
+  // selectCategoryC2(categoryId) {
+  //   // this.categoryName = category.name;
+  //   // this.apr.categoryThreeId = category.categoryId;
+  //   const queryParams = {
+  //     parentid: categoryId,
+  //     type: CategoryTypeEnum.C2,
+  //     all: true,
+  //     // page: this.currentPgCategory,
+  //     // itemperpage: this.limitCategory,
+  //     // name: this.categoryName === undefined ? '' : this.categoryName,
+  //   };
+
+  //   this.categoryService.getListCategory(queryParams).subscribe(response => {
+  //     this.categoryListC2 = response;
+
+  //     // console.log('Category c2lalang: ', response);
+  //   });
+  // }
 
   onCategoryScrollDown () {
     const scr = this.el.nativeElement.querySelector('#drick-scroll-container--category');
