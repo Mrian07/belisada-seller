@@ -130,7 +130,7 @@ export class ListingProductComponent implements OnInit {
       emailFormArray.push(new FormControl(email));
 
     } else {
-      const index = emailFormArray.controls.findIndex(x => x.value == email)
+      const index = emailFormArray.controls.findIndex(x => x.value == email);
       emailFormArray.removeAt(index);
 
     }

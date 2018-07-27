@@ -58,27 +58,78 @@
             <label class="col-3 middle">Kategori Produk</label>
             <div class="col-9">
                 <!-- <input type="text" class="f-control" placeholder="Kategori Produk"> -->
+                <table>
+                    <tr>
+                        <td>
+                            <div class="drick-select-container">
+                                <div class="ui icon input parent">
+                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus}" type="text" [(ngModel)]="categoryName"
+                                        (keyup)="searchCategory()" [ngModelOptions]="{standalone: true}"
+                                        (focus)="onCategoryFocus = true" (focusout)="onCategoryBlur()" placeholder="Select one">
+                                    <i class="drick-select__icon caret down icon"></i>
+                                </div>
+                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus}"
+                                    id="drick-scroll-container--category"
+                                    (scroll)="onCategoryScrollDown()">
+                                    <ul class="drick-select-list">
+                                        <li *ngFor="let i of categoryList.data" (click)="selectCategory(i)">
+                                            {{i.name}}
+                                        </li>
+                                        <li *ngIf="(categoryList.data.length === 0)">
+                                            Category tidak ditemukan
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="drick-select-container">
+                                <div class="ui icon input parent">
+                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocusC2}" type="text" [(ngModel)]="categoryNameC2"
+                                        (keyup)="searchCategoryC2()" [ngModelOptions]="{standalone: true}"
+                                        (focus)="onCategoryFocusC2 = true" (focusout)="onCategoryBlurC2()" placeholder="Select one">
+                                    <i class="drick-select__icon caret down icon"></i>
+                                </div>
+                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC2}"
+                                    id="drick-scroll-container--category"
+                                    (scroll)="onCategoryScrollDown()">
+                                    <ul class="drick-select-list">
+                                        <li *ngFor="let i of categoryListC2.data" (click)="selectCategoryC2(i)">
+                                            {{i.name}}
+                                        </li>
+                                        <li *ngIf="(categoryListC2.data.length === 0)">
+                                            Category tidak ditemukan
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="drick-select-container">
+                                <div class="ui icon input parent">
+                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocusC3}" type="text" [(ngModel)]="categoryNameC3"
+                                        (keyup)="searchCategoryC3()" [ngModelOptions]="{standalone: true}"
+                                        (focus)="onCategoryFocusC3 = true" (focusout)="onCategoryBlurC3()" placeholder="Select one">
+                                    <i class="drick-select__icon caret down icon"></i>
+                                </div>
+                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC3}"
+                                    id="drick-scroll-container--category"
+                                    (scroll)="onCategoryScrollDown()">
+                                    <ul class="drick-select-list">
+                                        <li *ngFor="let i of categoryListC3.data" (click)="selectCategoryC3(i)">
+                                            {{i.name}}
+                                        </li>
+                                        <li *ngIf="(categoryListC2.data.length === 0)">
+                                            Category tidak ditemukan
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                
 
-                <div class="drick-select-container">
-                    <div class="ui icon input parent">
-                        <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus}" type="text" [(ngModel)]="categoryName"
-                            (keyup)="searchCategory()" [ngModelOptions]="{standalone: true}"
-                            (focus)="onCategoryFocus = true" (focusout)="onCategoryBlur()" placeholder="Select one">
-                        <i class="drick-select__icon caret down icon"></i>
-                    </div>
-                    <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus}"
-                        id="drick-scroll-container--category"
-                        (scroll)="onCategoryScrollDown()">
-                        <ul class="drick-select-list">
-                            <li *ngFor="let i of categoryList.data" (click)="selectCategory(i)">
-                                {{i.name}}
-                            </li>
-                            <li *ngIf="(categoryList.data.length === 0)">
-                                Category tidak ditemukan
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="row f-group">
