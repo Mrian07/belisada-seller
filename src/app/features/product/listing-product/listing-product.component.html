@@ -130,7 +130,7 @@
                             <div class="col-4">
                                 <!-- <img *ngFor="let item of productDetail.imageUrl" src="{{item}}"> -->
                                 <div class="con-image">
-                                        <img src="{{imgIndex}}"  height="200">
+                                        <img class="w__display--image" src="{{imgIndex}}"  height="200">
                                         <span class="show-image-small" *ngFor="let item of productDetail.imageUrl" (click)="selectImg(item)"><img src='{{item}}' height="50"></span>
                                     </div>
                             </div>
@@ -140,7 +140,7 @@
                                         <span class="w__nmbarang">Nama Barang</span>
                                         <span class="w__nmBarang">{{ productDetail.name }}</span>
                                         <span class="w__hrgaBarang">Harga Barang</span>
-                                        <span class="w__nmBarang"> {{ productDetail.pricelist | number }}</span>
+                                        <p class="w__hargabarangFromBackEnd">  {{ productDetail.pricelist | number  }}</p>
                                         <span class="w__hrgaBarang">Stock Barang</span>
                                         <span class="w__nmBarang">{{ productDetail.qtyTypeValue }}</span>
                                     </div>
@@ -169,7 +169,7 @@
                             <div class="col-3">
                                 <span class="w__nmbarang">Deskripsi</span>
                                     <div class="w__descr">
-                                        {{ productDetail.description}}
+                                      <p class="w__prodDessc">  {{ productDetail.description}}</p> 
                                     </div>
                             </div>
                         </div>

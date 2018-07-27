@@ -87,6 +87,7 @@ export class ListingProductComponent implements OnInit {
     this.router.navigate(['/add-product']);
     console.log('asdasd');
   }
+  
 
   bSliderF(id) {
     const paramS = {
