@@ -5,8 +5,16 @@
 }
 
 .w_bor {
-    height: 300px;
-    border: 1px solid;
+    height: 18rem;
+    border: 3px solid #fed29d;
+    margin-bottom: 3%;
+    .w__text--tambah--produk {
+        line-height: 7;
+        font-size: 22px;
+        color: #8f8f8f;
+        margin-left: 3rem;
+        cursor: pointer;
+    }
 }
 .wrapper-w__for--listing--product {
     display: grid;
@@ -20,10 +28,15 @@ grid-gap: 10px;
     color: #444;
     border-radius: 6px;
 }
+.w_col-3 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
 
 .image-box {
     height: 70px;
 }
+
 
 .w__margin--right {
     margin-right: 7px;

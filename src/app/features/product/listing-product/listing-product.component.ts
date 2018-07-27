@@ -3,6 +3,7 @@ import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ProductService } from '@belisada-seller/core/services';
 import { ProductListing, ProductDetailList, ProductDetailData } from '@belisada-seller/core/models';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bss-listing-product',
@@ -19,10 +20,9 @@ export class ListingProductComponent implements OnInit {
   ach;
   imgIndex: string;
   faCoffee = faPlusCircle;
-  
 
   constructor(
-    private fb: FormBuilder, private prodSe: ProductService) {
+    private fb: FormBuilder, private prodSe: ProductService,  private router: Router) {
     this.rowSelected = -1;
     this.prodImg = 'http://image.belisada.id:8888/unsafe/80x80/';
    }
@@ -81,7 +81,11 @@ export class ListingProductComponent implements OnInit {
   }
   selectImg(img) {
     this.imgIndex = img;
-    
+  }
+
+  gotoAddPro() {
+    this.router.navigate(['/add-product']);
+    console.log('asdasd');
   }
 
   bSliderF(id) {
