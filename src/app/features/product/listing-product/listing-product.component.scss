@@ -1,5 +1,13 @@
 
+.w__myProduk {
+    font-size: 20px;
+    font-weight: bold;
+}
 
+.w_bor {
+    height: 300px;
+    border: 1px solid;
+}
 .wrapper-w__for--listing--product {
     display: grid;
 grid-template-columns: 20% 27% 54%;
@@ -56,13 +64,29 @@ grid-gap: 10px;
 .kadal {
     display: grid;
     grid-template-columns:30% 40% 30%;
+    .w__nmbarang {
+        display: block;
+    }
+    .w__nmBarang {
+        font-weight: bold;
+        display: block;
+    }
+    .w__hrgaBarang {
+        display: block;
+        padding-top: 15px;
+    }
+    
+}
+.w__descr {
+    border: 1px solid #dfdfdf;
 }
 .row {
     margin-bottom: 4px !important;
 }
 
+
 .con-image{
-    width: 481px;
+    // width: 481px;
     text-align: center;
 }
 .show-image-small{

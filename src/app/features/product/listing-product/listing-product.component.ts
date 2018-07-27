@@ -9,7 +9,6 @@ import { ProductListing, ProductDetailList, ProductDetailData } from '@belisada-
   styleUrls: ['./listing-product.component.scss']
 })
 export class ListingProductComponent implements OnInit {
-  public posts: Post;
   public rowSelected: number;
   prodImg: any;
   proddetail: ProductListing = new ProductListing();
@@ -18,16 +17,11 @@ export class ListingProductComponent implements OnInit {
   productDetail: ProductDetailData = new ProductDetailData();
   ach;
   imgIndex: string;
- 
 
   constructor(
     private fb: FormBuilder, private prodSe: ProductService) {
     this.rowSelected = -1;
-    let obj = new Post(1, '2017-12-11', 'bla bla', 2,['dassdfsds','dsdfds']);
-    obj = new Post(2, '2017-12-11', 'bla bla', 2,['dassdfsds','dsdfds']);
-    
-     obj = new Post(3, '2017-12-11', 'bla bla', 2,['dassdfsds','dsdfds']);
-     this.prodImg = 'http://image.belisada.id:8888/unsafe/80x80/';
+    this.prodImg = 'http://image.belisada.id:8888/unsafe/80x80/';
    }
 
   ngOnInit() {
@@ -40,9 +34,8 @@ export class ListingProductComponent implements OnInit {
       status : 'ALL'
     };
     this.prodSe.getProdListing(queryParams).subscribe(response => {
-     this.proddetail = response;
-   
-     console.log('proddetail', this.proddetail);
+    this.proddetail = response;
+    console.log('proddetail', this.proddetail);
     });
   }
 
@@ -122,8 +115,8 @@ export class ListingProductComponent implements OnInit {
           status : 'ALL'
         };
         this.prodSe.getProdListing(queryParams).subscribe(response => {
-         this.proddetail = response;
-         console.log('proddetail', this.proddetail);
+        this.proddetail = response;
+        console.log('proddetail', this.proddetail);
         });
       });
       emailFormArray.push(new FormControl(email));
@@ -135,15 +128,4 @@ export class ListingProductComponent implements OnInit {
     }
   }
 
-}
-
-
-export class Post{
-  constructor(
-      public id:number,
-      public date: string,
-      public subject: string,
-      public numComents: number,
-      public comments:string[]
-  ) {}
 }

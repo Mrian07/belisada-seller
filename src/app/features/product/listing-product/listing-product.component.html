@@ -1,4 +1,9 @@
 <div class="row">
+    <div class="col-12">
+        <span class="w__myProduk">My Produk</span>
+        <div class="w_bor">  
+                <fa name="caret-down"></fa>
+    </div>
     <div class="col-12" *ngFor="let item of proddetail.data">
         <div class="row w__bacground--border">
                 <div class="col-3" >
@@ -114,20 +119,54 @@
         </div>
         <div class="row">
             <div class="col-12">
-                    <div class="col-12" *ngIf="rowSelected==item.productId"  >
-                            <!-- <span>{{ ach.data.brandName }}</span>  -->
-                   <!-- <span>{{ productDetail.brandName }}</span> -->
+                    <div class="col-12" *ngIf="rowSelected==item.productId">
                     <div class="row">
                         <div class="col-12">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <!-- <img *ngFor="let item of productDetail.imageUrl" src="{{item}}"> -->
                                 <div class="con-image">
-                                        <img src="{{imgIndex}}"  height="300">
+                                        <img src="{{imgIndex}}"  height="200">
                                         <span class="show-image-small" *ngFor="let item of productDetail.imageUrl" (click)="selectImg(item)"><img src='{{item}}' height="50"></span>
                                     </div>
                             </div>
-                            <div class="col-5">2</div>
-                            <div class="col-2">3</div>
+                            <div class="col-5">
+                                <div class="kadal">
+                                    <div>
+                                        <span class="w__nmbarang">Nama Barang</span>
+                                        <span class="w__nmBarang">{{ productDetail.name }}</span>
+                                        <span class="w__hrgaBarang">Harga Barang</span>
+                                        <span class="w__nmBarang"> {{ productDetail.pricelist | number }}</span>
+                                        <span class="w__hrgaBarang">Stock Barang</span>
+                                        <span class="w__nmBarang">{{ productDetail.qtyTypeValue }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="w__nmbarang">Kategori</span>
+                                        <span class="w__nmBarang">{{ productDetail.categoryThreeName }}</span>
+                                        <span class="w__hrgaBarang">Spesifikasi</span>
+                                        <span class="w__nmBarang" *ngFor="let item of productDetail.specification">
+                                            - {{ item.value }}    
+                                        </span>
+                                        <span class="w__hrgaBarang">Stock Barang</span>
+                                        <span class="w__nmBarang">{{ productDetail.qtyTypeValue }}</span>
+                                    </div>
+                                    <div>
+                                            <span class="w__nmbarang">Garansi</span>
+                                            <span class="w__nmBarang">{{ productDetail.guaranteeTimeValue }}</span>
+                                            <span class="w__hrgaBarang">Berat Barang</span>
+                                            <span class="w__nmBarang">  </span>
+                                            <span class="w__hrgaBarang">Dimensi</span>
+                                            <span class="w__nmBarang">{{ productDetail.qtyTypeValue }}</span>
+                                            <span class="w__hrgaBarang">Jasa Pengiriman</span>
+                                            <span class="w__nmBarang" *ngFor="let item of productDetail.couriers">{{ item.code }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <span class="w__nmbarang">Deskripsi</span>
+                                    <div class="w__descr">
+                                           {{ productDetail.description}}
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
