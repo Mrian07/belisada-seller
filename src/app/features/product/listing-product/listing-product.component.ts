@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ProductService } from '@belisada-seller/core/services';
 import { ProductListing, ProductDetailList, ProductDetailData } from '@belisada-seller/core/models';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'bss-listing-product',
@@ -17,6 +18,8 @@ export class ListingProductComponent implements OnInit {
   productDetail: ProductDetailData = new ProductDetailData();
   ach;
   imgIndex: string;
+  faCoffee = faPlusCircle;
+  
 
   constructor(
     private fb: FormBuilder, private prodSe: ProductService) {

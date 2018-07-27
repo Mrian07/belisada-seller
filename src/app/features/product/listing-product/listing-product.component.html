@@ -2,7 +2,9 @@
     <div class="col-12">
         <span class="w__myProduk">My Produk</span>
         <div class="w_bor">  
-                <fa name="caret-down"></fa>
+                <!-- <fa name="caret-down"></fa> -->
+                <fa-icon height="200" [icon]="faCoffee"></fa-icon>
+                <!-- <fa-icon [icon]="['fa-plus-circle']"></fa-icon> -->
     </div>
     <div class="col-12" *ngFor="let item of proddetail.data">
         <div class="row w__bacground--border">
@@ -164,7 +166,7 @@
                             <div class="col-3">
                                 <span class="w__nmbarang">Deskripsi</span>
                                     <div class="w__descr">
-                                           {{ productDetail.description}}
+                                        {{ productDetail.description}}
                                     </div>
                             </div>
                         </div>
