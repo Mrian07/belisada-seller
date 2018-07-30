@@ -425,14 +425,32 @@ export class AddProductComponent implements OnInit {
 
   onProductSubmit() {
     this.specMapping(this.spec);
-
-    this.productService.addProduct(this.apr).subscribe(response => {
+    if(this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
       swal(
-        'belisada.co.id',
-        response.message,
-        'success'
+        'Warning',
+        'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
+        'error'
       );
-      this.router.navigate(['/listing-product']);
-    });
+    } else {
+      this.productService.addProduct(this.apr).subscribe(response => {
+        swal(
+          'belisada.co.id',
+          response.message,
+          'success'
+        );
+        this.router.navigate(['/listing-product']);
+      });
+    }
+
+    
+  }
+
+  numberCheck(event: any) {
+    const pattern = /[0-9]/;
+
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+    }
   }
 }
