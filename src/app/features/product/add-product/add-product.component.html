@@ -148,8 +148,8 @@
                         [attr.required]="categoryAttribute.isMandatory"/>
                     <select [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control" *ngIf="categoryAttribute.isInstanceAttribute === false"
                         [attr.required]="categoryAttribute.isMandatory">
-                            <option value="" disabled>{{ categoryAttribute.name }}</option>
-                            <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option>
+                            <option value="">{{ categoryAttribute.name }}</option>
+                            <!-- <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option> -->
                     </select>
                 </div>
             </div>
