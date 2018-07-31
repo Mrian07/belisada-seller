@@ -3,7 +3,7 @@
         <span class="w__myProduk">My Produk</span>
         <div class="w_bor">
             <div></div>
-            <div class="w_col-3"> <fa-icon [icon]="['fas', 'plus-circle']" size="7x" style="color:#5bb84f;  padding-top: 4%;" pull="right"></fa-icon>
+            <div class="w_col-3"> <fa-icon  (click)="gotoAddPro()" [icon]="['fas', 'plus-circle']" size="7x" style="color:#5bb84f;  padding-top: 4%; cursor:pointer;" pull="right"></fa-icon>
             <div>
                 <span (click)="gotoAddPro()" class="w__text--tambah--produk">Tambah Produk Baru</span>
             </div>
@@ -90,17 +90,17 @@
                                                 <span class="w__kosongkan_stok">
                                                     Hide Product
                                                 </span>
-                                                <div *ngIf="item.isactive === false; else login">
+                                                <div *ngIf="item.isactive === true; else login">
                                                         <label class="switch small w__margin--switch">
                                                                 <input 
-                                                                    type="checkbox" (click)="bSlider(item.productId)" [checked]=true>
+                                                                    type="checkbox" (click)="bSlider(item.productId)" [checked]=false>
                                                                 <span class="slider round"></span>
                                                             </label>
                                                     </div>
                                                     <ng-template #login>
                                                             <label class="switch small w__margin--switch">
                                                                     <input 
-                                                                        type="checkbox" (click)="bSliderF(item.productId)" [checked]=false>
+                                                                        type="checkbox" (click)="bSliderF(item.productId)" [checked]=true>
                                                                     <span class="slider round"></span>
                                                                 </label>
                                                     </ng-template>

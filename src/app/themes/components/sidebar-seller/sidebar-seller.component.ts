@@ -34,12 +34,7 @@ export class SidebarSellerComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        if (localStorage.getItem('isRemember') === 'true') {
-          localStorage.removeItem(LocalStorageEnum.TOKEN_KEY);
-        } else {
-          sessionStorage.clear();
-          localStorage.removeItem('isRemember');
-        }
+        localStorage.removeItem(LocalStorageEnum.TOKEN_KEY);
         swal(
           'Success!',
           'Anda sudah keluar dari Account Area.',

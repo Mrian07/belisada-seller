@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   SignupResponse, SignupData, SigninRequest, ResetPasswdResponse, SendEmailRequest, SendEmailResponse,
   SigninResponse, ActivationRequest, ActivationResponse, EmailChecking, UserLocalStorage, UserData,
-  ResetPasswdRequest, Profile, EditProfileResponse, EditProfileRequest, User, UserSignupGuest,ActivationSeller
+  ResetPasswdRequest, Profile, EditProfileResponse, EditProfileRequest, User, UserSignupGuest, ActivationSeller
 } from '@belisada-seller/core/models';
 
 import { JWTUtil } from '@belisada-seller/core/util';

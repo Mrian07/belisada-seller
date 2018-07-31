@@ -38,29 +38,13 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.baseUrl = environment.baseUrlBuyer;
-    if (localStorage.getItem('isRemember') === 'true') {
-      this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
-    } else {
-      console.log('userData : ', this.userData);
-      if (isPlatformBrowser(this.platformId)) {
-        const sess = sessionStorage.getItem(LocalStorageEnum.TOKEN_KEY);
-        this.userData = this.userService.getUserData(sess);
-      }
-    }
+    this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
     if (this.userData) {
       this.router.navigate(['']);
       this.isLogin = true;
     }
     this.createFormControl();
   }
-
-  // test() {
-  //   const testSes = 'testing';
-  //   sessionStorage.setItem('id', testSes);
-  //   const data = sessionStorage.getItem('id');
-  //   sessionStorage.clear();
-  //   console.log('apa: ', data);
-  // }
 
   /* Fungsi untuk membuat nama field pada form */
   createFormControl() {
@@ -88,13 +72,7 @@ export class SignInComponent implements OnInit {
         } else {
           const token: string = result.token;
 
-          if (form.value.isRemember === 'true') {
-            this.userService.setUserToLocalStorage(token);
-            this.userService.setRemember('true');
-          } else {
-            this.userService.setUserToSessionStorage(token);
-            this.userService.setRemember('false');
-          }
+          this.userService.setUserToLocalStorage(token);
 
           this.router.navigate(['']);
         }

@@ -19,12 +19,7 @@ export class OnlyLoggedInUsersGuard implements CanActivateChild {
   user: any;
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const isRemember = localStorage.getItem('isRemember');
-    if (isRemember === 'true') {
-      this.user = localStorage.getItem('token');
-    } else {
-      this.user = sessionStorage.getItem('token');
-    }
+    this.user = localStorage.getItem('token');
 
     if (!this.user) {
       this.router.navigateByUrl('/auth/sign-in');
