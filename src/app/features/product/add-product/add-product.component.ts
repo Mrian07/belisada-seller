@@ -425,24 +425,30 @@ export class AddProductComponent implements OnInit {
 
   onProductSubmit() {
     this.specMapping(this.spec);
-    if(this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
+    if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
       swal(
         'Warning',
         'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
-        'error'
+        'warning'
       );
-    } else {
-      this.productService.addProduct(this.apr).subscribe(response => {
-        swal(
-          'belisada.co.id',
-          response.message,
-          'success'
-        );
-        this.router.navigate(['/listing-product']);
-      });
+      return;
     }
-
-    
+    if (this.apr.couriers.length === 0) {
+      swal(
+        'Warning',
+        'Anda belum memilih metode pengiriman.',
+        'warning'
+      );
+      return;
+    }
+    this.productService.addProduct(this.apr).subscribe(response => {
+      swal(
+        'belisada.co.id',
+        response.message,
+        'success'
+      );
+      this.router.navigate(['/listing-product']);
+    });
   }
 
   numberCheck(event: any) {
