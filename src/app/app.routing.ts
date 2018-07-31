@@ -6,6 +6,7 @@ import { ProfileSellerComponent } from './features/profile/profile-seller/profil
 import { OnlyLoggedInUsersGuard } from '@belisada-seller/core/services';
 import { AddProductComponent } from '@belisada-seller/features/product/add-product/add-product.component';
 import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
+import { OrderComponent } from '@belisada-seller/features/order/order.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,14 @@ const routes: Routes = [
         data: {
           title: ''
         },
-      }
+      },
+      {
+        path: 'listing-order',
+        component: OrderComponent,
+        data: {
+          title: ''
+        },
+      },
     ],
   },
   { path: 'activasi',

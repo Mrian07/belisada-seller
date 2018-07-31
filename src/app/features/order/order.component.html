@@ -1,0 +1,26 @@
+<span class="title">Listing Order</span>
+<div class="frame-menu">
+  <div [ngClass]="(tabOrder=='tabSemua')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabSemua')">
+    Semua
+  </div>
+  <div [ngClass]="(tabOrder=='tabBelumBayar')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabBelumBayar')">
+    Belum Bayar
+  </div>
+  <div [ngClass]="(tabOrder=='tabHarusKirim')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabHarusKirim')">
+    Harus Kirim
+  </div>
+  <div [ngClass]="(tabOrder=='tabDalamPengiriman')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabDalamPengiriman')">
+    Dalam Pengiriman
+  </div>
+  <div [ngClass]="(tabOrder=='tabSelesai')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabSelesai')">
+    Selesai
+  </div>
+  <div [ngClass]="(tabOrder=='tabPembatalan')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabPembatalan')">
+    Pembatalan
+  </div>
+</div>
+<div class="frame-menu-contain">
+  <bss-order-list *ngIf="tabOrder=='tabSemua'"></bss-order-list>
+  <!-- <app-order-history *ngIf="tabOrder=='tabHistory'"></app-order-history> -->
+</div>
+
