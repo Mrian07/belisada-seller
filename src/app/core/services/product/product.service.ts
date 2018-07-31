@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Configuration } from '@belisada-seller/core/config';
-import { AddProductRequest, AddProductResponse, ProductListing, UpdateStock, ProductDetailList, ProductDetailData } from '@belisada-seller/core/models';
+import { AddProductRequest, AddProductResponse, ProductListing, UpdateStock, ProductDetailList } from '@belisada-seller/core/models';
 
 @Injectable({
   providedIn: 'root',
