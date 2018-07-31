@@ -28,15 +28,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (localStorage.getItem('isRemember') === 'true') {
-      this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
-    } else {
-    console.log('userData : ', this.userData);
-      if (isPlatformBrowser(this.platformId)) {
-        const sess = sessionStorage.getItem(LocalStorageEnum.TOKEN_KEY);
-        this.userData = this.userService.getUserData(sess);
-      }
-    }
+    this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
     if (this.userData) { this.isLogin = true; }
     console.log('userData : ', this.userData);
   }
@@ -54,12 +46,7 @@ export class HeaderComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        if (localStorage.getItem('isRemember') === 'true') {
-          localStorage.removeItem(LocalStorageEnum.TOKEN_KEY);
-        } else {
-          sessionStorage.clear();
-          localStorage.removeItem('isRemember');
-        }
+        localStorage.removeItem(LocalStorageEnum.TOKEN_KEY);
         this.isAccountMenu = false;
         swal(
           'Success!',

@@ -25,13 +25,7 @@ export class AuthService {
   token: any;
 
   checkToken() {
-    if (localStorage.getItem('isRemember') === 'true') {
-      this.token = localStorage.getItem('token');
-    } else {
-      if (isPlatformBrowser(this.platformId)) {
-        this.token = sessionStorage.getItem('token');
-      }
-    }
+    this.token = localStorage.getItem('token');
 
     const objToken = {
       token : this.token
@@ -48,13 +42,7 @@ export class AuthService {
   Description: Fungsi ini mengambil token yang tersimpan pada local storage.
   */
   getToken() {
-    if (localStorage.getItem('isRemember') === 'true') {
-      this.token = localStorage.getItem('token');
-    } else {
-      if (isPlatformBrowser(this.platformId)) {
-      this.token = sessionStorage.getItem('token');
-      }
-    }
+    this.token = localStorage.getItem('token');
     if (this.token) {
       return this.token;
     }
