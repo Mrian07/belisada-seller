@@ -79,7 +79,7 @@ export class AddProductComponent implements OnInit {
 
     this.getBrandInit();
     this.getCategoryInitC1();
-    //this.getCategoryInit();
+    // this.getCategoryInit();
     this.getClasificationInit();
     this.getStockInit();
     this.getWarrantyInit();
