@@ -7,6 +7,7 @@ import { OnlyLoggedInUsersGuard } from '@belisada-seller/core/services';
 import { AddProductComponent } from '@belisada-seller/features/product/add-product/add-product.component';
 import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
 import { OrderComponent } from '@belisada-seller/features/order/order.component';
+import { OrderPrintComponent } from '@belisada-seller/features/order-print/order-print.component';
 
 const routes: Routes = [
   {
@@ -42,10 +43,18 @@ const routes: Routes = [
           title: ''
         },
       },
+      
     ],
   },
   { path: 'activasi',
     component: ActivationComponent,
+    data: {
+      title: ''
+    },
+  },
+  {
+    path: 'print-order',
+    component: OrderPrintComponent,
     data: {
       title: ''
     },
