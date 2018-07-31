@@ -22,7 +22,7 @@ export class ListingProductComponent implements OnInit {
   lastPage: number;
   currentPage: number;
   pages: any = [];
-  
+
   faCoffee = faPlusCircle;
 
   constructor(
@@ -46,7 +46,7 @@ export class ListingProductComponent implements OnInit {
       const queryParams = {
         page: this.currentPage,
         itemperpage: 10,
-      }
+      };
       this.prodSe.getProdListing(queryParams).subscribe(response => {
         this.pages = [];
            this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
@@ -60,7 +60,6 @@ export class ListingProductComponent implements OnInit {
         console.log('proddetail', this.proddetail);
         });
     });
-   
   }
 
   setPage(page: number, increment?: number) {
@@ -73,12 +72,12 @@ export class ListingProductComponent implements OnInit {
 
   public openCloseRow(idReserva: number): void {
 
+    this.prodSe.getDetailById(idReserva).subscribe(res => {
+      this.productDetail = res.data;
+      this.productDetail.couriers = this.productDetail.couriers.filter(x => x.isUse === true);
 
-  this.prodSe.getDetailById(idReserva).subscribe(res => {
-  this.productDetail = res.data;
-  this.imgIndex = this.productDetail.imageUrl[0];
-  console.log(res.data);
-});
+      this.imgIndex = this.productDetail.imageUrl[0];
+    });
     if (this.rowSelected === -1) {
       this.rowSelected = idReserva;
       console.log('id', idReserva);
@@ -90,6 +89,7 @@ export class ListingProductComponent implements OnInit {
       }
     }
   }
+
   bSlider(id) {
     const paramS = {
       hide: true,
@@ -108,6 +108,7 @@ export class ListingProductComponent implements OnInit {
       });
     });
   }
+
   selectImg(img) {
     this.imgIndex = img;
   }
@@ -116,7 +117,6 @@ export class ListingProductComponent implements OnInit {
     this.router.navigate(['/add-product']);
     console.log('asdasd');
   }
-  
 
   bSliderF(id) {
     const paramS = {
