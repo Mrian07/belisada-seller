@@ -135,7 +135,7 @@
         <div class="row f-group">
             <label class="col-3 middle">Deskripsi</label>
             <div class="col-9">
-                <textarea [(ngModel)]="apr.description" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
+                <textarea [(ngModel)]="apr.description" placeholder="Deskripsi" class="f-control" rows="4" maxlength="100" ></textarea>
             </div>
         </div>
         <div class="row f-group">
@@ -171,7 +171,7 @@
         <div class="row f-group">
             <label class="col-3 middle">Harga</label>
             <div class="col-3">
-                <input [(ngModel)]="apr.pricelist" type="text" class="f-control" placeholder="Harga">
+                <input [(ngModel)]="apr.pricelist" type="text" class="f-control" placeholder="Harga" (keypress)="numberCheck($event)" maxlength="10">
             </div>
         </div>
         <div class="row f-group">
@@ -200,19 +200,19 @@
         <div class="row f-group">
             <label class="col-3 middle">Berat</label>
             <div class="col-6">
-                <input [(ngModel)]="apr.weight" type="text" class="f-control" placeholder="Berat">
+                <input [(ngModel)]="apr.weight" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
             </div>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Dimensi</label>
             <div class="col-2">
-                <input [(ngModel)]="apr.dimensionsWidth" type="text" class="f-control" placeholder="P">
+                <input [(ngModel)]="apr.dimensionsWidth" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
             </div>
             <div class="col-2">
-                <input [(ngModel)]="apr.dimensionslength" type="text" class="f-control" placeholder="L">
+                <input [(ngModel)]="apr.dimensionslength" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
             </div>
             <div class="col-2">
-                <input [(ngModel)]="apr.dimensionsheight" type="text" class="f-control" placeholder="T">
+                <input [(ngModel)]="apr.dimensionsheight" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
             </div>
         </div>
         <div class="row f-group">
@@ -238,6 +238,6 @@
     </div>
     <div class="right">
         <input type="button" (click)="onProductSubmit()" class="btn btn--yellow" value="Simpan">
-        <input type="button" class="btn" value="Batal">
+        <input type="button" class="btn margin-left" value="Batal">
     </div>
 </div>
