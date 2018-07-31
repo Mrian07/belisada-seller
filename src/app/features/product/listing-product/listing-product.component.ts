@@ -22,6 +22,7 @@ export class ListingProductComponent implements OnInit {
   lastPage: number;
   currentPage: number;
   pages: any = [];
+  a: any;
 
   faCoffee = faPlusCircle;
 
@@ -51,6 +52,7 @@ export class ListingProductComponent implements OnInit {
         this.pages = [];
            this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
         this.proddetail = response;
+        this.a = response.dataCount;
         this.lastPage = this.proddetail.pageCount;
         for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
           if (r > 0 && r <= this.proddetail.pageCount) {
