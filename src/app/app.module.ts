@@ -21,12 +21,16 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from '@belisada-seller/core/interceptors';
 import { AddProductComponent } from '@belisada-seller/features/product/add-product/add-product.component';
 import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
+import { OrderComponent } from '@belisada-seller/features/order/order.component';
+import { OrderListComponent } from '@belisada-seller/features/order-list/order-list.component';
 
 library.add(fas, far, fab);
 
 @NgModule({
   declarations: [
     AppComponent,
+    OrderComponent,
+    OrderListComponent,
     ProfileComponent,
     ProfileSellerComponent,
     AddProductComponent,

@@ -143,13 +143,14 @@
             <div class="col-4">
                 <label *ngIf="categoryAttributes.length === 0" class="middle">*Silahkan pilih kategori terlebih dahulu</label>
                 <div class="f-group" *ngFor="let categoryAttribute of categoryAttributes">
-                    <input type="text" [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control"
+                   
+                    <!-- <input type="text" [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control"
                         [placeholder]="categoryAttribute.name" *ngIf="categoryAttribute.isInstanceAttribute === true"
-                        [attr.required]="categoryAttribute.isMandatory"/>
+                        [attr.required]="categoryAttribute.isMandatory"/> -->
                     <select [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control" *ngIf="categoryAttribute.isInstanceAttribute === false"
                         [attr.required]="categoryAttribute.isMandatory">
-                            <option value="" disabled>{{ categoryAttribute.name }}</option>
-                            <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option>
+                            <option value="" disabled selected>{{ categoryAttribute.name }}</option>
+                            <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option> -->
                     </select>
                 </div>
             </div>

@@ -89,17 +89,17 @@
                             <span class="w__kosongkan_stok">
                                 Hide Product
                             </span>
-                            <div *ngIf="item.isactive === false; else login">
+                            <div *ngIf="item.isactive === true; else login">
                                 <label class="switch small w__margin--switch">
                                     <input 
-                                        type="checkbox" (click)="bSlider(item.productId)" [checked]=true>
+                                        type="checkbox" (click)="bSlider(item.productId)" [checked]=false>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                             <ng-template #login>
                                 <label class="switch small w__margin--switch">
                                     <input 
-                                        type="checkbox" (click)="bSliderF(item.productId)" [checked]=false>
+                                        type="checkbox" (click)="bSliderF(item.productId)" [checked]=true>
                                     <span class="slider round"></span>
                                 </label>
                             </ng-template>
