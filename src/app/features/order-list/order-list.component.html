@@ -28,18 +28,19 @@
     </div>
   <div class="cont-buyer">
     <div class="frame-cont">
-        <div class="cart" *ngFor="let itemChild of item.cartItems">
-   
-              <div>
-                <img src="{{itemChild.imageUrl}}" border="0" width="100"> 
-              </div>
-              <div>
-                <span class="nm-item">{{itemChild.name}}</span>
-                <span class="sku-item">[{{itemChild.sku}}]</span>
-              </div>
-              <div class="qty-item">
-                  x{{itemChild.quantity}}
-              </div>  
+        <div>
+          <div class="cart" *ngFor="let itemChild of item.cartItems">
+            <div>
+              <img src="{{itemChild.imageUrl}}" border="0" width="100"> 
+            </div>
+            <div>
+              <span class="nm-item">{{itemChild.name}}</span>
+              <span class="sku-item">[{{itemChild.sku}}]</span>
+            </div>
+            <div class="qty-item">
+                x{{itemChild.quantity}}
+            </div>
+          </div>   
         </div>
         <div>
           <span class="uang-item">{{item.subTotal  | currency:'Rp ' }}</span>
