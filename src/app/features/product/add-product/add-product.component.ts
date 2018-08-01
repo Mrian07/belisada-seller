@@ -15,7 +15,6 @@ import {
 import { CategoryTypeEnum } from '@belisada-seller/core/enum';
 
 import swal from 'sweetalert2';
-import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Component({
   selector: 'app-add-product',
@@ -26,6 +25,10 @@ export class AddProductComponent implements OnInit {
 
   apr: AddProductRequest = new AddProductRequest();
   spec: any[] = [];
+
+  idC1: number;
+  idC2: number;
+  idC3: number;
 
   brandList: BrandList = new BrandList();
   currentPgBrand: number;
@@ -63,7 +66,6 @@ export class AddProductComponent implements OnInit {
     private el: ElementRef,
     private fb: FormBuilder,
     private router: Router,
-    private loadingService: LoadingService
   ) {
     this.brandList.data = [];
     this.categoryList.data = [];
@@ -212,11 +214,12 @@ export class AddProductComponent implements OnInit {
   }
 
   searchCategoryC2() {
-    const qsCategory = this.categoryName;
+    const qsCategory = this.categoryNameC2;
     const queryParams = {
+      parentid: this.idC1,
       page: this.currentPgCategory = 1,
       itemperpage: this.limitCategory,
-      name: this.categoryName === undefined ? '' : this.categoryName,
+      name: this.categoryNameC2 === undefined ? '' : this.categoryNameC2,
       type: CategoryTypeEnum.C2
     };
     this.categoryService.getListCategory(queryParams).subscribe(response => {
@@ -225,11 +228,12 @@ export class AddProductComponent implements OnInit {
   }
 
   searchCategoryC3() {
-    const qsCategory = this.categoryName;
+    const qsCategory = this.categoryNameC3;
     const queryParams = {
+      parentid: this.idC2,
       page: this.currentPgCategory = 1,
       itemperpage: this.limitCategory,
-      name: this.categoryName === undefined ? '' : this.categoryName,
+      name: this.categoryNameC3 === undefined ? '' : this.categoryNameC3,
       type: CategoryTypeEnum.C3
     };
     this.categoryService.getListCategory(queryParams).subscribe(response => {
@@ -240,13 +244,15 @@ export class AddProductComponent implements OnInit {
   selectCategory(category) {
     this.categoryName = category.name;
     this.apr.categoryThreeId = category.categoryId;
+    this.idC1 = category.categoryId;
     const queryParams = {
       categoryid: category.categoryId
     };
     this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
       this.categoryAttributes = response;
 
-
+      this.categoryNameC2 = '';
+      this.categoryNameC3 = '';
       this.getCategoryInitC2(category.categoryId);
     });
   }
@@ -254,13 +260,14 @@ export class AddProductComponent implements OnInit {
   selectCategoryC2(category) {
     this.categoryNameC2 = category.name;
     this.apr.categoryThreeId = category.categoryId;
+    this.idC2 = category.categoryId;
     const queryParams = {
       categoryid: category.categoryId
     };
     this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
       this.categoryAttributes = response;
 
-
+      this.categoryNameC3 = '';
       this.getCategoryInitC3(category.categoryId);
     });
   }
@@ -268,6 +275,7 @@ export class AddProductComponent implements OnInit {
   selectCategoryC3(category) {
     this.categoryNameC3 = category.name;
     this.apr.categoryThreeId = category.categoryId;
+    this.idC3 = category.categoryId;
     const queryParams = {
       categoryid: category.categoryId
     };
@@ -331,14 +339,31 @@ export class AddProductComponent implements OnInit {
   //   });
   // }
 
-  onCategoryScrollDown () {
+  onCategoryScrollDown (type, parentid?) {
     const scr = this.el.nativeElement.querySelector('#drick-scroll-container--category');
     if (scr.scrollHeight - scr.clientHeight === scr.scrollTop) {
       const queryParams = {
+        parentid: (parentid) ? parentid : '',
         page: this.currentPgCategory += 1,
         itemperpage: this.limitCategory,
         name: this.categoryName === undefined ? '' : this.categoryName,
-        type: CategoryTypeEnum.C3
+        type: type
+      };
+      this.categoryService.getListCategory(queryParams).subscribe(response => {
+        this.categoryList.data = this.categoryList.data.concat(response.data);
+      });
+    }
+  }
+
+  onCategoryScrollDownAtr (type,categoryId) {
+    const scr = this.el.nativeElement.querySelector('#drick-scroll-container--category');
+    if (scr.scrollHeight - scr.clientHeight === scr.scrollTop) {
+      const queryParams = {
+        parentid: categoryId,
+        page: this.currentPgCategory += 1,
+        itemperpage: this.limitCategory,
+        name: this.categoryName === undefined ? '' : this.categoryName,
+        type: type
       };
       this.categoryService.getListCategory(queryParams).subscribe(response => {
         this.categoryList.data = this.categoryList.data.concat(response.data);
@@ -426,7 +451,6 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductSubmit() {
-    this.loadingService.show();
     this.specMapping(this.spec);
     if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
       swal(
@@ -445,7 +469,6 @@ export class AddProductComponent implements OnInit {
       return;
     }
     this.productService.addProduct(this.apr).subscribe(response => {
-      this.loadingService.hide();
       swal(
         'belisada.co.id',
         response.message,
