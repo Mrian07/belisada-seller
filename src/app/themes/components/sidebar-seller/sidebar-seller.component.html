@@ -3,20 +3,29 @@
         <div class="col-12">
         <span class="title-sidebar-seller">MERCHANT</span>
         <div class="border-sidebar-seller">
-        <div class="dummy-backgorund">
-            <!-- <img class="img-small-store-for-sidebar" src="assets/img/store_icon.png"> -->
-            <a class="profile-toko-text" [routerLink]="['/']">Profil Toko</a>
-            <!-- <fa-icon [icon]="['fas', 'bell']"></fa-icon> -->
-        </div>
-        <div class="dummy-backgorund">
-            <a class="profile-toko-text" [routerLink]="['/listing-product']">Listing Product</a>
-        </div>
-        <div class="dummy-backgorund">
-            <a class="profile-toko-text" [routerLink]="['/listing-order']">Listing Order</a>
-        </div>
-        <div class="dummy-backgorund">
-            <a class="profile-toko-text" (click)="logout()">Logout</a>
-        </div>
+        <a class="profile-toko-text" [routerLink]="['/']">
+            <div class="dummy-backgorund">
+                <!-- <img class="img-small-store-for-sidebar" src="assets/img/store_icon.png"> -->
+                Profil Toko
+                <!-- <fa-icon [icon]="['fas', 'bell']"></fa-icon> -->
+            </div>
+        </a>
+        <a class="profile-toko-text" [routerLink]="['/listing-product']">
+            <div class="dummy-backgorund">
+                Listing Product
+            </div>
+        </a>
+        <a class="profile-toko-text" [routerLink]="['/listing-order']">
+            <div class="dummy-backgorund">
+                Listing Order
+            </div>
+        </a>
+        <a class="profile-toko-text" (click)="logout()">
+            <div class="dummy-backgorund">
+                Logout
+            </div>
+        </a>
+        
         </div>
     </div>
 </div>
