@@ -15,28 +15,34 @@
     Jasa Pengiriman
   </div>
 </div>
-<div class="frame-contain">
+<div class="frame-contain" *ngFor="let item of listCart">
   <div class="nm-buyer">
       <div class="row">
         <div class="col-6">
-          Samuel
+          {{item.namaPenerima}}
         </div>
         <div class="col-6 right">
-          No Pesanan : #4365347658
+          No Pesanan : {{item.invoiceNumber}}
         </div>
       </div>
     </div>
   <div class="cont-buyer">
     <div class="frame-cont">
-        <div>
-          <span class="nm-item">DELL INSPIRON 55</span>
-          <span class="sku-item">[SKU34422233]</span>
+        <div class="cart" *ngFor="let itemChild of item.cartItems">
+   
+              <div>
+                <img src="{{itemChild.imageUrl}}" border="0" width="100"> 
+              </div>
+              <div>
+                <span class="nm-item">{{itemChild.name}}</span>
+                <span class="sku-item">[{{itemChild.name}}]</span>
+              </div>
+              <div class="qty-item">
+                  x{{itemChild.quantity}}
+              </div>  
         </div>
-        <div class="qty-item">
-          x1
-        </div>
         <div>
-          <span class="uang-item">Rp.19.999.999</span>
+          <span class="uang-item">Rp {{item.subTotal | number }}</span>
           <span class="small-text">Kartu Kredit</span>
         </div>
         <div>
@@ -44,7 +50,7 @@
           <span class="small-text">Menunggu pengiriman diverifikasi jasa pengiriman</span>
         </div>
         <div>
-            <span class="nm-item">JNE REG <fa-icon [icon]="['fab', 'facebook']"></fa-icon></span>
+            <span class="nm-item-courier">{{item.courierCode}} <img src="assets/img/printer.png" border="0" width="20"></span>
             <span class="small-text">Cetak Label Pengiriman</span>
         </div>
         <div>

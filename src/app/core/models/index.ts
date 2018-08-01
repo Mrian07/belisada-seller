@@ -12,3 +12,4 @@ export * from './store/store.model';
 export * from './store/address.model';
 export * from './attribute/attribute.model';
 export * from './auth/auth.model';
+export * from './transaction/transaction.model';
