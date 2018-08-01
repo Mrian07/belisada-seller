@@ -35,7 +35,7 @@
               </div>
               <div>
                 <span class="nm-item">{{itemChild.name}}</span>
-                <span class="sku-item">[{{itemChild.name}}]</span>
+                <span class="sku-item">[{{itemChild.sku}}]</span>
               </div>
               <div class="qty-item">
                   x{{itemChild.quantity}}
@@ -46,7 +46,7 @@
           <span class="small-text">Kartu Kredit</span>
         </div>
         <div>
-          <span class="blue-text">Perlu Dikirim</span>
+          <span class="blue-text">{{item.statusOrderSeller}}</span>
           <span class="small-text">Menunggu pengiriman diverifikasi jasa pengiriman</span>
         </div>
         <div>
