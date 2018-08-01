@@ -90,6 +90,11 @@ export class SignInComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  goIndex(){
+    alert('sssss');
+    this.router.navigateByUrl('http://dev.belisada.id');
+  }
+
   /* Fungsi ini untuk melakukan pengecekan email valid*/
   onSearchChange(searchValue: string) {
     const modelz = this.signinFormGroup.value;

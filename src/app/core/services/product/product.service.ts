@@ -28,7 +28,7 @@ export class ProductService {
         map(response => response as ProductListing)
       );
   }
-  editStock(data: UpdateStock) {
+  editStock(data: UpdateStock)  {
     return this.http.put(this.configuration.apiURL + '/seller/product/stock/update', data)
       .pipe(
         map(rsl => rsl as UpdateStock)

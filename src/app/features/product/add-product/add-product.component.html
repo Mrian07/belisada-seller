@@ -1,6 +1,6 @@
 <div>
     <h2 class="test">Ubah Gambar Produk</h2>
-    <p>Geser gambar untuk mengubah susunan. Minimal gambar 2 dan maksimal gambar produk 5, geser untuk menyusun foto</p>
+    <p>Minimal gambar 2 dan maksimal gambar produk 5</p>
 
     <div class="add-product-form-wrapper">
         <ul class="add_product_image clearfix" id="image-list">
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus}"
                                     id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown()">
+                                    (scroll)="onCategoryScrollDown('C1')">
                                     <ul class="drick-select-list">
                                         <li *ngFor="let i of categoryList.data" (click)="selectCategory(i)">
                                             {{i.name}}
@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC2}"
                                     id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown()">
+                                    (scroll)="onCategoryScrollDown('C2', idC1)">
                                     <ul class="drick-select-list">
                                         <li *ngFor="let i of categoryListC2.data" (click)="selectCategoryC2(i)">
                                             {{i.name}}
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC3}"
                                     id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown()">
+                                    (scroll)="onCategoryScrollDown('C3', idC2)">
                                     <ul class="drick-select-list">
                                         <li *ngFor="let i of categoryListC3.data" (click)="selectCategoryC3(i)">
                                             {{i.name}}
