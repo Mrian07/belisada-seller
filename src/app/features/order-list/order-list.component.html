@@ -42,7 +42,7 @@
               </div>  
         </div>
         <div>
-          <span class="uang-item">Rp {{item.subTotal | number }}</span>
+          <span class="uang-item">{{item.subTotal  | currency:'Rp ' }}</span>
           <span class="small-text">Kartu Kredit</span>
         </div>
         <div>
@@ -50,7 +50,7 @@
           <span class="small-text">Menunggu pengiriman diverifikasi jasa pengiriman</span>
         </div>
         <div>
-            <span class="nm-item-courier">{{item.courierCode}} <img src="assets/img/printer.png" border="0" width="20"></span>
+            <span class="nm-item-courier">{{item.courierCode}} <span class="print-order"><a [routerLink]="['/print-order/']" target="_blank"><img src="assets/img/printer.png" border="0" width="20"></a></span></span>
             <span class="small-text">Cetak Label Pengiriman</span>
         </div>
         <div>

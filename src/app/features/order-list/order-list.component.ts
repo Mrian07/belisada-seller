@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionService } from '@belisada-seller/core/services/transaction/transaction.service';
 import { Cart } from '@belisada-seller/core/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bss-order-list',
@@ -11,7 +12,8 @@ export class OrderListComponent implements OnInit {
 
   listCart: Cart[];
   constructor(
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private router: Router
   ) { }
 
   ngOnInit() {

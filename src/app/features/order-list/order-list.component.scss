@@ -84,3 +84,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+
+.print-order{
+    cursor: pointer;
+    margin-left: 5px;
+}
