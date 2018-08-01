@@ -15,6 +15,7 @@ import {
 import { CategoryTypeEnum } from '@belisada-seller/core/enum';
 
 import swal from 'sweetalert2';
+import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Component({
   selector: 'app-add-product',
@@ -62,6 +63,7 @@ export class AddProductComponent implements OnInit {
     private el: ElementRef,
     private fb: FormBuilder,
     private router: Router,
+    private loadingService: LoadingService
   ) {
     this.brandList.data = [];
     this.categoryList.data = [];
@@ -424,6 +426,7 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductSubmit() {
+    this.loadingService.show();
     this.specMapping(this.spec);
     if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
       swal(
@@ -442,6 +445,7 @@ export class AddProductComponent implements OnInit {
       return;
     }
     this.productService.addProduct(this.apr).subscribe(response => {
+      this.loadingService.hide();
       swal(
         'belisada.co.id',
         response.message,
