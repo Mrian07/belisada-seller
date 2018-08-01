@@ -1,8 +1,8 @@
 .frame-title{
     display: grid;
-    grid-template-columns: 260px 100px 190px 140px 1fr;
+    grid-template-columns: 330px 80px 190px 140px 1fr;
     margin-top:20px;
-    font-weight: bold;
+    font-size: 12px;
 }
 
 .frame-contain{
@@ -28,12 +28,17 @@
 
 .frame-cont{
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 400px 1fr 1fr 1fr 1fr;
     color: #111111;
 }
 
 .nm-item{
     font-size: 14px;
+    display: block;
+}
+
+.nm-item-courier{
+    font-size: 20px;
     display: block;
 }
 
@@ -73,4 +78,14 @@
 
 .btn-order:hover{
     background: #f4b876;
+}
+
+.cart{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.print-order{
+    cursor: pointer;
+    margin-left: 5px;
 }
