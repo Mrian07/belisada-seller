@@ -220,16 +220,29 @@
             </div>
         </div>
         <div class="row f-group">
-            <label class="col-3 middle">Dimensi</label>
-            <div class="col-2">
-                <input [(ngModel)]="apr.dimensionsWidth" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
-            </div>
-            <div class="col-2">
-                <input [(ngModel)]="apr.dimensionslength" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
-            </div>
-            <div class="col-2">
-                <input [(ngModel)]="apr.dimensionsheight" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
-            </div>
+            <form [formGroup]="formDimensi">
+                
+                <div class="row">
+                        <label class="col-3 middle">Dimensi</label>
+                        
+                                <div class="col-2">
+                                <input [(ngModel)]="apr.dimensionsWidth" [formControl]="dimensiP" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
+                                
+                            </div>
+                            <div class="col-2">
+                                <input [(ngModel)]="apr.dimensionslength" [formControl]="dimensiP" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
+                            </div>
+                            <div class="col-2">
+                                <input [(ngModel)]="apr.dimensionsheight" [formControl]="dimensiP" type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
+                            </div>
+                            
+                </div>
+                <div style="padding-left:30%">
+                        <bss-field-error class="middle" [displayError]="isFieldValidDimensi('dimensiP')" errorMsg="Silahkan masukan berat"></bss-field-error>
+                </div>
+
+                
+            </form>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Delivery Service</label>

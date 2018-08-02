@@ -60,6 +60,7 @@ export class AddProductComponent implements OnInit {
   formDesc: FormGroup;
   formGaransi: FormGroup;
   formBerat: FormGroup;
+  formDimensi: FormGroup;
 
   constructor(
     private brandService: BrandService,
@@ -108,6 +109,11 @@ export class AddProductComponent implements OnInit {
     });
     this.formBerat = this.fb.group({
       berat: [null, [Validators.required]]
+    });
+    this.formDimensi = this.fb.group({
+      dimensiP: [null, [Validators.required]],
+      dimensiL: [null, [Validators.required]],
+      dimensiT: [null, [Validators.required]],
     });
   }
 
@@ -169,6 +175,9 @@ export class AddProductComponent implements OnInit {
   }
   isFieldValidBerat(field: string) {
     return !this.formBerat.get(field).valid && this.formBerat.get(field).touched;
+  }
+  isFieldValidDimensi(field: string) {
+    return !this.formDimensi.get(field).valid && this.formDimensi.get(field).touched;
   }
 
   onBrandBlur() {
@@ -497,10 +506,7 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductSubmit() {
-    console.log('hi tolong pilih kondisi barang ', this.formBerat);
-    if (this.form.valid && this.formDesc.valid && this.formGaransi && this.formBerat) {
-      console.log('aaaaa');
-      console.log('form submitted');
+    if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensi.valid) {
       this.specMapping(this.spec);
       this.productService.addProduct(this.apr).subscribe(response => {
         swal(
@@ -515,6 +521,7 @@ export class AddProductComponent implements OnInit {
       this.validateAllFormFields(this.formDesc);
       this.validateAllFormFields(this.formGaransi);
       this.validateAllFormFields(this.formBerat);
+      this.validateAllFormFields(this.formDimensi);
       console.log(this.apr.name);
       if (this.apr.qtyType === undefined) {
         swal(
