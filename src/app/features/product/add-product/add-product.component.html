@@ -181,15 +181,18 @@
         <div class="row f-group">
             <label class="col-3 middle">Harga</label>
             <div class="col-3">
-                <input [(ngModel)]="apr.pricelist" type="text" class="f-control" placeholder="Harga" (keypress)="numberCheck($event)" maxlength="10">
+                <form [formGroup]="formHarga">
+                    <input [(ngModel)]="apr.pricelist" formControlName="harga" type="text" class="f-control" placeholder="Harga" (keypress)="numberCheck($event)" maxlength="10">
+                    <bss-field-error [displayError]="isFieldValidHarga('harga')" errorMsg="Silahkan masukan harga"></bss-field-error>
+                </form>
             </div>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Stok</label>
             <div class="col-3">
-                    <form [formGroup]="formStok">
-                <input type="text" [(ngModel)]="apr.qty" formControlName="stok" class="f-control" placeholder="Stok" (keypress)="numberCheck($event)" maxlength="10">
-                <bss-field-error [displayError]="isFieldValidStok('stok')" errorMsg="Silahkan masukan stok"></bss-field-error>
+                <form [formGroup]="formStok">
+                    <input type="text" [(ngModel)]="apr.qty" formControlName="stok" class="f-control" placeholder="Stok" (keypress)="numberCheck($event)" maxlength="10">
+                    <bss-field-error [displayError]="isFieldValidStok('stok')" errorMsg="Silahkan masukan stok"></bss-field-error>
                 <!-- <span *ngFor="let i of stock">
                     <input id="{{ i.statusCode }}" type="radio" name="stock"
                         [(ngModel)]="apr.qtyType" [value]="i.statusCode"/>

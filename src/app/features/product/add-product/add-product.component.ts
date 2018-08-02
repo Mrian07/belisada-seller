@@ -66,6 +66,7 @@ export class AddProductComponent implements OnInit {
   formStok: FormGroup;
   formDimensiL: FormGroup;
   formDimensiT: FormGroup;
+  formHarga: FormGroup;
 
   constructor(
     private brandService: BrandService,
@@ -130,7 +131,9 @@ export class AddProductComponent implements OnInit {
     this.formDimensiT = this.fb.group({
       dimensiT: [null, [Validators.required]]
     });
-    
+    this.formHarga = this.fb.group({
+      harga: [null, [Validators.required]]
+    });
   }
 
   /**
@@ -182,6 +185,9 @@ export class AddProductComponent implements OnInit {
 
    isFieldValid(field: string) {
     return !this.form.get(field).valid && this.form.get(field).touched;
+  }
+  isFieldValidHarga(field: string) {
+    return !this.formHarga.get(field).valid && this.formHarga.get(field).touched;
   }
   isFieldValidDesc(field: string) {
     return !this.formDesc.get(field).valid && this.formDesc.get(field).touched;
@@ -532,7 +538,7 @@ export class AddProductComponent implements OnInit {
 
   onProductSubmit() {
     if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
-      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid ) {
+      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid ) {
       this.specMapping(this.spec);
       this.productService.addProduct(this.apr).subscribe(response => {
         swal(
@@ -551,19 +557,12 @@ export class AddProductComponent implements OnInit {
       this.validateAllFormFields(this.formDimensiP);
       this.validateAllFormFields(this.formDimensiL);
       this.validateAllFormFields(this.formDimensiT);
+      this.validateAllFormFields(this.formHarga);
       console.log(this.apr.name);
       if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
         swal(
           'Warning',
           'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
-          'warning'
-        );
-        return;
-      }
-      if (this.apr.qty === undefined) {
-        swal(
-          'Warning',
-          'Harap pilih stok barang',
           'warning'
         );
         return;
