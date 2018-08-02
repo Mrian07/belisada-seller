@@ -48,7 +48,7 @@
                                 <div *ngIf="item.status === 'REJECTED'">
                                 </div>
                                 <div *ngIf="item.status === 'APPROVED'">
-                                    <span class="w__middle" style="color:green;">Stock :  {{ item.qtyTypeValue }}</span> 
+                                    <span class="w__middle" style="color:green;">Stock :  {{ item.qty }}</span> 
                                 </div>
                                 <div *ngIf="item.status === 'NEED APPROVAL'">
                                 </div>
@@ -136,7 +136,7 @@
                                         <span class="w__hrgaBarang">Harga Barang</span>
                                         <p class="w__hargabarangFromBackEnd">  {{ productDetail.pricelist | number  }}</p>
                                         <span class="w__hrgaBarang">Stock Barang</span>
-                                        <span class="w__nmBarang">{{ productDetail.qtyTypeValue }}</span>
+                                        <span class="w__nmBarang">{{ productDetail.qty }}</span>
                                     </div>
                                     <div>
                                         <span class="w__nmbarang">Kategori</span>

@@ -31,7 +31,7 @@ export class AddProductRequest {
   name: string;
   nameEn: string;
   pricelist: number;
-  qtyType: string;
+  qty: string;
   specification: ProductSpecification[];
   volume: number;
   weight: number;

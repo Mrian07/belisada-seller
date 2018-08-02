@@ -61,6 +61,7 @@ export class AddProductComponent implements OnInit {
   formGaransi: FormGroup;
   formBerat: FormGroup;
   formDimensi: FormGroup;
+  formStok: FormGroup;
 
   constructor(
     private brandService: BrandService,
@@ -111,9 +112,10 @@ export class AddProductComponent implements OnInit {
       berat: [null, [Validators.required]]
     });
     this.formDimensi = this.fb.group({
-      dimensiP: [null, [Validators.required]],
-      dimensiL: [null, [Validators.required]],
-      dimensiT: [null, [Validators.required]],
+      dimensiP: [null, [Validators.required]]
+    });
+    this.formStok = this.fb.group({
+      stok: [null, [Validators.required]]
     });
   }
 
@@ -178,6 +180,9 @@ export class AddProductComponent implements OnInit {
   }
   isFieldValidDimensi(field: string) {
     return !this.formDimensi.get(field).valid && this.formDimensi.get(field).touched;
+  }
+  isFieldValidStok(field: string) {
+    return !this.formStok.get(field).valid && this.formStok.get(field).touched;
   }
 
   onBrandBlur() {
@@ -506,7 +511,8 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductSubmit() {
-    if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensi.valid) {
+    if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensi.valid
+      && this.formStok.valid) {
       this.specMapping(this.spec);
       this.productService.addProduct(this.apr).subscribe(response => {
         swal(
@@ -522,8 +528,9 @@ export class AddProductComponent implements OnInit {
       this.validateAllFormFields(this.formGaransi);
       this.validateAllFormFields(this.formBerat);
       this.validateAllFormFields(this.formDimensi);
+      this.validateAllFormFields(this.formStok);
       console.log(this.apr.name);
-      if (this.apr.qtyType === undefined) {
+      if (this.apr.qty === undefined) {
         swal(
           'Warning',
           'Harap pilih stok barang',
