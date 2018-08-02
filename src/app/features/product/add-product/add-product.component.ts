@@ -56,12 +56,16 @@ export class AddProductComponent implements OnInit {
   warranty: Reference[];
   couriers: Courier[];
   checkName: any;
+
+
   form: FormGroup;
   formDesc: FormGroup;
   formGaransi: FormGroup;
   formBerat: FormGroup;
-  formDimensi: FormGroup;
+  formDimensiP: FormGroup;
   formStok: FormGroup;
+  formDimensiL: FormGroup;
+  formDimensiT: FormGroup;
 
   constructor(
     private brandService: BrandService,
@@ -111,12 +115,22 @@ export class AddProductComponent implements OnInit {
     this.formBerat = this.fb.group({
       berat: [null, [Validators.required]]
     });
-    this.formDimensi = this.fb.group({
-      dimensiP: [null, [Validators.required]]
-    });
     this.formStok = this.fb.group({
       stok: [null, [Validators.required]]
     });
+    this.formDimensiP = this.fb.group({
+      dimensiP: [null, [Validators.required]]
+    });
+    this.formDimensiP = this.fb.group({
+      dimensiP: [null, [Validators.required]]
+    });
+    this.formDimensiL = this.fb.group({
+      dimensiL: [null, [Validators.required]]
+    });
+    this.formDimensiT = this.fb.group({
+      dimensiT: [null, [Validators.required]]
+    });
+    
   }
 
   /**
@@ -178,11 +192,17 @@ export class AddProductComponent implements OnInit {
   isFieldValidBerat(field: string) {
     return !this.formBerat.get(field).valid && this.formBerat.get(field).touched;
   }
-  isFieldValidDimensi(field: string) {
-    return !this.formDimensi.get(field).valid && this.formDimensi.get(field).touched;
-  }
   isFieldValidStok(field: string) {
     return !this.formStok.get(field).valid && this.formStok.get(field).touched;
+  }
+  isFieldValidDimensiP(field: string) {
+    return !this.formDimensiP.get(field).valid && this.formDimensiP.get(field).touched;
+  }
+  isFieldValidDimensiL(field: string) {
+    return !this.formDimensiL.get(field).valid && this.formDimensiL.get(field).touched;
+  }
+  isFieldValidDimensiT(field: string) {
+    return !this.formDimensiT.get(field).valid && this.formDimensiT.get(field).touched;
   }
 
   onBrandBlur() {
@@ -511,8 +531,8 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductSubmit() {
-    if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensi.valid
-      && this.formStok.valid) {
+    if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
+      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid ) {
       this.specMapping(this.spec);
       this.productService.addProduct(this.apr).subscribe(response => {
         swal(
@@ -527,9 +547,19 @@ export class AddProductComponent implements OnInit {
       this.validateAllFormFields(this.formDesc);
       this.validateAllFormFields(this.formGaransi);
       this.validateAllFormFields(this.formBerat);
-      this.validateAllFormFields(this.formDimensi);
       this.validateAllFormFields(this.formStok);
+      this.validateAllFormFields(this.formDimensiP);
+      this.validateAllFormFields(this.formDimensiL);
+      this.validateAllFormFields(this.formDimensiT);
       console.log(this.apr.name);
+      if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
+        swal(
+          'Warning',
+          'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
+          'warning'
+        );
+        return;
+      }
       if (this.apr.qty === undefined) {
         swal(
           'Warning',
@@ -542,14 +572,6 @@ export class AddProductComponent implements OnInit {
         swal(
           'Warning',
           'Harap pilih kondisi barang',
-          'warning'
-        );
-        return;
-      }
-      if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
-        swal(
-          'Warning',
-          'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
           'warning'
         );
         return;
