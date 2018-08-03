@@ -23,6 +23,7 @@ import { AddProductComponent } from '@belisada-seller/features/product/add-produ
 import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
 import { OrderComponent } from '@belisada-seller/features/order/order.component';
 import { OrderListComponent } from '@belisada-seller/features/order-list/order-list.component';
+import { FieldErrorComponent } from '@belisada-seller/features/product/field-error/field-error.component';
 
 library.add(fas, far, fab);
 
@@ -35,7 +36,8 @@ library.add(fas, far, fab);
     ProfileSellerComponent,
     AddProductComponent,
     ActivationComponent,
-    ListingProductComponent
+    ListingProductComponent,
+    FieldErrorComponent
   ],
   imports: [
     BrowserModule,

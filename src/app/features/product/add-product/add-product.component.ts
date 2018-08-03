@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import {
@@ -55,6 +55,18 @@ export class AddProductComponent implements OnInit {
   stock: Reference[];
   warranty: Reference[];
   couriers: Courier[];
+  checkName: any;
+
+
+  form: FormGroup;
+  formDesc: FormGroup;
+  formGaransi: FormGroup;
+  formBerat: FormGroup;
+  formDimensiP: FormGroup;
+  formStok: FormGroup;
+  formDimensiL: FormGroup;
+  formDimensiT: FormGroup;
+  formHarga: FormGroup;
 
   constructor(
     private brandService: BrandService,
@@ -78,6 +90,7 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.formData();
     this.currentPgBrand = 1;
     this.currentPgCategory = 1;
 
@@ -88,6 +101,39 @@ export class AddProductComponent implements OnInit {
     this.getStockInit();
     this.getWarrantyInit();
     this.getCourier();
+  }
+
+  private formData() {
+    this.form = this.fb.group({
+      name: [null, [Validators.required]]
+    });
+    this.formDesc = this.fb.group({
+      desc: [null, [Validators.required]]
+    });
+    this.formGaransi = this.fb.group({
+      garansi: [null, [Validators.required]]
+    });
+    this.formBerat = this.fb.group({
+      berat: [null, [Validators.required]]
+    });
+    this.formStok = this.fb.group({
+      stok: [null, [Validators.required]]
+    });
+    this.formDimensiP = this.fb.group({
+      dimensiP: [null, [Validators.required]]
+    });
+    this.formDimensiP = this.fb.group({
+      dimensiP: [null, [Validators.required]]
+    });
+    this.formDimensiL = this.fb.group({
+      dimensiL: [null, [Validators.required]]
+    });
+    this.formDimensiT = this.fb.group({
+      dimensiT: [null, [Validators.required]]
+    });
+    this.formHarga = this.fb.group({
+      harga: [null, [Validators.required]]
+    });
   }
 
   /**
@@ -135,6 +181,34 @@ export class AddProductComponent implements OnInit {
     this.brandService.getListBrand(queryParams).subscribe(response => {
       this.brandList = response;
     });
+  }
+
+   isFieldValid(field: string) {
+    return !this.form.get(field).valid && this.form.get(field).touched;
+  }
+  isFieldValidHarga(field: string) {
+    return !this.formHarga.get(field).valid && this.formHarga.get(field).touched;
+  }
+  isFieldValidDesc(field: string) {
+    return !this.formDesc.get(field).valid && this.formDesc.get(field).touched;
+  }
+  isFieldValidGaransi(field: string) {
+    return !this.formGaransi.get(field).valid && this.formGaransi.get(field).touched;
+  }
+  isFieldValidBerat(field: string) {
+    return !this.formBerat.get(field).valid && this.formBerat.get(field).touched;
+  }
+  isFieldValidStok(field: string) {
+    return !this.formStok.get(field).valid && this.formStok.get(field).touched;
+  }
+  isFieldValidDimensiP(field: string) {
+    return !this.formDimensiP.get(field).valid && this.formDimensiP.get(field).touched;
+  }
+  isFieldValidDimensiL(field: string) {
+    return !this.formDimensiL.get(field).valid && this.formDimensiL.get(field).touched;
+  }
+  isFieldValidDimensiT(field: string) {
+    return !this.formDimensiT.get(field).valid && this.formDimensiT.get(field).touched;
   }
 
   onBrandBlur() {
@@ -449,33 +523,67 @@ export class AddProductComponent implements OnInit {
       this.apr.specification.push(productSpecification);
     });
   }
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({
+          onlySelf: true
+        });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
 
   onProductSubmit() {
-    this.specMapping(this.spec);
-    if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
-      swal(
-        'Warning',
-        'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
-        'warning'
-      );
-      return;
+    if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
+      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid ) {
+      this.specMapping(this.spec);
+      this.productService.addProduct(this.apr).subscribe(response => {
+        swal(
+          'belisada.co.id',
+          response.message,
+          'success'
+        );
+        this.router.navigate(['/listing-product']);
+      });
+    } else {
+      this.validateAllFormFields(this.form);
+      this.validateAllFormFields(this.formDesc);
+      this.validateAllFormFields(this.formGaransi);
+      this.validateAllFormFields(this.formBerat);
+      this.validateAllFormFields(this.formStok);
+      this.validateAllFormFields(this.formDimensiP);
+      this.validateAllFormFields(this.formDimensiL);
+      this.validateAllFormFields(this.formDimensiT);
+      this.validateAllFormFields(this.formHarga);
+      console.log(this.apr.name);
+      if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
+        swal(
+          'Warning',
+          'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
+          'warning'
+        );
+        return;
+      }
+      if (this.apr.classification === undefined) {
+        swal(
+          'Warning',
+          'Harap pilih kondisi barang',
+          'warning'
+        );
+        return;
+      }
+      if (this.apr.couriers.length === 0) {
+        swal(
+          'Warning',
+          'Anda belum memilih metode pengiriman.',
+          'warning'
+        );
+        return;
+      }
     }
-    if (this.apr.couriers.length === 0) {
-      swal(
-        'Warning',
-        'Anda belum memilih metode pengiriman.',
-        'warning'
-      );
-      return;
-    }
-    this.productService.addProduct(this.apr).subscribe(response => {
-      swal(
-        'belisada.co.id',
-        response.message,
-        'success'
-      );
-      this.router.navigate(['/listing-product']);
-    });
   }
 
   numberCheck(event: any) {
