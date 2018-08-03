@@ -148,4 +148,10 @@ export class ActivationSeller {
     status: number;
     message?: string;
     key: string;
+    data: DataSeller;
+}
+
+export class DataSeller{
+    token: string;
+    name: string;
 }

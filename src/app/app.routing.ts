@@ -46,7 +46,7 @@ const routes: Routes = [
       
     ],
   },
-  { path: 'activasi',
+  { path: 'activation',
     component: ActivationComponent,
     data: {
       title: ''

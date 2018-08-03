@@ -10,7 +10,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 })
 export class ActivationComponent implements OnInit {
   viewSuccess: boolean;
-
+  name: string;
   data: ActivationSeller = new ActivationSeller;
   msg: string;
   constructor(private router: Router,
@@ -26,6 +26,15 @@ export class ActivationComponent implements OnInit {
         // console.log('ini', respon.status);
         // this.msg = rsl.message;
         if (respon.status === 1) {
+
+          if(respon.status === 1){
+            this.userService.setUserToLocalStorage(respon.data.token);
+            this.name = respon.data.name;
+            setTimeout(() => {
+              this.router.navigateByUrl('/buyer/profile');
+            } , 500);
+          }
+
           this.viewSuccess = true;
         } else {
           this.viewSuccess = false;
