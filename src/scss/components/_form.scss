@@ -126,6 +126,10 @@ input::placeholder {
     &:active {
         border: 1px solid $color--dark-grey;
     }
+
+    &.default-width {
+        width: inherit!important;
+    }
 }
 
 [type='checkbox'] + label[for],
@@ -145,8 +149,7 @@ input::placeholder {
 label {
     font-size: 1.4rem;
     margin: 0;
-
-    &.middle {
-        padding: 1.4rem 0 0;
-    }
+}
+.middle {
+    padding: 1.4rem 0 0;
 }

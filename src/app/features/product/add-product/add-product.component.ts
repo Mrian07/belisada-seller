@@ -15,6 +15,7 @@ import {
 import { CategoryTypeEnum } from '@belisada-seller/core/enum';
 
 import swal from 'sweetalert2';
+import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Component({
   selector: 'app-add-product',
@@ -25,6 +26,12 @@ export class AddProductComponent implements OnInit {
 
   apr: AddProductRequest = new AddProductRequest();
   spec: any[] = [];
+
+  measurementType: any;
+
+  isDiscountActive: Boolean = false;
+  totalDiscount: number;
+  errMaxDiscount: Boolean = false;
 
   idC1: number;
   idC2: number;
@@ -78,7 +85,9 @@ export class AddProductComponent implements OnInit {
     private el: ElementRef,
     private fb: FormBuilder,
     private router: Router,
+    private loadingService: LoadingService
   ) {
+    this.measurementType = 0;
     this.brandList.data = [];
     this.categoryList.data = [];
     this.categoryListC2.data = [];
@@ -132,7 +141,8 @@ export class AddProductComponent implements OnInit {
       dimensiT: [null, [Validators.required]]
     });
     this.formHarga = this.fb.group({
-      harga: [null, [Validators.required]]
+      harga: [null, [Validators.required]],
+      specialPrice: [0]
     });
   }
 
@@ -429,7 +439,7 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  onCategoryScrollDownAtr (type,categoryId) {
+  onCategoryScrollDownAtr (type, categoryId) {
     const scr = this.el.nativeElement.querySelector('#drick-scroll-container--category');
     if (scr.scrollHeight - scr.clientHeight === scr.scrollTop) {
       const queryParams = {
@@ -539,15 +549,20 @@ export class AddProductComponent implements OnInit {
   onProductSubmit() {
     if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
       && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid ) {
-      this.specMapping(this.spec);
-      this.productService.addProduct(this.apr).subscribe(response => {
-        swal(
-          'belisada.co.id',
-          response.message,
-          'success'
-        );
-        this.router.navigate(['/listing-product']);
-      });
+        this.loadingService.show();
+        this.specMapping(this.spec);
+        if (this.measurementType === '1') {
+          this.apr.weight = +this.apr.weight * 1000;
+        }
+        this.productService.addProduct(this.apr).subscribe(response => {
+          this.loadingService.hide();
+          swal(
+            'belisada.co.id',
+            response.message,
+            'success'
+          );
+          this.router.navigate(['/listing-product']);
+        });
     } else {
       this.validateAllFormFields(this.form);
       this.validateAllFormFields(this.formDesc);
@@ -592,6 +607,24 @@ export class AddProductComponent implements OnInit {
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
         event.preventDefault();
+    }
+  }
+
+  calculateDiscount() {
+    console.log(this.apr.pricelist + ' ------ ' + this.apr.specialPrice);
+    if (+this.apr.specialPrice >= +this.apr.pricelist) {
+      this.errMaxDiscount = true;
+    } else {
+      this.errMaxDiscount = false;
+    }
+    console.log(this.errMaxDiscount);
+    console.log('this.formHarga: ', this.formHarga);
+    if (this.apr.pricelist && this.apr.specialPrice && this.apr.specialPrice !== 0) {
+      this.isDiscountActive = true;
+      this.totalDiscount = this.apr.pricelist - this.apr.specialPrice;
+      this.apr.dicsount = Math.round(100 - ((this.apr.specialPrice / this.apr.pricelist) * 100));
+    } else {
+      this.isDiscountActive = false;
     }
   }
 }

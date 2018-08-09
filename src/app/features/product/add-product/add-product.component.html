@@ -24,11 +24,11 @@
         <div class="row f-group">
             <label for="staticEmail" class="col-3 middle">Nama Produk</label>
             <form [formGroup]="form">
-                    <div class="col-9">
-                            <input type="text" maxlength="30" [(ngModel)]="apr.name" formControlName="name" class="f-control" placeholder="Nama Produk">
-                            <!-- <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Silahkan Masukan Nama Toko Kamu"></bss-field-error> -->
-                            <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Silahkan Masukan Nama Produk Kamu"></bss-field-error>
-                        </div>
+                <div class="col-9">
+                    <input type="text" maxlength="30" [(ngModel)]="apr.name" formControlName="name" class="f-control" placeholder="Nama Produk">
+                    <!-- <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Silahkan Masukan Nama Toko Kamu"></bss-field-error> -->
+                    <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Silahkan Masukan Nama Produk Kamu"></bss-field-error>
+                </div>
             </form>
         </div>
         <div class="row f-group">
@@ -178,15 +178,42 @@
                 </span>
             </div>
         </div>
-        <div class="row f-group">
-            <label class="col-3 middle">Harga</label>
-            <div class="col-3">
-                <form [formGroup]="formHarga">
-                    <input [(ngModel)]="apr.pricelist" formControlName="harga" type="text" class="f-control" placeholder="Harga" (keypress)="numberCheck($event)" maxlength="10">
+
+        <form [formGroup]="formHarga">
+            <div class="row f-group">
+                <label class="col-3 middle">Harga</label>
+                <div class="col-3">
+                    <input [(ngModel)]="apr.pricelist" formControlName="harga" type="text"
+                        class="f-control" placeholder="Harga" (keypress)="numberCheck($event)" 
+                        (keyup)="calculateDiscount()" maxlength="10"/>
                     <bss-field-error [displayError]="isFieldValidHarga('harga')" errorMsg="Silahkan masukan harga"></bss-field-error>
-                </form>
+                </div>
             </div>
-        </div>
+
+            <div class="row f-group">
+                <label class="col-3 middle">Harga Promo</label>
+                <div class="col-3">
+                    <input [(ngModel)]="apr.specialPrice" formControlName="specialPrice" type="text"
+                        class="f-control" placeholder="Harga Promo" (keypress)="numberCheck($event)"
+                        (keyup)="calculateDiscount()" maxlength="10"/>
+                    <bss-field-error [displayError]="errMaxDiscount" errorMsg="Harga promo melebihi harga asli"></bss-field-error>
+                </div>
+            </div>
+
+            <div class="row f-group" *ngIf="isDiscountActive">
+                <label class="col-3 middle">Jumlah Diskon</label>
+                <div class="col-3">
+                    <div class="label--special-price">
+                        <div class="pull-left">Rp</div><div class="pull-right">{{ totalDiscount | number}}</div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-6 middle">
+                    <span class="label--discount">{{ apr.dicsount }}%</span> <span class="label--discount-desc">Diskon pada product anda</span>
+                </div>
+            </div>
+        </form>
+        
         <div class="row f-group">
             <label class="col-3 middle">Stok</label>
             <div class="col-3">
@@ -220,35 +247,41 @@
     <div class="add-product-form-wrapper">
         <div class="row f-group">
             <label class="col-3 middle">Berat</label>
-            <div class="col-6">
-                <form [formGroup]="formBerat">
+            <form [formGroup]="formBerat">
+                <div class="col-2">
                     <input [(ngModel)]="apr.weight" type="text" formControlName="berat" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
                     <bss-field-error [displayError]="isFieldValidBerat('berat')" errorMsg="Silahkan masukan berat"></bss-field-error>
-                </form>
-            </div>
+                </div>
+                <div class="col-2">
+                    <select [(ngModel)]="measurementType" [ngModelOptions]="{standalone: true}" class="f-control">
+                        <option value="0">Gr</option>
+                        <option value="1">Kg</option>
+                    </select>
+                </div>
+            </form>
         </div>
         <div class="row f-group">
                 
                 <div class="row">
-                        <label class="col-3 middle">Dimensi</label>
-                            <div class="col-2">
-                                    <form [formGroup]="formDimensiP">
-                                        <input [(ngModel)]="apr.dimensionsWidth" formControlName = "dimensiP"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
-                                        <bss-field-error [displayError]="isFieldValidDimensiP('dimensiP')" errorMsg="Silahkan isi panjang dimensi"></bss-field-error>
-                                    </form>
-                            </div>
-                            <div class="col-2">
-                                    <form [formGroup]="formDimensiL">
-                                        <input [(ngModel)]="apr.dimensionslength" formControlName = "dimensiL"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
-                                        <bss-field-error [displayError]="isFieldValidDimensiL('dimensiL')" errorMsg="Silahkan isi lebar dimensi"></bss-field-error>
-                                    </form>
-                            </div>
-                            <div class="col-2">
-                                    <form [formGroup]="formDimensiT">
-                                        <input [(ngModel)]="apr.dimensionsheight" formControlName = "dimensiT"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
-                                        <bss-field-error [displayError]="isFieldValidDimensiT('dimensiT')" errorMsg="Silahkan isi tinggi dimensi"></bss-field-error>
-                                    </form>
-                            </div>
+                    <label class="col-3 middle">Dimensi</label>
+                    <div class="col-2">
+                            <form [formGroup]="formDimensiP">
+                                <input [(ngModel)]="apr.dimensionsWidth" formControlName = "dimensiP"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
+                                <bss-field-error [displayError]="isFieldValidDimensiP('dimensiP')" errorMsg="Silahkan isi panjang dimensi"></bss-field-error>
+                            </form>
+                    </div>
+                    <div class="col-2">
+                            <form [formGroup]="formDimensiL">
+                                <input [(ngModel)]="apr.dimensionslength" formControlName = "dimensiL"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
+                                <bss-field-error [displayError]="isFieldValidDimensiL('dimensiL')" errorMsg="Silahkan isi lebar dimensi"></bss-field-error>
+                            </form>
+                    </div>
+                    <div class="col-2">
+                            <form [formGroup]="formDimensiT">
+                                <input [(ngModel)]="apr.dimensionsheight" formControlName = "dimensiT"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
+                                <bss-field-error [displayError]="isFieldValidDimensiT('dimensiT')" errorMsg="Silahkan isi tinggi dimensi"></bss-field-error>
+                            </form>
+                    </div>
                             
                 </div>
                 <div style="padding-left:30%">

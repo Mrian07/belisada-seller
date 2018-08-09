@@ -31,7 +31,9 @@ export class AddProductRequest {
   name: string;
   nameEn: string;
   pricelist: number;
-  qty: string;
+  specialPrice: number;
+  dicsount: number;
+  qty: number;
   specification: ProductSpecification[];
   volume: number;
   weight: number;
