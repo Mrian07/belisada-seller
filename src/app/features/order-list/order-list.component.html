@@ -1,64 +1,64 @@
 <div class="frame-title">
-  <div>
-    Produk
-  </div>
-  <div>
-    Qty
-  </div>
-  <div>
-    Jumlah uang diterima
-  </div>
-  <div>
-    Status
-  </div>
-  <div>
-    Jasa Pengiriman
-  </div>
+	<div>
+		Produk
+	</div>
+	<div>
+		Qty
+	</div>
+	<div>
+		Jumlah uang diterima
+	</div>
+	<div>
+		Status
+	</div>
+	<div>
+		Jasa Pengiriman
+	</div>
 </div>
 <div class="frame-contain" *ngFor="let item of listCart">
-  <div class="nm-buyer">
-      <div class="row">
-        <div class="col-6">
-          {{item.namaPenerima}}
-        </div>
-        <div class="col-6 right">
-          No Pesanan : {{item.invoiceNumber}}
-        </div>
-      </div>
-    </div>
-  <div class="cont-buyer">
-    <div class="frame-cont">
-        <div>
-          <div class="cart" *ngFor="let itemChild of item.cartItems">
-            <div>
-              <img src="{{itemChild.imageUrl}}" border="0" width="100"> 
-            </div>
-            <div>
-              <span class="nm-item">{{itemChild.name}}</span>
-              <span class="sku-item">[{{itemChild.sku}}]</span>
-            </div>
-            <div class="qty-item">
-                x{{itemChild.quantity}}
-            </div>
-          </div>   
-        </div>
-        <div>
-          <span class="uang-item">{{item.subTotal  | currency:'Rp ' }}</span>
-          <span class="small-text">Kartu Kredit</span>
-        </div>
-        <div>
-          <span class="blue-text">{{item.statusOrderSeller}}</span>
-          <span class="small-text">{{item.statusPlaceHolderOrderSeller}}</span>
-        </div>
-        <div>
-            <span class="nm-item-courier">{{item.courierCode}} <span class="print-order"><a [routerLink]="['/print-order/']" target="_blank"><img src="assets/img/printer.png" border="0" width="20"></a></span></span>
-            <span class="small-text">Cetak Label Pengiriman</span>
-        </div>
-        <div>
-            <div class="btn-order">
-              Buat No Resi
-            </div>
-        </div>
-    </div>
-  </div>
+	<div class="nm-buyer">
+			<div class="row">
+				<div class="col-6">
+					{{item.namaPenerima}}
+				</div>
+				<div class="col-6 right">
+					No Pesanan : {{item.invoiceNumber}}
+				</div>
+			</div>
+		</div>
+	<div class="cont-buyer">
+		<div class="frame-cont">
+			<div>
+				<div class="cart" *ngFor="let itemChild of item.cartItems">
+					<div>
+						<img src="{{itemChild.imageUrl}}" border="0" width="100"> 
+					</div>
+					<div>
+						<span class="nm-item">{{itemChild.name}}</span>
+						<span class="sku-item">[{{itemChild.sku}}]</span>
+					</div>
+					<div class="qty-item">
+							x{{itemChild.quantity}}
+					</div>
+				</div>   
+			</div>
+			<div>
+				<span class="uang-item">{{item.subTotal  | currency:'Rp ' }}</span>
+				<span class="small-text">Kartu Kredit</span>
+			</div>
+			<div>
+				<span class="blue-text">{{item.statusOrderSeller}}</span>
+				<span class="small-text">{{item.statusPlaceHolderOrderSeller}}</span>
+			</div>
+			<div>
+				<span class="nm-item-courier">{{item.courierCode}} <span class="print-order"><a [routerLink]="['/print-order/']" target="_blank"><img src="assets/img/printer.png" border="0" width="20"></a></span></span>
+				<span class="small-text">Cetak Label Pengiriman</span>
+			</div>
+			<div>
+				<div class="btn-order">
+					Buat No Resi
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

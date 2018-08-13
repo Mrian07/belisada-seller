@@ -33,7 +33,7 @@ export class Cart {
     createdOrder: string;
     destinationId: number;
     destinations: Destinations[];
-    invoiceNumber:string;
+    invoiceNumber: string;
 
     namaPenerima: string;
     noResi: string;
@@ -61,7 +61,7 @@ export class Cart {
 export class Destinations {
     destinationId: number;
     name: string;
-    shippingAddressId: number
+    shippingAddressId: number;
 
 }
 
@@ -80,6 +80,16 @@ export class CartItems {
     subtotal: number;
     total: number;
     totalWeight: number;
-    weightPerItem: number
+    weightPerItem: number;
+}
 
+export class ListOrderSellerResponse {
+    content: Cart[];
+    last: Boolean;
+    totalPages: number;
+    totalElements: number;
+    first: true;
+    numberOfElements: number;
+    size: number;
+    number: number;
 }

@@ -1,6 +1,6 @@
 <span class="title">Listing Order</span>
 <div class="frame-menu">
-  <div [ngClass]="(tabOrder=='tabSemua')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabSemua')">
+  <div [ngClass]="(tabOrder=='ALL')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('ALL')">
     Semua
   </div>
   <div [ngClass]="(tabOrder=='tabBelumBayar')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabBelumBayar')">
@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="frame-menu-contain">
-  <bss-order-list *ngIf="tabOrder=='tabSemua'"></bss-order-list>
+  <bss-order-list [status]="tabOrder"></bss-order-list>
   <!-- <app-order-history *ngIf="tabOrder=='tabHistory'"></app-order-history> -->
 </div>
 
