@@ -1,6 +1,6 @@
 .frame-title{
     display: grid;
-    grid-template-columns: 330px 80px 190px 140px 1fr;
+    grid-template-columns: 357px 5% 17% 15% 1fr;
     margin-top:20px;
     font-size: 12px;
 }
@@ -10,6 +10,14 @@
     background: #ffffff;
     box-shadow: 2px 2px 4px #c9c9c9;
     border: 1px solid #f5f5f5;
+}
+.w__edit--cetak-label {
+  font-size: 11px !important;
+    font-weight: bold;
+    color: #a0a0a0;
+}
+.w--status__wrapper {
+  padding-left: 15%;
 }
 
 .nm-buyer{
@@ -28,10 +36,14 @@
 
 .frame-cont{
     display: grid;
-    grid-template-columns: 400px 1fr 1fr 1fr 1fr;
+    grid-template-columns: 572px 1fr 1fr 2fr;
     color: #111111;
 }
 
+.w-wrapper__for--cetak_invoice {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
 .nm-item{
     font-size: 14px;
     display: block;
@@ -52,7 +64,7 @@
 
 .uang-item{
     color:#fd762c;
-    font-size: 14px; 
+    font-size: 14px;
     display: block;
 }
 
@@ -63,7 +75,7 @@
 }
 
 .blue-text{
-    font-size: 14px; 
+    font-size: 14px;
     color: #1e82fc;
     display: block;
 }
@@ -82,7 +94,7 @@
 
 .cart{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .print-order{

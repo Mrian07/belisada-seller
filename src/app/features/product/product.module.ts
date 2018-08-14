@@ -8,6 +8,6 @@ import { FieldComponent } from './add-product/field/field.component';
   imports: [
     CommonModule
   ],
-  declarations: [ListingProductComponent, FieldErrorComponent, FieldComponent]
+  declarations: [FieldComponent]
 })
 export class ProductModule { }

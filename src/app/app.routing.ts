@@ -8,6 +8,7 @@ import { AddProductComponent } from '@belisada-seller/features/product/add-produ
 import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
 import { OrderComponent } from '@belisada-seller/features/order/order.component';
 import { OrderPrintComponent } from '@belisada-seller/features/order-print/order-print.component';
+import { InvoiceNumberComponent } from '@belisada-seller/features/order-list/invoice/invoice-number/invoice-number.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,13 @@ const routes: Routes = [
     component: OrderPrintComponent,
     data: {
       title: ''
+    },
+  },
+  {
+    path: 'invoice-number/:id',
+    component: InvoiceNumberComponent,
+    data: {
+      title: 'invoice-number'
     },
   },
   { path: 'auth', loadChildren: 'app/features/auth/auth.module#AuthModule' },

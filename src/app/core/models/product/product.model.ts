@@ -16,7 +16,7 @@ export class AddProductRequest {
   brandName: string;
   categoryThreeId: number;
   classification: string;
-  couriers: string[];
+  couriers: any[];
   description: string;
   descriptionEn: string;
   dimensionsWidth: number;
@@ -155,7 +155,7 @@ export class SpecificationList {
 }
 
 export class EditProduct {
-  couriers: string[];
+  couriers: any[];
   discount: number;
   guaranteeTime: string;
   pricelist: number;

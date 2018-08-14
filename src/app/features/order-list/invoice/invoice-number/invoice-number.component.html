@@ -1,0 +1,102 @@
+<div class="f-head">
+
+    <div class="f-head-icon">
+      <img src="assets/img/icon-invoice.jpg" border="0">
+    </div>
+    <div class="f-head-title">
+        INVOICE
+    </div>
+    <div style="clear:both">
+
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-3">
+          <img src="assets/img/icon-invoice.jpg" border="0">
+      </div>
+      <div class="col-6 i-right">
+          INVOICE
+      </div>
+      <div class="col-3 i-right">
+          &nbsp;
+      </div>
+    </div> -->
+  </div>
+  <div class="f-body">
+
+    <div class="row">
+      <div class="col-6">
+          <span class="i-title">Payment ID</span><br>
+          #{{info.paymentNumber}}
+      </div>
+      <div class="col-6 i-right">
+          <span class="i-title">Order Date</span><br>
+          {{info.createdOrder}}
+      </div>
+    </div>
+    <div class="i-metode">
+      <span class="i-title">Metode Pembayaran</span><br>
+      {{info.paymentMethod}}
+    </div>
+    <div class="row">
+      <div class="col-4">
+          <span class="i-title">Penjual</span><br>
+          {{info.storeName}}
+      </div>
+      <div class="col-4">
+          <span class="i-title">Pembeli</span><br>
+          {{info.buyerName}}
+      </div>
+    </div>
+    <div class="i-address">
+        <span class="i-title">Dikirim Ke :</span><br>
+        <label>{{info.namaPenerima}}</label><br>
+        {{info.alamatPenerima}}.
+    </div>
+    <div class="i-table">
+      <table width="100%">
+        <tr>
+          <th>Item Detail</th>
+          <th>Qty</th>
+          <th>Berat</th>
+          <th>Price</th>
+        </tr>
+        <tr>
+            <td colspan="4"><div class="i-line">&nbsp;</div></td>
+          </tr>
+        <tr *ngFor="let item of info.cartItems">
+          <td>{{item.name}}</td>
+          <td>x {{item.quantity}}</td>
+          <td>{{item.weightPerItem}}kg</td>
+          <td class="i-price">{{item.subtotal | currency:'Rp '}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="i-pengiriman">
+      <div class="row">
+        <div class="col-6">
+            <span class="i-title">Metode Pengiriman</span><br>
+            {{info.courierCode}}<br>
+            <span class="i-title">Asuransi:</span> <span *ngIf="info.useAsuransi === false">Tidak</span> <span *ngIf="info.useAsuransi === true">Iya</span>
+        </div>
+        <div class="col-6">
+          <div class="row i-kg">
+            <div class="col-4">
+                <span class="i-title">{{info.totalWeight}}kg</span>
+            </div>
+            <div class="col-8">
+                <span class="i-price">{{info.courierPrice | currency:'Rp '}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="i-total i-right">
+      TOTAL: <span class="i-price">{{info.total | currency:'Rp '}}</span>
+    </div>
+    <div class="i-logo">
+      <img src="assets/img/logo.png" border="0" width="200">
+    </div>
+
+  </div>
