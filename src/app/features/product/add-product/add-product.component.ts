@@ -67,6 +67,8 @@ export class AddProductComponent implements OnInit {
   couriers: Courier[];
   checkName: any;
 
+  tssss: any[];
+
 
   form: FormGroup;
   formDesc: FormGroup;
@@ -148,7 +150,7 @@ export class AddProductComponent implements OnInit {
         this.apr.dimensionslength = res.data.dimensionslength;
         this.apr.dimensionsheight = res.data.dimensionsheight;
         this.aprEdit.couriers = res.data.couriers;
-        console.log('123213213', this.apr.guaranteeTime);
+        console.log('123213213', this.aprEdit.couriers);
         this.calculateDiscount();
         console.log(res);
       });
@@ -589,8 +591,14 @@ export class AddProductComponent implements OnInit {
     });
   }
   onEditProductSubmit() {
+    // if ( this.aprEdit.couriers.)
+
+    // const selectedCategory = this.aprEdit.couriers.find(item => item.isUse === true);
+   this.tssss = this.aprEdit.couriers.filter(element => element.isUse === true);
+   const selectedCategory = this.tssss.filter(item => item.code);
+    console.log('ini filteredElements',  this.tssss.find(x => x.code) );
     const kirim = {
-      couriers: this.apr.couriers,
+      couriers:  this.apr.couriers,
       discount: this.apr.dicsount,
       guaranteeTime: this.apr.guaranteeTime,
       pricelist: this.apr.pricelist,
@@ -600,14 +608,16 @@ export class AddProductComponent implements OnInit {
     };
     // this.loadingService.show();
     console.log('kirim:', kirim);
-    // if (this.errMaxDiscount === true) {
-    //   swal('Opps harga promo anda melebihi harga jual');
-    // } else {
-    //       this.productService.editProduct(kirim).subscribe(response => {
-    //   this.loadingService.hide();
-    //   this.router.navigate(['/listing-product']);
-    // });
-    // }
+    console.log('12321321', selectedCategory);
+
+    if (this.errMaxDiscount === true) {
+      swal('Opps harga promo anda melebihi harga jual');
+    } else {
+          this.productService.editProduct(kirim).subscribe(response => {
+      this.loadingService.hide();
+      this.router.navigate(['/listing-product']);
+    });
+    }
 
   }
 

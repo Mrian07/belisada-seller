@@ -16,7 +16,7 @@ export class AddProductRequest {
   brandName: string;
   categoryThreeId: number;
   classification: string;
-  couriers: string[];
+  couriers: any[];
   description: string;
   descriptionEn: string;
   dimensionsWidth: number;

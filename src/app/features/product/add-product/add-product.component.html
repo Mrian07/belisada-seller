@@ -608,14 +608,14 @@
                                 <div *ngIf="courier.isUse === true; else login">
                                     <label class="switch small w__margin--switch">
                                         <input
-                                            type="checkbox"  (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]=true>
+                                            type="checkbox"    (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" >
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
                                 <ng-template #login>
                                     <label class="switch small w__margin--switch">
                                         <input
-                                            type="checkbox"   (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]=false>
+                                            type="checkbox"   (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code">
                                         <span class="slider round"></span>
                                     </label>
                                 </ng-template>
