@@ -18,6 +18,10 @@ export class ProductService {
         map(response => response as AddProductResponse)
       );
   }
+  editProduct(data: any) {
+    return this.http.put(this.configuration.apiURL + '/seller/product/basic/update', data);
+  }
+
   getProdListing(queryParams): Observable<ProductListing> {
     let params = new HttpParams();
     Object.keys(queryParams).forEach(function(k) {

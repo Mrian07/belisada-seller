@@ -131,6 +131,11 @@ export class ProductDetailData {
   guaranteeTimeValue: string;
   qtyTypeValue: string;
   version: number;
+  weight: number;
+  dimensionsWidth: number;
+  dimensionsheight: number;
+  specialPrice: number;
+  dimensionslength: number;
   isStock: false;
   specification: SpecificationList[];
   approvalProductIssue: any[];
@@ -147,4 +152,14 @@ export class SpecificationList {
   isMandatory: boolean;
   isInstanceAttribute: boolean;
   value: string;
+}
+
+export class EditProduct {
+  couriers: string[];
+  discount: number;
+  guaranteeTime: string;
+  pricelist: number;
+  productId: number;
+  qty: number;
+  specialPrice: number;
 }

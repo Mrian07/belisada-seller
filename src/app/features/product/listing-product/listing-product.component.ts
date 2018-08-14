@@ -50,7 +50,7 @@ export class ListingProductComponent implements OnInit {
       };
       this.prodSe.getProdListing(queryParams).subscribe(response => {
         this.pages = [];
-           this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
+        this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
         this.proddetail = response;
         this.a = response.dataCount;
         this.lastPage = this.proddetail.pageCount;
@@ -109,6 +109,10 @@ export class ListingProductComponent implements OnInit {
         console.log('proddetail', this.proddetail);
       });
     });
+  }
+
+  goToEdit(e) {
+    this.router.navigate(['/edit-product/' + e]);
   }
 
   selectImg(img) {

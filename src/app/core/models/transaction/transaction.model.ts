@@ -55,13 +55,12 @@ export class Cart {
     total: number;
     totalWeight: number;
     useAsuransi: boolean;
-
 }
 
 export class Destinations {
     destinationId: number;
     name: string;
-    shippingAddressId: number
+    shippingAddressId: number;
 
 }
 
@@ -80,6 +79,6 @@ export class CartItems {
     subtotal: number;
     total: number;
     totalWeight: number;
-    weightPerItem: number
+    weightPerItem: number;
 
 }

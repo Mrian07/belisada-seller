@@ -191,7 +191,7 @@ export class ProfileSellerComponent implements OnInit {
       if (rsl.status === 1) {
         this.onViewDesc = true;
         // this.updateDesc = new UpdateStoreRequest();
-        swal(rsl.message);
+        swal('Success Update Profile Store');
       } else {
         swal(rsl.message);
       }

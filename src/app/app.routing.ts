@@ -30,20 +30,27 @@ const routes: Routes = [
         },
       },
       {
+        path: 'edit-product/:id',
+        component: AddProductComponent,
+        data: {
+          title: ''
+        },
+      },
+      {
         path: 'listing-product',
         component: ListingProductComponent,
         data: {
-          title: ''
+          title: 'listing-product'
         },
       },
       {
         path: 'listing-order',
         component: OrderComponent,
         data: {
-          title: ''
+          title: 'listing-order'
         },
       },
-      
+
     ],
   },
   { path: 'activation',

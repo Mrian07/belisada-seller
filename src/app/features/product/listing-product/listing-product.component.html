@@ -18,7 +18,7 @@
                 <p class="w__float--left">
                 <img class="w__margin--right" [src]="prodImg + item.imageUrl"></p>
                 <div>
-                    <div class="w__middle">{{ item.name }}</div> 
+                    <div class="w__middle">{{ item.name }}</div>
                 </div>
             </div>
             <div class="col-5" >
@@ -27,11 +27,11 @@
                         <div>
                             <div>
                                 <div>
-                                    <span *ngIf="item.status === 'REJECTED' && item.isactive !== false" class="w__middle" style="color:red;">Status :  {{ item.status }}</span> 
-                                    <span *ngIf="item.isactive === false" class="w__middle">Status : HIDDEN</span> 
+                                    <span *ngIf="item.status === 'REJECTED' && item.isactive !== false" class="w__middle" style="color:red;">Status :  {{ item.status }}</span>
+                                    <span *ngIf="item.isactive === false" class="w__middle">Status : HIDDEN</span>
                                 </div>
                                 <div >
-                                    <span *ngIf="item.status === 'APPROVED' && item.isactive !== false" class="w__middle" style="color:green;">Status :  {{ item.status }}</span> 
+                                    <span *ngIf="item.status === 'APPROVED' && item.isactive !== false" class="w__middle" style="color:green;">Status :  {{ item.status }}</span>
                                 </div>
                                 <div>
                                     <span *ngIf="item.status === 'NEED APPROVAL' && item.isactive !== false" class="w__middle">Status :  {{ item.status }}</span>
@@ -48,7 +48,7 @@
                                 <div *ngIf="item.status === 'REJECTED'">
                                 </div>
                                 <div *ngIf="item.status === 'APPROVED'">
-                                    <span class="w__middle" style="color:green;">Stock :  {{ item.qty }}</span> 
+                                    <span class="w__middle" style="color:green;">Stock :  {{ item.qty }}</span>
                                 </div>
                                 <div *ngIf="item.status === 'NEED APPROVAL'">
                                 </div>
@@ -62,7 +62,7 @@
                                     <!-- <span class="w__middle" style="color:red;">Status :  {{ item.status }}</span>  -->
                                 </div>
                                 <div *ngIf="item.status === 'APPROVED'">
-                                    <span class="w__middle" style="color:green;">Terjual :  {{ item.sold }}</span> 
+                                    <span class="w__middle" style="color:green;">Terjual :  {{ item.sold }}</span>
                                 </div>
                                 <div *ngIf="item.status === 'NEED APPROVAL'">
                                         <!-- <span class="w__middle">Status :  {{ item.status }}</span>  -->
@@ -91,14 +91,14 @@
                             </span>
                             <div *ngIf="item.isactive === true; else login">
                                 <label class="switch small w__margin--switch">
-                                    <input 
+                                    <input
                                         type="checkbox" (click)="bSlider(item.productId)" [checked]=false>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                             <ng-template #login>
                                 <label class="switch small w__margin--switch">
-                                    <input 
+                                    <input
                                         type="checkbox" (click)="bSliderF(item.productId)" [checked]=true>
                                     <span class="slider round"></span>
                                 </label>
@@ -108,9 +108,10 @@
                     <div class="w__middle">
                         <div>
                             <span class="w__kosongkan_stok">
-                                Edit Product
+                                View Product
                             </span>
-                            <img (click)="openCloseRow(item.productId)" class="w__margin--switch" src="assets/img/pensil.png"  border="0">
+                            <fa-icon  (click)="openCloseRow(item.productId)" [icon]="['fas', 'search']"></fa-icon>
+                            <!-- <img (click)="openCloseRow(item.productId)" class="w__margin--switch" src="assets/img/pensil.png"  border="0"> -->
                         </div>
                     </div>
                 </div>
@@ -143,7 +144,7 @@
                                         <span class="w__nmBarang">{{ productDetail.categoryThreeName }}</span>
                                         <span class="w__hrgaBarang">Spesifikasi</span>
                                         <span class="w__nmBarang" *ngFor="let item of productDetail.specification">
-                                            - {{item.name}} : {{ item.value }}    
+                                            - {{item.name}} : {{ item.value }}
                                         </span>
                                     </div>
                                     <div>
@@ -161,9 +162,11 @@
                             <div class="col-3">
                                 <span class="w__nmbarang">Deskripsi</span>
                                 <div class="w__descr">
-                                    <p class="w__prodDessc">  {{ productDetail.description}}</p> 
+                                    <p class="w__prodDessc">  {{ productDetail.description}}</p>
                                 </div>
+                                <div> <button (click)="goToEdit(item.productId)" class="btn btn--yellow">Edit </button></div>
                             </div>
+
                         </div>
                     </div>
                 </div>

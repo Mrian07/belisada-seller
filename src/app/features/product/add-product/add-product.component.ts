@@ -1,6 +1,7 @@
+import { ProductDetailData, EditProduct } from './../../../core/models/product/product.model';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {
   BrandService, CategoryService, AttributeService, ReferenceService,
@@ -16,6 +17,7 @@ import { CategoryTypeEnum } from '@belisada-seller/core/enum';
 
 import swal from 'sweetalert2';
 import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
+import { Title } from '../../../../../node_modules/@angular/platform-browser';
 
 @Component({
   selector: 'app-add-product',
@@ -25,6 +27,7 @@ import { LoadingService } from '@belisada-seller/core/services/globals/loading.s
 export class AddProductComponent implements OnInit {
 
   apr: AddProductRequest = new AddProductRequest();
+  aprEdit: EditProduct = new EditProduct();
   spec: any[] = [];
 
   measurementType: any;
@@ -75,6 +78,10 @@ export class AddProductComponent implements OnInit {
   formDimensiT: FormGroup;
   formHarga: FormGroup;
 
+  param1: any;
+  productDetail: ProductDetailData = new ProductDetailData();
+
+
   constructor(
     private brandService: BrandService,
     private categoryService: CategoryService,
@@ -85,7 +92,10 @@ export class AddProductComponent implements OnInit {
     private el: ElementRef,
     private fb: FormBuilder,
     private router: Router,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private route: ActivatedRoute,
+    private title: Title,
+    private prodSe: ProductService
   ) {
     this.measurementType = 0;
     this.brandList.data = [];
@@ -96,6 +106,8 @@ export class AddProductComponent implements OnInit {
     this.apr.couriers = [];
     this.apr.imageUrl = [];
     this.apr.specification = [];
+    this.param1 = this.route.snapshot.params.id;
+    console.log( this.route.snapshot.params.id);
   }
 
   ngOnInit() {
@@ -110,6 +122,33 @@ export class AddProductComponent implements OnInit {
     this.getStockInit();
     this.getWarrantyInit();
     this.getCourier();
+
+    if (this.param1 === undefined) {
+      this.title.setTitle('Belisada - Add Product');
+    } else {
+      this.title.setTitle('Belisada - Edit Product');
+      this.prodSe.getDetailById(this.param1).subscribe(res => {
+        this.productDetail = res.data;
+        this.apr.name = res.data.name;
+        this.brandName = res.data.brandName;
+        this.categoryName = res.data.categoryOneName;
+        this.categoryNameC2 = res.data.categoryTwoName;
+        this.categoryNameC3 = res.data.categoryThreeName;
+        this.apr.description = res.data.description;
+        this.aprEdit.productId = res.data.productId;
+        this.apr.classification = res.data.classification;
+        this.apr.pricelist = res.data.pricelist;
+        this.apr.qty = res.data.qty;
+        this.apr.guaranteeTime = res.data.guaranteeTimeValue;
+        this.apr.weight = res.data.weight;
+        this.apr.dimensionsWidth = res.data.dimensionsWidth;
+        this.apr.specialPrice = res.data.specialPrice;
+        this.apr.dimensionslength = res.data.dimensionslength;
+        this.apr.dimensionsheight = res.data.dimensionsheight;
+        console.log('123213213', this.apr.guaranteeTime);
+       console.log(res);
+      });
+    }
   }
 
   private formData() {
@@ -501,9 +540,9 @@ export class AddProductComponent implements OnInit {
   /**
    * On change checkbox
    */
-  onChangeCourier(code: string, isChecked: boolean) {
+  onChangeCourier(code: string, checked: boolean) {
 
-    if (isChecked) {
+    if (checked) {
       this.apr.couriers.push(code);
     } else {
       const index = this.apr.couriers.findIndex(x => x === code);
@@ -543,6 +582,23 @@ export class AddProductComponent implements OnInit {
       } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
       }
+    });
+  }
+  onEditProductSubmit() {
+    console.log('123');
+    const kirim = {
+      couriers: this.apr.couriers,
+      discount: this.apr.dicsount,
+      guaranteeTime: this.apr.guaranteeTime,
+      pricelist: this.apr.pricelist,
+      productId: this.aprEdit.productId,
+      qty: this.apr.qty,
+      specialPrice: this.apr.specialPrice
+    };
+    console.log(kirim);
+    this.productService.editProduct(kirim).subscribe(response => {
+      this.loadingService.hide();
+      this.router.navigate(['/listing-product']);
     });
   }
 
