@@ -589,7 +589,7 @@ export class AddProductComponent implements OnInit {
   onEditProductSubmit() {
     const kirim = {
       couriers: this.apr.couriers,
-      discount: this.apr.dicsount,
+      discount: this.apr.discount,
       guaranteeTime: this.apr.guaranteeTime,
       pricelist: this.apr.pricelist,
       productId: this.aprEdit.productId,
@@ -680,7 +680,7 @@ export class AddProductComponent implements OnInit {
     if (this.apr.pricelist && this.apr.specialPrice && this.apr.specialPrice !== 0) {
       this.isDiscountActive = true;
       this.totalDiscount = this.apr.pricelist - this.apr.specialPrice;
-      this.apr.dicsount = Math.round(100 - ((this.apr.specialPrice / this.apr.pricelist) * 100));
+      this.apr.discount = Math.round(100 - ((this.apr.specialPrice / this.apr.pricelist) * 100));
     } else {
       this.isDiscountActive = false;
     }

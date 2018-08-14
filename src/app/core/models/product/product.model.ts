@@ -32,7 +32,7 @@ export class AddProductRequest {
   nameEn: string;
   pricelist: number;
   specialPrice: number;
-  dicsount: number;
+  discount: number;
   qty: number;
   specification: ProductSpecification[];
   volume: number;

@@ -90,7 +90,7 @@ export class SignInComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  goIndex(){
+  goIndex() {
     alert('sssss');
     this.router.navigateByUrl('http://dev.belisada.id');
   }
