@@ -135,7 +135,15 @@
                                         <span class="w__nmbarang">Nama Barang</span>
                                         <span class="w__nmBarang">{{ productDetail.name }}</span>
                                         <span class="w__hrgaBarang">Harga Barang</span>
-                                        <p class="w__hargabarangFromBackEnd">  {{ productDetail.pricelist | number  }}</p>
+                                        <div *ngIf="productDetail.specialPrice > 0">
+                                            <span class="product-real-price">{{productDetail.specialPrice | currency:'Rp '}}</span>
+                                            <span class="product-discont"><s>{{productDetail.pricelist | currency:'Rp '}}</s></span>
+                                        </div>
+                                        <div *ngIf="productDetail.specialPrice === 0">
+                                            <span class="product-real-price">{{productDetail.pricelist | currency:'Rp '}}</span>
+                                        </div>
+                                        <!-- <span class="w__hrgaBarang">Harga Special</span>
+                                        <p class="w__hargabarangFromBackEnd">  {{ productDetail.specialPrice | number  }}</p> -->
                                         <span class="w__hrgaBarang">Stock Barang</span>
                                         <span class="w__nmBarang">{{ productDetail.qty }}</span>
                                     </div>
@@ -164,7 +172,7 @@
                                 <div class="w__descr">
                                     <p class="w__prodDessc">  {{ productDetail.description}}</p>
                                 </div>
-                                <div> <button (click)="goToEdit(item.productId)" class="btn btn--yellow">Edit </button></div>
+                                <div> <button (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
                             </div>
 
                         </div>

@@ -39,6 +39,8 @@ export class DetailStoreResponse {
 export class ProfileStoreResponse {
   storeId: number;
   name: string;
+  statusCode: any;
+  storeUrl: any;
   phone: string;
   address: string;
   description: string;

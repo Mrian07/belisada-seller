@@ -1,0 +1,93 @@
+.f-head{
+  background: #ff9236;
+  padding:10px 10px 0px 10px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ffffff;
+  width:700px;
+  margin:0px auto;
+  margin-top: 20px;
+  text-align: center;
+  border-radius:5px 5px 0px 0px;
+}
+
+.f-head-icon{
+  float: left;
+  width: 250px;
+  text-align: left;
+  padding-top:5px;
+}
+
+.f-head-title{
+  float: left;
+  padding-top:5px;
+}
+
+.f-body{
+  padding:10px;
+  font-size: 12px;
+  width:700px;
+  margin:0px auto;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+  border-radius:0px 0px 5px 5px;
+}
+
+.i-title{
+  font-weight: bold;
+  font-size: 15px;
+  color:#111111;
+}
+
+.i-right{
+  text-align: right;
+  padding-top: 10px;
+}
+
+.i-metode{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.i-address{
+  background: #eeeeee;
+  padding: 10px;
+}
+
+.i-table{
+  margin-top: 20px;
+  text-align: left;
+}
+
+.i-line{
+ border-top: 1px solid #dddddd;
+}
+
+.i-pengiriman{
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  margin-top:20px;
+}
+
+.i-price{
+  color: #4fb6f6;
+  font-weight: bold;
+  text-align: right;
+}
+
+.i-total{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.i-logo{
+  margin-top:20px;
+  text-align: center;
+}
+
+.i-kg{
+  margin-top:20px;
+  text-align: right;
+}

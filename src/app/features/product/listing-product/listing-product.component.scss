@@ -18,6 +18,13 @@ a {
         cursor: pointer;
     }
 }
+.product-real-price{
+  display: block;
+}
+.w--btn--new {
+  width: 100%;
+  margin-top: 30%;
+}
 .wrapper-w__for--listing--product {
     display: grid;
 grid-template-columns: 20% 27% 54%;
@@ -90,13 +97,13 @@ grid-gap: 10px;
         display: block;
         padding-top: 15px;
     }
-     
+
 }
 .w__prodDessc {
     max-width: 300px;
     word-wrap: break-word;
 
-} 
+}
 .w__descr {
     border: 1px solid #dfdfdf;
 }
@@ -132,7 +139,7 @@ grid-gap: 10px;
   }
   .paging li {
     display: inline-block;
-    
+
   }
   .paging a {
     border: 1px solid #ebeef2;
@@ -155,4 +162,3 @@ grid-gap: 10px;
     color: #ccc;
     cursor: default;
   }
-  

@@ -155,7 +155,7 @@ export class SpecificationList {
 }
 
 export class EditProduct {
-  couriers: string[];
+  couriers: any[];
   discount: number;
   guaranteeTime: string;
   pricelist: number;

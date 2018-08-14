@@ -147,8 +147,10 @@ export class AddProductComponent implements OnInit {
         this.apr.specialPrice = res.data.specialPrice;
         this.apr.dimensionslength = res.data.dimensionslength;
         this.apr.dimensionsheight = res.data.dimensionsheight;
+        this.aprEdit.couriers = res.data.couriers;
         console.log('123213213', this.apr.guaranteeTime);
-       console.log(res);
+        this.calculateDiscount();
+        console.log(res);
       });
     }
   }
@@ -183,7 +185,7 @@ export class AddProductComponent implements OnInit {
     });
     this.formHarga = this.fb.group({
       harga: [null, [Validators.required]],
-      specialPrice: [0]
+      specialPrice: [0,  [Validators.required]]
     });
   }
 
@@ -596,17 +598,23 @@ export class AddProductComponent implements OnInit {
       qty: this.apr.qty,
       specialPrice: this.apr.specialPrice
     };
-    this.loadingService.show();
-    console.log(kirim);
-    this.productService.editProduct(kirim).subscribe(response => {
-      this.loadingService.hide();
-      this.router.navigate(['/listing-product']);
-    });
+    // this.loadingService.show();
+    console.log('kirim:', kirim);
+    // if (this.errMaxDiscount === true) {
+    //   swal('Opps harga promo anda melebihi harga jual');
+    // } else {
+    //       this.productService.editProduct(kirim).subscribe(response => {
+    //   this.loadingService.hide();
+    //   this.router.navigate(['/listing-product']);
+    // });
+    // }
+
   }
 
   onProductSubmit() {
     if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
-      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid ) {
+      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid && this.errMaxDiscount !== true
+    ) {
         this.loadingService.show();
         this.specMapping(this.spec);
         if (this.measurementType === '1') {
@@ -631,6 +639,7 @@ export class AddProductComponent implements OnInit {
       this.validateAllFormFields(this.formDimensiL);
       this.validateAllFormFields(this.formDimensiT);
       this.validateAllFormFields(this.formHarga);
+      this.errMaxDiscount = true;
       console.log(this.apr.name);
       if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
         swal(

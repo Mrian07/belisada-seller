@@ -1,8 +1,10 @@
+import { InvoiceData } from './../../models/transaction/transaction.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Configuration } from '@belisada-seller/core/config';
-import { ListOrderSellerResponse } from '@belisada-seller/core/models/transaction/transaction.model';
-import { map } from 'rxjs/operators';
+import { ListOrderSellerResponse, Invoice } from '@belisada-seller/core/models/transaction/transaction.model';
+import { map, } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,5 +21,11 @@ export class TransactionService {
       .pipe(
         map(response => response as ListOrderSellerResponse)
       );
+  }
+  getInvoice(data: Invoice): Observable<Invoice> {
+    return this.http.get(this.configuration.apiURL + '/seller/transaction/invoicenumber?orderNumber=' + data)
+    .pipe(
+      map(response => response as Invoice)
+    );
   }
 }

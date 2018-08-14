@@ -29,7 +29,8 @@ export class ProfileSellerComponent implements OnInit {
   villages: Village[];
   updateImg: Boolean = false;
   base64Img: string;
-
+  statusCode: any;
+  storeUrl: any;
   fm: any = {};
 
   constructor(

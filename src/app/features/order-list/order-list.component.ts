@@ -38,6 +38,9 @@ export class OrderListComponent implements OnInit, OnChanges {
     this.currentValueStatus = changes.status.currentValue;
     this.orderList(this.currentValueStatus);
   }
+  goToInvoice(e) {
+    this.router.navigate(['invoice-number/' + e]);
+  }
 
   orderList(statusOrder?: string) {
     const queryParams = {
