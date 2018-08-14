@@ -1,26 +1,26 @@
 <span class="title">Listing Order</span>
 <div class="frame-menu">
-  <div [ngClass]="(tabOrder=='tabSemua')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabSemua')">
+  <div [ngClass]="(tabOrder=='ALL')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('ALL')">
     Semua
   </div>
-  <div [ngClass]="(tabOrder=='tabBelumBayar')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabBelumBayar')">
+  <div [ngClass]="(tabOrder=='182')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('182')">
     Belum Bayar
   </div>
-  <div [ngClass]="(tabOrder=='tabHarusKirim')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabHarusKirim')">
+  <div [ngClass]="(tabOrder=='187')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('187')">
     Harus Kirim
   </div>
-  <div [ngClass]="(tabOrder=='tabDalamPengiriman')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabDalamPengiriman')">
+  <div [ngClass]="(tabOrder=='196')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('196')">
     Dalam Pengiriman
   </div>
   <div [ngClass]="(tabOrder=='tabSelesai')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabSelesai')">
     Selesai
   </div>
-  <div [ngClass]="(tabOrder=='tabPembatalan')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('tabPembatalan')">
+  <div [ngClass]="(tabOrder=='183')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('183')">
     Pembatalan
   </div>
 </div>
 <div class="frame-menu-contain">
-  <bss-order-list *ngIf="tabOrder=='tabSemua'"></bss-order-list>
+  <bss-order-list [status]="tabOrder"></bss-order-list>
   <!-- <app-order-history *ngIf="tabOrder=='tabHistory'"></app-order-history> -->
 </div>
 

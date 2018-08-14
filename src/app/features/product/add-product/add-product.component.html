@@ -541,12 +541,12 @@
         <div class="row f-group">
             <label class="col-3 middle">Garansi</label>
             <div class="col-3">
-                <!-- <input type="text" class="f-control" placeholder="Garansi"> -->
-                <form [formGroup]="formGaransi">
+              <form [formGroup]="formGaransi">
                 <select formControlName="garansi" [(ngModel)]="apr.guaranteeTime" class="f-control">
-                    <option value="" [value]="apr.guaranteeTime">  {{ productDetail.guaranteeTimeValue }}</option>
-                    <option value="apr.guaranteeTime" *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
+                    <!-- <option [disabled]="true" [value]="0" selected>Account</option> -->
+                    <option value="" *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
                 </select>
+                <!-- <bss-field-error [displayError]="isFieldValidGaransi('garansi')" errorMsg="Silahkan pilih garansi"></bss-field-error> -->
                 </form>
             </div>
         </div>

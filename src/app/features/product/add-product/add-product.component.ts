@@ -79,6 +79,7 @@ export class AddProductComponent implements OnInit {
   formHarga: FormGroup;
 
   param1: any;
+  testing: any;
   productDetail: ProductDetailData = new ProductDetailData();
 
 
@@ -106,6 +107,7 @@ export class AddProductComponent implements OnInit {
     this.apr.couriers = [];
     this.apr.imageUrl = [];
     this.apr.specification = [];
+    this.testing = 'hi';
     this.param1 = this.route.snapshot.params.id;
     console.log( this.route.snapshot.params.id);
   }
@@ -139,7 +141,7 @@ export class AddProductComponent implements OnInit {
         this.apr.classification = res.data.classification;
         this.apr.pricelist = res.data.pricelist;
         this.apr.qty = res.data.qty;
-        this.apr.guaranteeTime = res.data.guaranteeTimeValue;
+        this.apr.guaranteeTime = res.data.guaranteeTime;
         this.apr.weight = res.data.weight;
         this.apr.dimensionsWidth = res.data.dimensionsWidth;
         this.apr.specialPrice = res.data.specialPrice;
@@ -585,7 +587,6 @@ export class AddProductComponent implements OnInit {
     });
   }
   onEditProductSubmit() {
-    console.log('123');
     const kirim = {
       couriers: this.apr.couriers,
       discount: this.apr.dicsount,
@@ -595,6 +596,7 @@ export class AddProductComponent implements OnInit {
       qty: this.apr.qty,
       specialPrice: this.apr.specialPrice
     };
+    this.loadingService.show();
     console.log(kirim);
     this.productService.editProduct(kirim).subscribe(response => {
       this.loadingService.hide();

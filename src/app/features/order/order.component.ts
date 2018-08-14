@@ -8,14 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class OrderComponent implements OnInit {
 
   tabOrder: string;
-  constructor() { }
-
-  ngOnInit() {
-    this.tabOrder = 'tabSemua';
+  constructor() {
+    this.tabOrder = 'ALL';
   }
 
-  tab($data) {
-    this.tabOrder = $data;
+  ngOnInit() {
+  }
+
+  tab(data) {
+    this.tabOrder = data;
   }
 
 }
