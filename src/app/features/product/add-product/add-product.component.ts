@@ -188,7 +188,7 @@ export class AddProductComponent implements OnInit {
     });
     this.formHarga = this.fb.group({
       harga: [null, [Validators.required]],
-      specialPrice: [0,  [Validators.required]]
+      specialPrice: [0]
     });
   }
 
@@ -617,22 +617,33 @@ export class AddProductComponent implements OnInit {
     // this.loadingService.show();
     console.log('kirim:', kirim);
     console.log('12321321', selectedCategory);
-
-    if (this.errMaxDiscount === true) {
-      swal('Opps harga promo anda melebihi harga jual');
-    } else {
-          this.productService.editProduct(kirim).subscribe(response => {
-      this.loadingService.hide();
-      this.router.navigate(['/listing-product']);
-    });
-    }
+      if (this.errMaxDiscount === true) {
+          swal('Opps harga promo anda melebihi harga jual');
+        } else {
+              this.productService.editProduct(kirim).subscribe(response => {
+          this.loadingService.hide();
+          this.router.navigate(['/listing-product']);
+        });
+        }
+    //       this.productService.editProduct(kirim).subscribe(response => {
+    //   this.loadingService.hide();
+    //   this.router.navigate(['/listing-product']);
+    // });
 
   }
 
   onProductSubmit() {
     if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
-      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid && this.errMaxDiscount !== true
+      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid
     ) {
+      if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
+        swal(
+          'Warning',
+          'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
+          'warning'
+        );
+        return;
+      }
         this.loadingService.show();
         this.specMapping(this.spec);
         if (this.measurementType === '1') {
@@ -657,8 +668,8 @@ export class AddProductComponent implements OnInit {
       this.validateAllFormFields(this.formDimensiL);
       this.validateAllFormFields(this.formDimensiT);
       this.validateAllFormFields(this.formHarga);
-      this.errMaxDiscount = true;
-      console.log(this.apr.name);
+      // this.errMaxDiscount = true;
+      console.log('ini kajsdkjasdlj',this.apr.name);
       if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
         swal(
           'Warning',
