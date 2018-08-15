@@ -1,4 +1,3 @@
-import { ProductDetailData, EditProduct } from './../../../core/models/product/product.model';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -10,14 +9,14 @@ import {
 
 import {
   BrandList, AddProductRequest, CategoryList, CategoryAttribute,
-  ProductSpecification, Reference, Courier
+  ProductSpecification, Reference, Courier, EditProduct, ProductDetailData
 } from '@belisada-seller/core/models';
 
 import { CategoryTypeEnum } from '@belisada-seller/core/enum';
 
 import swal from 'sweetalert2';
 import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
-import { Title } from '../../../../../node_modules/@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-product',

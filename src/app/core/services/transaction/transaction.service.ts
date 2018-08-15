@@ -1,4 +1,3 @@
-import { InvoiceData } from './../../models/transaction/transaction.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Configuration } from '@belisada-seller/core/config';
