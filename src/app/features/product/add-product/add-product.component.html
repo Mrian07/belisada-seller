@@ -485,7 +485,7 @@
             <div class="col-9">
                 <span *ngFor="let i of classification">
                     <input id="{{ i.statusCode }}" type="radio" name="classification"
-                        [(ngModel)]="apr.classification" [value]="i.statusCode" disabled/>
+                        [(ngModel)]="apr.classification" [value]="i.statusCode" />
                             <label for="{{ i.statusCode }}">{{ i.status }}
 
                             </label>
@@ -560,7 +560,7 @@
             <label class="col-3 middle">Berat</label>
             <form [formGroup]="formBerat">
                 <div class="col-2">
-                    <input [(ngModel)]="apr.weight" type="text" formControlName="berat" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat" disabled>
+                    <input [(ngModel)]="apr.weight" type="text" formControlName="berat" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
                 </div>
                 <div class="col-2">
                     <select [(ngModel)]="measurementType" [ngModelOptions]="{standalone: true}" class="f-control" disabled>
@@ -605,20 +605,11 @@
                             <td>{{ courier.name }}</td>
                             <!-- <td>i</td> -->
                             <td class="right">
-                                <div *ngIf="courier.isUse === true; else login">
                                     <label class="switch small w__margin--switch">
                                         <input
-                                            type="checkbox"    (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" >
+                                            type="checkbox" (change)="onChangeCourier(courier.code, $event.target.checked)" [checked]="courier.isUse" [value]="courier.code" >
                                         <span class="slider round"></span>
                                     </label>
-                                </div>
-                                <ng-template #login>
-                                    <label class="switch small w__margin--switch">
-                                        <input
-                                            type="checkbox"   (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </ng-template>
                                 <!-- <label class="switch small">
                                     <input (change)="onChangeCourier(courier.code, $event.target.checked)"
                                         [value]="courier.code" type="checkbox">

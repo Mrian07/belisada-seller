@@ -149,8 +149,10 @@ export class AddProductComponent implements OnInit {
         this.apr.specialPrice = res.data.specialPrice;
         this.apr.dimensionslength = res.data.dimensionslength;
         this.apr.dimensionsheight = res.data.dimensionsheight;
-        this.aprEdit.couriers = res.data.couriers;
-        console.log('123213213', this.aprEdit.couriers);
+        this.apr.couriers = res.data.couriers.filter(x => x.isUse === true).map(m => m.code);
+        this.apr.weight = res.data.weight;
+        this.apr.classification = res.data.classification;
+        console.log('123213213', this.apr.couriers);
         this.calculateDiscount();
         console.log(res);
       });
@@ -554,6 +556,8 @@ export class AddProductComponent implements OnInit {
       const index = this.apr.couriers.findIndex(x => x === code);
       if (index !== -1) { this.apr.couriers.splice(index, 1); }
     }
+
+    console.log('this.apr.couriers: ', this.apr.couriers);
   }
 
   specMapping(specValues) {
@@ -594,8 +598,8 @@ export class AddProductComponent implements OnInit {
     // if ( this.aprEdit.couriers.)
 
     // const selectedCategory = this.aprEdit.couriers.find(item => item.isUse === true);
-   this.tssss = this.aprEdit.couriers.filter(element => element.isUse === true);
-   const selectedCategory = this.tssss.filter(item => item.code);
+    this.tssss = this.apr.couriers.filter(element => element.isUse === true);
+    const selectedCategory = this.tssss.filter(item => item.code);
     console.log('ini filteredElements',  this.tssss.find(x => x.code) );
     const kirim = {
       couriers: this.apr.couriers,
@@ -604,7 +608,12 @@ export class AddProductComponent implements OnInit {
       pricelist: this.apr.pricelist,
       productId: this.aprEdit.productId,
       qty: this.apr.qty,
-      specialPrice: this.apr.specialPrice
+      specialPrice: this.apr.specialPrice,
+      dimensionsWidth: this.apr.dimensionsWidth,
+      dimensionsheight: this.apr.dimensionsheight,
+      dimensionslength: this.apr.dimensionslength,
+      weight: this.apr.weight,
+      classification:  this.apr.classification
     };
     // this.loadingService.show();
     console.log('kirim:', kirim);
