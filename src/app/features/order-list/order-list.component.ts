@@ -3,6 +3,7 @@ import { TransactionService } from '@belisada-seller/core/services/transaction/t
 import { Cart } from '@belisada-seller/core/models';
 import { Router } from '@angular/router';
 
+import { environment } from '@env/environment';
 @Component({
   selector: 'bss-order-list',
   templateUrl: './order-list.component.html',
@@ -39,7 +40,7 @@ export class OrderListComponent implements OnInit, OnChanges {
     this.orderList(this.currentValueStatus);
   }
   goToInvoice(e) {
-    this.router.navigate(['invoice-number/' + e]);
+    window.open(environment.baseUrlSeller + '/invoice-number/' + e, '_blank');
   }
 
   orderList(statusOrder?: string) {
