@@ -6,7 +6,7 @@ import {
   Province, City, District, Village
 } from '@belisada-seller/core/models';
 import { StoreService } from '@belisada-seller/core/services';
-import { environment } from '@env/environment.local';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-profile-seller',
