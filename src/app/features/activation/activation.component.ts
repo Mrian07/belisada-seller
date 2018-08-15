@@ -1,7 +1,7 @@
 import { UserService } from '@belisada-seller/core/services';
-import { ActivationSeller } from './../../core/models/user/user.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivationSeller } from '@belisada-seller/core/models';
 
 @Component({
   selector: 'bss-activation',
@@ -11,7 +11,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 export class ActivationComponent implements OnInit {
   viewSuccess: boolean;
   name: string;
-  data: ActivationSeller = new ActivationSeller;
+  data: ActivationSeller = new ActivationSeller();
   msg: string;
   constructor(private router: Router,
     private userService: UserService,
@@ -27,7 +27,7 @@ export class ActivationComponent implements OnInit {
         // this.msg = rsl.message;
         if (respon.status === 1) {
 
-          if(respon.status === 1){
+          if(respon.status === 1) {
             this.userService.setUserToLocalStorage(respon.data.token);
             this.name = respon.data.name;
             setTimeout(() => {
