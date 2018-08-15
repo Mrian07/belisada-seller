@@ -6,6 +6,7 @@ import {
   Province, City, District, Village
 } from '@belisada-seller/core/models';
 import { StoreService } from '@belisada-seller/core/services';
+import { environment } from '@env/environment.local';
 
 @Component({
   selector: 'app-profile-seller',
@@ -32,6 +33,7 @@ export class ProfileSellerComponent implements OnInit {
   statusCode: any;
   storeUrl: any;
   fm: any = {};
+  baseUrlBuyer: string = environment.baseUrlBuyer;
 
   constructor(
     private storeService: StoreService
