@@ -148,8 +148,10 @@ export class AddProductComponent implements OnInit {
         this.apr.specialPrice = res.data.specialPrice;
         this.apr.dimensionslength = res.data.dimensionslength;
         this.apr.dimensionsheight = res.data.dimensionsheight;
-        this.aprEdit.couriers = res.data.couriers;
-        console.log('123213213', this.aprEdit.couriers);
+        this.apr.couriers = res.data.couriers.filter(x => x.isUse === true).map(m => m.code);
+        this.apr.weight = res.data.weight;
+        this.apr.classification = res.data.classification;
+        console.log('123213213', this.apr.couriers);
         this.calculateDiscount();
         console.log(res);
       });
@@ -186,7 +188,7 @@ export class AddProductComponent implements OnInit {
     });
     this.formHarga = this.fb.group({
       harga: [null, [Validators.required]],
-      specialPrice: [0,  [Validators.required]]
+      specialPrice: [0]
     });
   }
 
@@ -553,6 +555,8 @@ export class AddProductComponent implements OnInit {
       const index = this.apr.couriers.findIndex(x => x === code);
       if (index !== -1) { this.apr.couriers.splice(index, 1); }
     }
+
+    console.log('this.apr.couriers: ', this.apr.couriers);
   }
 
   specMapping(specValues) {
@@ -593,8 +597,8 @@ export class AddProductComponent implements OnInit {
     // if ( this.aprEdit.couriers.)
 
     // const selectedCategory = this.aprEdit.couriers.find(item => item.isUse === true);
-   this.tssss = this.aprEdit.couriers.filter(element => element.isUse === true);
-   const selectedCategory = this.tssss.filter(item => item.code);
+    this.tssss = this.apr.couriers.filter(element => element.isUse === true);
+    const selectedCategory = this.tssss.filter(item => item.code);
     console.log('ini filteredElements',  this.tssss.find(x => x.code) );
     const kirim = {
       couriers: this.apr.couriers,
@@ -603,27 +607,43 @@ export class AddProductComponent implements OnInit {
       pricelist: this.apr.pricelist,
       productId: this.aprEdit.productId,
       qty: this.apr.qty,
-      specialPrice: this.apr.specialPrice
+      specialPrice: this.apr.specialPrice,
+      dimensionsWidth: this.apr.dimensionsWidth,
+      dimensionsheight: this.apr.dimensionsheight,
+      dimensionslength: this.apr.dimensionslength,
+      weight: this.apr.weight,
+      classification:  this.apr.classification
     };
     // this.loadingService.show();
     console.log('kirim:', kirim);
     console.log('12321321', selectedCategory);
-
-    if (this.errMaxDiscount === true) {
-      swal('Opps harga promo anda melebihi harga jual');
-    } else {
-          this.productService.editProduct(kirim).subscribe(response => {
-      this.loadingService.hide();
-      this.router.navigate(['/listing-product']);
-    });
-    }
+      if (this.errMaxDiscount === true) {
+          swal('Opps harga promo anda melebihi harga jual');
+        } else {
+              this.productService.editProduct(kirim).subscribe(response => {
+          this.loadingService.hide();
+          this.router.navigate(['/listing-product']);
+        });
+        }
+    //       this.productService.editProduct(kirim).subscribe(response => {
+    //   this.loadingService.hide();
+    //   this.router.navigate(['/listing-product']);
+    // });
 
   }
 
   onProductSubmit() {
     if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
-      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid && this.errMaxDiscount !== true
+      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid
     ) {
+      if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
+        swal(
+          'Warning',
+          'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
+          'warning'
+        );
+        return;
+      }
         this.loadingService.show();
         this.specMapping(this.spec);
         if (this.measurementType === '1') {
@@ -648,8 +668,8 @@ export class AddProductComponent implements OnInit {
       this.validateAllFormFields(this.formDimensiL);
       this.validateAllFormFields(this.formDimensiT);
       this.validateAllFormFields(this.formHarga);
-      this.errMaxDiscount = true;
-      console.log(this.apr.name);
+      // this.errMaxDiscount = true;
+      console.log('ini kajsdkjasdlj',this.apr.name);
       if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
         swal(
           'Warning',
