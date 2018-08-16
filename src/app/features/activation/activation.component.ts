@@ -27,7 +27,7 @@ export class ActivationComponent implements OnInit {
         // this.msg = rsl.message;
         if (respon.status === 1) {
 
-          if(respon.status === 1) {
+          if (respon.status === 1) {
             this.userService.setUserToLocalStorage(respon.data.token);
             this.name = respon.data.name;
             setTimeout(() => {
