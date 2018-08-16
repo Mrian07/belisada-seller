@@ -10,7 +10,6 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
 
   constructor(public globals: Globals, titleService: Title, router: Router, activatedRoute: ActivatedRoute) {
     router.events.subscribe(event => {
