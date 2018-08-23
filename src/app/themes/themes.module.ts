@@ -16,10 +16,12 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { AuthLayoutComponent } from '@belisada-seller/themes/layout/auth/auth-layout.component';
 import { SideAuthComponent } from '@belisada-seller/themes/components/side-auth/side-auth.component';
+import { ModelsComponent } from '@belisada-seller/shared/components/models/models.component';
 
 library.add(fas, far, fab);
 
 const COMPONENTS = [
+  ModelsComponent,
   HeaderComponent,
   FooterComponent,
   SideAuthComponent,

@@ -73,7 +73,7 @@
 			</div>
 			<div>
         <span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
-				<div class="btn-order">
+				<div class="btn-order" (click)="btnResi = !btnResi"> 
 					Input No Resi
         </div>
 
@@ -81,3 +81,32 @@
 		</div>
 	</div>
 </div>
+
+
+<app-models [(visible)]="btnResi" class="frameDialog">
+	<div class="no-resi tr-black">No Pesanan: #65464646</div>
+	<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan. 
+		Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
+	<div class="modal-body">
+  
+		<span class="line-resi">Alamat Pengiriman</span>
+		<span class="line-resi tr-black">Mr Samuel</span>
+		<span class="line-resi tr-black">KOTA BOGOR ALAMAT</span>
+
+		<div class="c-resi">
+			<div>Shipment Method</div>
+			<div>Estimated Shipping Fee</div>
+			<div>Actual Shipping Fee*</div>
+
+			<div class="tr-black">JNE REGULAR</div>
+			<div class="tr-black">Rp.20.000</div>
+			<div><input type="text"></div>
+		</div>
+	</div>
+
+	<div class="foot-resi">
+		<span class="btn-konfirm">Konfirmasi</span>
+		<span class="btn-batal">Batal</span>
+	</div>
+
+  </app-models>

@@ -23,7 +23,8 @@ export class OrderListComponent implements OnInit, OnChanges {
   get status(): string { return this._status; }
 
   listCart: Cart[];
-
+  btnResi: any;
+  
   private currentValueStatus: string = this._status;
 
   constructor(

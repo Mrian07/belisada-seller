@@ -101,3 +101,64 @@
     cursor: pointer;
     margin-left: 5px;
 }
+
+.modal-body{
+    background: #f7f7f7;
+    padding:10px;
+    border-radius:5px;
+    font-size: 12px;
+}
+
+.no-resi{
+    margin-bottom:20px;
+    font-size: 12px;
+}
+
+.con-resi{
+    font-size: 12px;
+    margin-bottom:10px;
+}
+
+.line-resi{
+    display: block;
+}
+
+.c-resi{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-size: 12px;
+}
+
+.tr-black{
+    color: #000000;
+}
+
+.foot-resi{
+    margin-top: 20px;
+    border-top: 1px solid #dddddd;
+    background: #f7f7f7;
+    padding: 5px;
+    text-align: right;
+}
+
+.btn-konfirm{
+    padding: 5px;
+    color: #ffffff;
+    background: #f5660d;
+    border-radius: 5px;
+    font-size: 12px;
+    border: 1px solid #c95811;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.btn-batal{
+    padding: 5px;
+    color: #3f3f3f;
+    background: #e5e5e5;
+    border-radius: 5px;
+    font-size: 12px;
+    border: 1px solid #3f3f3f;
+    margin-right: 10px;
+    cursor: pointer;
+}
