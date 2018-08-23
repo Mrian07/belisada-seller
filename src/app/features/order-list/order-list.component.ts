@@ -12,7 +12,7 @@ import { environment } from '@env/environment';
 export class OrderListComponent implements OnInit, OnChanges {
 
   // @Input() status: string;
-
+  visible: boolean;
   private _status = '';
 
   @Input()
@@ -23,7 +23,7 @@ export class OrderListComponent implements OnInit, OnChanges {
   get status(): string { return this._status; }
 
   listCart: Cart[];
-  btnResi: any;
+  btnResi: boolean;
   
   private currentValueStatus: string = this._status;
 
@@ -55,6 +55,11 @@ export class OrderListComponent implements OnInit, OnChanges {
       this.listCart = response.content;
       console.log(this.listCart);
     });
+  }
+
+  close() {
+    this.btnResi = false;
+
   }
 
 }

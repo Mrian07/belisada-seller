@@ -152,6 +152,10 @@
     cursor: pointer;
 }
 
+.btn-konfirm:hover{
+    background: #fa8034;
+}
+
 .btn-batal{
     padding: 5px;
     color: #3f3f3f;
@@ -163,6 +167,11 @@
     cursor: pointer;
 }
 
+.btn-batal:hover{
+    background: #f2f0f0;
+}
+
 .field-r{
     width: 100%;
+    padding:8px;
 }
