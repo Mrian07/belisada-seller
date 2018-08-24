@@ -73,7 +73,7 @@
 			</div>
 			<div>
         <span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
-				<div class="btn-order" (click)="btnResi = !btnResi"> 
+				<div class="btn-order" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)"> 
 					Input No Resi
         </div>
 
@@ -84,32 +84,52 @@
 
 
 <app-models [(visible)]="btnResi" class="frameDialog">
-	<div class="no-resi tr-black">No Pesanan: #65464646</div>
-	<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan. 
-		Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
-	<div class="modal-body">
-  
-		<span class="line-resi">Alamat Pengiriman</span>
-		<span class="line-resi tr-black">Mr Samuel</span>
-		<span class="line-resi tr-black">KOTA BOGOR ALAMAT</span>
-
-		<div class="c-resi">
-			<div>Shipment Method</div>
-			<div>Estimated Shipping Fee</div>
-			<div>Actual Shipping Fee*</div>
-
-			<div class="tr-black">JNE REGULAR</div>
-			<div class="tr-black">Rp.20.000</div>
-			<div><input type="text"></div>
+	<div *ngIf="isErrorResi == true">
+		<div class="error-body">
+			Maaf nomor resi yang Anda masukan tidak terdaftar<br> atau sudah tidak berlaku.
 		</div>
-
-		<div>No. Resi</div>
-		<div><input type="text" class="field-r"></div>
 	</div>
+	<div *ngIf="isForm==true">
+		<div class="no-resi tr-black">No Pesanan: #{{info.paymentNumber}}</div>
+		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan. 
+			Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
+		<form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit()" novalidate>
+			<input class="field-r" type="hidden" formControlName="orderNumber">
+			<div class="modal-body">
+				{{orderNumber}}
+				<span class="line-resi">Alamat Pengiriman</span>
+				<span class="line-resi tr-black">{{info.namaPenerima}}</span>
+				<span class="line-resi tr-black">{{info.alamatPenerima}}.</span>
 
-	<div class="foot-resi">
-		<span class="btn-konfirm">Konfirmasi</span>
-		<span class="btn-batal" (click)="close()">Batal</span>
+				<div class="c-resi">
+					<div>Shipment Method</div>
+					<div>Estimated Shipping Fee</div>
+					<div>Actual Shipping Fee*</div>
+
+					<div class="tr-black">{{info.courierCode}}</div>
+					<div class="tr-black">Rp.20.000</div>
+					<div><input class="field-r" type="text" formControlName="actualCourierPrice"><br>
+						<span class="text-small">*Biaya pengiriman yang dikeluarkan.</span>
+					</div>
+				</div>
+
+				<div class="no-resi">No. Resi</div>
+				<div>
+					<input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
+				</div>
+			</div>
+
+			<div class="foot-resi">
+
+				<input type="button" (click)="prosesResi()" class="btn btn--orange m-left" value="Konfirmasi">
+				<input type="button" (click)="close()" class="btn btn--silver" value="Batal">
+			</div>
+		</form>
 	</div>
-
+	<div *ngIf="isProsesResi==true">
+		<div class="success-body">
+			Proses kirim Resi berhasil
+		</div>
+	</div>
+	
   </app-models>

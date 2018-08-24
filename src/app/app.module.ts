@@ -24,6 +24,7 @@ import { ListingProductComponent } from '@belisada-seller/features/product/listi
 import { OrderComponent } from '@belisada-seller/features/order/order.component';
 import { OrderListComponent } from '@belisada-seller/features/order-list/order-list.component';
 import { FieldErrorComponent } from '@belisada-seller/features/product/field-error/field-error.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 library.add(fas, far, fab);
 
@@ -40,6 +41,7 @@ library.add(fas, far, fab);
     FieldErrorComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     FontAwesomeModule,
     AppRoutingModule,

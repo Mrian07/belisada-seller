@@ -141,37 +141,66 @@
     text-align: right;
 }
 
-.btn-konfirm{
-    padding: 5px;
-    color: #ffffff;
-    background: #f5660d;
-    border-radius: 5px;
-    font-size: 12px;
-    border: 1px solid #c95811;
-    margin-right: 10px;
-    cursor: pointer;
-}
+// .btn-konfirm{
+//     padding: 5px;
+//     color: #ffffff;
+//     background: #f5660d;
+//     border-radius: 5px;
+//     font-size: 12px;
+//     border: 1px solid #c95811;
+//     margin-right: 10px;
+//     cursor: pointer;
+// }
 
-.btn-konfirm:hover{
-    background: #fa8034;
-}
+// .btn-konfirm:hover{
+//     background: #fa8034;
+// }
 
-.btn-batal{
-    padding: 5px;
-    color: #3f3f3f;
-    background: #e5e5e5;
-    border-radius: 5px;
-    font-size: 12px;
-    border: 1px solid #3f3f3f;
-    margin-right: 10px;
-    cursor: pointer;
-}
+// .btn-batal{
+//     padding: 5px;
+//     color: #3f3f3f;
+//     background: #e5e5e5;
+//     border-radius: 5px;
+//     font-size: 12px;
+//     border: 1px solid #3f3f3f;
+//     margin-right: 10px;
+//     cursor: pointer;
+// }
 
-.btn-batal:hover{
-    background: #f2f0f0;
-}
+// .btn-batal:hover{
+//     background: #f2f0f0;
+// }
 
 .field-r{
     width: 100%;
     padding:8px;
+}
+
+.no-resi{
+    margin-top:10px;
+    margin-bottom:0px;
+}
+
+.m-left{
+    margin-right: 10px;
+}
+
+.text-small{
+    font-size: 11px;
+}
+
+.error-body{
+    font-size: 15px;
+    color: #f53b1a;
+    text-align: center;
+    margin-top:20px;
+    background: #f7f7f7;
+}
+
+.success-body{
+    font-size: 15px;
+    color: #111111;
+    text-align: center;
+    margin-top:20px;
+    background: #f7f7f7;
 }
