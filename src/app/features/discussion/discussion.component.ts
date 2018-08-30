@@ -8,6 +8,8 @@ import { DiscussionService } from '@belisada-seller/core/services/discussion/dis
 })
 export class DiscussionComponent implements OnInit {
 
+  list: any;
+
   constructor(
     public discussionService: DiscussionService,
   ) { }
@@ -22,7 +24,8 @@ export class DiscussionComponent implements OnInit {
       itemperpage: 1,
     };
     this.discussionService.getDiscussion(queryParams).subscribe(response => {
-      
+      console.log(response.content);
+      this.list = response.content;
     });
   }
 

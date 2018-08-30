@@ -59,7 +59,7 @@ export class ListingProductComponent implements OnInit {
             this.pages.push(r);
           }
         }
-        console.log('proddetail', this.proddetail);
+
         });
     });
   }
@@ -84,7 +84,7 @@ export class ListingProductComponent implements OnInit {
       this.rowSelected = idReserva;
       console.log('id', idReserva);
     } else {
-      if (this.rowSelected == idReserva) {
+      if (this.rowSelected === idReserva) {
         this.rowSelected = -1;
       } else {
         this.rowSelected = idReserva;

@@ -1,14 +1,16 @@
-<div class="title-dis">
-  <img src="../../src/assets/img/aaaa.jpeg"> DELL INSPIRON S5 i7 1TB
-</div>
-<div class="contain-dis">
-  <div class="question-dis">
-      Mr. Mono<br>
-      Gan laptopnya masih ada?
+<div *ngFor="let item of list">
+  <div class="title-dis">
+    <img src="../../src/assets/img/aaaa.jpeg"> {{item}}
   </div>
-  <textarea class="text-area"></textarea>
-  <div class="btn-dis">
-    <input type="button" (click)="prosesResi()" class="btn btn--orange m-left" value="Kirim">
-		<input type="button" (click)="close()" class="btn btn--silver txt-batal" value="Batal">
+  <div class="contain-dis">
+    <div class="question-dis">
+        Mr. Mono<br>
+        Gan laptopnya masih ada?
+    </div>
+    <textarea class="text-area"></textarea>
+    <div class="btn-dis">
+      <input type="button" (click)="prosesResi()" class="btn btn--orange m-left" value="Kirim">
+      <input type="button" (click)="close()" class="btn btn--silver txt-batal" value="Batal">
+    </div>
   </div>
 </div>
