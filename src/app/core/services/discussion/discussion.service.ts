@@ -22,4 +22,15 @@ export class DiscussionService {
         map(response => response as GetDisResponse)
       );
   }
+
+  getAllDisccusion(productId, queryParams): Observable<GetDisResponse> {
+    let params = new HttpParams();
+    Object.keys(queryParams).forEach(function(k) {
+      params = params.append(k, queryParams[k]);
+    });
+    return this.http.get(this.configuration.apiURL + '/productfeedback/discus/all/' + productId , {params: params})
+      .pipe(
+        map(response => response as GetDisResponse)
+      );
+  }
 }

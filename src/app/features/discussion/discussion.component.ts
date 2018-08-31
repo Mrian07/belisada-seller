@@ -9,6 +9,10 @@ import { DiscussionService } from '@belisada-seller/core/services/discussion/dis
 export class DiscussionComponent implements OnInit {
 
   list: any;
+  listChild: any[];
+  openDetail: boolean;
+  productId: number;
+  discusId: number;
 
   constructor(
     public discussionService: DiscussionService,
@@ -24,9 +28,31 @@ export class DiscussionComponent implements OnInit {
       itemperpage: 1,
     };
     this.discussionService.getDiscussion(queryParams).subscribe(response => {
-      console.log(response.content);
       this.list = response.content;
     });
+  }
+
+  openOS(status, productId, discusId) {
+    if (status === true) {
+      this.discusId = discusId;
+      this.openDetail = false;
+    } else {
+      this.discusId = discusId;
+      this.openDetail = true;
+
+      const queryParams = {
+        page: 1,
+        itemperpage: 1,
+      };
+      this.discussionService.getAllDisccusion(productId, queryParams).subscribe(response => {
+        console.log('detail: ', response.content);
+        this.listChild = response.content[0].childs;
+      });
+
+    }
+
+
+
   }
 
 }

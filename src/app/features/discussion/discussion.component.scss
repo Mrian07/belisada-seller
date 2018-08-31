@@ -3,6 +3,23 @@
     padding: 8px;
     font-weight: bold;
     box-shadow: 2px 2px 4px #c9c9c9;
+    display: grid;
+    grid-template-columns: repeat(2, 130px);
+    cursor: pointer;
+    margin-top:10px;
+}
+
+.i{
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+}
+
+.iImg{
+
+}
+
+.iCon{
+
 }
 
 .question-dis{
@@ -14,6 +31,7 @@
     margin-top:5px;
     background: #ffffff;
     padding: 8px;
+    margin-bottom:20px;
 }
 
 .text-area{

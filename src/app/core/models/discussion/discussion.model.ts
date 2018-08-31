@@ -35,3 +35,18 @@ export class GetChilds {
     label: string;
     imageAvatarUrl: string;
 }
+
+export class AllDis {
+    content: ContainAllDis[];
+    last: true;
+    totalPages: number;
+    totalElements: number;
+    first: true;
+    numberOfElements: number;
+    size: number;
+    number: number;
+}
+
+export class ContainAllDis {
+
+}
