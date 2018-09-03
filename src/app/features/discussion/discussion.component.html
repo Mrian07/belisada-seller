@@ -1,4 +1,4 @@
-<div *ngFor="let item of list">
+<div *ngFor="let item of list; let in = index">
   <div class="title-dis" (click)="openOS(openDetail, item.productId, item.discusId)">
 
           <img src="{{item.productImage}}" width="100">
@@ -10,18 +10,52 @@
     <div class="question-dis" *ngFor="let itemChild of listChild">
       <div class="i">
           <div class="iImg">
-              <img src="{{item.imageAvatarUrl}}" width="100"> 
+              <img src="{{itemChild.imageAvatarUrl}}" width="100"> 
           </div>
           <div class="iCon">
               <p><label>{{itemChild.name}}</label></p>
               {{itemChild.message}}
           </div>
       </div>
+      <div class="i" *ngFor="let itemChilds of itemChild.childs">
+          <div class="iImg">
+              <img src="{{itemChilds.imageAvatarUrl}}" width="100"> 
+          </div>
+          <div class="iCon">
+              <p><label>{{itemChilds.name}}</label></p>
+              {{itemChilds.message}}
+          </div>
+      </div>
     </div>
-    <textarea class="text-area"></textarea>
-    <div class="btn-dis">
-      <input type="button" (click)="prosesResi()" class="btn btn--orange m-left" value="Kirim">
-      <input type="button" (click)="close()" class="btn btn--silver txt-batal" value="Batal">
-    </div>
+ 
+    <form class="ui form" [formGroup]="inputFormGroup[item.productId]" (ngSubmit)="onSubmit(item.productId)" novalidate>
+        <input type="hidden" formControlName="discusParentId">
+        <input type="hidden" formControlName="productId">
+        <textarea class="text-area" formControlName="message"></textarea>
+        <div class="btn-dis">
+          <button type="submit" class="btn btn--orange m-left">Kirim</button>
+          <input type="button" (click)="close()" class="btn btn--silver txt-batal" value="Batal">
+        </div>
+      </form>
   </div>
 </div>
+
+ <!-- <form class="ui form" [formGroup]="inputFormGroup" (ngSubmit)="onSubmit()" novalidate>
+        <input type="text" formControlName="productId">
+        <textarea class="text-area" formControlName="message"></textarea>
+        <div class="btn-dis">
+          <button type="submit" class="btn btn--orange m-left">Kirim</button>
+          <input type="button" (click)="close()" class="btn btn--silver txt-batal" value="Batal">
+        </div>
+      </form> -->
+
+
+<!-- <form class="ui form" [formGroup]="inputFormGroup" (ngSubmit)="onSubmit()" novalidate>
+    <input type="text" formControlName="productId">
+    <div class="view-line">
+        <div class="title-line">Nama</div> <input type="text" class="input-style-text" formControlName="message">
+    </div>
+
+    <br>
+    <button type="submit" class="btn btn--orange component-center">Update</button> <button type="submit" class="btn btn--orange component-center" (click)="cancel()">Cancel</button>
+</form> -->

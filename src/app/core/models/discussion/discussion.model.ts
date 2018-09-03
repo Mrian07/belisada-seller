@@ -5,7 +5,7 @@ export class GetDisRequest {
 }
 
 export class GetDisResponse {
-    content: DisContain;
+    content: DisContain[];
     last: boolean;
     totalPages: number;
     totalElements: number;
@@ -23,6 +23,7 @@ export class DisContain {
     discusId: number;
     label: string;
     imageAvatarUrl: string;
+    productId: number;
     childs: GetChilds[];
 }
 
@@ -49,4 +50,19 @@ export class AllDis {
 
 export class ContainAllDis {
 
+}
+
+export class AddDisResponse {
+    status: number;
+    message: string;
+}
+
+export class AddDisRequest {
+    message: string;
+    productId: number;
+    discusId: number;
+    discusParentId: number;
+    reviewParentId: number;
+    star: number;
+    title: string;
 }
