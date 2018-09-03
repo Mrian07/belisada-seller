@@ -1,18 +1,18 @@
-<div *ngIf="param1 === undefined">
+<form [formGroup]="addProductForm" (submit)="onProductSubmit()">
     <h2 class="test">Ubah Gambar Produk</h2>
     <p>Minimal gambar 2 dan maksimal gambar produk 5</p>
 
     <div class="add-product-form-wrapper">
         <ul class="add_product_image clearfix" id="image-list">
-            <li class="u-inline-list-gap" *ngFor="let item of apr.imageUrl; let i = index">
+            <li class="u-inline-list-gap" *ngFor="let item of f.imageUrl.value; let i = index">
                 <div class="image-preview" [ngStyle]="{'background-image': 'url(' + item + ')'}">
-                    <span class="action-button" (click)="removeImage(i)">
+                    <span class="action-button" (click)="removeImage(i)" *ngIf="disabled === false">
                         <fa-icon [icon]="['fas', 'trash']"></fa-icon>
                     </span>
                 </div>
             </li>
             <li>
-                <div class="pikcker-wrapper picker-add-image" *ngIf="(apr.imageUrl.length < 5)">
+                <div class="pikcker-wrapper picker-add-image" *ngIf="(f.imageUrl.value.length < 5) && disabled === false">
                     <input type="file" accept="image/jpeg,.jpeg,.jpg,image/png,.png" (change)="getSelectedFiles($event)">
                 </div>
             </li>
@@ -23,24 +23,45 @@
     <div class="add-product-form-wrapper">
         <div class="row f-group">
             <label for="staticEmail" class="col-3 middle">Nama Produk</label>
-            <form [formGroup]="form">
-                <div class="col-9">
-                    <input type="text" maxlength="30" [(ngModel)]="apr.name" formControlName="name" class="f-control" placeholder="Nama Produk">
-                    <!-- <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Silahkan Masukan Nama Toko Kamu"></bss-field-error> -->
-                    <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Silahkan Masukan Nama Produk Kamu"></bss-field-error>
+            <div class="col-9">
+                <div class="drick-select-container drick-select-container--fluid">
+                    <div class="ui icon input parent">
+                        <input class="f-control drick-select__text" [ngClass]="{'active':onProductNameFocus}" type="text"
+                            formControlName="name" (keyup)="searchProductName($event)" (focus)="onProductNameFocus = true"
+                            (focusout)="onProductNameBlur()" maxlength="160" placeholder="Nama Produk">
+                        <i class="drick-select__icon caret down icon"></i>
+                    </div>
+                    <div class="drick-select-container--toggle" [ngClass]="{'active':onProductNameFocus}"
+                        id="drick-scroll-container--brand">
+                        <ul class="drick-select-list">
+                            <li *ngFor="let i of productSuggestionList" (click)="selectProductName(i)">
+                                {{i.name}}
+                            </li>
+                            <li *ngIf="(productSuggestionList.length === 0)">
+                                Nama produk tidak ditemukan
+                            </li>
+                        </ul>
+                    </div>
+                    <div *ngIf="f.name.touched && f.name.errors">
+                        <bss-field-error [displayError]="f.name.errors.required" errorMsg="Silahkan masukan nama produk kamu"></bss-field-error>
+                    </div>
                 </div>
-            </form>
+
+                <!-- <input type="text" maxlength="30" formControlName="name" (keyup)="getProductSuggestion($event)" class="f-control" placeholder="Nama Produk">
+                <div *ngIf="f.name.touched && f.name.errors">
+                    <bss-field-error [displayError]="f.name.errors.required" errorMsg="Silahkan masukan nama produk kamu"></bss-field-error>
+                </div> -->
+            </div>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Merek</label>
             <div class="col-9">
-                <!-- <input type="text" class="f-control" placeholder="Merek"> -->
 
                 <div class="drick-select-container">
                     <div class="ui icon input parent">
-                        <input class="f-control drick-select__text" [ngClass]="{'active':onBrandFocus}" type="text" [(ngModel)]="brandName"
-                            (keyup)="searchBrand()"
-                            (focus)="onBrandFocus = true" (focusout)="onBrandBlur()" placeholder="Select one">
+                        <input class="f-control drick-select__text" [ngClass]="{'active':onBrandFocus}" type="text"
+                            formControlName="brandName" (keyup)="searchBrand()" (focus)="onBrandFocus = true"
+                            (focusout)="onBrandBlur()" placeholder="Select one">
                         <i class="drick-select__icon caret down icon"></i>
                     </div>
                     <div class="drick-select-container--toggle" [ngClass]="{'active':onBrandFocus}"
@@ -67,19 +88,19 @@
                         <td>
                             <div class="drick-select-container">
                                 <div class="ui icon input parent">
-                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus}" type="text" [(ngModel)]="categoryName"
-                                        (keyup)="searchCategory()" [ngModelOptions]="{standalone: true}"
-                                        (focus)="onCategoryFocus = true" (focusout)="onCategoryBlur()" placeholder="Select one">
+                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus.C1}" type="text" [(ngModel)]="categoryName.C1"
+                                        (keyup)="searchCategory(cte.C1)" [ngModelOptions]="{standalone: true}"
+                                        (focus)="onCategoryFocus.C1 = true" (focusout)="onCategoryBlur(cte.C1)"
+                                        [disabled]="disabled" placeholder="Select one">
                                     <i class="drick-select__icon caret down icon"></i>
                                 </div>
-                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus}"
-                                    id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown('C1')">
+                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus.C1}"
+                                    id="drick-scroll-container--category">
                                     <ul class="drick-select-list">
-                                        <li *ngFor="let i of categoryList.data" (click)="selectCategory(i)">
-                                            {{i.name}}
+                                        <li *ngFor="let category of categoryList.C1.data" (click)="selectCategory(category)">
+                                            {{category.name}}
                                         </li>
-                                        <li *ngIf="(categoryList.data.length === 0)">
+                                        <li *ngIf="(categoryList.C1.data.length === 0)">
                                             Category tidak ditemukan
                                         </li>
                                     </ul>
@@ -89,19 +110,19 @@
                         <td>
                             <div class="drick-select-container">
                                 <div class="ui icon input parent">
-                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocusC2}" type="text" [(ngModel)]="categoryNameC2"
-                                        (keyup)="searchCategoryC2()" [ngModelOptions]="{standalone: true}"
-                                        (focus)="onCategoryFocusC2 = true" (focusout)="onCategoryBlurC2()" placeholder="Select one">
+                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus.C2}" type="text" [(ngModel)]="categoryName.C2"
+                                        (keyup)="searchCategory(cte.C2, categoryId.C1)" [ngModelOptions]="{standalone: true}"
+                                        (focus)="onCategoryFocus.C2 = true" (focusout)="onCategoryBlur(cte.C2)"
+                                        [disabled]="disabled" placeholder="Select one">
                                     <i class="drick-select__icon caret down icon"></i>
                                 </div>
-                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC2}"
-                                    id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown('C2', idC1)">
+                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus.C2}"
+                                    id="drick-scroll-container--category">
                                     <ul class="drick-select-list">
-                                        <li *ngFor="let i of categoryListC2.data" (click)="selectCategoryC2(i)">
-                                            {{i.name}}
+                                        <li *ngFor="let category of categoryList.C2.data" (click)="selectCategory(category)">
+                                            {{category.name}}
                                         </li>
-                                        <li *ngIf="(categoryListC2.data.length === 0)">
+                                        <li *ngIf="(categoryList.C2.data.length === 0)">
                                             Category tidak ditemukan
                                         </li>
                                     </ul>
@@ -111,19 +132,19 @@
                         <td>
                             <div class="drick-select-container">
                                 <div class="ui icon input parent">
-                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocusC3}" type="text" [(ngModel)]="categoryNameC3"
-                                        (keyup)="searchCategoryC3()" [ngModelOptions]="{standalone: true}"
-                                        (focus)="onCategoryFocusC3 = true" (focusout)="onCategoryBlurC3()" placeholder="Select one">
+                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus.C3}" type="text" [(ngModel)]="categoryName.C3"
+                                        (keyup)="searchCategory(cte.C3, categoryId.C2)" [ngModelOptions]="{standalone: true}"
+                                        (focus)="onCategoryFocus.C3 = true" (focusout)="onCategoryBlur(cte.C3)"
+                                        [disabled]="disabled" placeholder="Select one">
                                     <i class="drick-select__icon caret down icon"></i>
                                 </div>
-                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC3}"
-                                    id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown('C3', idC2)">
+                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus.C3}"
+                                    id="drick-scroll-container--category">
                                     <ul class="drick-select-list">
-                                        <li *ngFor="let i of categoryListC3.data" (click)="selectCategoryC3(i)">
-                                            {{i.name}}
+                                        <li *ngFor="let category of categoryList.C3.data" (click)="selectCategory(category)">
+                                            {{category.name}}
                                         </li>
-                                        <li *ngIf="(categoryListC2.data.length === 0)">
+                                        <li *ngIf="(categoryList.C3.data.length === 0)">
                                             Category tidak ditemukan
                                         </li>
                                     </ul>
@@ -132,19 +153,17 @@
                         </td>
                     </tr>
                 </table>
-
-
             </div>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Deskripsi</label>
             <div class="col-9">
-                    <form [formGroup]="formDesc">
-                            <div class="col-9">
-                                    <textarea [(ngModel)]="apr.description" maxlength="100" formControlName="desc" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
-                                    <bss-field-error [displayError]="isFieldValidDesc('desc')" errorMsg="Silahkan Masukan desc produk kamu"></bss-field-error>
-                                </div>
-                    </form>
+                <div class="col-9">
+                    <textarea formControlName="description" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
+                    <div *ngIf="f.description.touched && f.description.errors">
+                        <bss-field-error [displayError]="f.description.touched && f.description.errors.required" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row f-group">
@@ -153,11 +172,8 @@
                 <label *ngIf="categoryAttributes.length === 0" class="middle">*Silahkan pilih kategori terlebih dahulu</label>
                 <div class="f-group" *ngFor="let categoryAttribute of categoryAttributes">
 
-                    <!-- <input type="text" [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control"
-                        [placeholder]="categoryAttribute.name" *ngIf="categoryAttribute.isInstanceAttribute === true"
-                        [attr.required]="categoryAttribute.isMandatory"/> -->
                     <select [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control" *ngIf="categoryAttribute.isInstanceAttribute === false"
-                        [attr.required]="categoryAttribute.isMandatory">
+                        [attr.required]="categoryAttribute.isMandatory" [ngModelOptions]="{standalone: true}" [disabled]="disabled">
                             <option value="" disabled selected>{{ categoryAttribute.name }}</option>
                             <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option> -->
                     </select>
@@ -171,76 +187,69 @@
         <div class="row f-group">
             <label class="col-3">Kondisi Barang</label>
             <div class="col-9">
-                <span *ngFor="let i of classification">
-                    <input id="{{ i.statusCode }}" type="radio" name="classification"
-                        [(ngModel)]="apr.classification" [value]="i.statusCode"/>
-                            <label for="{{ i.statusCode }}">{{ i.status }}</label>
+                <span *ngFor="let i of classifications">
+                    <input id="{{ i.statusCode }}" type="radio"
+                        formControlName="classification" [value]="i.statusCode"/>
+                    <label for="{{ i.statusCode }}">{{ i.status }}</label>
                 </span>
             </div>
         </div>
 
-        <form [formGroup]="formHarga">
-                      <div class="row f-group">
-                          <label class="col-3 middle">Harga</label>
-                          <div class="col-3">
-                              <input [(ngModel)]="apr.pricelist" formControlName="harga" type="text"
-                                  class="f-control" placeholder="Harga" (keypress)="numberCheck($event)"
-                                  (keyup)="calculateDiscount()" maxlength="10"/>
-                                 <bss-field-error [displayError]="isFieldValidHarga('harga')" errorMsg="Silahkan masukan harga"></bss-field-error>
-                           <!-- </form> -->
-                          </div>
-                         </div>
-                   <!-- </div> -->
+        <div class="row f-group">
+            <label class="col-3 middle">Harga</label>
+            <div class="col-3">
+                <input formControlName="pricelist" type="text"
+                    class="f-control" placeholder="Harga" (keypress)="numberCheck($event)"
+                    (keyup)="calculateDiscount()" maxlength="10"/>
+                <div *ngIf="f.pricelist.touched && f.pricelist.errors">
+                    <bss-field-error [displayError]="f.pricelist.touched && f.pricelist.errors.required" errorMsg="Silahkan masukan harga"></bss-field-error>
+                </div>
+            </div>
+        </div>
 
-                      <div class="row f-group">
-                          <label class="col-3 middle">Harga Promo</label>
-                          <div class="col-3">
-                              <input [(ngModel)]="apr.specialPrice" formControlName="specialPrice" type="text"
-                                  class="f-control" placeholder="Harga Promo" (keypress)="numberCheck($event)"
-                                  (keyup)="calculateDiscount()" maxlength="10"/>
-                              <bss-field-error [displayError]="errMaxDiscount" errorMsg="Harga promo melebihi harga asli"></bss-field-error>
-                          </div>
-                      </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Harga Promo</label>
+            <div class="col-3">
+                <input formControlName="specialPrice" type="text"
+                    class="f-control" placeholder="Harga Promo" (keypress)="numberCheck($event)"
+                    (keyup)="calculateDiscount()" maxlength="10"/>
+                <!-- <div *ngIf="f.pricelist.touched && f.pricelist.errors"> -->
+                    <bss-field-error [displayError]="errMaxDiscount" errorMsg="Harga promo melebihi harga asli"></bss-field-error>
+                <!-- </div> -->
+            </div>
+        </div>
 
-                      <div class="row f-group" *ngIf="isDiscountActive">
-                          <label class="col-3 middle">Jumlah Diskon</label>
-                          <div class="col-3">
-                              <div class="label--special-price">
-                                  <div class="pull-left">Rp</div><div class="pull-right">{{ totalDiscount | number}}</div>
-                                  <div class="clearfix"></div>
-                              </div>
-                          </div>
-                          <div class="col-6 middle">
-                              <span class="label--discount">{{ apr.discount }}%</span> <span class="label--discount-desc">Diskon pada product anda</span>
-                          </div>
-                      </div>
-                  </form>
+        <div class="row f-group" *ngIf="isDiscountActive">
+            <label class="col-3 middle">Jumlah Diskon</label>
+            <div class="col-3">
+                <div class="label--special-price">
+                    <div class="pull-left">Rp</div><div class="pull-right">{{ totalDiscount | number}}</div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-6 middle">
+                <span class="label--discount">{{ f.discount.value }}%</span> <span class="label--discount-desc">Diskon pada product anda</span>
+            </div>
+        </div>
 
         <div class="row f-group">
             <label class="col-3 middle">Stok</label>
             <div class="col-3">
-                <form [formGroup]="formStok">
-                    <input type="text" [(ngModel)]="apr.qty" formControlName="stok" class="f-control" placeholder="Stok" (keypress)="numberCheck($event)" maxlength="10">
-                    <bss-field-error [displayError]="isFieldValidStok('stok')" errorMsg="Silahkan masukan stok"></bss-field-error>
-                <!-- <span *ngFor="let i of stock">
-                    <input id="{{ i.statusCode }}" type="radio" name="stock"
-                        [(ngModel)]="apr.qtyType" [value]="i.statusCode"/>
-                        <label for="{{ i.statusCode }}">{{ i.status }}</label>
-
-                </span> -->
-                </form>
+                <input type="text" formControlName="qty" class="f-control" placeholder="Stok" (keypress)="numberCheck($event)" maxlength="10">
+                <div *ngIf="f.qty.touched && f.qty.errors">
+                    <bss-field-error [displayError]="f.qty.touched && f.qty.errors.required" errorMsg="Silahkan masukan stok"></bss-field-error>
+                </div>
             </div>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Garansi</label>
             <div class="col-3">
-                <!-- <input type="text" class="f-control" placeholder="Garansi"> -->
-                <form [formGroup]="formGaransi">
-                <select formControlName="garansi" [(ngModel)]="apr.guaranteeTime" class="f-control">
-                    <option value="" *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
+                <select formControlName="guaranteeTime" class="f-control">
+                    <option *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
                 </select>
-                <bss-field-error [displayError]="isFieldValidGaransi('garansi')" errorMsg="Silahkan pilih garansi"></bss-field-error>
-                </form>
+                <div *ngIf="f.guaranteeTime.touched && f.guaranteeTime.errors">
+                    <bss-field-error [displayError]="f.guaranteeTime.touched && f.guaranteeTime.errors.required" errorMsg="Silahkan pilih garansi"></bss-field-error>
+                </div>
             </div>
         </div>
     </div>
@@ -249,46 +258,41 @@
     <div class="add-product-form-wrapper">
         <div class="row f-group">
             <label class="col-3 middle">Berat</label>
-            <form [formGroup]="formBerat">
-                <div class="col-2">
-                    <input [(ngModel)]="apr.weight" type="text" formControlName="berat" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
-                    <bss-field-error [displayError]="isFieldValidBerat('berat')" errorMsg="Silahkan masukan berat"></bss-field-error>
+            <div class="col-2">
+                <input type="text" formControlName="weight" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
+                <div *ngIf="f.weight.touched && f.weight.errors">
+                    <bss-field-error [displayError]="f.weight.touched && f.weight.errors.required" errorMsg="Silahkan masukan berat"></bss-field-error>
                 </div>
-                <div class="col-2">
-                    <select [(ngModel)]="measurementType" [ngModelOptions]="{standalone: true}" class="f-control">
-                        <option value="0">Gr</option>
-                        <option value="1">Kg</option>
-                    </select>
-                </div>
-            </form>
+            </div>
+            <div class="col-2">
+                <select [(ngModel)]="measurementType" [ngModelOptions]="{standalone: true}" [disabled]="disabled" class="f-control">
+                    <option value="0">Gr</option>
+                    <option value="1">Kg</option>
+                </select>
+            </div>
         </div>
         <div class="row f-group">
-
-                <div class="row">
-                    <label class="col-3 middle">Dimensi</label>
-                    <div class="col-2">
-                            <form [formGroup]="formDimensiP">
-                                <input [(ngModel)]="apr.dimensionsWidth" formControlName = "dimensiP"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
-                                <bss-field-error [displayError]="isFieldValidDimensiP('dimensiP')" errorMsg="Silahkan isi panjang dimensi"></bss-field-error>
-                            </form>
+            <div class="row">
+                <label class="col-3 middle">Dimensi</label>
+                <div class="col-2">
+                    <input formControlName="dimensionslength"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
+                    <div *ngIf="f.dimensionslength.touched && f.dimensionslength.errors">
+                        <bss-field-error [displayError]="f.dimensionslength.touched && f.dimensionslength.errors.required" errorMsg="Silahkan isi panjang dimensi"></bss-field-error>
                     </div>
-                    <div class="col-2">
-                            <form [formGroup]="formDimensiL">
-                                <input [(ngModel)]="apr.dimensionslength" formControlName = "dimensiL"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
-                                <bss-field-error [displayError]="isFieldValidDimensiL('dimensiL')" errorMsg="Silahkan isi lebar dimensi"></bss-field-error>
-                            </form>
-                    </div>
-                    <div class="col-2">
-                            <form [formGroup]="formDimensiT">
-                                <input [(ngModel)]="apr.dimensionsheight" formControlName = "dimensiT"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
-                                <bss-field-error [displayError]="isFieldValidDimensiT('dimensiT')" errorMsg="Silahkan isi tinggi dimensi"></bss-field-error>
-                            </form>
-                    </div>
-
                 </div>
-                <div style="padding-left:30%">
-                        <!-- <bss-field-error class="middle" [displayError]="isFieldValidDimensi('dimensiP')" errorMsg="Silahkan masukan berat"></bss-field-error> -->
+                <div class="col-2">
+                    <input formControlName="dimensionsWidth"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
+                    <div *ngIf="f.dimensionsWidth.touched && f.dimensionsWidth.errors">
+                        <bss-field-error [displayError]="f.dimensionsWidth.touched && f.dimensionsWidth.errors.required" errorMsg="Silahkan isi lebar dimensi"></bss-field-error>
+                    </div>
                 </div>
+                <div class="col-2">
+                    <input formControlName="dimensionsheight"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
+                    <div *ngIf="f.dimensionsheight.touched && f.dimensionsheight.errors">
+                        <bss-field-error [displayError]="f.dimensionsheight.touched && f.dimensionsheight.errors.required" errorMsg="Silahkan isi tinggi dimensi"></bss-field-error>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Delivery Service</label>
@@ -301,7 +305,7 @@
                             <td class="right">
                                 <label class="switch small">
                                     <input (change)="onChangeCourier(courier.code, $event.target.checked)"
-                                        [value]="courier.code" type="checkbox">
+                                        [value]="courier.code" [checked]="courier.isUse" type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
                             </td>
@@ -312,318 +316,7 @@
         </div>
     </div>
     <div class="right">
-        <input type="button" (click)="onProductSubmit()" class="btn btn--yellow" value="Simpan">
-        <input type="button" class="btn margin-left" value="Batal">
+        <input type="submit" class="btn btn--yellow" value="Simpan">
+        <input type="button" (click)="cancel()" class="btn margin-left" value="Batal">
     </div>
-</div>
-
-
-
-
-
-
- <!-- dibawah Ini jika ada param nya  -->
-<div *ngIf="param1">
-    <h2>Edit Product Anda </h2>
-    <div class="add-product-form-wrapper">
-        <div class="row f-group">
-            <label for="staticEmail" class="col-3 middle">Nama Produk</label>
-            <form [formGroup]="form">
-                <div class="col-9">
-                    <input type="text" maxlength="30" [(ngModel)]="apr.name" formControlName="name" class="f-control" readonly placeholder="Nama Produk" value="productDetail.name">
-                </div>
-            </form>
-        </div>
-        <div class="row f-group">
-            <label class="col-3 middle">Merek</label>
-            <div class="col-9">
-                <!-- <input type="text" class="f-control" placeholder="Merek"> -->
-
-                <div class="drick-select-container">
-                    <div class="ui icon input parent">
-                        <input class="f-control drick-select__text" [ngClass]="{'active':onBrandFocus}" type="text" [(ngModel)]="brandName"
-                            (keyup)="searchBrand()"
-                            (focus)="onBrandFocus = true" (focusout)="onBrandBlur()" placeholder="Select one" disabled>
-                        <i class="drick-select__icon caret down icon"></i>
-                    </div>
-                    <div class="drick-select-container--toggle" [ngClass]="{'active':onBrandFocus}"
-                        id="drick-scroll-container--brand"
-                        (scroll)="onBrandScrollDown()">
-                        <ul class="drick-select-list">
-                            <li *ngFor="let i of brandList.data" (click)="selectBrand(i)">
-                                {{i.name}}
-                            </li>
-                            <li *ngIf="(brandList.data.length === 0)">
-                                Brand tidak ditemukan
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row f-group">
-            <label class="col-3 middle">Kategori Produk</label>
-            <div class="col-9">
-                <!-- <input type="text" class="f-control" placeholder="Kategori Produk"> -->
-                <table>
-                    <tr>
-                        <td>
-                            <div class="drick-select-container">
-                                <div class="ui icon input parent">
-                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocus}" type="text" [(ngModel)]="categoryName"
-                                        (keyup)="searchCategory()" [ngModelOptions]="{standalone: true}"
-                                        (focus)="onCategoryFocus = true" (focusout)="onCategoryBlur()" placeholder="Select one" disabled>
-                                    <i class="drick-select__icon caret down icon"></i>
-                                </div>
-                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus}"
-                                    id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown('C1')">
-                                    <ul class="drick-select-list">
-                                        <li *ngFor="let i of categoryList.data" (click)="selectCategory(i)">
-                                            {{i.name}}
-                                        </li>
-                                        <li *ngIf="(categoryList.data.length === 0)">
-                                            Category tidak ditemukan
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="drick-select-container">
-                                <div class="ui icon input parent">
-                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocusC2}" type="text" [(ngModel)]="categoryNameC2"
-                                        (keyup)="searchCategoryC2()" [ngModelOptions]="{standalone: true}"
-                                        (focus)="onCategoryFocusC2 = true" (focusout)="onCategoryBlurC2()" placeholder="Select one" disabled>
-                                    <i class="drick-select__icon caret down icon"></i>
-                                </div>
-                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC2}"
-                                    id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown('C2', idC1)">
-                                    <ul class="drick-select-list">
-                                        <li *ngFor="let i of categoryListC2.data" (click)="selectCategoryC2(i)">
-                                            {{i.name}}
-                                        </li>
-                                        <li *ngIf="(categoryListC2.data.length === 0)">
-                                            Category tidak ditemukan
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="drick-select-container">
-                                <div class="ui icon input parent">
-                                    <input class="f-control drick-select__text" [ngClass]="{'active':onCategoryFocusC3}" type="text" [(ngModel)]="categoryNameC3"
-                                        (keyup)="searchCategoryC3()" [ngModelOptions]="{standalone: true}"
-                                        (focus)="onCategoryFocusC3 = true" (focusout)="onCategoryBlurC3()" placeholder="Select one" disabled>
-                                    <i class="drick-select__icon caret down icon"></i>
-                                </div>
-                                <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocusC3}"
-                                    id="drick-scroll-container--category"
-                                    (scroll)="onCategoryScrollDown('C3', idC2)">
-                                    <ul class="drick-select-list">
-                                        <li *ngFor="let i of categoryListC3.data" (click)="selectCategoryC3(i)">
-                                            {{i.name}}
-                                        </li>
-                                        <li *ngIf="(categoryListC2.data.length === 0)">
-                                            Category tidak ditemukan
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-
-
-            </div>
-        </div>
-        <div class="row f-group">
-            <label class="col-3 middle">Deskripsi</label>
-            <div class="col-9">
-                    <form [formGroup]="formDesc">
-                            <div class="col-9">
-                                    <textarea [(ngModel)]="apr.description" maxlength="100" formControlName="desc" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
-                                </div>
-                    </form>
-            </div>
-        </div>
-        <div class="row f-group">
-            <label class="col-3 middle">Spesifikasi Produk</label>
-            <div class="col-4">
-                <!-- <label *ngIf="categoryAttributes.length === 0" class="middle">*Silahkan pilih kategori terlebih dahulu</label> -->
-                <!-- <label for="" class="w_label--for-itemName" *ngFor="let item of productDetail.specification">
-                {{ item.name }} <br>
-                {{ item.value }}
-
-                </label> -->
-                <div *ngFor="let item of productDetail.specification">
-                    <span>{{ item.name }}</span> :
-                    <span>{{ item.value }}</span>
-
-                </div>
-                <div class="f-group" *ngFor="let categoryAttribute of categoryAttributes">
-
-                    <!-- <input type="text" [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control"
-                        [placeholder]="categoryAttribute.name" *ngIf="categoryAttribute.isInstanceAttribute === true"
-                        [attr.required]="categoryAttribute.isMandatory"/> -->
-                    <select [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control" *ngIf="categoryAttribute.isInstanceAttribute === false"
-                        [attr.required]="categoryAttribute.isMandatory">
-                            <option value="" disabled selected>{{ categoryAttribute.name }}</option>
-                            <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option> -->
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <h2>Harga dan Stok</h2>
-    <div class="add-product-form-wrapper">
-        <div class="row f-group">
-            <label class="col-3">Kondisi Barang</label>
-            <div class="col-9">
-                <span *ngFor="let i of classification">
-                    <input id="{{ i.statusCode }}" type="radio" name="classification"
-                        [(ngModel)]="apr.classification" [value]="i.statusCode" />
-                            <label for="{{ i.statusCode }}">{{ i.status }}
-
-                            </label>
-                </span>
-            </div>
-        </div>
-
-        <form [formGroup]="formHarga">
-            <div class="row f-group">
-                <label class="col-3 middle">Harga</label>
-                <div class="col-3">
-                    <input [(ngModel)]="apr.pricelist" formControlName="harga" type="text"
-                        class="f-control" placeholder="Harga" (keypress)="numberCheck($event)"
-                        (keyup)="calculateDiscount()" maxlength="10"/>
-                </div>
-            </div>
-
-            <div class="row f-group">
-                <label class="col-3 middle">Harga Promo</label>
-                <div class="col-3">
-                    <input [(ngModel)]="apr.specialPrice" formControlName="specialPrice" type="text"
-                        class="f-control" placeholder="Harga Promo" (keypress)="numberCheck($event)"
-                        (keyup)="calculateDiscount()" maxlength="10"/>
-                </div>
-            </div>
-
-            <div class="row f-group" *ngIf="isDiscountActive">
-                <label class="col-3 middle">Jumlah Diskon</label>
-                <div class="col-3">
-                    <div class="label--special-price">
-                        <div class="pull-left">Rp</div><div class="pull-right">{{ totalDiscount | number}}</div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-                <div class="col-6 middle">
-                    <span class="label--discount">{{ apr.discount }}%</span> <span class="label--discount-desc">Diskon pada product anda</span>
-                </div>
-            </div>
-        </form>
-
-        <div class="row f-group">
-            <label class="col-3 middle">Stok</label>
-            <div class="col-3">
-                <form [formGroup]="formStok">
-                    <input type="text" [(ngModel)]="apr.qty" formControlName="stok" class="f-control" placeholder="Stok" (keypress)="numberCheck($event)" maxlength="10">
-                <!-- <span *ngFor="let i of stock">
-                    <input id="{{ i.statusCode }}" type="radio" name="stock"
-                        [(ngModel)]="apr.qtyType" [value]="i.statusCode"/>
-                        <label for="{{ i.statusCode }}">{{ i.status }}</label>
-
-                </span> -->
-                </form>
-            </div>
-        </div>
-        <div class="row f-group">
-            <label class="col-3 middle">Garansi</label>
-            <div class="col-3">
-              <form [formGroup]="formGaransi">
-                <select formControlName="garansi" [(ngModel)]="apr.guaranteeTime" class="f-control">
-                    <!-- <option [disabled]="true" [value]="0" selected>Account</option> -->
-                    <option value="" *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
-                </select>
-                <!-- <bss-field-error [displayError]="isFieldValidGaransi('garansi')" errorMsg="Silahkan pilih garansi"></bss-field-error> -->
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <h2>Pengiriman</h2>
-    <div class="add-product-form-wrapper">
-        <div class="row f-group">
-            <label class="col-3 middle">Berat</label>
-            <form [formGroup]="formBerat">
-                <div class="col-2">
-                    <input [(ngModel)]="apr.weight" type="text" formControlName="berat" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
-                </div>
-                <div class="col-2">
-                    <select [(ngModel)]="measurementType" [ngModelOptions]="{standalone: true}" class="f-control" disabled>
-                        <option value="0">Gr</option>
-                        <option value="1">Kg</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-        <div class="row f-group">
-
-                <div class="row">
-                    <label class="col-3 middle">Dimensi (Millimeter)</label>
-                    <div class="col-2">
-                            <form [formGroup]="formDimensiP">
-                                <input [(ngModel)]="apr.dimensionsWidth" formControlName = "dimensiP"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
-                            </form>
-                    </div>
-                    <div class="col-2">
-                            <form [formGroup]="formDimensiL">
-                                <input [(ngModel)]="apr.dimensionslength" formControlName = "dimensiL"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
-                            </form>
-                    </div>
-                    <div class="col-2">
-                            <form [formGroup]="formDimensiT">
-                                <input [(ngModel)]="apr.dimensionsheight" formControlName = "dimensiT"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
-                                <bss-field-error [displayError]="isFieldValidDimensiT('dimensiT')" errorMsg="Silahkan isi tinggi dimensi"></bss-field-error>
-                            </form>
-                    </div>
-
-                </div>
-                <div style="padding-left:30%">
-                        <!-- <bss-field-error class="middle" [displayError]="isFieldValidDimensi('dimensiP')" errorMsg="Silahkan masukan berat"></bss-field-error> -->
-                </div>
-        </div>
-        <div class="row f-group">
-            <label class="col-3 middle">Delivery Service</label>
-            <div class="col-6">
-                <div class="cardlist">
-                    <table class="table">
-                        <tr *ngFor="let courier of productDetail.couriers">
-                            <td>{{ courier.name }}</td>
-                            <!-- <td>i</td> -->
-                            <td class="right">
-                                    <label class="switch small w__margin--switch">
-                                        <input
-                                            type="checkbox" (change)="onChangeCourier(courier.code, $event.target.checked)" [checked]="courier.isUse" [value]="courier.code" >
-                                        <span class="slider round"></span>
-                                    </label>
-                                <!-- <label class="switch small">
-                                    <input (change)="onChangeCourier(courier.code, $event.target.checked)"
-                                        [value]="courier.code" type="checkbox">
-                                    <span class="slider round"></span>
-                                </label> -->
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="right">
-        <input type="button" (click)="onEditProductSubmit()" class="btn btn--yellow" value="Edit">
-        <input type="button" class="btn margin-left" value="Batal">
-    </div>
-</div>
+</form>

@@ -49,7 +49,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
               // });
 
               localStorage.removeItem('token');
-              this.routes.navigateByUrl('/account/sign-in');
+              this.routes.navigateByUrl('/auth/sign-in');
 
             }
           } else if (err.status === 404) {

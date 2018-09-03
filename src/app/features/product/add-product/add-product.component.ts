@@ -9,10 +9,10 @@ import {
 
 import {
   BrandList, AddProductRequest, CategoryList, CategoryAttribute,
-  ProductSpecification, Reference, Courier, EditProduct, ProductDetailData
+  ProductSpecification, Reference, Courier, EditProductRequest, ProductDetailData, ProductSuggestion, SpecificationList
 } from '@belisada-seller/core/models';
 
-import { CategoryTypeEnum } from '@belisada-seller/core/enum';
+import { CategoryTypeEnum, ReferenceCodeEnum } from '@belisada-seller/core/enum';
 
 import swal from 'sweetalert2';
 import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
@@ -25,9 +25,11 @@ import { Title } from '@angular/platform-browser';
 })
 export class AddProductComponent implements OnInit {
 
-  apr: AddProductRequest = new AddProductRequest();
-  aprEdit: EditProduct = new EditProduct();
   spec: any[] = [];
+
+  cte = CategoryTypeEnum;
+
+  addProductForm: FormGroup;
 
   measurementType: any;
 
@@ -35,51 +37,44 @@ export class AddProductComponent implements OnInit {
   totalDiscount: number;
   errMaxDiscount: Boolean = false;
 
-  idC1: number;
-  idC2: number;
-  idC3: number;
-
   brandList: BrandList = new BrandList();
   currentPgBrand: number;
   limitBrand: Number = 100;
-  brandName: string;
   onBrandFocus: Boolean = false;
+  onProductNameFocus: Boolean = false;
 
-  categoryList: CategoryList = new CategoryList();
-  categoryListC2: CategoryList = new CategoryList();
-  categoryListC3: CategoryList = new CategoryList();
-  currentPgCategory: number;
-  limitCategory: Number = 20;
-  categoryName: string;
-  categoryNameC2: string;
-  categoryNameC3: string;
-  onCategoryFocus: Boolean = false;
+  productSuggestionList: ProductSuggestion[];
 
-  onCategoryFocusC2: Boolean = false;
-  onCategoryFocusC3: Boolean = false;
+  categoryList = {
+    C1: new CategoryList(),
+    C2: new CategoryList(),
+    C3: new CategoryList()
+  };
+  categoryName = {
+    C1: '',
+    C2: '',
+    C3: ''
+  };
+  categoryId = {
+    C1: '',
+    C2: '',
+    C3: ''
+  };
+  onCategoryFocus = {
+    C1: false,
+    C2: false,
+    C3: false
+  };
+
+  disabled: Boolean = false;
 
   categoryAttributes: CategoryAttribute[];
 
-  classification: Reference[];
-  stock: Reference[];
+  classifications: Reference[];
   warranty: Reference[];
   couriers: Courier[];
-  checkName: any;
 
-  tssss: any[];
-
-
-  form: FormGroup;
-  formDesc: FormGroup;
-  formGaransi: FormGroup;
-  formBerat: FormGroup;
-  formDimensiP: FormGroup;
-  formStok: FormGroup;
-  formDimensiL: FormGroup;
-  formDimensiT: FormGroup;
-  formHarga: FormGroup;
-
-  param1: any;
+  productId: number;
   testing: any;
   productDetail: ProductDetailData = new ProductDetailData();
 
@@ -87,7 +82,6 @@ export class AddProductComponent implements OnInit {
   constructor(
     private brandService: BrandService,
     private categoryService: CategoryService,
-    private attributeService: AttributeService,
     private referenceService: ReferenceService,
     private productService: ProductService,
     private courierService: CourierService,
@@ -97,98 +91,156 @@ export class AddProductComponent implements OnInit {
     private loadingService: LoadingService,
     private route: ActivatedRoute,
     private title: Title,
-    private prodSe: ProductService
   ) {
+    this.productSuggestionList = [];
+    this.currentPgBrand = 1;
     this.measurementType = 0;
     this.brandList.data = [];
-    this.categoryList.data = [];
-    this.categoryListC2.data = [];
-    this.categoryListC3.data = [];
+    this.categoryList.C1.data = [];
+    this.categoryList.C2.data = [];
+    this.categoryList.C3.data = [];
     this.categoryAttributes = [];
-    this.apr.couriers = [];
-    this.apr.imageUrl = [];
-    this.apr.specification = [];
     this.testing = 'hi';
-    this.param1 = this.route.snapshot.params.id;
+    this.productId = this.route.snapshot.params.id;
     console.log( this.route.snapshot.params.id);
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.addProductForm.controls; }
+
   ngOnInit() {
     this.formData();
-    this.currentPgBrand = 1;
-    this.currentPgCategory = 1;
-
     this.getBrandInit();
-    this.getCategoryInitC1();
-    // this.getCategoryInit();
-    this.getClasificationInit();
-    this.getStockInit();
-    this.getWarrantyInit();
-    this.getCourier();
+    this.getCategoryInit(CategoryTypeEnum.C1);
+    this.getReferenceInit(ReferenceCodeEnum.CLASIFICATION);
+    this.getReferenceInit(ReferenceCodeEnum.WARRANTY);
 
-    if (this.param1 === undefined) {
-      this.title.setTitle('Belisada - Add Product');
-    } else {
+    if (this.productId) {
       this.title.setTitle('Belisada - Edit Product');
-      this.prodSe.getDetailById(this.param1).subscribe(res => {
-        this.productDetail = res.data;
-        this.apr.name = res.data.name;
-        this.brandName = res.data.brandName;
-        this.categoryName = res.data.categoryOneName;
-        this.categoryNameC2 = res.data.categoryTwoName;
-        this.categoryNameC3 = res.data.categoryThreeName;
-        this.apr.description = res.data.description;
-        this.aprEdit.productId = res.data.productId;
-        this.apr.classification = res.data.classification;
-        this.apr.pricelist = res.data.pricelist;
-        this.apr.qty = res.data.qty;
-        this.apr.guaranteeTime = res.data.guaranteeTime;
-        this.apr.weight = res.data.weight;
-        this.apr.dimensionsWidth = res.data.dimensionsWidth;
-        this.apr.specialPrice = res.data.specialPrice;
-        this.apr.dimensionslength = res.data.dimensionslength;
-        this.apr.dimensionsheight = res.data.dimensionsheight;
-        this.apr.couriers = res.data.couriers.filter(x => x.isUse === true).map(m => m.code);
-        this.apr.weight = res.data.weight;
-        this.apr.classification = res.data.classification;
-        console.log('123213213', this.apr.couriers);
-        this.calculateDiscount();
-        console.log(res);
-      });
+      this.fillFormData(this.productId);
+    } else {
+      this.title.setTitle('Belisada - Add Product');
+      this.getCourier();
     }
   }
 
   private formData() {
-    this.form = this.fb.group({
-      name: [null, [Validators.required]]
+    this.addProductForm = this.fb.group({
+      name: ['', [Validators.required]],
+      masterId: [''],
+      brandId: [''],
+      brandName: [''],
+      categoryThreeId: ['', [Validators.required]],
+      classification: ['', [Validators.required]],
+      couriers: [[], [Validators.required]],
+      description: ['', [Validators.required]],
+      dimensionsWidth: ['', [Validators.required]],
+      dimensionsheight: ['', [Validators.required]],
+      dimensionslength: ['', [Validators.required]],
+      guaranteeTime: ['', [Validators.required]],
+      imageUrl: [[], [Validators.required]],
+      pricelist: ['', [Validators.required]],
+      specialPrice: [''],
+      discount: [''],
+      qty: ['', [Validators.required]],
+      specification: [[]],
+      weight: ['', [Validators.required]]
     });
-    this.formDesc = this.fb.group({
-      desc: [null, [Validators.required]]
+  }
+
+  fillFormData(productId) {
+    this.productService.getDetailById(productId).subscribe(response => {
+      const data = response.data;
+      this.fillFormPatchValue(data);
     });
-    this.formGaransi = this.fb.group({
-      garansi: [null, [Validators.required]]
+  }
+
+  fillFormPatchValue(data: ProductDetailData) {
+    if (this.productId) {
+      this.couriers = data.couriers;
+    }
+    this.addProductForm.patchValue({
+      name: data.name,
+      masterId: data.productId,
+      brandId: data.brandId,
+      brandName: data.brandName,
+      categoryThreeId: (data.categoryThreeId !== 0) ? data.categoryThreeId : data.categoryTwoId,
+      classification: data.classification,
+      couriers: data.couriers.filter(x => x.isUse === true).map(x => x.code),
+      description: data.description,
+      dimensionsWidth: data.dimensionsWidth,
+      dimensionsheight: data.dimensionsheight,
+      dimensionslength: data.dimensionslength,
+      guaranteeTime: data.guaranteeTime,
+      imageUrl: data.imageUrl,
+      pricelist: data.pricelist,
+      specialPrice: data.specialPrice,
+      discount: data.discount,
+      qty: data.qty,
+      specification: data.specification,
+      weight: data.weight
     });
-    this.formBerat = this.fb.group({
-      berat: [null, [Validators.required]]
+    this.categoryName = {
+      C1: data.categoryOneName,
+      C2: data.categoryTwoName,
+      C3: data.categoryThreeName
+    };
+
+    this.getCategoryInit(CategoryTypeEnum.C2, data.categoryOneId);
+    this.getCategoryInit(CategoryTypeEnum.C3, data.categoryTwoId);
+
+    const queryParams = {
+      categoryid: (data.categoryThreeId === 0) ? data.categoryTwoId : data.categoryThreeId
+    };
+    this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
+      this.categoryAttributes = response;
+      this.fillFormSpecification(data.specification);
     });
-    this.formStok = this.fb.group({
-      stok: [null, [Validators.required]]
+    console.log('this.addProductForm: ', this.addProductForm);
+
+    this.calculateDiscount();
+    this.disableControl(true);
+  }
+
+  disableControl(condition: Boolean) {
+    this.disabled = true;
+    const action = condition ? 'disable' : 'enable';
+    this.addProductForm.controls['name'][action]();
+    this.addProductForm.controls['brandId'][action]();
+    this.addProductForm.controls['brandName'][action]();
+    // this.addProductForm.controls['categoryThreeId'][action]();
+    // this.addProductForm.controls['classification'][action]();
+    this.addProductForm.controls['couriers'][action]();
+    this.addProductForm.controls['description'][action]();
+    this.addProductForm.controls['dimensionsWidth'][action]();
+    this.addProductForm.controls['dimensionsheight'][action]();
+    this.addProductForm.controls['dimensionslength'][action]();
+    // this.addProductForm.controls['guaranteeTime'][action]();
+    this.addProductForm.controls['imageUrl'][action]();
+    // this.addProductForm.controls['pricelist'][action]();
+    // this.addProductForm.controls['specialPrice'][action]();
+    // this.addProductForm.controls['discount'][action]();
+    // this.addProductForm.controls['qty'][action]();
+    this.addProductForm.controls['specification'][action]();
+    this.addProductForm.controls['weight'][action]();
+  }
+
+  searchProductName(event) {
+    this.addProductForm.patchValue({
+      masterId: undefined
     });
-    this.formDimensiP = this.fb.group({
-      dimensiP: [null, [Validators.required]]
+    const queryParams = {
+      q: event.target.value
+    };
+    this.productService.getProductSuggestion(queryParams).subscribe(response => {
+      this.productSuggestionList = response;
     });
-    this.formDimensiP = this.fb.group({
-      dimensiP: [null, [Validators.required]]
-    });
-    this.formDimensiL = this.fb.group({
-      dimensiL: [null, [Validators.required]]
-    });
-    this.formDimensiT = this.fb.group({
-      dimensiT: [null, [Validators.required]]
-    });
-    this.formHarga = this.fb.group({
-      harga: [null, [Validators.required]],
-      specialPrice: [0]
+  }
+
+  selectProductName(product: ProductSuggestion) {
+    console.log('product: ', product);
+    this.productService.getProductSuggestionDetail(product.productId).subscribe(response => {
+      this.fillFormPatchValue(response.data);
     });
   }
 
@@ -201,11 +253,15 @@ export class AddProductComponent implements OnInit {
   }
 
   readThis(files: any[]): void {
+    const imageUrl: string[] = this.addProductForm.get('imageUrl').value;
     files.forEach(file => {
       const myReader: FileReader = new FileReader();
       myReader.onloadend = (e) => {
-        if (this.apr.imageUrl.length < 5) {
-          this.apr.imageUrl.push(myReader.result);
+        if (imageUrl.length < 5) {
+          imageUrl.push(myReader.result);
+          this.addProductForm.patchValue({
+            imageUrl: imageUrl
+          });
         } else {
           swal(
             'Belisada.co.id',
@@ -219,60 +275,38 @@ export class AddProductComponent implements OnInit {
   }
 
   removeImage(index: number) {
+    const imageUrl: string[] = this.addProductForm.get('imageUrl').value;
     if (index > -1) {
-      this.apr.imageUrl.splice(index, 1);
+      imageUrl.splice(index, 1);
     }
   }
   // --- Image product end
+
+
+  onProductNameBlur(): void {
+    setTimeout(() => { this.onProductNameFocus = false; }, 200);
+  }
 
   /**
    * Product Brand Search
    */
   getBrandInit() {
+    const brandName = this.addProductForm.get('brandName').value;
     const queryParams = {
       page: this.currentPgBrand,
       itemperpage: this.limitBrand,
-      name: this.brandName === undefined ? '' : this.brandName
+      name: brandName === undefined ? '' : brandName
     };
     this.brandService.getListBrand(queryParams).subscribe(response => {
       this.brandList = response;
     });
   }
 
-   isFieldValid(field: string) {
-    return !this.form.get(field).valid && this.form.get(field).touched;
-  }
-  isFieldValidHarga(field: string) {
-    return !this.formHarga.get(field).valid && this.formHarga.get(field).touched;
-  }
-  isFieldValidDesc(field: string) {
-    return !this.formDesc.get(field).valid && this.formDesc.get(field).touched;
-  }
-  isFieldValidGaransi(field: string) {
-    return !this.formGaransi.get(field).valid && this.formGaransi.get(field).touched;
-  }
-  isFieldValidBerat(field: string) {
-    return !this.formBerat.get(field).valid && this.formBerat.get(field).touched;
-  }
-  isFieldValidStok(field: string) {
-    return !this.formStok.get(field).valid && this.formStok.get(field).touched;
-  }
-  isFieldValidDimensiP(field: string) {
-    return !this.formDimensiP.get(field).valid && this.formDimensiP.get(field).touched;
-  }
-  isFieldValidDimensiL(field: string) {
-    return !this.formDimensiL.get(field).valid && this.formDimensiL.get(field).touched;
-  }
-  isFieldValidDimensiT(field: string) {
-    return !this.formDimensiT.get(field).valid && this.formDimensiT.get(field).touched;
-  }
-
-  onBrandBlur() {
-    setTimeout(() => { this.onBrandFocus = false; }, 200);
-  }
-
-  searchBrand() {
-    const qsBrand = this.brandName;
+  searchBrand(): void {
+    this.addProductForm.patchValue({
+      brandId: undefined,
+    });
+    const qsBrand = this.addProductForm.get('brandName').value;
     const queryParams = {
       page: this.currentPgBrand = 1,
       itemperpage: this.limitBrand,
@@ -284,257 +318,147 @@ export class AddProductComponent implements OnInit {
   }
 
   selectBrand(brand) {
-    this.brandName = brand.name;
-    this.apr.brandId = brand.brandId;
+    this.addProductForm.patchValue({
+      brandId: brand.brandId,
+      brandName: brand.name
+    });
+  }
+
+  onBrandBlur(): void {
+    setTimeout(() => { this.onBrandFocus = false; }, 200);
   }
 
   onBrandScrollDown () {
+    const brandName = this.addProductForm.get('brandName').value;
     const scr = this.el.nativeElement.querySelector('#drick-scroll-container--brand');
     if (scr.scrollHeight - scr.clientHeight === scr.scrollTop) {
       const queryParams = {
         page: this.currentPgBrand += 1,
         itemperpage: this.limitBrand,
-        name: this.brandName === undefined ? '' : this.brandName
+        name: brandName === undefined ? '' : brandName
       };
       this.brandService.getListBrand(queryParams).subscribe(response => {
         this.brandList.data = this.brandList.data.concat(response.data);
       });
     }
   }
-  // --- Product brand end
 
-  /**
-   * Product Category Search
-   */
-  // getCategoryInit() {
-  //   const queryParams = {
-  //     page: this.currentPgCategory,
-  //     itemperpage: this.limitCategory,
-  //     name: this.categoryName === undefined ? '' : this.categoryName,
-  //     type: CategoryTypeEnum.C3
-  //   };
-  //   this.categoryService.getListCategory(queryParams).subscribe(response => {
-  //     this.categoryList = response;
-  //   });
-  // }
-
-  onCategoryBlur() {
-    setTimeout(() => { this.onCategoryFocus = false; }, 200);
+  onCategoryBlur(categoryType) {
+    setTimeout(() => { this.onCategoryFocus[categoryType] = false; }, 200);
   }
 
-  onCategoryBlurC2() {
-    setTimeout(() => { this.onCategoryFocusC2 = false; }, 200);
-  }
-
-  onCategoryBlurC3() {
-    setTimeout(() => { this.onCategoryFocusC3 = false; }, 200);
-  }
-
-  searchCategory() {
-    const qsCategory = this.categoryName;
+  searchCategory(categoryType, parentid?) {
     const queryParams = {
-      page: this.currentPgCategory = 1,
-      itemperpage: this.limitCategory,
-      name: this.categoryName === undefined ? '' : this.categoryName,
-      type: CategoryTypeEnum.C1
+      name: this.categoryName[categoryType] === undefined ? '' : this.categoryName[categoryType],
+      type: categoryType
     };
+    if (parentid) {
+      queryParams['parentid'] = parentid;
+    }
     this.categoryService.getListCategory(queryParams).subscribe(response => {
-      this.categoryList = response;
-    });
-  }
-
-  searchCategoryC2() {
-    const qsCategory = this.categoryNameC2;
-    const queryParams = {
-      parentid: this.idC1,
-      page: this.currentPgCategory = 1,
-      itemperpage: this.limitCategory,
-      name: this.categoryNameC2 === undefined ? '' : this.categoryNameC2,
-      type: CategoryTypeEnum.C2
-    };
-    this.categoryService.getListCategory(queryParams).subscribe(response => {
-      this.categoryListC2 = response;
-    });
-  }
-
-  searchCategoryC3() {
-    const qsCategory = this.categoryNameC3;
-    const queryParams = {
-      parentid: this.idC2,
-      page: this.currentPgCategory = 1,
-      itemperpage: this.limitCategory,
-      name: this.categoryNameC3 === undefined ? '' : this.categoryNameC3,
-      type: CategoryTypeEnum.C3
-    };
-    this.categoryService.getListCategory(queryParams).subscribe(response => {
-      this.categoryListC3 = response;
+      this.categoryList[categoryType] = response;
     });
   }
 
   selectCategory(category) {
-    this.categoryName = category.name;
-    this.apr.categoryThreeId = category.categoryId;
-    this.idC1 = category.categoryId;
+    this.addProductForm.patchValue({
+      categoryThreeId: category.categoryId
+    });
+    this.categoryName[category.type] = category.name;
+    this.categoryId[category.type] = category.categoryId;
     const queryParams = {
       categoryid: category.categoryId
     };
     this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
       this.categoryAttributes = response;
 
-      this.categoryNameC2 = '';
-      this.categoryNameC3 = '';
-      this.getCategoryInitC2(category.categoryId);
+      let categoryType;
+      if (category.type === CategoryTypeEnum.C1) {
+        categoryType = CategoryTypeEnum.C2;
+        this.categoryName.C2 = '';
+        this.categoryName.C3 = '';
+      } else if (category.type === CategoryTypeEnum.C2) {
+        categoryType = CategoryTypeEnum.C3;
+        this.categoryName.C3 = '';
+      } else {
+        categoryType = false;
+      }
+      if (categoryType) {
+        this.getCategoryInit(categoryType, category.categoryId);
+      }
     });
   }
 
-  selectCategoryC2(category) {
-    this.categoryNameC2 = category.name;
-    this.apr.categoryThreeId = category.categoryId;
-    this.idC2 = category.categoryId;
+  getCategoryInit(categoryType, parentid?) {
     const queryParams = {
-      categoryid: category.categoryId
+      type: categoryType,
+      all: true
     };
-    this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
-      this.categoryAttributes = response;
-
-      this.categoryNameC3 = '';
-      this.getCategoryInitC3(category.categoryId);
-    });
-  }
-
-  selectCategoryC3(category) {
-    this.categoryNameC3 = category.name;
-    this.apr.categoryThreeId = category.categoryId;
-    this.idC3 = category.categoryId;
-    const queryParams = {
-      categoryid: category.categoryId
-    };
-    this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
-      this.categoryAttributes = response;
-    });
-  }
-
-  getCategoryInitC1() {
-    const queryParams = {
-      page: this.currentPgCategory,
-      itemperpage: this.limitCategory,
-      name: this.categoryName === undefined ? '' : this.categoryName,
-      type: CategoryTypeEnum.C1
-    };
-    this.categoryService.getListCategory(queryParams).subscribe(response => {
-      this.categoryList = response;
-    });
-  }
-
-  getCategoryInitC2(id) {
-    const queryParams = {
-      type: CategoryTypeEnum.C2,
-      parentid: id,
-      all: true,
-    };
-    this.categoryService.getListCategory(queryParams).subscribe(response => {
-      this.categoryListC2 = response;
-      console.log('list nya c2', response);
-    });
-  }
-
-  getCategoryInitC3(id) {
-    const queryParams = {
-      type: CategoryTypeEnum.C3,
-      parentid: id,
-      all: true,
-    };
-    this.categoryService.getListCategory(queryParams).subscribe(response => {
-      this.categoryListC3 = response;
-      console.log('list nya c3', response);
-    });
-  }
-
-  // selectCategoryC2(categoryId) {
-  //   // this.categoryName = category.name;
-  //   // this.apr.categoryThreeId = category.categoryId;
-  //   const queryParams = {
-  //     parentid: categoryId,
-  //     type: CategoryTypeEnum.C2,
-  //     all: true,
-  //     // page: this.currentPgCategory,
-  //     // itemperpage: this.limitCategory,
-  //     // name: this.categoryName === undefined ? '' : this.categoryName,
-  //   };
-
-  //   this.categoryService.getListCategory(queryParams).subscribe(response => {
-  //     this.categoryListC2 = response;
-
-  //     // console.log('Category c2lalang: ', response);
-  //   });
-  // }
-
-  onCategoryScrollDown (type, parentid?) {
-    const scr = this.el.nativeElement.querySelector('#drick-scroll-container--category');
-    if (scr.scrollHeight - scr.clientHeight === scr.scrollTop) {
-      const queryParams = {
-        parentid: (parentid) ? parentid : '',
-        page: this.currentPgCategory += 1,
-        itemperpage: this.limitCategory,
-        name: this.categoryName === undefined ? '' : this.categoryName,
-        type: type
-      };
-      this.categoryService.getListCategory(queryParams).subscribe(response => {
-        this.categoryList.data = this.categoryList.data.concat(response.data);
-      });
+    if (parentid) {
+      queryParams['parentid'] = parentid;
     }
-  }
-
-  onCategoryScrollDownAtr (type, categoryId) {
-    const scr = this.el.nativeElement.querySelector('#drick-scroll-container--category');
-    if (scr.scrollHeight - scr.clientHeight === scr.scrollTop) {
-      const queryParams = {
-        parentid: categoryId,
-        page: this.currentPgCategory += 1,
-        itemperpage: this.limitCategory,
-        name: this.categoryName === undefined ? '' : this.categoryName,
-        type: type
-      };
-      this.categoryService.getListCategory(queryParams).subscribe(response => {
-        this.categoryList.data = this.categoryList.data.concat(response.data);
-      });
-    }
+    this.categoryService.getListCategory(queryParams).subscribe(response => {
+      this.categoryList[categoryType] = response;
+    });
   }
   // --- Product category end
 
   /**
    * Specifications
    */
-
+  fillFormSpecification(specifications: SpecificationList[]) {
+    specifications.forEach((specification) => {
+      this.spec[specification.attributeId] = specification.attributeValueId;
+    });
+  }
   // --- Specifications end
+
+  /**
+   * Calculate discount
+   */
+  calculateDiscount() {
+    const pricelist = this.addProductForm.get('pricelist').value;
+    const specialPrice = this.addProductForm.get('specialPrice').value;
+    console.log(pricelist + ' ------ ' + specialPrice);
+    if (specialPrice > 0) {
+      if (+specialPrice >= +pricelist) {
+        this.errMaxDiscount = true;
+      } else {
+        this.errMaxDiscount = false;
+      }
+    }
+    console.log(this.errMaxDiscount);
+    if (pricelist && specialPrice && specialPrice !== 0) {
+      this.isDiscountActive = true;
+      this.totalDiscount = pricelist - specialPrice;
+      this.addProductForm.patchValue({
+        discount: Math.round(100 - ((specialPrice / pricelist) * 100))
+      });
+      // this.apr.discount = Math.round(100 - ((specialPrice / pricelist) * 100));
+    } else {
+      this.isDiscountActive = false;
+    }
+  }
 
   /**
    * Reference
    */
-  getClasificationInit() {
+  getReferenceInit(referenceCode) {
     const queryParams = {
-      code: 'CFT'
+      code: referenceCode
     };
     this.referenceService.getReference(queryParams).subscribe(response => {
-      this.classification = response;
-    });
-  }
-
-  getStockInit() {
-    const queryParams = {
-      code: 'STC'
-    };
-    this.referenceService.getReference(queryParams).subscribe(response => {
-      this.stock = response;
-    });
-  }
-
-  getWarrantyInit() {
-    const queryParams = {
-      code: 'GTI'
-    };
-    this.referenceService.getReference(queryParams).subscribe(response => {
-      this.warranty = response;
+      switch (referenceCode) {
+        case ReferenceCodeEnum.CLASIFICATION:
+            this.classifications = response;
+          break;
+        case ReferenceCodeEnum.WARRANTY:
+            this.warranty = response;
+          break;
+        default:
+            console.log('ERROR: code not found.');
+          break;
+      }
     });
   }
 
@@ -548,20 +472,20 @@ export class AddProductComponent implements OnInit {
    * On change checkbox
    */
   onChangeCourier(code: string, checked: boolean) {
-
+    const couriers = this.addProductForm.get('couriers').value;
     if (checked) {
-      this.apr.couriers.push(code);
+      couriers.push(code);
     } else {
-      const index = this.apr.couriers.findIndex(x => x === code);
-      if (index !== -1) { this.apr.couriers.splice(index, 1); }
+      const index = couriers.findIndex(x => x === code);
+      if (index !== -1) { couriers.splice(index, 1); }
     }
-
-    console.log('this.apr.couriers: ', this.apr.couriers);
+    this.addProductForm.patchValue({
+      couriers: couriers
+    });
   }
 
   specMapping(specValues) {
     this.categoryAttributes.forEach(x => {
-      console.log('x: ', x);
       const productSpecification: ProductSpecification = new ProductSpecification();
 
       productSpecification.attributeId = x.attributeId;
@@ -577,66 +501,26 @@ export class AddProductComponent implements OnInit {
             specValues[x.attributeId] :
             x.data.find(i => i.attributeValueId === +specValues[x.attributeId]).value;
       }
-
-      this.apr.specification.push(productSpecification);
+      const specification: ProductSpecification[] = this.addProductForm.get('specification').value;
+      specification.push(productSpecification);
     });
   }
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({
-          onlySelf: true
-        });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
-  }
-  onEditProductSubmit() {
-    // if ( this.aprEdit.couriers.)
 
-    // const selectedCategory = this.aprEdit.couriers.find(item => item.isUse === true);
-    this.tssss = this.apr.couriers.filter(element => element.isUse === true);
-    const selectedCategory = this.tssss.filter(item => item.code);
-    console.log('ini filteredElements',  this.tssss.find(x => x.code) );
-    const kirim = {
-      couriers: this.apr.couriers,
-      discount: this.apr.discount,
-      guaranteeTime: this.apr.guaranteeTime,
-      pricelist: this.apr.pricelist,
-      productId: this.aprEdit.productId,
-      qty: this.apr.qty,
-      specialPrice: this.apr.specialPrice,
-      dimensionsWidth: this.apr.dimensionsWidth,
-      dimensionsheight: this.apr.dimensionsheight,
-      dimensionslength: this.apr.dimensionslength,
-      weight: this.apr.weight,
-      classification:  this.apr.classification
-    };
-    // this.loadingService.show();
-    console.log('kirim:', kirim);
-    console.log('12321321', selectedCategory);
-      if (this.errMaxDiscount === true) {
-          swal('Opps harga promo anda melebihi harga jual');
-        } else {
-              this.productService.editProduct(kirim).subscribe(response => {
-          this.loadingService.hide();
-          this.router.navigate(['/listing-product']);
-        });
-        }
-    //       this.productService.editProduct(kirim).subscribe(response => {
-    //   this.loadingService.hide();
-    //   this.router.navigate(['/listing-product']);
-    // });
-
+  calculateWeight() {
+    if (this.measurementType === '1') {
+      this.addProductForm.patchValue({
+        weight: +this.addProductForm.get('weight').value * 1000
+      });
+    }
   }
 
   onProductSubmit() {
-    if (this.form.valid && this.formDesc.valid && this.formGaransi.valid && this.formBerat.valid && this.formDimensiP.valid
-      && this.formStok.valid && this.formDimensiL.valid && this.formDimensiT.valid && this.formHarga.valid
-    ) {
-      if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
+    this.specMapping(this.spec);
+    this.calculateWeight();
+
+    if (this.addProductForm.valid) {
+      const imageUrl = this.addProductForm.get('imageUrl').value;
+      if (imageUrl.length < 2 || imageUrl.length > 5) {
         swal(
           'Warning',
           'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
@@ -644,12 +528,26 @@ export class AddProductComponent implements OnInit {
         );
         return;
       }
-        this.loadingService.show();
-        this.specMapping(this.spec);
-        if (this.measurementType === '1') {
-          this.apr.weight = +this.apr.weight * 1000;
-        }
-        this.productService.addProduct(this.apr).subscribe(response => {
+
+      console.log('this.addProductForm.value: ', this.addProductForm.value);
+      this.loadingService.show();
+      if (this.productId) {
+        const editProductRequest = new EditProductRequest();
+        editProductRequest.classification = this.addProductForm.get('classification').value;
+        editProductRequest.couriers = this.addProductForm.get('couriers').value;
+        editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
+        editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
+        editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
+        editProductRequest.discount = this.addProductForm.get('discount').value;
+        editProductRequest.guaranteeTime = this.addProductForm.get('guaranteeTime').value;
+        editProductRequest.pricelist = this.addProductForm.get('pricelist').value;
+        editProductRequest.productId = this.productId;
+        editProductRequest.qty = this.addProductForm.get('qty').value;
+        editProductRequest.specialPrice = this.addProductForm.get('specialPrice').value;
+        editProductRequest.weight = this.addProductForm.get('weight').value;
+
+        this.productService.editProduct(editProductRequest).subscribe(response => {
+          console.log('response: ', response);
           this.loadingService.hide();
           swal(
             'belisada.co.id',
@@ -658,43 +556,30 @@ export class AddProductComponent implements OnInit {
           );
           this.router.navigate(['/listing-product']);
         });
-    } else {
-      this.validateAllFormFields(this.form);
-      this.validateAllFormFields(this.formDesc);
-      this.validateAllFormFields(this.formGaransi);
-      this.validateAllFormFields(this.formBerat);
-      this.validateAllFormFields(this.formStok);
-      this.validateAllFormFields(this.formDimensiP);
-      this.validateAllFormFields(this.formDimensiL);
-      this.validateAllFormFields(this.formDimensiT);
-      this.validateAllFormFields(this.formHarga);
-      // this.errMaxDiscount = true;
-      console.log('ini kajsdkjasdlj',this.apr.name);
-      if (this.apr.imageUrl.length < 2 || this.apr.imageUrl.length > 5) {
-        swal(
-          'Warning',
-          'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
-          'warning'
-        );
-        return;
-      }
-      if (this.apr.classification === undefined) {
-        swal(
-          'Warning',
-          'Harap pilih kondisi barang',
-          'warning'
-        );
-        return;
-      }
-      if (this.apr.couriers.length === 0) {
-        swal(
-          'Warning',
-          'Anda belum memilih metode pengiriman.',
-          'warning'
-        );
-        return;
+      } else {
+        this.productService.addProduct(this.addProductForm.value).subscribe(response => {
+          this.loadingService.hide();
+          swal(
+            'belisada.co.id',
+            response.message,
+            'success'
+          );
+          this.router.navigate(['/listing-product']);
+        });
       }
     }
+  }
+
+  // !-- Utilities for checking invalid field from reactive form control
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.addProductForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
+    }
+    return invalid;
   }
 
   numberCheck(event: any) {
@@ -706,21 +591,22 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  calculateDiscount() {
-    console.log(this.apr.pricelist + ' ------ ' + this.apr.specialPrice);
-    if (+this.apr.specialPrice >= +this.apr.pricelist) {
-      this.errMaxDiscount = true;
-    } else {
-      this.errMaxDiscount = false;
-    }
-    console.log(this.errMaxDiscount);
-    console.log('this.formHarga: ', this.formHarga);
-    if (this.apr.pricelist && this.apr.specialPrice && this.apr.specialPrice !== 0) {
-      this.isDiscountActive = true;
-      this.totalDiscount = this.apr.pricelist - this.apr.specialPrice;
-      this.apr.discount = Math.round(100 - ((this.apr.specialPrice / this.apr.pricelist) * 100));
-    } else {
-      this.isDiscountActive = false;
-    }
+  cancel() {
+    swal({
+      title: 'Warning',
+      text: 'Apakah anda yakin ingin keluar? Perubahan yang anda buat akan hilang!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Iya',
+      cancelButtonText: 'Tidak',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.addProductForm.reset();
+        this.router.navigate(['/listing-product']);
+      }
+    });
   }
 }
