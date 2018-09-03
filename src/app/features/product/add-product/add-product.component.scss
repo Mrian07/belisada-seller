@@ -17,6 +17,10 @@ label {
 .drick-select-container {
     width: 200px;
     position: relative;
+
+    &--fluid {
+        width: 100%;
+    }
 }
 
 .drick-select__text {
@@ -76,7 +80,7 @@ label {
     margin-left:10px;
 }
 .w_label--for-itemName {
-  padding-right: 3%;
+    padding-right: 3%;
 }
 
 .label {
@@ -98,4 +102,11 @@ label {
         font-size: 1.2rem;
         color: #747474;
     }
+}
+
+
+input[type="text"]:disabled, textarea:disabled,
+select:disabled {
+    background: #dddddd;
+    cursor: not-allowed;
 }

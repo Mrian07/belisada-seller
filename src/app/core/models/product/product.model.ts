@@ -112,6 +112,7 @@ export class ProductDetailData {
   classification: string;
   qty: number;
   qtyType: string;
+  discount: number;
   statusCode: string;
   categoryOneId: number;
   categoryOneName: string;
@@ -154,12 +155,37 @@ export class SpecificationList {
   value: string;
 }
 
-export class EditProduct {
-  couriers: any[];
+export class EditProductRequest {
+  classification: string;
+  couriers: string[];
+  dimensionsWidth: number;
+  dimensionsheight: number;
+  dimensionslength: number;
   discount: number;
   guaranteeTime: string;
   pricelist: number;
   productId: number;
   qty: number;
   specialPrice: number;
+  weight: number;
+}
+
+export class ProductSuggestion {
+  productId: number;
+  name: string;
+  sku: string;
+  brandId: number;
+  brandName: string;
+  categoryOneId: number;
+  categoryOneName: string;
+  categoryTwoId: number;
+  categoryTwoName: string;
+  categoryThreeId: number;
+  categoryThreeName: string;
+}
+
+export class ProductSuggestionDetail {
+  status: number;
+  message: string;
+  data: ProductDetailData;
 }

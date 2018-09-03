@@ -20,7 +20,7 @@ const routes: Routes = [
         path: '',
         component: ProfileSellerComponent,
         data: {
-          title: ''
+          title: 'Profile Seller'
         },
       },
       {
@@ -57,21 +57,21 @@ const routes: Routes = [
   { path: 'activation',
     component: ActivationComponent,
     data: {
-      title: ''
+      title: 'Activation'
     },
   },
   {
     path: 'print-order',
     component: OrderPrintComponent,
     data: {
-      title: ''
+      title: 'Print order'
     },
   },
   {
     path: 'invoice-number/:id',
     component: InvoiceNumberComponent,
     data: {
-      title: 'invoice-number'
+      title: 'Invoice'
     },
   },
   { path: 'auth', loadChildren: 'app/features/auth/auth.module#AuthModule' },
