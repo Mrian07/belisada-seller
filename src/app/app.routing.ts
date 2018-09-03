@@ -9,6 +9,9 @@ import { ListingProductComponent } from '@belisada-seller/features/product/listi
 import { OrderComponent } from '@belisada-seller/features/order/order.component';
 import { OrderPrintComponent } from '@belisada-seller/features/order-print/order-print.component';
 import { InvoiceNumberComponent } from '@belisada-seller/features/order-list/invoice/invoice-number/invoice-number.component';
+import { DiscussionReviewComponent } from '@belisada-seller/features/discussion-review/discussion-review.component';
+import { DiscussionComponent } from '@belisada-seller/features/discussion/discussion.component';
+import { ReviewComponent } from '@belisada-seller/features/review/review.component';
 
 const routes: Routes = [
   {
@@ -51,7 +54,27 @@ const routes: Routes = [
           title: 'listing-order'
         },
       },
-
+      {
+        path: 'discussion-review',
+        component: DiscussionReviewComponent,
+        data: {
+          title: 'discussion-review'
+        },
+      },
+      {
+        path: 'discussion',
+        component: DiscussionComponent,
+        data: {
+          title: 'discussion'
+        },
+      },
+      {
+        path: 'review',
+        component: ReviewComponent,
+        data: {
+          title: 'review'
+        },
+      },
     ],
   },
   { path: 'activation',

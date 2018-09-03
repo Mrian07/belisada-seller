@@ -1,0 +1,6 @@
+<div [@dialog] *ngIf="visible" [ngStyle]="{'max-width.px':maxwidth}" class="dialog">
+        <ng-content></ng-content>
+        <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+        <!-- <button *ngIf="closable" (click)="close()" aria-label="Close" class="btn btn--orange btn--size--80 butnon--click" (click) ="close()" >Berbelanja</button> -->
+    </div>
+    <div *ngIf="visible" class="overlay" (click)="close()"></div>

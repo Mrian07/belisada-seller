@@ -101,3 +101,146 @@
     cursor: pointer;
     margin-left: 5px;
 }
+
+.modal-body{
+    background: #f7f7f7;
+    padding:10px;
+    border-radius:5px;
+    font-size: 12px;
+}
+
+.no-resi{
+    margin-bottom:20px;
+    font-size: 12px;
+}
+
+.con-resi{
+    font-size: 12px;
+    margin-bottom:10px;
+}
+
+.line-resi{
+    display: block;
+}
+
+.c-resi{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-size: 12px;
+}
+
+.tr-black{
+    color: #000000;
+}
+
+.foot-resi{
+    margin-top: 20px;
+    border-top: 1px solid #dddddd;
+    background: #f7f7f7;
+    padding: 5px;
+    text-align: right;
+}
+
+// .btn-konfirm{
+//     padding: 5px;
+//     color: #ffffff;
+//     background: #f5660d;
+//     border-radius: 5px;
+//     font-size: 12px;
+//     border: 1px solid #c95811;
+//     margin-right: 10px;
+//     cursor: pointer;
+// }
+
+// .btn-konfirm:hover{
+//     background: #fa8034;
+// }
+
+// .btn-batal{
+//     padding: 5px;
+//     color: #3f3f3f;
+//     background: #e5e5e5;
+//     border-radius: 5px;
+//     font-size: 12px;
+//     border: 1px solid #3f3f3f;
+//     margin-right: 10px;
+//     cursor: pointer;
+// }
+
+// .btn-batal:hover{
+//     background: #f2f0f0;
+// }
+
+.field-r{
+    width: 100%;
+    padding:8px;
+}
+
+.no-resi{
+    margin-top:10px;
+    margin-bottom:0px;
+}
+
+.m-left{
+    margin-right: 10px;
+}
+
+.text-small{
+    font-size: 11px;
+}
+
+.error-body{
+    font-size: 15px;
+    color: #f53b1a;
+    text-align: center;
+    margin-top:20px;
+    background: #f7f7f7;
+}
+
+.success-body{
+    font-size: 15px;
+    color: #111111;
+    text-align: center;
+    margin-top:20px;
+    background: #f7f7f7;
+}
+
+.txt-batal{
+    color: #000000;
+}
+
+.paging{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.paging ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  .paging li {
+    display: inline-block;
+
+  }
+  .paging a {
+    border: 1px solid #ebeef2;
+    padding: 3px 10px;
+    margin: 0 3px;
+    border-radius: 5px;
+  }
+  .paging a.current-page {
+    border: 1px solid #cde;
+    background: #def;
+    color: #999;
+    cursor: default;
+  }
+  .paging a:not(.disabled):not(.current-page):hover {
+    color: #abc;
+    cursor: pointer;
+    border-color: #cde;
+  }
+  .paging a.disabled {
+    color: #ccc;
+    cursor: default;
+  }

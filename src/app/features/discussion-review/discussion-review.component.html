@@ -1,0 +1,15 @@
+<span class="title">Discussion & Review</span>
+<div class="frame-menu">
+  <div [ngClass]="(tabOrder=='Discussion')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Discussion')">
+    Diskusi Produk
+  </div>
+  <div [ngClass]="(tabOrder=='Review')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Review')">
+    Review Produk
+  </div>
+</div>
+<div class="frame-menu-contain">
+  <!-- <bss-discussion [status]="tabOrder"></bss-discussion> -->
+  <!-- <bss-discussion *ngIf="tabOrder=='Discussion'"></bss-discussion>  -->
+  <bss-discussion *ngIf="tabOrder=='Discussion'"></bss-discussion>
+  <bss-review *ngIf="tabOrder=='Review'"></bss-review>
+</div>
