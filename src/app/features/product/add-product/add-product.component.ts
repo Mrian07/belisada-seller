@@ -204,7 +204,7 @@ export class AddProductComponent implements OnInit {
   }
 
   disableControl(condition: Boolean) {
-    this.disabled = true;
+    this.disabled = condition;
     const action = condition ? 'disable' : 'enable';
     this.addProductForm.controls['name'][action]();
     this.addProductForm.controls['brandId'][action]();
@@ -609,6 +609,30 @@ export class AddProductComponent implements OnInit {
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
         event.preventDefault();
     }
+  }
+
+  reset() {
+    this.disableControl(false);
+    this.categoryList.C2.data = [];
+    this.categoryList.C3.data = [];
+    this.categoryAttributes = [];
+    this.categoryName = {
+      C1: '',
+      C2: '',
+      C3: ''
+    };
+    this.categoryId = {
+      C1: '',
+      C2: '',
+      C3: ''
+    };
+    this.addProductForm.reset({
+      couriers: [],
+      imageUrl: [],
+      specification: []
+    });
+    this.getCourier();
+    window.scrollTo(0, 0);
   }
 
   cancel() {
