@@ -34,4 +34,12 @@ export class TransactionService {
         map(response => response as Resi)
       );
   }
+
+  getShippingPdf(queryParams) {
+    let params = new HttpParams();
+    Object.keys(queryParams).forEach(function(k) {
+      params = params.append(k, queryParams[k]);
+    });
+    return this.http.post(this.configuration.apiURL + '/seller/order/confirmation/resi', {params: params});
+  }
 }
