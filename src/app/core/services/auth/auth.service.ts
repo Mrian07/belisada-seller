@@ -1,20 +1,21 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http/src/headers';
-import { Router } from '@angular/router';
 import { Token } from '@belisada-seller/core/models';
 import { Configuration } from '@belisada-seller/core/config';
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { firebase } from '@firebase/app';
+import '@firebase/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private configuration: Configuration,
-  private http: HttpClient, private routes: Router) { }
+  constructor(
+    private configuration: Configuration,
+    private http: HttpClient,
+    public afAuth: AngularFireAuth
+  ) { }
 
   /*
   param:
@@ -46,5 +47,35 @@ export class AuthService {
     if (this.token) {
       return this.token;
     }
+  }
+
+  doFacebookLogin() {
+    return new Promise<any>((resolve, reject) => {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(res => {
+        resolve(res);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  }
+
+  doGoogleLogin() {
+    return new Promise<any>((resolve, reject) => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(res => {
+        resolve(res);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
   }
 }

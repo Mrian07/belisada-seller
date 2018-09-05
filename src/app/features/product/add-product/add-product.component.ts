@@ -67,6 +67,7 @@ export class AddProductComponent implements OnInit {
   };
 
   disabled: Boolean = false;
+  submitted: Boolean = false;
 
   categoryAttributes: CategoryAttribute[];
 
@@ -203,7 +204,7 @@ export class AddProductComponent implements OnInit {
   }
 
   disableControl(condition: Boolean) {
-    this.disabled = true;
+    this.disabled = condition;
     const action = condition ? 'disable' : 'enable';
     this.addProductForm.controls['name'][action]();
     this.addProductForm.controls['brandId'][action]();
@@ -515,21 +516,37 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductSubmit() {
+    this.submitted = true;
     this.specMapping(this.spec);
     this.calculateWeight();
 
-    if (this.addProductForm.valid) {
-      const imageUrl = this.addProductForm.get('imageUrl').value;
-      if (imageUrl.length < 2 || imageUrl.length > 5) {
-        swal(
-          'Warning',
-          'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
-          'warning'
-        );
-        return;
-      }
+    const imageUrl = this.addProductForm.get('imageUrl').value;
+    if (imageUrl.length < 2 || imageUrl.length > 5) {
+      swal(
+        'Warning',
+        'Maaf gambar produk tidak boleh kurang dari dua atau lebih dari lima',
+        'warning'
+      );
+      return;
+    }
+    if (this.addProductForm.get('classification').value === '') {
+      swal(
+        'Warning',
+        'Kondisi barang harus diisi',
+        'warning'
+      );
+      return;
+    }
+    if (this.addProductForm.get('couriers').value.length <= 0) {
+      swal(
+        'Warning',
+        'Metode pengiriman harus diisi',
+        'warning'
+      );
+      return;
+    }
 
-      console.log('this.addProductForm.value: ', this.addProductForm.value);
+    if (this.addProductForm.valid) {
       this.loadingService.show();
       if (this.productId) {
         const editProductRequest = new EditProductRequest();
@@ -547,14 +564,15 @@ export class AddProductComponent implements OnInit {
         editProductRequest.weight = this.addProductForm.get('weight').value;
 
         this.productService.editProduct(editProductRequest).subscribe(response => {
-          console.log('response: ', response);
           this.loadingService.hide();
           swal(
             'belisada.co.id',
             response.message,
-            'success'
+            (response.status === 0) ? 'error' : 'success'
           );
-          this.router.navigate(['/listing-product']);
+          if (response.status === 1) {
+            this.router.navigate(['/listing-product']);
+          }
         });
       } else {
         this.productService.addProduct(this.addProductForm.value).subscribe(response => {
@@ -562,9 +580,11 @@ export class AddProductComponent implements OnInit {
           swal(
             'belisada.co.id',
             response.message,
-            'success'
+            (response.status === 0) ? 'error' : 'success'
           );
-          this.router.navigate(['/listing-product']);
+          if (response.status === 1) {
+            this.router.navigate(['/listing-product']);
+          }
         });
       }
     }
@@ -589,6 +609,30 @@ export class AddProductComponent implements OnInit {
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
         event.preventDefault();
     }
+  }
+
+  reset() {
+    this.disableControl(false);
+    this.categoryList.C2.data = [];
+    this.categoryList.C3.data = [];
+    this.categoryAttributes = [];
+    this.categoryName = {
+      C1: '',
+      C2: '',
+      C3: ''
+    };
+    this.categoryId = {
+      C1: '',
+      C2: '',
+      C3: ''
+    };
+    this.addProductForm.reset({
+      couriers: [],
+      imageUrl: [],
+      specification: []
+    });
+    this.getCourier();
+    window.scrollTo(0, 0);
   }
 
   cancel() {

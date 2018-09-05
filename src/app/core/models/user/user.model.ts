@@ -35,11 +35,14 @@ export class SignupResponse {
 }
 
 export class SigninRequest {
+    avatar?: string;
     email: string;
-    password: string;
-    userType: string;
-
-    constructor() {}
+    loginType?: string;
+    name?: string;
+    password?: string;
+    socialName?: string;
+    socialToken?: string;
+    userType?: string;
 }
 
 export class SigninResponse extends BaseResponseModel {
@@ -151,7 +154,7 @@ export class ActivationSeller {
     data: DataSeller;
 }
 
-export class DataSeller{
+export class DataSeller {
     token: string;
     name: string;
 }
