@@ -40,6 +40,10 @@ export class ProfileSellerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getProfile();
+  }
+
+  getProfile() {
     this.storeService.profile().subscribe(data => {
       this.store = data;
       this.updateDescriptionRequest.description = data.description;
@@ -123,9 +127,9 @@ export class ProfileSellerComponent implements OnInit {
       // console.log('stat:', result);
       if (result.value) {
         this.storeService.updateStatus(this.updateStatus).subscribe(rsl => {
-          if (rsl.status !== 1) {
-            swal(rsl.message);
-          }
+          console.log('rsl: ', rsl);
+          swal('Success', rsl.message, (rsl.status === 1) ? 'success' : 'error');
+          this.getProfile();
         });
       } else {
         el.checked = !el.checked;
