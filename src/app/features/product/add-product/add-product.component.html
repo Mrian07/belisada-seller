@@ -42,7 +42,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div *ngIf="f.name.touched && f.name.errors">
+                    <div *ngIf="(submitted || f.name.touched) && f.name.invalid">
                         <bss-field-error [displayError]="f.name.errors.required" errorMsg="Silahkan masukan nama produk kamu"></bss-field-error>
                     </div>
                 </div>
@@ -160,8 +160,8 @@
             <div class="col-9">
                 <div class="col-9">
                     <textarea formControlName="description" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
-                    <div *ngIf="f.description.touched && f.description.errors">
-                        <bss-field-error [displayError]="f.description.touched && f.description.errors.required" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error>
+                    <div *ngIf="(submitted || f.description.touched) && f.description.invalid">
+                        <bss-field-error [displayError]="f.description.errors.required" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error>
                     </div>
                 </div>
             </div>
@@ -201,8 +201,8 @@
                 <input formControlName="pricelist" type="text"
                     class="f-control" placeholder="Harga" (keypress)="numberCheck($event)"
                     (keyup)="calculateDiscount()" maxlength="10"/>
-                <div *ngIf="f.pricelist.touched && f.pricelist.errors">
-                    <bss-field-error [displayError]="f.pricelist.touched && f.pricelist.errors.required" errorMsg="Silahkan masukan harga"></bss-field-error>
+                <div *ngIf="(submitted || f.pricelist.touched) && f.pricelist.invalid">
+                    <bss-field-error [displayError]="f.pricelist.errors.required" errorMsg="Silahkan masukan harga"></bss-field-error>
                 </div>
             </div>
         </div>
@@ -236,8 +236,8 @@
             <label class="col-3 middle">Stok</label>
             <div class="col-3">
                 <input type="text" formControlName="qty" class="f-control" placeholder="Stok" (keypress)="numberCheck($event)" maxlength="10">
-                <div *ngIf="f.qty.touched && f.qty.errors">
-                    <bss-field-error [displayError]="f.qty.touched && f.qty.errors.required" errorMsg="Silahkan masukan stok"></bss-field-error>
+                <div *ngIf="(submitted || f.qty.touched) && f.qty.invalid">
+                    <bss-field-error [displayError]="f.qty.errors.required" errorMsg="Silahkan masukan stok"></bss-field-error>
                 </div>
             </div>
         </div>
@@ -247,8 +247,8 @@
                 <select formControlName="guaranteeTime" class="f-control">
                     <option *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
                 </select>
-                <div *ngIf="f.guaranteeTime.touched && f.guaranteeTime.errors">
-                    <bss-field-error [displayError]="f.guaranteeTime.touched && f.guaranteeTime.errors.required" errorMsg="Silahkan pilih garansi"></bss-field-error>
+                <div *ngIf="(submitted || f.guaranteeTime.touched) && f.guaranteeTime.invalid">
+                    <bss-field-error [displayError]="f.guaranteeTime.errors.required" errorMsg="Silahkan pilih garansi"></bss-field-error>
                 </div>
             </div>
         </div>
@@ -260,8 +260,8 @@
             <label class="col-3 middle">Berat</label>
             <div class="col-2">
                 <input type="text" formControlName="weight" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
-                <div *ngIf="f.weight.touched && f.weight.errors">
-                    <bss-field-error [displayError]="f.weight.touched && f.weight.errors.required" errorMsg="Silahkan masukan berat"></bss-field-error>
+                <div *ngIf="(submitted || f.weight.touched) && f.weight.invalid">
+                    <bss-field-error [displayError]="f.weight.errors.required" errorMsg="Silahkan masukan berat"></bss-field-error>
                 </div>
             </div>
             <div class="col-2">
@@ -276,20 +276,20 @@
                 <label class="col-3 middle">Dimensi</label>
                 <div class="col-2">
                     <input formControlName="dimensionslength"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="P">
-                    <div *ngIf="f.dimensionslength.touched && f.dimensionslength.errors">
-                        <bss-field-error [displayError]="f.dimensionslength.touched && f.dimensionslength.errors.required" errorMsg="Silahkan isi panjang dimensi"></bss-field-error>
+                    <div *ngIf="(submitted || f.dimensionslength.touched) && f.dimensionslength.invalid">
+                        <bss-field-error [displayError]="f.dimensionslength.errors.required" errorMsg="Silahkan isi panjang dimensi"></bss-field-error>
                     </div>
                 </div>
                 <div class="col-2">
                     <input formControlName="dimensionsWidth"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="L">
-                    <div *ngIf="f.dimensionsWidth.touched && f.dimensionsWidth.errors">
-                        <bss-field-error [displayError]="f.dimensionsWidth.touched && f.dimensionsWidth.errors.required" errorMsg="Silahkan isi lebar dimensi"></bss-field-error>
+                    <div *ngIf="(submitted || f.dimensionsWidth.touched) && f.dimensionsWidth.invalid">
+                        <bss-field-error [displayError]="f.dimensionsWidth.errors.required" errorMsg="Silahkan isi lebar dimensi"></bss-field-error>
                     </div>
                 </div>
                 <div class="col-2">
                     <input formControlName="dimensionsheight"  type="text" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="T">
-                    <div *ngIf="f.dimensionsheight.touched && f.dimensionsheight.errors">
-                        <bss-field-error [displayError]="f.dimensionsheight.touched && f.dimensionsheight.errors.required" errorMsg="Silahkan isi tinggi dimensi"></bss-field-error>
+                    <div *ngIf="(submitted || f.dimensionsheight.touched) && f.dimensionsheight.invalid">
+                        <bss-field-error [displayError]="f.dimensionsheight.errors.required" errorMsg="Silahkan isi tinggi dimensi"></bss-field-error>
                     </div>
                 </div>
             </div>
@@ -317,6 +317,7 @@
     </div>
     <div class="right">
         <input type="submit" class="btn btn--yellow" value="Simpan">
+        <input type="button" (click)="reset()" class="btn margin-left" value="Reset">
         <input type="button" (click)="cancel()" class="btn margin-left" value="Batal">
     </div>
 </form>

@@ -5,9 +5,10 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 
 import swal from 'sweetalert2';
 import { EmailChecking, SigninRequest, UserData } from '@belisada-seller/core/models';
-import { UserService } from '@belisada-seller/core/services';
+import { UserService, AuthService } from '@belisada-seller/core/services';
 import { LocalStorageEnum } from '@belisada-seller/core/enum';
 import { isPlatformBrowser } from '@angular/common';
+import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -33,7 +34,9 @@ export class SignInComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private loadingService: LoadingService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -64,8 +67,7 @@ export class SignInComponent implements OnInit {
     if (form.valid) {
       const signinRequest: SigninRequest = form.value;
       console.log('signinRequest: ', signinRequest);
-      this.userService.signin(signinRequest).subscribe(
-      result => {
+      this.userService.signin(signinRequest).subscribe(result => {
         // Handle result
         if (result.status === 0) {
           this.msg = result.message;
@@ -123,6 +125,74 @@ export class SignInComponent implements OnInit {
     } else {
       el.type = 'password';
     }
+  }
+
+  googleLogin() {
+    this.loadingService.show();
+    this.authService.doGoogleLogin()
+    .then(res => {
+      console.log('googleLogin-res: ' + JSON.stringify(res));
+      const signinRequest: SigninRequest = new SigninRequest();
+      signinRequest.email = res.additionalUserInfo.profile.email;
+      signinRequest.avatar = res.additionalUserInfo.profile.picture;
+      signinRequest.loginType = 'social';
+      signinRequest.name = res.additionalUserInfo.profile.name;
+      signinRequest.socialName = res.additionalUserInfo.providerId;
+      signinRequest.socialToken = res.credential.idToken;
+      // signinRequest.userType = res.additionalUserInfo.profile.email;
+      this.userService.signin(signinRequest).subscribe(result => {
+        this.loadingService.hide();
+        // Handle result
+        if (result.status === 1) {
+          const token: string = result.token;
+          this.userService.setUserToLocalStorage(token);
+          this.router.navigate(['']);
+        } else {
+          this.msg = result.message;
+          // swal('belisada.co.id', result.message, 'error');
+        }
+      }, error => {
+        this.loadingService.hide();
+        swal('belisada.co.id', 'unknown error', 'error');
+      });
+    }, err => {
+      this.loadingService.hide();
+      console.log('googleLogin-err: ', err);
+    });
+  }
+
+  facebookLogin() {
+    this.loadingService.show();
+    this.authService.doFacebookLogin()
+    .then(res => {
+      console.log('facebookLogin-res: ', res);
+      const signinRequest: SigninRequest = new SigninRequest();
+      signinRequest.email = res.additionalUserInfo.profile.email;
+      signinRequest.avatar = res.additionalUserInfo.profile.picture.data.url;
+      signinRequest.loginType = 'social';
+      signinRequest.name = res.additionalUserInfo.profile.name;
+      signinRequest.socialName = res.additionalUserInfo.providerId;
+      signinRequest.socialToken = res.credential.idToken;
+      // signinRequest.userType = res.additionalUserInfo.profile.email;
+      this.userService.signin(signinRequest).subscribe(result => {
+        this.loadingService.hide();
+        // Handle result
+        if (result.status === 1) {
+          const token: string = result.token;
+          this.userService.setUserToLocalStorage(token);
+          this.router.navigate(['']);
+        } else {
+          this.msg = result.message;
+          // swal('belisada.co.id', result.message, 'error');
+        }
+      }, error => {
+        this.loadingService.hide();
+        swal('belisada.co.id', 'unknown error', 'error');
+      });
+    }, err => {
+      this.loadingService.hide();
+      console.log('facebookLogin-err: ', err);
+    });
   }
 
 }
