@@ -28,6 +28,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DiscussionReviewComponent } from '@belisada-seller/features/discussion-review/discussion-review.component';
 import { DiscussionComponent } from '@belisada-seller/features/discussion/discussion.component';
 import { ReviewComponent } from '@belisada-seller/features/review/review.component';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { environment } from '@env/environment';
 
 library.add(fas, far, fab);
 
@@ -50,6 +54,9 @@ library.add(fas, far, fab);
     BrowserAnimationsModule,
     BrowserModule,
     FontAwesomeModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule,
     AppRoutingModule,
     FeaturesModule,
     ThemesModule,
