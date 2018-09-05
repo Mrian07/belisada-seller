@@ -155,3 +155,18 @@ export class DataSeller{
     token: string;
     name: string;
 }
+
+export class RefreshTokenRequest {
+    token: string;
+}
+
+export class RefreshTokenRespon {
+    name: string;
+    email: string;
+    role: number;
+    phone: number;
+    token: any;
+    status: number;
+    message: string;
+    isSetPassword: boolean;
+}

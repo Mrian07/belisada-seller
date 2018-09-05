@@ -1,6 +1,6 @@
 import { environment } from '@env/environment';
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import swal from 'sweetalert2';
@@ -29,21 +29,46 @@ export class SignInComponent implements OnInit {
   userData: UserData = new UserData();
   isLogin: Boolean = false;
   baseUrl: string;
+
+  token: string;
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.baseUrl = environment.baseUrlBuyer;
-    this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
-    if (this.userData) {
-      this.router.navigate(['']);
-      this.isLogin = true;
-    }
-    this.createFormControl();
+
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      if (params['token']) {
+        localStorage.setItem(LocalStorageEnum.TOKEN_KEY, params['token']);
+        this.userService.refreshToken().subscribe(
+          respon => {
+            if (respon.role === 4 || respon.role === 5 || respon.role === 6 || respon.role === 7) {
+              this.userService.setUserToLocalStorage(respon.token);
+              this.router.navigate(['']);
+              this.isLogin = true;
+            }
+            console.log('hasilnya', respon);
+          },
+          error => {
+              console.log('error', error);
+          });
+
+      } else {
+        this.createFormControl();
+      }
+    });
+
+    // this.baseUrl = environment.baseUrlBuyer;
+    // this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
+    // if (this.userData) {
+    //   this.router.navigate(['']);
+    //   this.isLogin = true;
+    // }
+    // this.createFormControl();
   }
 
   /* Fungsi untuk membuat nama field pada form */
