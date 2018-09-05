@@ -8,6 +8,7 @@ import {
   SignupResponse, SignupData, SigninRequest, ResetPasswdResponse, SendEmailRequest, SendEmailResponse,
   SigninResponse, ActivationRequest, ActivationResponse, EmailChecking, UserLocalStorage, UserData,
   ResetPasswdRequest, Profile, EditProfileResponse, EditProfileRequest, User, UserSignupGuest, ActivationSeller
+  , RefreshTokenRequest, RefreshTokenRespon
 } from '@belisada-seller/core/models';
 
 import { JWTUtil } from '@belisada-seller/core/util';
@@ -190,4 +191,10 @@ export class UserService {
     return observableThrowError(error);
   }
 
+  refreshToken(): Observable <RefreshTokenRespon> {
+    return this.http.get(this.config.apiURL + '/account/refreshtoken')
+      .pipe(
+        map(response => response as RefreshTokenRespon)
+      );
+  }
 }
