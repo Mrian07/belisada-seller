@@ -68,12 +68,12 @@
 			</div>
 			<div>
 				<span class="nm-item-courier">{{item.courierCode}} </span>
-        <span class="nm-item-courier w__edit--cetak-label"> <span class="print-order"><a [routerLink]="['/print-order/']" target="_blank"><img src="assets/img/printer.png" border="0" width="20"></a> </span> Cetak Label Pengiriman </span>
+        <span class="nm-item-courier w__edit--cetak-label" (click)="gotoCetakLabelPengiriman(item.orderNumber)"> <span class="print-order"><img src="assets/img/printer.png" border="0" width="20"></span> Cetak Label Pengiriman </span>
 
 			</div>
 			<div>
         <span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
-				<div class="btn-order" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)"> 
+				<div class="btn-order" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
 					Input No Resi
         </div>
 
@@ -110,7 +110,7 @@
 	</div>
 	<div *ngIf="isForm==true">
 		<div class="no-resi tr-black">No Pesanan: #{{info.paymentNumber}}</div>
-		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan. 
+		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
 			Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
 		<form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit()" novalidate>
 			<input class="field-r" type="hidden" formControlName="orderNumber">
@@ -150,5 +150,5 @@
 			Proses kirim Resi berhasil
 		</div>
 	</div>
-	
+
   </app-models>

@@ -47,3 +47,9 @@
     font-weight: bold;
     color: #111111;
 }
+
+@media print {
+  .do-not-print {
+    display: none!important;
+  }
+}

@@ -42,6 +42,7 @@ export class OrderListComponent implements OnInit, OnChanges {
   currentPage: number;
   pages: any = [];
   a: any;
+  b: any;
 
   private currentValueStatus: string = this._status;
 
@@ -50,7 +51,8 @@ export class OrderListComponent implements OnInit, OnChanges {
     private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+   }
 
   ngOnInit() {
     this.isStatus();
@@ -65,6 +67,9 @@ export class OrderListComponent implements OnInit, OnChanges {
   }
   goToInvoice(e) {
     window.open(environment.baseUrlSeller + '/invoice-number/' + e, '_blank');
+  }
+  gotoCetakLabelPengiriman(e) {
+    window.open(environment.apiUrl + '/seller/shippingpdf?orderNumber=' + e, '_blank');
   }
 
   private formData() {
