@@ -40,7 +40,7 @@ export class DiscussionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData();
+    this.loadDis();
     // this.createFormControl();
   }
 
@@ -58,7 +58,7 @@ export class DiscussionComponent implements OnInit {
     });
   }
 
-  loadData() {
+  loadDis() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
     this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
     const queryParams = {
@@ -66,10 +66,6 @@ export class DiscussionComponent implements OnInit {
       page: this.currentPage,
     };
 
-    // const queryParams = {
-    //   page: 1,
-    //   itemperpage: 1,
-    // };
     this.discussionService.getDiscussion(queryParams).subscribe(response => {
       this.list = response.content;
       this.createFormControl(response.content);
@@ -87,7 +83,7 @@ export class DiscussionComponent implements OnInit {
 
       // console.log('diskusi biasa', response.content);
     });
-   });
+  });
   }
 
   openOS(status, productId, discusId) {
