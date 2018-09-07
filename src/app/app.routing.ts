@@ -84,7 +84,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'print-order',
+    path: 'print-order/:id',
     component: OrderPrintComponent,
     data: {
       title: 'Print order'
