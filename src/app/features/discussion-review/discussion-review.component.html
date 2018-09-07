@@ -1,9 +1,9 @@
 <span class="title">Discussion & Review</span>
 <div class="frame-menu">
-  <div [ngClass]="(tabOrder=='Discussion')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Discussion')">
+  <div [ngClass]="(tabOrder=='Discussion')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Discussion', tabOrder)">
     Diskusi Produk
   </div>
-  <div [ngClass]="(tabOrder=='Review')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Review')">
+  <div [ngClass]="(tabOrder=='Review')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Review', tabOrder)">
     Review Produk
   </div>
 </div>

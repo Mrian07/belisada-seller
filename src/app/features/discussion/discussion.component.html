@@ -11,7 +11,7 @@
         <div class="question-dis" *ngFor="let itemChild of listChild">
         <div class="i">
             <div class="iImg">
-                <img src="{{itemChild.imageAvatarUrl}}" width="100"> 
+                <img src="{{itemChild.imageAvatarUrl}}" class="imgUser">
             </div>
             <div class="iCon">
                 <p><label>{{itemChild.name}}</label></p>
@@ -20,7 +20,7 @@
         </div>
         <div class="i" *ngFor="let itemChilds of itemChild.childs">
             <div class="iImg">
-                <img src="{{itemChilds.imageAvatarUrl}}" width="100"> 
+                <img src="{{itemChilds.imageAvatarUrl}}" class="imgUser" width="100"> 
             </div>
             <div class="iCon">
                 <p><label>{{itemChilds.name}}</label></p>
@@ -40,7 +40,7 @@
         </form>
     </div>
     </div>
-</div>{{page}}
+</div>
 <div class="paging" *ngIf="a!=0">
 	<ul>
 		<li>

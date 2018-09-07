@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bss-discussion-review',
@@ -7,15 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscussionReviewComponent implements OnInit {
   tabOrder: string;
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     this.tabOrder = 'Discussion';
   }
 
   ngOnInit() {
   }
 
-  tab(data) {
-    this.tabOrder = data;
+  tab(data, tabOrder) {
+
+    if (tabOrder === data) {
+      this.tabOrder = data;
+    } else {
+      this.router.navigateByUrl('/buyer/order');
+      this.tabOrder = data;
+    }
   }
 
 }
