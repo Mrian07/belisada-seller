@@ -135,9 +135,9 @@ export class AddProductComponent implements OnInit {
       classification: ['', [Validators.required]],
       couriers: [[], [Validators.required]],
       description: ['', [Validators.required]],
-      dimensionsWidth: ['', [Validators.required]],
-      dimensionsheight: ['', [Validators.required]],
-      dimensionslength: ['', [Validators.required]],
+      // dimensionsWidth: ['', [Validators.required]],
+      // dimensionsheight: ['', [Validators.required]],
+      // dimensionslength: ['', [Validators.required]],
       guaranteeTime: ['', [Validators.required]],
       imageUrl: [[], [Validators.required]],
       pricelist: ['', [Validators.required]],
@@ -169,9 +169,9 @@ export class AddProductComponent implements OnInit {
       classification: data.classification,
       couriers: data.couriers.filter(x => x.isUse === true).map(x => x.code),
       description: data.description,
-      dimensionsWidth: data.dimensionsWidth,
-      dimensionsheight: data.dimensionsheight,
-      dimensionslength: data.dimensionslength,
+      // dimensionsWidth: data.dimensionsWidth,
+      // dimensionsheight: data.dimensionsheight,
+      // dimensionslength: data.dimensionslength,
       guaranteeTime: data.guaranteeTime,
       imageUrl: data.imageUrl,
       pricelist: data.pricelist,
@@ -213,9 +213,9 @@ export class AddProductComponent implements OnInit {
     // this.addProductForm.controls['classification'][action]();
     this.addProductForm.controls['couriers'][action]();
     this.addProductForm.controls['description'][action]();
-    this.addProductForm.controls['dimensionsWidth'][action]();
-    this.addProductForm.controls['dimensionsheight'][action]();
-    this.addProductForm.controls['dimensionslength'][action]();
+    // this.addProductForm.controls['dimensionsWidth'][action]();
+    // this.addProductForm.controls['dimensionsheight'][action]();
+    // this.addProductForm.controls['dimensionslength'][action]();
     // this.addProductForm.controls['guaranteeTime'][action]();
     this.addProductForm.controls['imageUrl'][action]();
     // this.addProductForm.controls['pricelist'][action]();
@@ -552,9 +552,9 @@ export class AddProductComponent implements OnInit {
         const editProductRequest = new EditProductRequest();
         editProductRequest.classification = this.addProductForm.get('classification').value;
         editProductRequest.couriers = this.addProductForm.get('couriers').value;
-        editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
-        editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
-        editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
+        // editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
+        // editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
+        // editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
         editProductRequest.discount = this.addProductForm.get('discount').value;
         editProductRequest.guaranteeTime = this.addProductForm.get('guaranteeTime').value;
         editProductRequest.pricelist = this.addProductForm.get('pricelist').value;

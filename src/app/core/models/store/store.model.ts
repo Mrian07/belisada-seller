@@ -43,6 +43,7 @@ export class ProfileStoreResponse {
   storeUrl: any;
   phone: string;
   address: string;
+  addressId: number;
   description: string;
   rating: number;
   villageId: number;
