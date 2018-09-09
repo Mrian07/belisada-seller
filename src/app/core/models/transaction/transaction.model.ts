@@ -134,17 +134,19 @@ export class Resi {
 
 
 export class ShippingData {
-  status: number;
-  message: string;
-  data: ShippingListData;
+    status: number;
+    message: string;
+    data: ShippingListData;
 }
 
 export class ShippingListData {
-  storeName: string;
-  namaPenerima: string;
-  phonePenerima: string;
-  alamatPenerima: string;
-  address: string;
-  packingKayu: string;
-  asuransi: string;
+    storeName: string;
+    namaPenerima: string;
+    phonePenerima: string;
+    alamatPenerima: string;
+    address: string;
+    packingKayu: string;
+    asuransi: string;
+    courierName: string;
+    courierService: string;
 }
