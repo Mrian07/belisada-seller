@@ -131,3 +131,20 @@ export class Resi {
     orderNumber: string;
     status: number;
 }
+
+
+export class ShippingData {
+  status: number;
+  message: string;
+  data: ShippingListData;
+}
+
+export class ShippingListData {
+  storeName: string;
+  namaPenerima: string;
+  phonePenerima: string;
+  alamatPenerima: string;
+  address: string;
+  packingKayu: string;
+  asuransi: string;
+}

@@ -1,3 +1,4 @@
+import { ShippingData } from './../../models/transaction/transaction.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Configuration } from '@belisada-seller/core/config';
@@ -35,11 +36,13 @@ export class TransactionService {
       );
   }
 
-  getShippingPdf(queryParams) {
-    let params = new HttpParams();
-    Object.keys(queryParams).forEach(function(k) {
-      params = params.append(k, queryParams[k]);
-    });
-    return this.http.post(this.configuration.apiURL + '/seller/order/confirmation/resi', {params: params});
+  getShippingPdf(data: ShippingData): Observable<ShippingData> {
+    return this.http.get(this.configuration.apiURL + '/seller/shipping?orderNumber=' + data)
+    .pipe(
+      map(response => response as ShippingData)
+    );
+  }
+  getBarcode(id) {
+    return this.http.get(this.configuration.apiURL + '/seller/shipping/image?orderNumber=' + id);
   }
 }

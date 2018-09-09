@@ -1,3 +1,6 @@
+import { ShippingListData } from './../../core/models/transaction/transaction.model';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { TransactionService } from './../../core/services/transaction/transaction.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,39 +9,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-print.component.scss']
 })
 export class OrderPrintComponent implements OnInit {
-
-  constructor() { }
+  ListingData: ShippingListData = new ShippingListData();
+  img;
+  constructor(
+    private transactionService: TransactionService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.img = 'https://api0.belisada.id/belisada/seller/shipping/image?orderNumber=';
+  }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.transactionService.getShippingPdf(params['id']).subscribe(respon => {
+        this.ListingData = respon.data;
+      console.log(respon.data);
+      });
+      this.img = this.img + params['id'];
+      console.log(this.img);
+    });
   }
-  print(): void {
-    let printContents, popupWin;
-    printContents = document.getElementById('print-section').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    popupWin.document.open();
-    popupWin.document.write(`
-      <html>
-        <head>
-          <title>Print tab</title>
-          <style>
-
-            @media print {
-              .do-not-print {
-                // display: none!important;
-                background-color: #000;
-              }
-
-              .frame-print{
-                background-color: #000;
-              }
-            }
-
-          </style>
-        </head>
-    <body onload="window.print();window.close()">${printContents}</body>
-      </html>`
-    );
-    popupWin.document.close();
-}
 
 }
