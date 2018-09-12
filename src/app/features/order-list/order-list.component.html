@@ -134,7 +134,8 @@
 
 				<div class="no-resi">No. Resi</div>
 				<div>
-					<input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
+          <input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
+          <bss-field-error [displayError]="isFieldValid('noResi')" errorMsg="OOps Resi Kosong"></bss-field-error>
 				</div>
 			</div>
 
