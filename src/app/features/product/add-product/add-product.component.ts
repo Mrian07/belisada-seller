@@ -372,6 +372,9 @@ export class AddProductComponent implements OnInit {
     };
     this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
       this.categoryAttributes = response;
+      this.categoryAttributes.forEach((categoryAttribute) => {
+        this.spec[categoryAttribute.attributeId] = '';
+      });
 
       let categoryType;
       if (category.type === CategoryTypeEnum.C1) {
