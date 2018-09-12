@@ -20,11 +20,11 @@ a {
     }
 }
 .product-real-price{
-  display: block;
+    display: block;
 }
 .w--btn--new {
-  width: 100%;
-  margin-top: 30%;
+    width: 100%;
+    margin-top: 30%;
 }
 .wrapper-w__for--listing--product {
     display: grid;
@@ -37,6 +37,7 @@ grid-gap: 10px;
     background-color: #f0f0f0;
     color: #444;
     border-radius: 6px;
+    padding: 1rem;
 }
 .w_col-3 {
     display: grid;
@@ -49,11 +50,12 @@ grid-gap: 10px;
 
 
 .w__margin--right {
-    margin-right: 7px;
-    padding: 13%;
+    // margin-right: 7px;
+    // padding: 13%;
 }
 .w__float--left {
     float: left;
+    margin-right: 1rem;
 }
 .m__margin--top {
     margin-top: 20px;
@@ -73,12 +75,12 @@ grid-gap: 10px;
     grid-template-columns: 45% 26% 25%;
 }
 .w__margin--switch {
-    margin-left: 3rem;
+    // margin-left: 3rem;
 }
 
 .w__middle {
-    line-height: 6.7rem;
-    text-align: center;
+    // line-height: 6.7rem;
+    // text-align: center;
 }
 .wrapper__tiga {
     display: grid;

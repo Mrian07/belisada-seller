@@ -167,7 +167,7 @@ export class AddProductComponent implements OnInit {
       brandName: data.brandName,
       categoryThreeId: (data.categoryThreeId !== 0) ? data.categoryThreeId : data.categoryTwoId,
       classification: data.classification,
-      couriers: data.couriers.filter(x => x.isUse === true).map(x => x.code),
+      couriers: (this.productId) ? data.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
       description: data.description,
       // dimensionsWidth: data.dimensionsWidth,
       // dimensionsheight: data.dimensionsheight,
@@ -211,7 +211,7 @@ export class AddProductComponent implements OnInit {
     this.addProductForm.controls['brandName'][action]();
     // this.addProductForm.controls['categoryThreeId'][action]();
     // this.addProductForm.controls['classification'][action]();
-    this.addProductForm.controls['couriers'][action]();
+    // this.addProductForm.controls['couriers'][action]();
     this.addProductForm.controls['description'][action]();
     // this.addProductForm.controls['dimensionsWidth'][action]();
     // this.addProductForm.controls['dimensionsheight'][action]();

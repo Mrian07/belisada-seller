@@ -31,7 +31,7 @@
 			<div>
 				<div class="cart" *ngFor="let itemChild of item.cartItems">
 					<div>
-						<img src="{{itemChild.imageUrl}}" border="0" width="100">
+						<img src="{{ thumborUrl + 'unsafe/fit-in/100x100/filters:fill(fff)/' + itemChild.imageUrl}}" border="0">
 					</div>
 					<div>
 						<span class="nm-item">{{itemChild.name}}</span>
@@ -39,21 +39,21 @@
 					</div>
 					<div class="qty-item">
 							x{{itemChild.quantity}}
-          </div>
-          <div>
-              <span class="uang-item">{{itemChild.subtotal  | currency:'Rp ' }}</span>
-              <span class="small-text"> {{ item.paymentMethod }}</span>
+			</div>
+			<div>
+				<span class="uang-item">{{itemChild.subtotal  | currency:'Rp ' }}</span>
+				<span class="small-text"> {{ item.paymentMethod }}</span>
             </div>
         </div>
         <div class="w-wrapper__for--cetak_invoice">
             <div>
 
-              </div>
-              <div>
-                  <div class="btn-order" (click)="goToInvoice(item.orderNumber)">
-                      Cetak Invoice
-                    </div>
-              </div>
+			</div>
+			<div>
+				<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
+					Cetak Invoice
+				</div>
+			</div>
         </div>
 
 

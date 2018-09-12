@@ -3,6 +3,7 @@ export const environment = {
   apiUrl: 'https://api.belisada.id/belisada',
   baseUrlSeller: 'https://seller.belisada.co.id',
   baseUrlBuyer: 'https://belisada.co.id',
+  thumborUrl: 'https://image.belisada.co.id/',
   firebase: {
     apiKey: 'AIzaSyDHdXsPrLfNpCMKbdrLSsL2r3XD8MB6Hbs',
     authDomain: 'belisada-id.firebaseapp.com',

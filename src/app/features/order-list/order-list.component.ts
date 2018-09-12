@@ -13,6 +13,8 @@ import { environment } from '@env/environment';
 })
 export class OrderListComponent implements OnInit, OnChanges {
 
+  thumborUrl: string = environment.thumborUrl;
+
   info: InvoiceData = new InvoiceData();
 
   // @Input() status: string;
@@ -52,7 +54,7 @@ export class OrderListComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute
   ) {
-   }
+  }
 
   ngOnInit() {
     this.isStatus();

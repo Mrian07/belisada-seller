@@ -6,6 +6,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Globals } from '@belisada-seller/core/services/globals/globals';
 import swal from 'sweetalert2';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'bss-listing-product',
@@ -38,7 +39,7 @@ export class ListingProductComponent implements OnInit {
     private storeService: StoreService
   ) {
     this.rowSelected = -1;
-    this.prodImg = 'http://image.belisada.id:8888/unsafe/80x80/';
+    this.prodImg = environment.thumborUrl + 'unsafe/fit-in/80x80/';
   }
 
   ngOnInit() {
@@ -102,9 +103,9 @@ export class ListingProductComponent implements OnInit {
     }
   }
 
-  bSlider(id) {
+  bSlider(id, hide) {
     const paramS = {
-      hide: true,
+      hide: hide,
       productId: id
     };
     const queryParams = {
@@ -140,25 +141,6 @@ export class ListingProductComponent implements OnInit {
     }
     this.router.navigate(['/add-product']);
     console.log('asdasd');
-  }
-
-  bSliderF(id) {
-    const paramS = {
-      hide: false,
-      productId: id
-    };
-    const queryParams = {
-      page: 1,
-      itemperpage: 10,
-      status : 'ALL'
-    };
-    this.prodSe.editHide(paramS).subscribe(res => {
-      console.log('aaaa', res);
-      this.prodSe.getProdListing(queryParams).subscribe(response => {
-        this.proddetail = response;
-        console.log('proddetail', this.proddetail);
-      });
-    });
   }
 
   onChange(email: any, isChecked: boolean) {
