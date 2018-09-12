@@ -69,18 +69,36 @@ export class OrderListComponent implements OnInit, OnChanges {
   }
   goToInvoice(e) {
     window.open(environment.baseUrlSeller + '/invoice-number/' + e, '_blank');
+    // window.open('https://api0.belisada.id/belisada/seller/shippingpdf?orderNumber=' + a, '_blank');
   }
   gotoCetakLabelPengiriman(e) {
     window.open(environment.baseUrlSeller + '/print-order/' + e, '_blank');
+    // window.open('https://api0.belisada.id/belisada/seller/shippingpdf?orderNumber=' + e, '_blank');
   }
 
   private formData() {
     this.createComForm = this.fb.group({
 
-      actualCourierPrice: new FormControl('', Validators.required),
-      orderNumber: new FormControl('', Validators.required),
+      actualCourierPrice: new FormControl(''),
+      orderNumber: new FormControl(''),
       noResi: new FormControl('', Validators.required)
     });
+  }
+
+  isFieldValid(field: string) {
+    return !this.createComForm.get(field).valid && this.createComForm.get(field).touched;
+}
+validateAllFormFields(formGroup: FormGroup) {
+  Object.keys(formGroup.controls).forEach(field => {
+    const control = formGroup.get(field);
+    if (control instanceof FormControl) {
+        control.markAsTouched({
+            onlySelf: true
+        });
+    } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+    }
+});
   }
 
   orderList(statusOrder?: string) {
@@ -97,6 +115,7 @@ export class OrderListComponent implements OnInit, OnChanges {
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
       this.listCart = response.content;
+      console.log('123213', )
       this.proddetail = response;
       this.a = response.totalElements;
       this.pages = [];
@@ -135,8 +154,8 @@ export class OrderListComponent implements OnInit, OnChanges {
   }
 
   prosesResi() {
-
-    const resi: Resi = new Resi();
+    if (this.createComForm.valid) {
+       const resi: Resi = new Resi();
     resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
     resi.noResi = this.createComForm.controls['noResi'].value;
     resi.orderNumber = this.createComForm.controls['orderNumber'].value;
@@ -157,6 +176,12 @@ export class OrderListComponent implements OnInit, OnChanges {
       }
 
     });
+
+    } else {
+      console.log('xxx')
+        this.validateAllFormFields(this.createComForm);
+    }
+
   }
 
   setPage(page: number, increment?: number) {
