@@ -7,6 +7,7 @@ import {
 } from '@belisada-seller/core/models';
 import { StoreService } from '@belisada-seller/core/services';
 import { environment } from '@env/environment';
+import { Globals } from '@belisada-seller/core/services/globals/globals';
 
 @Component({
   selector: 'app-profile-seller',
@@ -36,7 +37,8 @@ export class ProfileSellerComponent implements OnInit {
   baseUrlBuyer: string = environment.baseUrlBuyer;
 
   constructor(
-    private storeService: StoreService
+    private storeService: StoreService,
+    public global: Globals
   ) { }
 
   ngOnInit() {

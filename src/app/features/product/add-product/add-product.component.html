@@ -174,7 +174,7 @@
 
                     <select [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control" *ngIf="categoryAttribute.isInstanceAttribute === false"
                         [attr.required]="categoryAttribute.isMandatory" [ngModelOptions]="{standalone: true}" [disabled]="disabled">
-                            <option value="" disabled selected>{{ categoryAttribute.name }}</option>
+                            <option value="" disabled>{{ categoryAttribute.name }}</option>
                             <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option> -->
                     </select>
                 </div>
@@ -271,7 +271,7 @@
                 </select>
             </div>
         </div>
-        <div class="row f-group">
+        <!-- <div class="row f-group">
             <div class="row">
                 <label class="col-3 middle">Dimensi</label>
                 <div class="col-2">
@@ -293,7 +293,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row f-group">
             <label class="col-3 middle">Delivery Service</label>
             <div class="col-6">
