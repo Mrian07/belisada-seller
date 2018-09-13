@@ -148,7 +148,7 @@
                                     </div>
                                     <div>
                                         <span class="w__nmbarang">Kategori</span>
-                                        <span class="w__nmBarang">{{ productDetail.categoryThreeName }}</span>
+                                        <span class="w__nmBarang">{{ (productDetail.categoryThreeId !== 0) ? productDetail.categoryThreeName : productDetail.categoryTwoName }}</span>
                                         <span class="w__hrgaBarang">Spesifikasi</span>
                                         <span class="w__nmBarang" *ngFor="let item of productDetail.specification">
                                             - {{item.name}} : {{ item.value }}
