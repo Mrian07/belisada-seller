@@ -363,7 +363,7 @@ export class AddProductComponent implements OnInit {
 
   selectCategory(category) {
     this.addProductForm.patchValue({
-      categoryThreeId: category.categoryId
+      categoryThreeId: (category.type !== CategoryTypeEnum.C1) ? category.categoryId : 0
     });
     this.categoryName[category.type] = category.name;
     this.categoryId[category.type] = category.categoryId;
