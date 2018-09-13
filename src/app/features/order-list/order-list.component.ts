@@ -17,6 +17,8 @@ export class OrderListComponent implements OnInit, OnChanges {
 
   info: InvoiceData = new InvoiceData();
 
+  disabled: Boolean = false;
+
   // @Input() status: string;
   visible: boolean;
   private _status = '182';
@@ -62,7 +64,6 @@ export class OrderListComponent implements OnInit, OnChanges {
     this.formData();
   }
 
-
   ngOnChanges(changes: SimpleChanges) {
     this.currentValueStatus = changes.status.currentValue;
     this.orderList(this.currentValueStatus);
@@ -87,18 +88,18 @@ export class OrderListComponent implements OnInit, OnChanges {
 
   isFieldValid(field: string) {
     return !this.createComForm.get(field).valid && this.createComForm.get(field).touched;
-}
-validateAllFormFields(formGroup: FormGroup) {
-  Object.keys(formGroup.controls).forEach(field => {
-    const control = formGroup.get(field);
-    if (control instanceof FormControl) {
-        control.markAsTouched({
-            onlySelf: true
-        });
-    } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-    }
-});
+  }
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+          control.markAsTouched({
+              onlySelf: true
+          });
+      } else if (control instanceof FormGroup) {
+          this.validateAllFormFields(control);
+      }
+    });
   }
 
   orderList(statusOrder?: string) {
@@ -115,7 +116,6 @@ validateAllFormFields(formGroup: FormGroup) {
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
       this.listCart = response.content;
-      console.log('123213', )
       this.proddetail = response;
       this.a = response.totalElements;
       this.pages = [];
@@ -132,6 +132,7 @@ validateAllFormFields(formGroup: FormGroup) {
 
   close() {
     this.btnResi = false;
+    this.createComForm.reset();
   }
 
   getOrderNumber(orderNumber) {
@@ -139,10 +140,12 @@ validateAllFormFields(formGroup: FormGroup) {
     this.isForm = true;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
-    });
-
-    this.createComForm.patchValue({
-        orderNumber : orderNumber
+      this.createComForm.patchValue({
+        orderNumber : orderNumber,
+        actualCourierPrice: this.info.actualCourierPrice,
+        noResi: this.info.noResi
+      });
+      this.disableControl((this.info.noResi !== '') ? true : false);
     });
 
   }
@@ -155,31 +158,31 @@ validateAllFormFields(formGroup: FormGroup) {
 
   prosesResi() {
     if (this.createComForm.valid) {
-       const resi: Resi = new Resi();
-    resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
-    resi.noResi = this.createComForm.controls['noResi'].value;
-    resi.orderNumber = this.createComForm.controls['orderNumber'].value;
+      const resi: Resi = new Resi();
+      resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
+      resi.noResi = this.createComForm.controls['noResi'].value;
+      resi.orderNumber = this.createComForm.controls['orderNumber'].value;
 
-    const data = {
-      actualCourierPrice: resi.actualCourierPrice,
-      noResi: resi.noResi,
-      orderNumber: resi.orderNumber,
-      status: null
-    };
+      const data = {
+        actualCourierPrice: resi.actualCourierPrice,
+        noResi: resi.noResi,
+        orderNumber: resi.orderNumber,
+        status: null
+      };
 
-    this.transactionService.addResi(data).subscribe(response => {
-      this.isStatus();
-      if (response.status === 0) {
-        this.isErrorResi = true;
-      } else {
-        this.isProsesResi = true;
-      }
+      this.transactionService.addResi(data).subscribe(response => {
+        this.isStatus();
+        if (response.status === 0) {
+          this.isErrorResi = true;
+        } else {
+          this.isProsesResi = true;
+        }
 
-    });
+      });
 
     } else {
-      console.log('xxx')
-        this.validateAllFormFields(this.createComForm);
+      console.log('xxx');
+      this.validateAllFormFields(this.createComForm);
     }
 
   }
@@ -190,6 +193,13 @@ validateAllFormFields(formGroup: FormGroup) {
     // tslint:disable-next-line:max-line-length
     this.router.navigate(['/listing-order'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
+  }
+
+  disableControl(condition: Boolean) {
+    this.disabled = condition;
+    const action = condition ? 'disable' : 'enable';
+    this.createComForm.controls['actualCourierPrice'][action]();
+    this.createComForm.controls['noResi'][action]();
   }
 
 }

@@ -118,6 +118,8 @@ export class InvoiceData {
     useAsuransi: boolean;
     totalWeight: string;
     total: string;
+    noResi: string;
+    actualCourierPrice: number;
     cartItems: InvoiceCart[];
 }
 

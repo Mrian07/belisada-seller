@@ -72,11 +72,10 @@
 
 			</div>
 			<div>
-        <span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
+        		<span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
 				<div class="btn-order" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
-					Input No Resi
-        </div>
-
+					{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
+        		</div>
 			</div>
 		</div>
 	</div>
@@ -125,8 +124,8 @@
 					<div>Estimated Shipping Fee</div>
 					<div>Actual Shipping Fee*</div>
 
-					<div class="tr-black">{{info.courierCode}}</div>
-					<div class="tr-black">Rp.20.000</div>
+					<div class="tr-black">{{ info.courierCode }}</div>
+					<div class="tr-black">{{ info.courierPrice | currency:'Rp ' }}</div>
 					<div><input class="field-r" type="text" formControlName="actualCourierPrice"><br>
 						<span class="text-small">*Biaya pengiriman yang dikeluarkan.</span>
 					</div>
@@ -134,14 +133,15 @@
 
 				<div class="no-resi">No. Resi</div>
 				<div>
-          <input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
-          <bss-field-error [displayError]="isFieldValid('noResi')" errorMsg="OOps Resi Kosong"></bss-field-error>
+				<input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
+				<bss-field-error [displayError]="isFieldValid('noResi')" errorMsg="OOps Resi Kosong"></bss-field-error>
 				</div>
 			</div>
 
 			<div class="foot-resi">
 
-				<input type="button" (click)="prosesResi()" class="btn btn--orange m-left" value="Konfirmasi">
+				<input type="button" (click)="prosesResi()" *ngIf="info.noResi === ''"
+					class="btn btn--orange m-left" value="Konfirmasi">
 				<input type="button" (click)="close()" class="btn btn--silver txt-batal" value="Batal">
 			</div>
 		</form>
