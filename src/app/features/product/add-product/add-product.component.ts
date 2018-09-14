@@ -78,6 +78,7 @@ export class AddProductComponent implements OnInit {
   productId: number;
   testing: any;
   productDetail: ProductDetailData = new ProductDetailData();
+  CheckingKatProdC2: boolean;
 
 
   constructor(
@@ -244,6 +245,8 @@ export class AddProductComponent implements OnInit {
       this.fillFormPatchValue(response.data);
     });
   }
+
+
 
   /**
    * Image product start
@@ -522,8 +525,11 @@ export class AddProductComponent implements OnInit {
     this.submitted = true;
     this.specMapping(this.spec);
     this.calculateWeight();
+    console.log('categoryName.C2', this.categoryName.C2);
 
     const imageUrl = this.addProductForm.get('imageUrl').value;
+    console.log('aaaa', this.addProductForm.get('categoryThreeId').value);
+
     if (imageUrl.length < 2 || imageUrl.length > 5) {
       swal(
         'Warning',
