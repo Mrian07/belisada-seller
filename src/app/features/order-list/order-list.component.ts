@@ -13,11 +13,7 @@ import { environment } from '@env/environment';
 })
 export class OrderListComponent implements OnInit, OnChanges {
 
-  thumborUrl: string = environment.thumborUrl;
-
   info: InvoiceData = new InvoiceData();
-
-  disabled: Boolean = false;
 
   // @Input() status: string;
   visible: boolean;
@@ -56,7 +52,7 @@ export class OrderListComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute
   ) {
-  }
+   }
 
   ngOnInit() {
     this.isStatus();
@@ -64,41 +60,24 @@ export class OrderListComponent implements OnInit, OnChanges {
     this.formData();
   }
 
+
   ngOnChanges(changes: SimpleChanges) {
     this.currentValueStatus = changes.status.currentValue;
     this.orderList(this.currentValueStatus);
   }
   goToInvoice(e) {
     window.open(environment.baseUrlSeller + '/invoice-number/' + e, '_blank');
-    // window.open('https://api0.belisada.id/belisada/seller/shippingpdf?orderNumber=' + a, '_blank');
   }
   gotoCetakLabelPengiriman(e) {
-    window.open(environment.baseUrlSeller + '/print-order/' + e, '_blank');
-    // window.open('https://api0.belisada.id/belisada/seller/shippingpdf?orderNumber=' + e, '_blank');
+    window.open(environment.apiUrl + '/seller/shippingpdf?orderNumber=' + e, '_blank');
   }
 
   private formData() {
     this.createComForm = this.fb.group({
 
-      actualCourierPrice: new FormControl(''),
-      orderNumber: new FormControl(''),
+      actualCourierPrice: new FormControl('', Validators.required),
+      orderNumber: new FormControl('', Validators.required),
       noResi: new FormControl('', Validators.required)
-    });
-  }
-
-  isFieldValid(field: string) {
-    return !this.createComForm.get(field).valid && this.createComForm.get(field).touched;
-  }
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-          control.markAsTouched({
-              onlySelf: true
-          });
-      } else if (control instanceof FormGroup) {
-          this.validateAllFormFields(control);
-      }
     });
   }
 
@@ -131,7 +110,6 @@ export class OrderListComponent implements OnInit, OnChanges {
 
   close() {
     this.btnResi = false;
-    this.createComForm.reset();
   }
 
   getOrderNumber(orderNumber) {
@@ -139,12 +117,10 @@ export class OrderListComponent implements OnInit, OnChanges {
     this.isForm = true;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
-      this.createComForm.patchValue({
-        orderNumber : orderNumber,
-        actualCourierPrice: this.info.actualCourierPrice,
-        noResi: this.info.noResi
-      });
-      this.disableControl((this.info.noResi !== '') ? true : false);
+    });
+
+    this.createComForm.patchValue({
+        orderNumber : orderNumber
     });
 
   }
@@ -156,34 +132,28 @@ export class OrderListComponent implements OnInit, OnChanges {
   }
 
   prosesResi() {
-    if (this.createComForm.valid) {
-      const resi: Resi = new Resi();
-      resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
-      resi.noResi = this.createComForm.controls['noResi'].value;
-      resi.orderNumber = this.createComForm.controls['orderNumber'].value;
 
-      const data = {
-        actualCourierPrice: resi.actualCourierPrice,
-        noResi: resi.noResi,
-        orderNumber: resi.orderNumber,
-        status: null
-      };
+    const resi: Resi = new Resi();
+    resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
+    resi.noResi = this.createComForm.controls['noResi'].value;
+    resi.orderNumber = this.createComForm.controls['orderNumber'].value;
 
-      this.transactionService.addResi(data).subscribe(response => {
-        this.isStatus();
-        if (response.status === 0) {
-          this.isErrorResi = true;
-        } else {
-          this.isProsesResi = true;
-        }
+    const data = {
+      actualCourierPrice: resi.actualCourierPrice,
+      noResi: resi.noResi,
+      orderNumber: resi.orderNumber,
+      status: null
+    };
 
-      });
+    this.transactionService.addResi(data).subscribe(response => {
+      this.isStatus();
+      if (response.status === 0) {
+        this.isErrorResi = true;
+      } else {
+        this.isProsesResi = true;
+      }
 
-    } else {
-      console.log('xxx');
-      this.validateAllFormFields(this.createComForm);
-    }
-
+    });
   }
 
   setPage(page: number, increment?: number) {
@@ -192,13 +162,6 @@ export class OrderListComponent implements OnInit, OnChanges {
     // tslint:disable-next-line:max-line-length
     this.router.navigate(['/listing-order'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
-  }
-
-  disableControl(condition: Boolean) {
-    this.disabled = condition;
-    const action = condition ? 'disable' : 'enable';
-    this.createComForm.controls['actualCourierPrice'][action]();
-    this.createComForm.controls['noResi'][action]();
   }
 
 }
