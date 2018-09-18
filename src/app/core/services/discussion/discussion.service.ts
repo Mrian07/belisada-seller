@@ -38,7 +38,7 @@ export class DiscussionService {
 
     // console.log('kirim: ', data);
 
-    return this.http.post(this.configuration.apiURL + '/productfeedback/discus/create/', data)
+    return this.http.post(this.configuration.apiURL + '/productfeedback/discus/create-seller/', data)
       .pipe(
         map(response => response as AddDisResponse)
       );
