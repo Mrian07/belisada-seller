@@ -13,6 +13,9 @@ import { environment } from '@env/environment';
 })
 export class OrderListComponent implements OnInit, OnChanges {
 
+  thumborUrl: string = environment.thumborUrl;
+  disabled: Boolean = false;
+
   info: InvoiceData = new InvoiceData();
 
   // @Input() status: string;
