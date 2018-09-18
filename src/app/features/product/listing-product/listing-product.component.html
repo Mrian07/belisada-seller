@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <span class="w__myProduk">My Produk</span>
-        <a [routerLink]="['/add-product']">
+        <a (click)="gotoAddPro()">
             <div class="w_bor">
                 <div></div>
                 <div class="w_col-3"> <fa-icon [icon]="['fas', 'plus-circle']" size="7x" style="color:#5bb84f;  padding-top: 4%;" pull="right"></fa-icon>
@@ -87,19 +87,18 @@
                     <div class="w__middle">
                         <div>
                             <span class="w__kosongkan_stok">
-                                Hide Product
+                                Visibility
                             </span>
                             <div *ngIf="item.isactive === true; else login">
                                 <label class="switch small w__margin--switch">
-                                    <input
-                                        type="checkbox" (click)="bSlider(item.productId)" [checked]=false>
+                                    <input type="checkbox" (click)="bSlider(item.productId, true)" [checked]=true>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                             <ng-template #login>
                                 <label class="switch small w__margin--switch">
                                     <input
-                                        type="checkbox" (click)="bSliderF(item.productId)" [checked]=true>
+                                        type="checkbox" (click)="bSlider(item.productId, false)" [checked]=false>
                                     <span class="slider round"></span>
                                 </label>
                             </ng-template>
@@ -149,7 +148,7 @@
                                     </div>
                                     <div>
                                         <span class="w__nmbarang">Kategori</span>
-                                        <span class="w__nmBarang">{{ productDetail.categoryThreeName }}</span>
+                                        <span class="w__nmBarang">{{ (productDetail.categoryThreeId !== 0) ? productDetail.categoryThreeName : productDetail.categoryTwoName }}</span>
                                         <span class="w__hrgaBarang">Spesifikasi</span>
                                         <span class="w__nmBarang" *ngFor="let item of productDetail.specification">
                                             - {{item.name}} : {{ item.value }}
@@ -160,8 +159,8 @@
                                         <span class="w__nmBarang">{{ productDetail.guaranteeTimeValue }}</span>
                                         <span class="w__hrgaBarang">Berat Barang</span>
                                         <span class="w__nmBarang">{{ productDetail.weight }} g</span>
-                                        <span class="w__hrgaBarang">Dimensi</span>
-                                        <span class="w__nmBarang">{{ productDetail.dimensionslength }} cm x {{ productDetail.dimensionsWidth }} cm x {{ productDetail.dimensionsheight }} cm</span>
+                                        <!-- <span class="w__hrgaBarang">Dimensi</span> -->
+                                        <!-- <span class="w__nmBarang">{{ productDetail.dimensionslength }} cm x {{ productDetail.dimensionsWidth }} cm x {{ productDetail.dimensionsheight }} cm</span> -->
                                         <span class="w__hrgaBarang">Jasa Pengiriman</span>
                                         <span class="w__nmBarang" *ngFor="let item of productDetail.couriers">{{ item.code }}</span>
                                     </div>

@@ -78,6 +78,7 @@ export class AddProductComponent implements OnInit {
   productId: number;
   testing: any;
   productDetail: ProductDetailData = new ProductDetailData();
+  CheckingKatProdC2: boolean;
 
 
   constructor(
@@ -135,9 +136,9 @@ export class AddProductComponent implements OnInit {
       classification: ['', [Validators.required]],
       couriers: [[], [Validators.required]],
       description: ['', [Validators.required]],
-      dimensionsWidth: ['', [Validators.required]],
-      dimensionsheight: ['', [Validators.required]],
-      dimensionslength: ['', [Validators.required]],
+      // dimensionsWidth: ['', [Validators.required]],
+      // dimensionsheight: ['', [Validators.required]],
+      // dimensionslength: ['', [Validators.required]],
       guaranteeTime: ['', [Validators.required]],
       imageUrl: [[], [Validators.required]],
       pricelist: ['', [Validators.required]],
@@ -167,11 +168,11 @@ export class AddProductComponent implements OnInit {
       brandName: data.brandName,
       categoryThreeId: (data.categoryThreeId !== 0) ? data.categoryThreeId : data.categoryTwoId,
       classification: data.classification,
-      couriers: data.couriers.filter(x => x.isUse === true).map(x => x.code),
+      couriers: (this.productId) ? data.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
       description: data.description,
-      dimensionsWidth: data.dimensionsWidth,
-      dimensionsheight: data.dimensionsheight,
-      dimensionslength: data.dimensionslength,
+      // dimensionsWidth: data.dimensionsWidth,
+      // dimensionsheight: data.dimensionsheight,
+      // dimensionslength: data.dimensionslength,
       guaranteeTime: data.guaranteeTime,
       imageUrl: data.imageUrl,
       pricelist: data.pricelist,
@@ -211,11 +212,11 @@ export class AddProductComponent implements OnInit {
     this.addProductForm.controls['brandName'][action]();
     // this.addProductForm.controls['categoryThreeId'][action]();
     // this.addProductForm.controls['classification'][action]();
-    this.addProductForm.controls['couriers'][action]();
+    // this.addProductForm.controls['couriers'][action]();
     this.addProductForm.controls['description'][action]();
-    this.addProductForm.controls['dimensionsWidth'][action]();
-    this.addProductForm.controls['dimensionsheight'][action]();
-    this.addProductForm.controls['dimensionslength'][action]();
+    // this.addProductForm.controls['dimensionsWidth'][action]();
+    // this.addProductForm.controls['dimensionsheight'][action]();
+    // this.addProductForm.controls['dimensionslength'][action]();
     // this.addProductForm.controls['guaranteeTime'][action]();
     this.addProductForm.controls['imageUrl'][action]();
     // this.addProductForm.controls['pricelist'][action]();
@@ -244,6 +245,8 @@ export class AddProductComponent implements OnInit {
       this.fillFormPatchValue(response.data);
     });
   }
+
+
 
   /**
    * Image product start
@@ -363,7 +366,7 @@ export class AddProductComponent implements OnInit {
 
   selectCategory(category) {
     this.addProductForm.patchValue({
-      categoryThreeId: category.categoryId
+      categoryThreeId: (category.type !== CategoryTypeEnum.C1) ? category.categoryId : 0
     });
     this.categoryName[category.type] = category.name;
     this.categoryId[category.type] = category.categoryId;
@@ -372,6 +375,9 @@ export class AddProductComponent implements OnInit {
     };
     this.categoryService.getListCategoryAttribute(queryParams).subscribe(response => {
       this.categoryAttributes = response;
+      this.categoryAttributes.forEach((categoryAttribute) => {
+        this.spec[categoryAttribute.attributeId] = '';
+      });
 
       let categoryType;
       if (category.type === CategoryTypeEnum.C1) {
@@ -519,8 +525,11 @@ export class AddProductComponent implements OnInit {
     this.submitted = true;
     this.specMapping(this.spec);
     this.calculateWeight();
+    console.log('categoryName.C2', this.categoryName.C2);
 
     const imageUrl = this.addProductForm.get('imageUrl').value;
+    console.log('aaaa', this.addProductForm.get('categoryThreeId').value);
+
     if (imageUrl.length < 2 || imageUrl.length > 5) {
       swal(
         'Warning',
@@ -552,9 +561,9 @@ export class AddProductComponent implements OnInit {
         const editProductRequest = new EditProductRequest();
         editProductRequest.classification = this.addProductForm.get('classification').value;
         editProductRequest.couriers = this.addProductForm.get('couriers').value;
-        editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
-        editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
-        editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
+        // editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
+        // editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
+        // editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
         editProductRequest.discount = this.addProductForm.get('discount').value;
         editProductRequest.guaranteeTime = this.addProductForm.get('guaranteeTime').value;
         editProductRequest.pricelist = this.addProductForm.get('pricelist').value;

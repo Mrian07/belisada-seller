@@ -114,6 +114,7 @@
                                         (keyup)="searchCategory(cte.C2, categoryId.C1)" [ngModelOptions]="{standalone: true}"
                                         (focus)="onCategoryFocus.C2 = true" (focusout)="onCategoryBlur(cte.C2)"
                                         [disabled]="disabled" placeholder="Select one">
+                                        <!-- <bss-field-error [displayError]="categoryName.C2 === ''" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error> -->
                                     <i class="drick-select__icon caret down icon"></i>
                                 </div>
                                 <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus.C2}"
@@ -136,6 +137,7 @@
                                         (keyup)="searchCategory(cte.C3, categoryId.C2)" [ngModelOptions]="{standalone: true}"
                                         (focus)="onCategoryFocus.C3 = true" (focusout)="onCategoryBlur(cte.C3)"
                                         [disabled]="disabled" placeholder="Select one">
+                                        <bss-field-error [displayError]="" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error>
                                     <i class="drick-select__icon caret down icon"></i>
                                 </div>
                                 <div class="drick-select-container--toggle" [ngClass]="{'active':onCategoryFocus.C3}"
@@ -153,6 +155,9 @@
                         </td>
                     </tr>
                 </table>
+                <div *ngIf="submitted">
+                  <bss-field-error [displayError]="categoryName.C2 === ''" errorMsg="Silahkan lengkapi kategori produk anda"></bss-field-error>
+              </div>
             </div>
         </div>
         <div class="row f-group">
@@ -174,7 +179,7 @@
 
                     <select [(ngModel)]="spec[categoryAttribute.attributeId]" class="f-control" *ngIf="categoryAttribute.isInstanceAttribute === false"
                         [attr.required]="categoryAttribute.isMandatory" [ngModelOptions]="{standalone: true}" [disabled]="disabled">
-                            <option value="" disabled selected>{{ categoryAttribute.name }}</option>
+                            <option value="" disabled>{{ categoryAttribute.name }}</option>
                             <option [value]="attrValue.attributeValueId" *ngFor="let attrValue of categoryAttribute.data">{{ attrValue.name }}</option> -->
                     </select>
                 </div>
@@ -271,7 +276,7 @@
                 </select>
             </div>
         </div>
-        <div class="row f-group">
+        <!-- <div class="row f-group">
             <div class="row">
                 <label class="col-3 middle">Dimensi</label>
                 <div class="col-2">
@@ -293,7 +298,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row f-group">
             <label class="col-3 middle">Delivery Service</label>
             <div class="col-6">

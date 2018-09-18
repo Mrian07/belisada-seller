@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ProductService } from '@belisada-seller/core/services';
+import { ProductService, StoreService } from '@belisada-seller/core/services';
 import { ProductListing, ProductDetailList, ProductDetailData } from '@belisada-seller/core/models';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Globals } from '@belisada-seller/core/services/globals/globals';
+import swal from 'sweetalert2';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'bss-listing-product',
@@ -24,15 +27,23 @@ export class ListingProductComponent implements OnInit {
   pages: any = [];
   a: any;
 
+  hasAddress: Boolean = true;
+
   faCoffee = faPlusCircle;
 
   constructor(
-    private fb: FormBuilder, private prodSe: ProductService,  private router: Router, private activatedRoute: ActivatedRoute) {
+    private fb: FormBuilder,
+    private prodSe: ProductService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private storeService: StoreService
+  ) {
     this.rowSelected = -1;
-    this.prodImg = 'http://image.belisada.id:8888/unsafe/80x80/';
-   }
+    this.prodImg = environment.thumborUrl + 'unsafe/fit-in/80x80/';
+  }
 
   ngOnInit() {
+    this.getProfile();
     this.myForm = this.fb.group({
       useremail: this.fb.array([]),
     });
@@ -92,9 +103,9 @@ export class ListingProductComponent implements OnInit {
     }
   }
 
-  bSlider(id) {
+  bSlider(id, hide) {
     const paramS = {
-      hide: true,
+      hide: hide,
       productId: id
     };
     const queryParams = {
@@ -120,27 +131,16 @@ export class ListingProductComponent implements OnInit {
   }
 
   gotoAddPro() {
+    if (this.hasAddress === false) {
+      swal(
+        'Peringatan',
+        'Tolong lengkapi profile anda terlebih dahulu!',
+        'warning'
+      );
+      return;
+    }
     this.router.navigate(['/add-product']);
     console.log('asdasd');
-  }
-
-  bSliderF(id) {
-    const paramS = {
-      hide: false,
-      productId: id
-    };
-    const queryParams = {
-      page: 1,
-      itemperpage: 10,
-      status : 'ALL'
-    };
-    this.prodSe.editHide(paramS).subscribe(res => {
-      console.log('aaaa', res);
-      this.prodSe.getProdListing(queryParams).subscribe(response => {
-        this.proddetail = response;
-        console.log('proddetail', this.proddetail);
-      });
-    });
   }
 
   onChange(email: any, isChecked: boolean) {
@@ -169,6 +169,15 @@ export class ListingProductComponent implements OnInit {
       emailFormArray.removeAt(index);
 
     }
+  }
+
+  getProfile() {
+    this.storeService.profile().subscribe(profile => {
+      if (profile.addressId === 0 ) {
+        console.log('asssdasd');
+        this.hasAddress = false;
+      }
+    });
   }
 
 }

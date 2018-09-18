@@ -118,6 +118,8 @@ export class InvoiceData {
     useAsuransi: boolean;
     totalWeight: string;
     total: string;
+    noResi: string;
+    actualCourierPrice: number;
     cartItems: InvoiceCart[];
 }
 
@@ -130,4 +132,23 @@ export class Resi {
     noResi: string;
     orderNumber: string;
     status: number;
+}
+
+
+export class ShippingData {
+    status: number;
+    message: string;
+    data: ShippingListData;
+}
+
+export class ShippingListData {
+    storeName: string;
+    namaPenerima: string;
+    phonePenerima: string;
+    alamatPenerima: string;
+    address: string;
+    packingKayu: string;
+    asuransi: string;
+    courierName: string;
+    courierService: string;
 }

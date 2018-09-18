@@ -5,28 +5,29 @@
         <div class="row">
           <div class="col-4">
             <span class="title-text">Penjual</span>
-            Samuel
+            {{ ListingData.storeName }}
           </div>
           <div class="col-4">
             <span class="title-text">Pembeli</span>
-            Renaldi
+            {{ ListingData.namaPenerima }}
           </div>
           <div class="col-4">
-            <span class="title-text"><u>JNE REG</u></span>
+            <span class="title-text"><u>{{ ListingData.courierName }} {{ ListingData.courierService }}</u></span>
           </div>
         </div>
     </div>
     <div class="col-4">
-      Barcode
+      Barcode<br>
+      <img class="img--barcode" src="{{ img }}">
     </div>
   </div>
   <div class="row">
     <div class="col-8">
       <div class="frame-print-cont">
         <span class="cont-title">Dikirim ke :</span>
-        <span class="cont-hp">0818999999</span>
-        <span class="cont-nama">Mr. Samuel</span>
-        <span class="cont-almt">Kota Bogor Kota Jawa Barat 166244, No.18 Sebelah Warung Remang-Remang.</span>
+        <span class="cont-hp"> {{ListingData.phonePenerima}} </span>
+        <span class="cont-nama"> {{ ListingData.namaPenerima }}</span>
+        <span class="cont-almt"> {{ ListingData.alamatPenerima }} </span>
       </div>
     </div>
     <div class="col-4">
@@ -35,7 +36,7 @@
       <!-- <div id="print-section">
         // your html stuff that you want to print
       </div> -->
-      <button class="do-not-print" (click)="print()">print</button>
+      <!-- <button class="do-not-print" (click)="print()">print</button> -->
     </div>
   </div>
 </div>
