@@ -1,4 +1,5 @@
 import { PriceAndStock, Delivery, Courier } from '@belisada-seller/core/models';
+import { BaseResponseModel } from '@belisada-seller/core/models/base-response.model';
 
 export class Product {
   pictures: string[] = [];
@@ -82,11 +83,12 @@ export class ProductData {
   qtyType: string;
 }
 
-export class UpdateStock {
+export class UpdateStockRequest {
   productId: number;
-  qtyType: string;
-  status?: number;
-  message?: string;
+  qty: number;
+}
+
+export class UpdateStockResponse extends BaseResponseModel {
 
 }
 

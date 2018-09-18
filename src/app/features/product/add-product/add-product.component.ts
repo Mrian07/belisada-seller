@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {
@@ -141,7 +141,7 @@ export class AddProductComponent implements OnInit {
       // dimensionslength: ['', [Validators.required]],
       guaranteeTime: ['', [Validators.required]],
       imageUrl: [[], [Validators.required]],
-      pricelist: ['', [Validators.required]],
+      pricelist: ['', [Validators.required, Validators.min(1)]],
       specialPrice: [''],
       discount: [''],
       qty: ['', [Validators.required]],
@@ -525,10 +525,8 @@ export class AddProductComponent implements OnInit {
     this.submitted = true;
     this.specMapping(this.spec);
     this.calculateWeight();
-    console.log('categoryName.C2', this.categoryName.C2);
 
     const imageUrl = this.addProductForm.get('imageUrl').value;
-    console.log('aaaa', this.addProductForm.get('categoryThreeId').value);
 
     if (imageUrl.length < 2 || imageUrl.length > 5) {
       swal(

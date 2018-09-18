@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
-  UpdateStock, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest
+  UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest, UpdateStockResponse
 } from '@belisada-seller/core/models';
 
 @Injectable({
@@ -38,10 +38,10 @@ export class ProductService {
         map(response => response as ProductListing)
       );
   }
-  editStock(data: UpdateStock)  {
-    return this.http.put(this.configuration.apiURL + '/seller/product/stock/update', data)
+  editStock(data: UpdateStockRequest)  {
+    return this.http.put(this.configuration.apiURL + '/seller/product/quantity/update', data)
       .pipe(
-        map(rsl => rsl as UpdateStock)
+        map(rsl => rsl as UpdateStockResponse)
       );
   }
 

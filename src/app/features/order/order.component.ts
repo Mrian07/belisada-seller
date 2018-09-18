@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'bss-order',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
-  tabOrder: string;
-  constructor() {
-    this.tabOrder = 'ALL';
+  tabOrder = 'ALL';
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.queryParams.subscribe((queryParam) => {
+      this.tabOrder = (queryParam.status) ? queryParam.status : 'ALL';
+    });
   }
 
   ngOnInit() {
@@ -17,6 +23,7 @@ export class OrderComponent implements OnInit {
 
   tab(data) {
     this.tabOrder = data;
+    this.router.navigate(['/listing-order'], { queryParams: {page: 1, status: data}, queryParamsHandling: 'merge' });
   }
 
 }

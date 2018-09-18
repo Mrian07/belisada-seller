@@ -208,6 +208,7 @@
                     (keyup)="calculateDiscount()" maxlength="10"/>
                 <div *ngIf="(submitted || f.pricelist.touched) && f.pricelist.invalid">
                     <bss-field-error [displayError]="f.pricelist.errors.required" errorMsg="Silahkan masukan harga"></bss-field-error>
+                    <bss-field-error [displayError]="f.pricelist.errors.min" errorMsg="Harga tidak boleh 0"></bss-field-error>
                 </div>
             </div>
         </div>
