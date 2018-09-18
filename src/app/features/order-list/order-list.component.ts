@@ -96,7 +96,6 @@ export class OrderListComponent implements OnInit, OnChanges {
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
       this.listCart = response.content;
-      console.log('apalah:', this.listCart);
       this.proddetail = response;
       this.a = response.totalElements;
       this.pages = [];
