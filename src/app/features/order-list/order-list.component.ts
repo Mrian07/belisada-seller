@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent implements OnInit, OnChanges {
+export class OrderListComponent implements OnInit {
 
   thumborUrl: string = environment.thumborUrl;
 
@@ -21,15 +21,7 @@ export class OrderListComponent implements OnInit, OnChanges {
 
   // @Input() status: string;
   visible: boolean;
-  private _status = '182';
-
-  @Input()
-  set status(status: string) {
-    this._status = (status && status.trim()) || '<no status set>';
-  }
-
-  get status(): string { return this._status; }
-
+  status = 'ALL';
 
   listCart: Cart[];
   btnResi: boolean;
@@ -48,26 +40,24 @@ export class OrderListComponent implements OnInit, OnChanges {
   a: any;
   b: any;
 
-  private currentValueStatus: string = this._status;
 
   constructor(
     private transactionService: TransactionService,
     private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.isStatus();
-    this.orderList(this._status);
     this.formData();
+    this.activatedRoute.queryParams.subscribe((queryParam) => {
+      this.currentPage = (queryParam.page) ? queryParam.page : 1;
+      this.status = (queryParam.status) ? queryParam.status : 'ALL';
+      this.orderList((queryParam.status) ? queryParam.status : 'ALL');
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.currentValueStatus = changes.status.currentValue;
-    this.orderList(this.currentValueStatus);
-  }
   goToInvoice(e) {
     window.open(environment.baseUrlSeller + '/invoice-number/' + e, '_blank');
     // window.open('https://api0.belisada.id/belisada/seller/shippingpdf?orderNumber=' + a, '_blank');
@@ -103,11 +93,8 @@ export class OrderListComponent implements OnInit, OnChanges {
   }
 
   orderList(statusOrder?: string) {
-
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-    this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
     const queryParams = {
-      itemperpage: 10,
+      itemperpage: 2,
       page: this.currentPage,
       status_order: statusOrder
     };
@@ -125,8 +112,6 @@ export class OrderListComponent implements OnInit, OnChanges {
           this.pages.push(r);
         }
       }
-    });
-
     });
   }
 
@@ -191,7 +176,7 @@ export class OrderListComponent implements OnInit, OnChanges {
     if (increment) { page = +page + increment; }
     if (page < 1 || page > this.proddetail.totalPages) { return false; }
     // tslint:disable-next-line:max-line-length
-    this.router.navigate(['/listing-order'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
+    this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
   }
 

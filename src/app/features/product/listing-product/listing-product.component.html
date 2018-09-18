@@ -48,7 +48,7 @@
                                 <div *ngIf="item.status === 'REJECTED'">
                                 </div>
                                 <div *ngIf="item.status === 'APPROVED'">
-                                    <span class="w__middle" style="color:green;">Stock :  {{ item.qty }}</span>
+                                    <span class="w__middle" style="color:green;" [ngClass]="{'color-red': (item.qty === 0)}">Stock :  {{ item.qty }}</span>
                                 </div>
                                 <div *ngIf="item.status === 'NEED APPROVAL'">
                                 </div>
@@ -75,7 +75,7 @@
             <div class="col-4">
                 <div class="wrapper__tiga">
                     <div class="w__middle">
-                        <div>
+                        <div *ngIf="item.status !== 'REJECTED'">
                             <div>
                                 <span class="w__kosongkan_stok">
                                     kosongkan stock
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="w__middle">
-                        <div>
+                        <div *ngIf="item.status !== 'REJECTED'">
                             <span class="w__kosongkan_stok">
                                 Visibility
                             </span>
@@ -171,7 +171,7 @@
                                 <div class="w__descr">
                                     <p class="w__prodDessc">  {{ productDetail.description}}</p>
                                 </div>
-                                <div> <button (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
+                                <div> <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
                             </div>
 
                         </div>

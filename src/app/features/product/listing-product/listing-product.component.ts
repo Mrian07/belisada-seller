@@ -144,11 +144,11 @@ export class ListingProductComponent implements OnInit {
   }
 
   onChange(email: any, isChecked: boolean) {
-    const emailFormArray = < FormArray > this.myForm.controls.useremail;
+    const emailFormArray = <FormArray> this.myForm.controls.useremail;
     if (isChecked) {
       const editeD = {
         productId: email,
-        qtyType: '129'
+        qty: 0
       };
       this.prodSe.editStock(editeD).subscribe(respon => {
         console.log('message', respon.message);
