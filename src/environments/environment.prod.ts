@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.belisada.id/belisada',
+  apiUrl: 'https://air.belisada.co.id/belisada',
   baseUrlSeller: 'https://seller.belisada.co.id',
   baseUrlBuyer: 'https://belisada.co.id',
   thumborUrl: 'https://image.belisada.co.id/',
