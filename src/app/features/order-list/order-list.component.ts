@@ -61,7 +61,8 @@ export class OrderListComponent implements OnInit {
     window.open(environment.baseUrlSeller + '/invoice-number/' + e, '_blank');
   }
   gotoCetakLabelPengiriman(e) {
-    window.open(environment.apiUrl + '/seller/shippingpdf?orderNumber=' + e, '_blank');
+    window.open(environment.baseUrlSeller + '/print-order/' + e, '_blank');
+    // window.open(environment.apiUrl + '/seller/shippingpdf?orderNumber=' + e, '_blank');
   }
 
   private formData() {
