@@ -75,7 +75,7 @@ export class OrderListComponent implements OnInit {
 
   orderList(statusOrder?: string) {
     const queryParams = {
-      itemperpage: 2,
+      itemperpage: 10,
       page: this.currentPage,
       status_order: statusOrder
     };
