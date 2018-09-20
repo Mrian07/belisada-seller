@@ -134,7 +134,9 @@
 				<div class="no-resi">No. Resi</div>
 				<div>
 				<input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
-				<bss-field-error [displayError]="isFieldValid('noResi')" errorMsg="OOps Resi Kosong"></bss-field-error>
+        <div *ngIf="(submitted === true || form.noResi.touched) && form.noResi.invalid">
+          <bss-field-error [displayError]="form.noResi.errors.required" errorMsg="Silahkan masukan no resi"></bss-field-error>
+      </div>
 				</div>
 			</div>
 

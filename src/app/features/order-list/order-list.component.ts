@@ -32,13 +32,13 @@ export class OrderListComponent implements OnInit {
   isProsesResi: Boolean = false;
   isErrorResi: Boolean = false;
   proddetail: ListOrderSellerResponse = new ListOrderSellerResponse();
-
+  submitted: Boolean = false;
   lastPage: number;
   currentPage: number;
   pages: any = [];
   a: any;
   b: any;
-
+  get form() { return this.createComForm.controls; }
 
   constructor(
     private transactionService: TransactionService,
@@ -68,7 +68,7 @@ export class OrderListComponent implements OnInit {
   private formData() {
     this.createComForm = this.fb.group({
 
-      actualCourierPrice: new FormControl('', Validators.required),
+      actualCourierPrice: new FormControl(''),
       orderNumber: new FormControl('', Validators.required),
       noResi: new FormControl('', Validators.required)
     });
@@ -100,6 +100,8 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrderNumber(orderNumber) {
+    this.submitted = false;
+    this.createComForm.reset();
     this.isStatus();
     this.isForm = true;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
@@ -119,28 +121,33 @@ export class OrderListComponent implements OnInit {
   }
 
   prosesResi() {
+    this.submitted = true;
+    if (this.createComForm.valid) {
+      const resi: Resi = new Resi();
+      resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
+      resi.noResi = this.createComForm.controls['noResi'].value;
+      resi.orderNumber = this.createComForm.controls['orderNumber'].value;
 
-    const resi: Resi = new Resi();
-    resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
-    resi.noResi = this.createComForm.controls['noResi'].value;
-    resi.orderNumber = this.createComForm.controls['orderNumber'].value;
+      const data = {
+        actualCourierPrice: resi.actualCourierPrice,
+        noResi: resi.noResi,
+        orderNumber: resi.orderNumber,
+        status: null
+      };
 
-    const data = {
-      actualCourierPrice: resi.actualCourierPrice,
-      noResi: resi.noResi,
-      orderNumber: resi.orderNumber,
-      status: null
-    };
+      this.transactionService.addResi(data).subscribe(response => {
+        this.isStatus();
+        if (response.status === 0) {
+          this.isErrorResi = true;
+        } else {
+          this.isProsesResi = true;
+        }
 
-    this.transactionService.addResi(data).subscribe(response => {
-      this.isStatus();
-      if (response.status === 0) {
-        this.isErrorResi = true;
-      } else {
-        this.isProsesResi = true;
-      }
+      });
+    } else {
+      console.log('xxxx')
+    }
 
-    });
   }
 
   setPage(page: number, increment?: number) {
