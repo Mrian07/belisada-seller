@@ -3,9 +3,9 @@
     <div class="title-dis" (click)="openOS(openDetail, item.productId, item.discusId)">
 
             <img src="{{item.productImage}}" width="100">
-    
+
             {{item.productName}}
-    
+
     </div>
     <div class="contain-dis" *ngIf="openDetail==true && discusId==item.discusId">
         <div class="question-dis" *ngFor="let itemChild of listChild">
@@ -14,13 +14,13 @@
                 <img src="{{itemChild.imageAvatarUrl}}" class="imgUser">
             </div>
             <div class="iCon">
-                <p><label>{{itemChild.name}}</label></p>
+                <p><label>{{itemChild.name}}  </label></p>
                 {{itemChild.message}}
             </div>
         </div>
         <div class="i" *ngFor="let itemChilds of itemChild.childs">
-            <div class="iImg">
-                <img src="{{itemChilds.imageAvatarUrl}}" class="imgUser" width="100"> 
+           <div class="iImg">
+                <img src="{{itemChilds.imageAvatarUrl}}" class="imgUser">
             </div>
             <div class="iCon">
                 <p><label>{{itemChilds.name}}</label></p>
@@ -28,7 +28,7 @@
             </div>
         </div>
         </div>
-    
+
         <form class="ui form" [formGroup]="inputFormGroup[item.productId]" (ngSubmit)="onSubmit(item.productId)" novalidate>
             <input type="hidden" formControlName="discusParentId">
             <input type="hidden" formControlName="productId">
