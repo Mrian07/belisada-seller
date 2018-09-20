@@ -31,6 +31,8 @@ export class Cart {
     courierPrice: number;
     courierService: string;
     createdOrder: string;
+    expiredSellerProcessDate: string;
+    countdown: Countdown;
     destinationId: number;
     destinations: Destinations[];
     invoiceNumber: string;
@@ -55,6 +57,16 @@ export class Cart {
     total: number;
     totalWeight: number;
     useAsuransi: boolean;
+}
+
+export class Countdown {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+
+  status: number;
+  message: string;
 }
 
 export class Destinations {

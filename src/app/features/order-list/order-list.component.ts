@@ -4,7 +4,7 @@ import { Cart, Resi, ListOrderSellerResponse, InvoiceData } from '@belisada-sell
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 // import { InvoiceData } from '@belisada-seller/core/models/transaction/transaction.model';
-
+import mct from 'madrick-countdown-timer';
 import { environment } from '@env/environment';
 @Component({
   selector: 'bss-order-list',
@@ -15,6 +15,15 @@ export class OrderListComponent implements OnInit {
 
   thumborUrl: string = environment.thumborUrl;
   disabled: Boolean = false;
+  countdown = {
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+
+    status: 0,
+    message: ''
+};
 
   info: InvoiceData = new InvoiceData();
 
@@ -38,6 +47,9 @@ export class OrderListComponent implements OnInit {
   pages: any = [];
   a: any;
   b: any;
+  date = '09/22/2018 16:29:39';
+  x;
+  c;
   get form() { return this.createComForm.controls; }
 
   constructor(
@@ -48,6 +60,7 @@ export class OrderListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.isStatus();
     this.formData();
     this.activatedRoute.queryParams.subscribe((queryParam) => {
@@ -82,7 +95,18 @@ export class OrderListComponent implements OnInit {
     };
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
+      const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
+      const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
+      console.log(b)
       this.listCart = response.content;
+      b.forEach((x) => {
+        console.log('x: ', x);
+        mct.countdown(x.expiredSellerProcessDate, (countdown) => {
+          this.listCart.find(i => i.invoiceNumber === x.invoiceNumber).countdown = countdown;
+          // this.countdown = countdown;
+        });
+      });
+      console.log('as', this.listCart)
       this.proddetail = response;
       this.a = response.totalElements;
       this.pages = [];
