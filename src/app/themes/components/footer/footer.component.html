@@ -1,57 +1,55 @@
 <div class="footer">
+    <div class="container">
+        <div class="row w__font--size">
+            <div class="col-2  u-margin-bottom-1">
+                <ul class="menuList">
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="">Term & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="col-2 u-margin-bottom-1">
+                <ul class="menuList">
+                    <li>
+                        <a href="https://www.facebook.com/BelisadaID/">
+                            <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook</a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/BelisadaID/">
+                            <fa-icon [icon]="['fab', 'twitter']"></fa-icon> Twitter</a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/belisada.id/">
+                            <fa-icon [icon]="['fab', 'instagram']"></fa-icon> Instagram</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4 u-margin-bottom-1">
+                <form class="form-inline" (ngSubmit)="subscribe()">
 
-    <div class="row">
-        <div class="col-2">
-            <ul class="menuList">
-                <li><a href="">About US</a></li>
-                <li><a href="">Contact</a></li>
-                <li><a href="">Term & Conditions</a></li>
-            </ul>
-        </div>
-        <div class="col-2">
-            <ul class="menuList">
-                <li>
-                    <a href="">
-                        <fa-icon [icon]="['fab', 'facebook']"></fa-icon>
-                        Facebook</a>
-                </li>
-                <li>
-                    <a href="">
-                        <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
-                        Twitter</a>
-                </li>
-                <li>
-                    <a href="">
-                        <fa-icon [icon]="['fab', 'instagram']"></fa-icon>
-                        Instagram</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-4">
-            <form class="form-inline" (ngSubmit)="subscribe()">
-
-                <label for="email">Subscribe to our newsletter:</label>
-                <div class="input-group">
-                    <div class="input-group-area">
-                        <input type="text" [formControl]="subscribe_email" placeholder="Email Address" class="footer-input">
+                    <label for="email">Subscribe to our newsletter:</label>
+                    <div class="input-group">
+                        <div class="input-group-area">
+                            <input type="text" [formControl]="subscribe_email" placeholder="Email Address">
+                        </div>
+                        <div class="input-group-icon cursor" (click)="subscribe()">
+                            <span>Subscribe</span>
+                        </div>
                     </div>
-                    <div class="input-group-icon cursor" (click)="subscribe()">
-                        <span>Subscribe</span>
+                    <div *ngIf="subscribe_email.dirty && subscribe_email.invalid">
+                        <span class="tooltiptext">Harap masukan format email dengan benar</span>
                     </div>
-                </div>
-                <div *ngIf="subscribe_email.dirty && subscribe_email.invalid">
-                    <span class="tooltiptext">Harap masukan format email dengan benar</span>
-                </div>
 
-            </form>
+                </form>
+            </div>
+            <div class="col-4 u-margin-bottom-1">Jalan Kesehatan No.60 O-P, RT.2 RW.4 Petojo Selatan, Gambir,
+                <br>Jakarta Pusat 10160.
+                <br>
+                <br>cs@belisada.co.id
+            </div>
         </div>
-        <div class="col-4">Jalan Kesehatan No.60 O-P, RT.2 RW.4 Petojo Selatan, Gambir,
-            <br>Jakarta Pusat 10160.
-            <br>
-            <br>cs@belisada.co.id</div>
+        <div class="center w__font--size">
+            Copyright © 2018 belisada.co.id. All Rights Reserved.
+        </div>
     </div>
-    <div class="center">
-        Copyright © 2018 belisada.co.id. All Rights Reserved.
-    </div>
-
 </div>
