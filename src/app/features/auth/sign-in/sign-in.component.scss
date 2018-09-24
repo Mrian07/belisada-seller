@@ -1,3 +1,43 @@
+.frame-menu{
+    cursor: pointer;  
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+    font-size: 25px;
+    margin-bottom:10px;
+}
+
+.btn-tab{
+    
+    &__active{
+        text-align: center;
+        border-bottom: 2px solid #f27138;
+        color: #3c89a5;
+        padding:5px;
+        margin-right:5px;
+        cursor: pointer;
+    }
+
+    &__noActive{
+        text-align: center;
+        border-bottom: 2px solid #ffffff;
+        color: #1d566b;
+        padding:5px;
+        margin-right:5px;
+        cursor: pointer;
+    }
+    
+}
+
+.btn-tab__noActive:hover{
+    border-bottom: 2px solid #f27138;
+    color: #3c89a5;
+}
+
+.frame-menu-contain{
+    margin-top:10px;
+}
+
 .loginBtn {
     box-sizing: border-box;
     position: relative;
@@ -61,4 +101,8 @@
 .loginBtn--google:hover,
 .loginBtn--google:focus {
     background: #E74B37;
+}
+
+.regSuccess{
+    padding-top:20px;
 }
