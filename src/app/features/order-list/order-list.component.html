@@ -18,13 +18,32 @@
 <div class="frame-contain" *ngFor="let item of listCart">
 	<div class="nm-buyer">
 			<div class="row">
-				<div class="col-6">
-					{{item.namaPenerima}}
-				</div>
-				<div class="col-6 right">
-					No Pesanan : {{item.invoiceNumber}}
-				</div>
-			</div>
+        <div *ngIf="item.countdown === undefined; else login">
+            <div class="col-6">
+                {{item.namaPenerima}}
+              </div>
+              <div class="col-6 right">
+                No Pesanan : {{item.invoiceNumber}}
+              </div>
+            </div>
+
+            <ng-template #login>
+                <div class="col-4">
+                    {{item.namaPenerima}}
+                  </div>
+                  <div class="col-4" *ngIf="item.countdown">
+                    <!-- Batas Waktu Respon:  {{item.expiredSellerProcessDate}} -->
+                    Batas Waktu Respon: {{item.countdown.days}}d - {{item.countdown.hours}}h - {{item.countdown.minutes}}m - {{item.countdown.seconds}}s
+                    <!-- {{item.expiredSellerProcessDate.days}}d - {{item.expiredSellerProcessDate.hours}}h - {{item.expiredSellerProcessDate.minutes}}m - {{item.expiredSellerProcessDate.seconds}}s -->
+                    </div>
+                  <div class="col-4 right">
+                    No Pesanan : {{item.invoiceNumber}}
+                  </div>
+            </ng-template>
+
+
+        </div>
+
 		</div>
 	<div class="cont-buyer">
 		<div class="frame-cont">
@@ -99,7 +118,6 @@
 		</li>
 	</ul>
 </div>
-
 
 <app-models [(visible)]="btnResi" class="frameDialog">
 	<div *ngIf="isErrorResi == true">
