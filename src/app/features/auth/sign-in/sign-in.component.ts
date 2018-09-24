@@ -181,6 +181,17 @@ export class SignInComponent implements OnInit {
                     // swal(rsl.message);
                   this.flagStatus();
                   this.regSuccess = true;
+
+                  this.regFromGroup.patchValue(
+                    {
+                      nameOwner: '',
+                      name: '',
+                      storeUrl: '',
+                      email: '',
+                      password: '',
+                    });
+
+
             } else {
                   swal(rsl.message);
             }
