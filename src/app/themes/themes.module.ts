@@ -17,11 +17,13 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { AuthLayoutComponent } from '@belisada-seller/themes/layout/auth/auth-layout.component';
 import { SideAuthComponent } from '@belisada-seller/themes/components/side-auth/side-auth.component';
 import { ModelsComponent } from '@belisada-seller/shared/components/models/models.component';
+import { FieldErrorComponent } from '@belisada-seller/features/product/field-error/field-error.component';
 
 library.add(fas, far, fab);
 
 const COMPONENTS = [
   ModelsComponent,
+  FieldErrorComponent,
   HeaderComponent,
   FooterComponent,
   SideAuthComponent,

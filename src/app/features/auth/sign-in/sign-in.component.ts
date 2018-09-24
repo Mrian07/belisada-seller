@@ -5,10 +5,11 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 
 import swal from 'sweetalert2';
 import { EmailChecking, SigninRequest, UserData } from '@belisada-seller/core/models';
-import { UserService, AuthService } from '@belisada-seller/core/services';
+import { UserService, AuthService, StoreService } from '@belisada-seller/core/services';
 import { LocalStorageEnum } from '@belisada-seller/core/enum';
 import { isPlatformBrowser } from '@angular/common';
 import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
+import { CheckStoreRequest } from '@belisada-seller/core/models/store/store.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,7 +17,10 @@ import { LoadingService } from '@belisada-seller/core/services/globals/loading.s
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-
+  serverMessage: String;
+  nameChecking: Boolean = false;
+  pending_submit: Boolean = false;
+  public validationOnpopUpCreateStore: FormGroup;
   /* Mendeklarasikan nama variable*/
   signinFormGroup: FormGroup;
   formSubmited: Boolean = false;
@@ -32,6 +36,14 @@ export class SignInComponent implements OnInit {
   baseUrl: string;
 
   token: string;
+
+  tabMenu = 'login';
+  public regFromGroup: FormGroup;
+  storeUrl: FormControl;
+  storeName: FormControl;
+  regSuccess: boolean;
+  regForm: boolean;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
@@ -39,10 +51,14 @@ export class SignInComponent implements OnInit {
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private loadingService: LoadingService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userS: UserService,
+    private storeService: StoreService,
   ) {}
 
   ngOnInit() {
+    this.flagStatus();
+    this.createFormRegControl();
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       if (params['token']) {
@@ -54,10 +70,10 @@ export class SignInComponent implements OnInit {
               this.router.navigate(['']);
               this.isLogin = true;
             }
-            console.log('hasilnya', respon);
+            // console.log('hasilnya', respon);
           },
           error => {
-            console.log('error', error);
+            // console.log('error', error);
           });
 
       } else {
@@ -72,6 +88,50 @@ export class SignInComponent implements OnInit {
     //   this.isLogin = true;
     // }
     // this.createFormControl();
+  }
+
+  onNameKeydown(event: any) {
+    const pattern = /[a-zA-Z 0-9\+\- ]+/;
+
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+    }
+
+    this.regFromGroup.get('name').valueChanges.subscribe(val => {
+      val = val.replace(/\s+/g, '_').toLowerCase();
+      this.regFromGroup.patchValue({
+        storeUrl: val
+      });
+    });
+  }
+
+  flagStatus() {
+    this.regForm = false;
+    this.regSuccess = false;
+  }
+
+  createFormRegControl() {
+    this.storeName = new FormControl('', Validators.required);
+    this.storeUrl = new FormControl('', Validators.required);
+    this.regFromGroup = this.fb.group({
+        nameOwner: new FormControl('', Validators.required),
+        name: new FormControl('', Validators.required),
+        storeUrl: this.storeUrl,
+        email: new FormControl('', [
+            Validators.required,
+            Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')
+        ]),
+        password: new FormControl('', [
+            Validators.required,
+            Validators.minLength(7)
+        ]),
+    });
+  }
+
+  tab(data) {
+    this.tabMenu = data;
+    this.regForm = true;
   }
 
   /* Fungsi untuk membuat nama field pada form */
@@ -91,7 +151,6 @@ export class SignInComponent implements OnInit {
     this.formSubmited = true;
     if (form.valid) {
       const signinRequest: SigninRequest = form.value;
-      console.log('signinRequest: ', signinRequest);
       this.userService.signin(signinRequest).subscribe(result => {
         // Handle result
         if (result.status === 0) {
@@ -110,6 +169,72 @@ export class SignInComponent implements OnInit {
       form.reset();
       form.patchValue({email: signinRequest.email});
     }
+  }
+
+  onRegistrasi() {
+
+    if (this.regFromGroup.valid) {
+        const model = this.regFromGroup.value;
+
+        this.userS.createFormGuest(model).subscribe(rsl => {
+            if (rsl.status === 1) {
+                    // swal(rsl.message);
+                  this.flagStatus();
+                  this.regSuccess = true;
+
+                  this.regFromGroup.patchValue(
+                    {
+                      nameOwner: '',
+                      name: '',
+                      storeUrl: '',
+                      email: '',
+                      password: '',
+                    });
+
+
+            } else {
+                  swal(rsl.message);
+            }
+        });
+    } else {
+        swal('ops maaf ada kesalahan');
+        this.validateAllFormFields(this.regFromGroup);
+    }
+
+
+    // this.flagStatus();
+    // const form = this.regFromGroup;
+    // this.formSubmited = true;
+    // console.log(form.invalid);
+
+    // if (form.invalid) {
+    //   this.regForm = true;
+    //   return;
+    // } else {
+
+    //   if (this.regFromGroup.valid) {
+    //       const model = this.regFromGroup.value;
+    //       this.userS.createFormGuest(model).subscribe(rsl => {
+    //           if (rsl.status === 1) {
+    //                 this.flagStatus();
+    //                 this.regSuccess = true;
+    //           } else {
+    //             this.regForm = true;
+    //             swal(rsl.message);
+    //           }
+    //       });
+    //   } else {
+    //       swal('ops maaf ada kesalahan');
+    //       this.validateAllFormFields(this.regFromGroup);
+    //   }
+
+    // }
+    // this.formSubmited = false;
+    // form.reset();
+  }
+
+  isFieldValid(field: string) {
+    return !this.regFromGroup.get(field).valid && this.regFromGroup.get(field).touched;
   }
 
   /*Fungsi ini untuk berpindah halaman sign up jika user ingin melakukan pendaftaran*/
@@ -156,7 +281,6 @@ export class SignInComponent implements OnInit {
     this.loadingService.show();
     this.authService.doGoogleLogin()
     .then(res => {
-      console.log('googleLogin-res: ' + JSON.stringify(res));
       const signinRequest: SigninRequest = new SigninRequest();
       signinRequest.email = res.additionalUserInfo.profile.email;
       signinRequest.avatar = res.additionalUserInfo.profile.picture;
@@ -190,7 +314,7 @@ export class SignInComponent implements OnInit {
     this.loadingService.show();
     this.authService.doFacebookLogin()
     .then(res => {
-      console.log('facebookLogin-res: ', res);
+      // console.log('facebookLogin-res: ', res);
       const signinRequest: SigninRequest = new SigninRequest();
       signinRequest.email = res.additionalUserInfo.profile.email;
       signinRequest.avatar = res.additionalUserInfo.profile.picture.data.url;
@@ -217,6 +341,45 @@ export class SignInComponent implements OnInit {
     }, err => {
       this.loadingService.hide();
       console.log('facebookLogin-err: ', err);
+    });
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+        if (control instanceof FormControl) {
+            control.markAsTouched({
+                onlySelf: true
+            });
+        } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+        }
+    });
+
+  }
+
+
+  checkStoreName() {
+    const check_data: CheckStoreRequest = new CheckStoreRequest;
+    check_data.name = this.storeName.value;
+    this.storeService.isExist(check_data).subscribe(rsl => {
+        if (rsl.status !== 1) {
+            this.storeName.setErrors({
+                'server': true
+            });
+            this.serverMessage = rsl.message;
+        }
+        this.nameChecking = false;
+        if (this.pending_submit) {
+            this.onRegistrasi();
+            this.pending_submit = false;
+        }
+    }, err => {
+        this.nameChecking = false;
+        this.storeName.setErrors({
+            'server': true
+        });
+      //   this.serverMessage = 'opps, please try again';
     });
   }
 

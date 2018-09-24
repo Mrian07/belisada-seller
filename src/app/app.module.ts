@@ -23,7 +23,6 @@ import { AddProductComponent } from '@belisada-seller/features/product/add-produ
 import { ListingProductComponent } from '@belisada-seller/features/product/listing-product/listing-product.component';
 import { OrderComponent } from '@belisada-seller/features/order/order.component';
 import { OrderListComponent } from '@belisada-seller/features/order-list/order-list.component';
-import { FieldErrorComponent } from '@belisada-seller/features/product/field-error/field-error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DiscussionReviewComponent } from '@belisada-seller/features/discussion-review/discussion-review.component';
 import { DiscussionComponent } from '@belisada-seller/features/discussion/discussion.component';
@@ -45,7 +44,6 @@ library.add(fas, far, fab);
     AddProductComponent,
     ActivationComponent,
     ListingProductComponent,
-    FieldErrorComponent,
     DiscussionReviewComponent,
     DiscussionComponent,
     ReviewComponent
