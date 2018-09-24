@@ -62,6 +62,16 @@
                 <div class="col-9 title-line static-label">{{store.name}}</div>
             </div>
             <div class="row without-margin-bot view-line">
+                <div class="col-3 title-line">Email</div>
+                <div class="col-9 title-line static-label">{{store.email}}</div>
+            </div>
+            <div class="row without-margin-bot view-line">
+                <div class="col-3 title-line">Phone</div>
+                <div class="col-9 title-line">
+                    <input type="number" title="klik untuk mengubah" class="input-style-text input-editable" [disabled]="onViewAddress" [(ngModel)]="store.phone" name="phone" #phone="ngModel">
+                </div>
+            </div>
+            <div class="row without-margin-bot view-line">
                 <div class="col-3 title-line">Alamat Toko</div>
                 <div class="col-9 title-line"><textarea [(ngModel)]="store.address" [disabled]="onViewAddress" name="address" #address="ngModel" class="input-style-text input-editable" title="klik untuk mengubah" style="resize:none;" (change)="setUpdate(address)"></textarea></div>
             </div>

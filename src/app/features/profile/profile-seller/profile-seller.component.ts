@@ -48,6 +48,9 @@ export class ProfileSellerComponent implements OnInit {
   getProfile() {
     this.storeService.profile().subscribe(data => {
       this.store = data;
+
+console.log('ini:', data);
+
       this.updateDescriptionRequest.description = data.description;
       this.updateDescriptionRequest.imageStoreUrl = data.imageStoreUrl;
       this.userImgAvatar = data.imageStoreUrl ? data.imageStoreUrl : '/assets/img/store_profile.png';
@@ -145,12 +148,18 @@ export class ProfileSellerComponent implements OnInit {
   saveAddress(form: NgForm) {
     console.log('form: ', form);
     const data: UpdateStoreRequest = new UpdateStoreRequest();
+    data.email = this.store.email;
+    data.phone = this.store.phone;
     data.address = this.store.address;
     data.villageId = this.store.villageId;
 
-    if (Object.keys(data).length !== 2) {
+    if (this.store.address === '') {
       return swal('Pastikan alamat disi dengan benar');
     }
+
+    // if (Object.keys(data).length !== 2) {
+    //   return swal('Pastikan alamat disi dengan benar');
+    // }
     this.storeService.updateAddress(data).subscribe(rsl => {
       if (rsl.status === 1) {
         form.reset();
