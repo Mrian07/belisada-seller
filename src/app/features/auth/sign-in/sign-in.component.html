@@ -98,7 +98,7 @@
                     </div>
 
                     <div *ngIf="tabMenu=='registrasi'">
-                        <div *ngIf="regForm==false">
+                        <div *ngIf="regForm==true">
 
                             <form [formGroup]="regFromGroup" class=" center-for-button" (ngSubmit)="onRegistrasi()" #fs="ngForm" novalidate>
                                 <input type="hidden" class="input-style-text-100" formControlName="storeUrl" placeholder="URL toko mengikuti nama toko anda" />
@@ -135,18 +135,9 @@
                                 <button class="btn btn--orange btn-size-55 text-btn component-center center-for-button">Daftar</button>
                             </form>
 
-
-
-
-
-
-
-
-                           
                         </div>
                     </div>
-                    <div *ngIf="regForm==true" class="regSuccess">
-                    <!-- <div *ngIf="regSuccess==true" class="regSuccess"> -->
+                    <div *ngIf="regSuccess==true" class="regSuccess">
                         <div class="title">Pendaftaran Berhasil</div>
                         <div class="text-success">Selamat Toko Anda Berhasil Didaftarkan</div>
                     </div>
