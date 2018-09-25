@@ -31,8 +31,7 @@
                             (focusout)="onProductNameBlur()" maxlength="160" placeholder="Nama Produk">
                         <i class="drick-select__icon caret down icon"></i>
                     </div>
-                    <div class="drick-select-container--toggle" [ngClass]="{'active':onProductNameFocus}"
-                        id="drick-scroll-container--brand">
+                    <div class="drick-select-container--toggle" [ngClass]="{'active':onProductNameFocus}">
                         <ul class="drick-select-list">
                             <li *ngFor="let i of productSuggestionList" (click)="selectProductName(i)">
                                 {{i.name}}
@@ -156,8 +155,8 @@
                     </tr>
                 </table>
                 <div *ngIf="submitted">
-                  <bss-field-error [displayError]="categoryName.C2 === ''" errorMsg="Silahkan lengkapi kategori produk anda"></bss-field-error>
-              </div>
+                    <bss-field-error [displayError]="categoryName.C2 === ''" errorMsg="Silahkan lengkapi kategori produk anda"></bss-field-error>
+                </div>
             </div>
         </div>
         <div class="row f-group">

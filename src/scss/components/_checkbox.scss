@@ -6,14 +6,20 @@
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 13px;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     & input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
+    // position: absolute;
+    // opacity: 0;
+    color: white;
+    // cursor: pointer;
     }
     & input:checked ~.checkmark {
         background-color: white;
@@ -65,4 +71,10 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+@media (min-width: 1366px) {
+    .container {
+        max-width: 1297px;
+    }
 }
