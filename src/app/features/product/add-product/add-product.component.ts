@@ -146,7 +146,7 @@ export class AddProductComponent implements OnInit {
       discount: [''],
       qty: ['', [Validators.required]],
       specification: [[]],
-      weight: ['', [Validators.required]]
+      weight: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -424,8 +424,8 @@ export class AddProductComponent implements OnInit {
    * Calculate discount
    */
   calculateDiscount() {
-    const pricelist = this.addProductForm.get('pricelist').value;
-    const specialPrice = this.addProductForm.get('specialPrice').value;
+    const pricelist = +this.addProductForm.get('pricelist').value;
+    const specialPrice = +this.addProductForm.get('specialPrice').value;
     console.log(pricelist + ' ------ ' + specialPrice);
     if (specialPrice > 0) {
       if (+specialPrice >= +pricelist) {
@@ -435,6 +435,7 @@ export class AddProductComponent implements OnInit {
       }
     }
     console.log(this.errMaxDiscount);
+    console.log(specialPrice);
     if (pricelist && specialPrice && specialPrice !== 0) {
       this.isDiscountActive = true;
       this.totalDiscount = pricelist - specialPrice;
@@ -443,6 +444,7 @@ export class AddProductComponent implements OnInit {
       });
       // this.apr.discount = Math.round(100 - ((specialPrice / pricelist) * 100));
     } else {
+      console.log('error');
       this.isDiscountActive = false;
     }
   }

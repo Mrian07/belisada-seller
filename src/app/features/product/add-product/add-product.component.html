@@ -267,6 +267,7 @@
                 <input type="text" formControlName="weight" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
                 <div *ngIf="(submitted || f.weight.touched) && f.weight.invalid">
                     <bss-field-error [displayError]="f.weight.errors.required" errorMsg="Silahkan masukan berat"></bss-field-error>
+                    <bss-field-error [displayError]="f.weight.errors.min" errorMsg="Berat tidak boleh 0"></bss-field-error>
                 </div>
             </div>
             <div class="col-2">
