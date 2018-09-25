@@ -48,9 +48,6 @@ export class ProfileSellerComponent implements OnInit {
   getProfile() {
     this.storeService.profile().subscribe(data => {
       this.store = data;
-
-console.log('ini:', data);
-
       this.updateDescriptionRequest.description = data.description;
       this.updateDescriptionRequest.imageStoreUrl = data.imageStoreUrl;
       this.userImgAvatar = data.imageStoreUrl ? data.imageStoreUrl : '/assets/img/store_profile.png';
