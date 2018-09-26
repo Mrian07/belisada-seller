@@ -41,7 +41,8 @@ export class ProfileStoreResponse {
   name: string;
   statusCode: any;
   storeUrl: any;
-  phone: string;
+  phone: number;
+  email: string;
   address: string;
   addressId: number;
   description: string;
@@ -61,6 +62,8 @@ export class ProfileStoreResponse {
   url: string;
 }
 export class UpdateStoreRequest {
+  phone: number;
+  email: string;
   address: string;
   villageId: number;
   description?: string;

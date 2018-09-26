@@ -31,8 +31,7 @@
                             (focusout)="onProductNameBlur()" maxlength="160" placeholder="Nama Produk">
                         <i class="drick-select__icon caret down icon"></i>
                     </div>
-                    <div class="drick-select-container--toggle" [ngClass]="{'active':onProductNameFocus}"
-                        id="drick-scroll-container--brand">
+                    <div class="drick-select-container--toggle" [ngClass]="{'active':onProductNameFocus}">
                         <ul class="drick-select-list">
                             <li *ngFor="let i of productSuggestionList" (click)="selectProductName(i)">
                                 {{i.name}}
@@ -154,10 +153,12 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="3" *ngIf="submitted">
+                            <bss-field-error [displayError]="f.categoryThreeId.value === 0" errorMsg="Pilih kategori produk minimal category 2"></bss-field-error>
+                        </td>
+                    </tr>
                 </table>
-                <div *ngIf="submitted">
-                  <bss-field-error [displayError]="categoryName.C2 === ''" errorMsg="Silahkan lengkapi kategori produk anda"></bss-field-error>
-              </div>
             </div>
         </div>
         <div class="row f-group">
@@ -167,6 +168,17 @@
                     <textarea formControlName="description" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
                     <div *ngIf="(submitted || f.description.touched) && f.description.invalid">
                         <bss-field-error [displayError]="f.description.errors.required" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row f-group">
+            <label class="col-3 middle">Highlight</label>
+            <div class="col-9">
+                <div class="col-9">
+                    <textarea formControlName="highlight" placeholder="Highlight" class="f-control" rows="4" maxlength="400"></textarea>
+                    <div *ngIf="(submitted || f.highlight.touched) && f.highlight.invalid">
+                        <bss-field-error [displayError]="f.highlight.errors.maxlength" errorMsg="Highlight maksimal 400 karakter"></bss-field-error>
                     </div>
                 </div>
             </div>
@@ -208,7 +220,7 @@
                     (keyup)="calculateDiscount()" maxlength="10"/>
                 <div *ngIf="(submitted || f.pricelist.touched) && f.pricelist.invalid">
                     <bss-field-error [displayError]="f.pricelist.errors.required" errorMsg="Silahkan masukan harga"></bss-field-error>
-                    <bss-field-error [displayError]="f.pricelist.errors.min" errorMsg="Harga tidak boleh 0"></bss-field-error>
+                    <bss-field-error [displayError]="f.pricelist.errors.min" errorMsg="Harga minimal 100"></bss-field-error>
                 </div>
             </div>
         </div>
@@ -219,9 +231,11 @@
                 <input formControlName="specialPrice" type="text"
                     class="f-control" placeholder="Harga Promo" (keypress)="numberCheck($event)"
                     (keyup)="calculateDiscount()" maxlength="10"/>
-                <!-- <div *ngIf="f.pricelist.touched && f.pricelist.errors"> -->
-                    <bss-field-error [displayError]="errMaxDiscount" errorMsg="Harga promo melebihi harga asli"></bss-field-error>
-                <!-- </div> -->
+
+                <bss-field-error [displayError]="errMaxDiscount" errorMsg="Harga promo melebihi harga asli"></bss-field-error>
+                <div *ngIf="(submitted || f.specialPrice.touched) && f.specialPrice.invalid">
+                    <bss-field-error [displayError]="f.specialPrice.errors.min" errorMsg="Harga promo tidak boleh 0"></bss-field-error>
+                </div>
             </div>
         </div>
 
@@ -247,10 +261,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="row f-group">
+            <label class="col-3 middle">Jenis Garansi</label>
+            <div class="col-3">
+                <select formControlName="guaranteeType" class="f-control">
+                    <option value="" disabled>Jenis Garansi</option>
+                    <option *ngFor="let i of warrantyType" [value]="i.statusCode">{{ i.status }}</option>
+                </select>
+                <div *ngIf="(submitted || f.guaranteeType.touched) && f.guaranteeType.invalid">
+                    <bss-field-error [displayError]="f.guaranteeType.errors.required" errorMsg="Silahkan pilih jenis garansi"></bss-field-error>
+                </div>
+            </div>
+        </div>
+
         <div class="row f-group">
             <label class="col-3 middle">Garansi</label>
             <div class="col-3">
                 <select formControlName="guaranteeTime" class="f-control">
+                    <option value="" disabled>Garansi</option>
                     <option *ngFor="let i of warranty" [value]="i.statusCode">{{ i.status }}</option>
                 </select>
                 <div *ngIf="(submitted || f.guaranteeTime.touched) && f.guaranteeTime.invalid">
@@ -265,9 +294,10 @@
         <div class="row f-group">
             <label class="col-3 middle">Berat</label>
             <div class="col-2">
-                <input type="text" formControlName="weight" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
-                <div *ngIf="(submitted || f.weight.touched) && f.weight.invalid">
-                    <bss-field-error [displayError]="f.weight.errors.required" errorMsg="Silahkan masukan berat"></bss-field-error>
+                <input type="text" formControlName="weightRaw" class="f-control" (keypress)="numberCheck($event)" maxlength="10" placeholder="Berat">
+                <div *ngIf="(submitted || f.weightRaw.touched) && f.weightRaw.invalid">
+                    <bss-field-error [displayError]="f.weightRaw.errors.required" errorMsg="Silahkan masukan berat"></bss-field-error>
+                    <bss-field-error [displayError]="f.weightRaw.errors.min" errorMsg="Berat tidak boleh 0"></bss-field-error>
                 </div>
             </div>
             <div class="col-2">

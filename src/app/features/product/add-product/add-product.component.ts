@@ -1,15 +1,16 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {
-  BrandService, CategoryService, AttributeService, ReferenceService,
+  BrandService, CategoryService, ReferenceService,
   ProductService, CourierService
 } from '@belisada-seller/core/services';
 
 import {
-  BrandList, AddProductRequest, CategoryList, CategoryAttribute,
-  ProductSpecification, Reference, Courier, EditProductRequest, ProductDetailData, ProductSuggestion, SpecificationList
+  BrandList, CategoryList, CategoryAttribute,
+  ProductSpecification, Reference, Courier, EditProductRequest,
+  ProductDetailData, ProductSuggestion, SpecificationList
 } from '@belisada-seller/core/models';
 
 import { CategoryTypeEnum, ReferenceCodeEnum } from '@belisada-seller/core/enum';
@@ -36,6 +37,7 @@ export class AddProductComponent implements OnInit {
   isDiscountActive: Boolean = false;
   totalDiscount: number;
   errMaxDiscount: Boolean = false;
+  errCategory: Boolean = false;
 
   brandList: BrandList = new BrandList();
   currentPgBrand: number;
@@ -73,13 +75,12 @@ export class AddProductComponent implements OnInit {
 
   classifications: Reference[];
   warranty: Reference[];
+  warrantyType: Reference[];
   couriers: Courier[];
 
   productId: number;
-  testing: any;
   productDetail: ProductDetailData = new ProductDetailData();
   CheckingKatProdC2: boolean;
-
 
   constructor(
     private brandService: BrandService,
@@ -102,7 +103,6 @@ export class AddProductComponent implements OnInit {
     this.categoryList.C2.data = [];
     this.categoryList.C3.data = [];
     this.categoryAttributes = [];
-    this.testing = 'hi';
     this.productId = this.route.snapshot.params.id;
     console.log( this.route.snapshot.params.id);
   }
@@ -116,6 +116,7 @@ export class AddProductComponent implements OnInit {
     this.getCategoryInit(CategoryTypeEnum.C1);
     this.getReferenceInit(ReferenceCodeEnum.CLASIFICATION);
     this.getReferenceInit(ReferenceCodeEnum.WARRANTY);
+    this.getReferenceInit(ReferenceCodeEnum.WARRANTY_TYPE);
 
     if (this.productId) {
       this.title.setTitle('Belisada - Edit Product');
@@ -136,17 +137,20 @@ export class AddProductComponent implements OnInit {
       classification: ['', [Validators.required]],
       couriers: [[], [Validators.required]],
       description: ['', [Validators.required]],
+      highlight: ['', [Validators.maxLength(400)]],
       // dimensionsWidth: ['', [Validators.required]],
       // dimensionsheight: ['', [Validators.required]],
       // dimensionslength: ['', [Validators.required]],
+      guaranteeType: ['', [Validators.required]],
       guaranteeTime: ['', [Validators.required]],
       imageUrl: [[], [Validators.required]],
-      pricelist: ['', [Validators.required, Validators.min(1)]],
-      specialPrice: [''],
+      pricelist: ['', [Validators.required, Validators.min(100)]],
+      specialPrice: ['', [Validators.min(1)]],
       discount: [''],
       qty: ['', [Validators.required]],
       specification: [[]],
-      weight: ['', [Validators.required]]
+      weightRaw: ['', [Validators.required, Validators.min(1)]],
+      weight: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -170,9 +174,11 @@ export class AddProductComponent implements OnInit {
       classification: data.classification,
       couriers: (this.productId) ? data.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
       description: data.description,
+      highlight: data.highlight,
       // dimensionsWidth: data.dimensionsWidth,
       // dimensionsheight: data.dimensionsheight,
       // dimensionslength: data.dimensionslength,
+      guaranteeType: data.guaranteeType,
       guaranteeTime: data.guaranteeTime,
       imageUrl: data.imageUrl,
       pricelist: data.pricelist,
@@ -180,6 +186,7 @@ export class AddProductComponent implements OnInit {
       discount: data.discount,
       qty: data.qty,
       specification: data.specification,
+      weightRaw: data.weight,
       weight: data.weight
     });
     this.categoryName = {
@@ -354,7 +361,8 @@ export class AddProductComponent implements OnInit {
   searchCategory(categoryType, parentid?) {
     const queryParams = {
       name: this.categoryName[categoryType] === undefined ? '' : this.categoryName[categoryType],
-      type: categoryType
+      type: categoryType,
+      all: true
     };
     if (parentid) {
       queryParams['parentid'] = parentid;
@@ -424,8 +432,8 @@ export class AddProductComponent implements OnInit {
    * Calculate discount
    */
   calculateDiscount() {
-    const pricelist = this.addProductForm.get('pricelist').value;
-    const specialPrice = this.addProductForm.get('specialPrice').value;
+    const pricelist = +this.addProductForm.get('pricelist').value;
+    const specialPrice = +this.addProductForm.get('specialPrice').value;
     console.log(pricelist + ' ------ ' + specialPrice);
     if (specialPrice > 0) {
       if (+specialPrice >= +pricelist) {
@@ -435,6 +443,7 @@ export class AddProductComponent implements OnInit {
       }
     }
     console.log(this.errMaxDiscount);
+    console.log(specialPrice);
     if (pricelist && specialPrice && specialPrice !== 0) {
       this.isDiscountActive = true;
       this.totalDiscount = pricelist - specialPrice;
@@ -443,6 +452,7 @@ export class AddProductComponent implements OnInit {
       });
       // this.apr.discount = Math.round(100 - ((specialPrice / pricelist) * 100));
     } else {
+      console.log('error');
       this.isDiscountActive = false;
     }
   }
@@ -461,6 +471,9 @@ export class AddProductComponent implements OnInit {
           break;
         case ReferenceCodeEnum.WARRANTY:
             this.warranty = response;
+          break;
+        case ReferenceCodeEnum.WARRANTY_TYPE:
+            this.warrantyType = response;
           break;
         default:
             console.log('ERROR: code not found.');
@@ -514,11 +527,11 @@ export class AddProductComponent implements OnInit {
   }
 
   calculateWeight() {
-    if (this.measurementType === '1') {
-      this.addProductForm.patchValue({
-        weight: +this.addProductForm.get('weight').value * 1000
-      });
-    }
+    this.addProductForm.patchValue({
+      weight: (this.measurementType === '1') ?
+                +this.addProductForm.get('weightRaw').value * 1000
+                : +this.addProductForm.get('weightRaw').value
+    });
   }
 
   onProductSubmit() {
@@ -550,6 +563,11 @@ export class AddProductComponent implements OnInit {
         'Metode pengiriman harus diisi',
         'warning'
       );
+      return;
+    }
+
+    if (this.addProductForm.get('categoryThreeId').value === 0) {
+      this.errCategory = true;
       return;
     }
 

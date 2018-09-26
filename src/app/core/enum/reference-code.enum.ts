@@ -1,5 +1,6 @@
 export enum ReferenceCodeEnum {
     CLASIFICATION = 'CFT',
     STOCK = 'STC',
-    WARRANTY = 'GTI'
+    WARRANTY = 'GTI',
+    WARRANTY_TYPE = 'GRT'
 }
