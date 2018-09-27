@@ -9,10 +9,18 @@
     margin-top:10px;
 }
 
+.in{
+    display: grid;
+    grid-template-columns: repeat(2, 100px 600px);
+    margin-bottom:20px;
+    border-bottom: 1px solid #f57b2a;
+}
+
 .i{
     display: grid;
     grid-template-columns: repeat(2, 100px 600px);
     margin-bottom:20px;
+    margin-left:30px;
 }
 
 .iImg{

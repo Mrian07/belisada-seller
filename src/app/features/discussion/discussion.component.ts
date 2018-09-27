@@ -69,8 +69,6 @@ export class DiscussionComponent implements OnInit {
     this.discussionService.getDiscussion(queryParams).subscribe(response => {
       this.list = response.content;
       this.createFormControl(response.content);
-
-      console.log('ini:', response);
       this.proddetail = response;
       this.a = response.totalElements;
       this.pages = [];
@@ -81,7 +79,6 @@ export class DiscussionComponent implements OnInit {
         }
       }
 
-      // console.log('diskusi biasa', response.content);
     });
   });
   }
@@ -94,20 +91,21 @@ export class DiscussionComponent implements OnInit {
       this.discusId = discusId;
       this.openDetail = true;
 
-      const queryParams = {
-        page: 1,
-        itemperpage: 1,
-      };
+      // const queryParams = {
+      //   page: 1,
+      //   itemperpage: 1,
+      // };
 
-      this.discussionService.getAllDisccusion(productId, queryParams).subscribe(response => {
-        this.listChild = response.content;
-        this.listChild.forEach((content) => {
-          this.inputFormGroup[content.productId].patchValue({
-            discusParentId: content.discusId
-          });
-        });
-        // console.log('diskusi all', response.content);
-      });
+      // this.discussionService.getAllDisccusion(productId, queryParams).subscribe(response => {
+      //   this.listChild = response.content;
+
+      //   this.listChild.forEach((content) => {
+      //     this.inputFormGroup[content.productId].patchValue({
+      //       discusParentId: content.discusId
+      //     });
+      //   });
+      //   // console.log('diskusi all', response.content);
+      // });
 
     }
 

@@ -3,12 +3,20 @@
     <div class="title-dis" (click)="openOS(openDetail, item.productId, item.discusId)">
 
             <img src="{{item.productImage}}" width="100">
-
             {{item.productName}}
-
     </div>
     <div class="contain-dis" *ngIf="openDetail==true && discusId==item.discusId">
-        <div class="question-dis" *ngFor="let itemChild of listChild">
+        <div class="in">
+            <div class="iImg">
+                <img src="{{item.imageAvatarUrl}}" class="imgUser">
+            </div>
+            <div class="iCon">
+                <p><label>{{item.name}}  </label></p>
+                {{item.message}}
+            </div>
+        </div>
+        <!-- <div class="question-dis" *ngFor="let itemChild of listChild"> -->
+        <div class="question-dis" *ngFor="let itemChild of item.childs">    
         <div class="i">
             <div class="iImg">
                 <img src="{{itemChild.imageAvatarUrl}}" class="imgUser">
@@ -19,7 +27,7 @@
             </div>
         </div>
         <div class="i" *ngFor="let itemChilds of itemChild.childs">
-           <div class="iImg">
+            <div class="iImg">
                 <img src="{{itemChilds.imageAvatarUrl}}" class="imgUser">
             </div>
             <div class="iCon">
