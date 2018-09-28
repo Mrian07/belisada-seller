@@ -38,6 +38,7 @@ export class ListingProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private storeService: StoreService
   ) {
+    this.productDetail.description = '';
     this.rowSelected = -1;
     this.prodImg = environment.thumborUrl + 'unsafe/fit-in/80x80/';
   }

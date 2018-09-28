@@ -155,6 +155,8 @@
                                         </span>
                                     </div>
                                     <div>
+                                        <span class="w__nmbarang">Jenis Garansi</span>
+                                        <span class="w__nmBarang">{{ productDetail.guaranteeTypeValue }}</span>
                                         <span class="w__nmbarang">Garansi</span>
                                         <span class="w__nmBarang">{{ productDetail.guaranteeTimeValue }}</span>
                                         <span class="w__hrgaBarang">Berat Barang</span>
@@ -167,9 +169,13 @@
                                 </div>
                             </div>
                             <div class="col-3">
+                                <span class="w__nmbarang">Highlight</span>
+                                <div class="w__descr">
+                                    <p class="w__prodDessc">{{ productDetail.highlight }}</p>
+                                </div>
                                 <span class="w__nmbarang">Deskripsi</span>
                                 <div class="w__descr">
-                                    <p class="w__prodDessc">  {{ productDetail.description}}</p>
+                                    <p class="w__prodDessc">{{ productDetail.description | ellipsis:400 }}</p>
                                 </div>
                                 <div> <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
                             </div>

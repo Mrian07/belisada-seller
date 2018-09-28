@@ -170,6 +170,8 @@ export class EditProductRequest {
   qty: number;
   specialPrice: number;
   weight: number;
+  guaranteeType: number;
+  highlight: string;
 }
 
 export class ProductSuggestion {

@@ -587,10 +587,12 @@ export class AddProductComponent implements OnInit {
         const editProductRequest = new EditProductRequest();
         editProductRequest.classification = this.addProductForm.get('classification').value;
         editProductRequest.couriers = this.addProductForm.get('couriers').value;
+        editProductRequest.highlight = this.addProductForm.get('highlight').value;
         // editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
         // editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
         // editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
         editProductRequest.discount = this.addProductForm.get('discount').value;
+        editProductRequest.guaranteeType = this.addProductForm.get('guaranteeType').value;
         editProductRequest.guaranteeTime = this.addProductForm.get('guaranteeTime').value;
         editProductRequest.pricelist = this.addProductForm.get('pricelist').value;
         editProductRequest.productId = this.productId;
