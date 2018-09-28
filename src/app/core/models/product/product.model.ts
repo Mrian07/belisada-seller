@@ -99,7 +99,7 @@ export class ProductDetailList {
 }
 
 export class ProductDetailData {
-  status: number;
+  status: string;
   message: string;
   productId: number;
   name: string;

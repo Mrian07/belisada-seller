@@ -97,7 +97,7 @@ export class OrderListComponent implements OnInit {
     this.transactionService.getListOrder(queryParams).subscribe(response => {
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
-      console.log(b)
+      console.log(b);
       this.listCart = response.content;
       b.forEach((x) => {
         console.log('x: ', x);
@@ -106,7 +106,7 @@ export class OrderListComponent implements OnInit {
           // this.countdown = countdown;
         });
       });
-      console.log('as', this.listCart)
+      console.log('as', this.listCart);
       this.proddetail = response;
       this.a = response.totalElements;
       this.pages = [];
@@ -169,7 +169,7 @@ export class OrderListComponent implements OnInit {
 
       });
     } else {
-      console.log('xxxx')
+      console.log('xxxx');
     }
 
   }

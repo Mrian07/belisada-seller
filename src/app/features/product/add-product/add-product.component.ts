@@ -18,6 +18,7 @@ import { CategoryTypeEnum, ReferenceCodeEnum } from '@belisada-seller/core/enum'
 import swal from 'sweetalert2';
 import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 import { Title } from '@angular/platform-browser';
+import { ProductStatusEnum } from '@belisada-seller/core/enum/product-status.enum';
 
 @Component({
   selector: 'app-add-product',
@@ -213,10 +214,11 @@ export class AddProductComponent implements OnInit {
       this.categoryAttributes = response;
       this.fillFormSpecification(data.specification);
     });
-    console.log('this.addProductForm: ', this.addProductForm);
 
     this.calculateDiscount();
-    this.disableControl(true);
+    if (data.status !== ProductStatusEnum.RV) {
+      this.disableControl(true);
+    }
   }
 
   disableControl(condition: Boolean) {
