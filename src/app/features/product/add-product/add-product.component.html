@@ -33,7 +33,7 @@
                     </div>
                     <div class="drick-select-container--toggle" [ngClass]="{'active':onProductNameFocus}">
                         <ul class="drick-select-list">
-                            <li *ngFor="let i of productSuggestionList" (click)="selectProductName(i)">
+                            <li *ngFor="let i of productSuggestionList" (click)="selectProductName(i.productId)">
                                 {{i.name}}
                             </li>
                             <li *ngIf="(productSuggestionList.length === 0)">

@@ -79,6 +79,7 @@ export class AddProductComponent implements OnInit {
   couriers: Courier[];
 
   productId: number;
+  mProductId: number;
   productDetail: ProductDetailData = new ProductDetailData();
   CheckingKatProdC2: boolean;
 
@@ -104,6 +105,9 @@ export class AddProductComponent implements OnInit {
     this.categoryList.C3.data = [];
     this.categoryAttributes = [];
     this.productId = this.route.snapshot.params.id;
+    this.route.queryParams.subscribe((queryParam) => {
+      this.mProductId = queryParam.mProductId;
+    });
     console.log( this.route.snapshot.params.id);
   }
 
@@ -121,6 +125,10 @@ export class AddProductComponent implements OnInit {
     if (this.productId) {
       this.title.setTitle('Belisada - Edit Product');
       this.fillFormData(this.productId);
+    } else if (this.mProductId) {
+      this.title.setTitle('Belisada - Add Product');
+      this.selectProductName(this.mProductId);
+      this.getCourier();
     } else {
       this.title.setTitle('Belisada - Add Product');
       this.getCourier();
@@ -246,9 +254,9 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-  selectProductName(product: ProductSuggestion) {
-    console.log('product: ', product);
-    this.productService.getProductSuggestionDetail(product.productId).subscribe(response => {
+  selectProductName(mProductId) {
+    console.log('mProductId: ', mProductId);
+    this.productService.getProductSuggestionDetail(mProductId).subscribe(response => {
       this.fillFormPatchValue(response.data);
     });
   }
