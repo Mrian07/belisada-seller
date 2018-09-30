@@ -4,12 +4,11 @@ import { ActivatedRoute, Router, RouterModule, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import swal from 'sweetalert2';
-import { EmailChecking, SigninRequest, UserData } from '@belisada-seller/core/models';
+import { EmailChecking, SigninRequest, UserData, CheckStoreRequest } from '@belisada-seller/core/models';
 import { UserService, AuthService, StoreService } from '@belisada-seller/core/services';
 import { LocalStorageEnum } from '@belisada-seller/core/enum';
 import { isPlatformBrowser } from '@angular/common';
 import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
-import { CheckStoreRequest } from '@belisada-seller/core/models/store/store.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -360,7 +359,7 @@ export class SignInComponent implements OnInit {
 
 
   checkStoreName() {
-    const check_data: CheckStoreRequest = new CheckStoreRequest;
+    const check_data: CheckStoreRequest = new CheckStoreRequest();
     check_data.name = this.storeName.value;
     this.storeService.isExist(check_data).subscribe(rsl => {
         if (rsl.status !== 1) {
