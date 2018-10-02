@@ -124,16 +124,16 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrderNumber(orderNumber) {
-    this.submitted = false;
-    this.createComForm.reset();
     this.isStatus();
     this.isForm = true;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
-    });
-
-    this.createComForm.patchValue({
-        orderNumber : orderNumber
+      this.createComForm.patchValue({
+        orderNumber : orderNumber,
+        actualCourierPrice: this.info.actualCourierPrice,
+        noResi: this.info.noResi
+      });
+      this.disableControl((this.info.noResi !== '') ? true : false);
     });
 
   }
@@ -181,5 +181,13 @@ export class OrderListComponent implements OnInit {
     this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
   }
+
+  disableControl(condition: Boolean) {
+    this.disabled = condition;
+    const action = condition ? 'disable' : 'enable';
+    this.createComForm.controls['actualCourierPrice'][action]();
+    this.createComForm.controls['noResi'][action]();
+  }
+
 
 }
