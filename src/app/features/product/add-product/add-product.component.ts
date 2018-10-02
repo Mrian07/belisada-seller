@@ -18,6 +18,7 @@ import { CategoryTypeEnum, ReferenceCodeEnum } from '@belisada-seller/core/enum'
 import swal from 'sweetalert2';
 import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 import { Title } from '@angular/platform-browser';
+import { ProductStatusEnum } from '@belisada-seller/core/enum/product-status.enum';
 
 @Component({
   selector: 'app-add-product',
@@ -79,6 +80,7 @@ export class AddProductComponent implements OnInit {
   couriers: Courier[];
 
   productId: number;
+  mProductId: number;
   productDetail: ProductDetailData = new ProductDetailData();
   CheckingKatProdC2: boolean;
 
@@ -104,6 +106,9 @@ export class AddProductComponent implements OnInit {
     this.categoryList.C3.data = [];
     this.categoryAttributes = [];
     this.productId = this.route.snapshot.params.id;
+    this.route.queryParams.subscribe((queryParam) => {
+      this.mProductId = queryParam.mProductId;
+    });
     console.log( this.route.snapshot.params.id);
   }
 
@@ -121,6 +126,10 @@ export class AddProductComponent implements OnInit {
     if (this.productId) {
       this.title.setTitle('Belisada - Edit Product');
       this.fillFormData(this.productId);
+    } else if (this.mProductId) {
+      this.title.setTitle('Belisada - Add Product');
+      this.selectProductName(this.mProductId);
+      this.getCourier();
     } else {
       this.title.setTitle('Belisada - Add Product');
       this.getCourier();
@@ -205,10 +214,11 @@ export class AddProductComponent implements OnInit {
       this.categoryAttributes = response;
       this.fillFormSpecification(data.specification);
     });
-    console.log('this.addProductForm: ', this.addProductForm);
 
     this.calculateDiscount();
-    this.disableControl(true);
+    if (data.status !== ProductStatusEnum.RV) {
+      this.disableControl(true);
+    }
   }
 
   disableControl(condition: Boolean) {
@@ -246,9 +256,9 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-  selectProductName(product: ProductSuggestion) {
-    console.log('product: ', product);
-    this.productService.getProductSuggestionDetail(product.productId).subscribe(response => {
+  selectProductName(mProductId) {
+    console.log('mProductId: ', mProductId);
+    this.productService.getProductSuggestionDetail(mProductId).subscribe(response => {
       this.fillFormPatchValue(response.data);
     });
   }
@@ -577,10 +587,12 @@ export class AddProductComponent implements OnInit {
         const editProductRequest = new EditProductRequest();
         editProductRequest.classification = this.addProductForm.get('classification').value;
         editProductRequest.couriers = this.addProductForm.get('couriers').value;
+        editProductRequest.highlight = this.addProductForm.get('highlight').value;
         // editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
         // editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
         // editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
         editProductRequest.discount = this.addProductForm.get('discount').value;
+        editProductRequest.guaranteeType = this.addProductForm.get('guaranteeType').value;
         editProductRequest.guaranteeTime = this.addProductForm.get('guaranteeTime').value;
         editProductRequest.pricelist = this.addProductForm.get('pricelist').value;
         editProductRequest.productId = this.productId;

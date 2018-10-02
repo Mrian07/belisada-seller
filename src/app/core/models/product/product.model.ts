@@ -99,7 +99,7 @@ export class ProductDetailList {
 }
 
 export class ProductDetailData {
-  status: number;
+  status: string;
   message: string;
   productId: number;
   name: string;
@@ -170,6 +170,8 @@ export class EditProductRequest {
   qty: number;
   specialPrice: number;
   weight: number;
+  guaranteeType: number;
+  highlight: string;
 }
 
 export class ProductSuggestion {
