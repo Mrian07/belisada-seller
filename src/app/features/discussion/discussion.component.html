@@ -37,9 +37,7 @@
         </div>
         </div>
 
-        <form class="ui form" [formGroup]="inputFormGroup[item.productId]" (ngSubmit)="onSubmit(item.productId)" novalidate>
-            <input type="hidden" formControlName="discusParentId">
-            <input type="hidden" formControlName="productId">
+        <form class="ui form" [formGroup]="inputFormGroup[item.discusId]" (ngSubmit)="onSubmit(item)" novalidate>
             <textarea class="text-area" formControlName="message"></textarea>
             <div class="btn-dis">
             <button type="submit" class="btn btn--orange m-left">Kirim</button>
