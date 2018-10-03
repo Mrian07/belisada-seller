@@ -3,6 +3,7 @@ import { DiscussionService } from '@belisada-seller/core/services/discussion/dis
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AddDisRequest, DisContain, GetDisResponse} from '@belisada-seller/core/models';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'bss-discussion',
@@ -46,15 +47,15 @@ export class DiscussionComponent implements OnInit {
 
   createFormControl(datas: DisContain[]) {
     datas.forEach(x => {
-      this.inputFormGroup[x.productId] = this.fb.group({
+      this.inputFormGroup[x.discusId] = this.fb.group({
         discusParentId: ['', Validators.required],
         message: ['', Validators.required],
         productId: ['', Validators.required],
       });
 
-      this.inputFormGroup[x.productId].patchValue({
-        productId: x.productId,
-      });
+      // this.inputFormGroup[x.discusId].patchValue({
+      //   productId: x.productId,
+      // });
     });
   }
 
@@ -111,28 +112,33 @@ export class DiscussionComponent implements OnInit {
 
   }
 
-  onSubmit(productId) {
-    const form = this.inputFormGroup[productId];
-    if (form.valid) {
-      const addDisRequest: AddDisRequest = form.value;
-      addDisRequest.discusParentId = this.inputFormGroup[productId].controls['discusParentId'].value;
-      addDisRequest.message = this.inputFormGroup[productId].controls['message'].value;
-      addDisRequest.productId = this.inputFormGroup[productId].controls['productId'].value;
-      this.getId = this.inputFormGroup[productId].controls['productId'].value;
-      this.getParent = this.inputFormGroup[productId].controls['discusParentId'].value;
-      // console.log('masuk', addDisRequest);
+  onSubmit(item) {
+    this.inputFormGroup[item.discusId].patchValue({
+      productId: item.productId,
+      discusParentId: item.discusId,
+    });
+    console.log(this.inputFormGroup[item.discusId].value);
 
-      this.discussionService.addDiscussion(addDisRequest).subscribe(respon => {
-        console.log('hasilnya', respon);
-        if (respon.status === 1) {
-          this.openOS('false', this.getId, this.getParent);
-          this.inputFormGroup[this.getId].patchValue({
-            message: '',
-          });
-        }
-      });
-
+    if (this.inputFormGroup[item.discusId].get('message').invalid) {
+      swal(
+        'Gagal',
+        'Message tidak boleh kosong!',
+        'warning'
+      );
+      return;
     }
+
+    this.discussionService.addDiscussion(this.inputFormGroup[item.discusId].value).subscribe(respon => {
+      if (respon.status === 1) {
+        this.openOS('false', item.productId, item.discusId);
+        this.inputFormGroup[item.discusId].patchValue({
+          message: '',
+        });
+
+        this.loadDis();
+      }
+    });
+
   }
 
   setPage(page: number, increment?: number) {

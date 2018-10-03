@@ -1,15 +1,49 @@
+// .footer{
+//     background:#022e54;
+//     color: #f7f7f7;
+//     padding:20px;
+//     font-size: 15px;
+//     // position: absolute;
+//     bottom: 0;
+//     width: 100%;
+// }
+// .w__font--size {
+//     font-size: 15px;
+// }
+// .menuList{
+//     list-style-type: none;
+// }
+
+// .menuList a{
+//     color: #f7f7f7;
+//     text-decoration: none;
+// }
+
+// .menuList a:hover{
+//     color: #d4d2d2;
+// }
+
+// .footer.center{
+//     text-align: center;
+// }
+
+// .footer-input{
+//     color:#ffffff;
+// }
+
+
 .footer{
-    background:#022e54;
+    background:#28394D;
     color: #f7f7f7;
-    padding:20px;
+    // padding:20px;
     font-size: 15px;
     // position: absolute;
     bottom: 0;
     width: 100%;
+    padding-top: 0px;
+    padding-left: 0px;
 }
-.w__font--size {
-    font-size: 15px;
-}
+
 .menuList{
     list-style-type: none;
 }
@@ -29,4 +63,41 @@
 
 .footer-input{
     color:#ffffff;
+}
+
+// wahyu footer //
+.padding__on-menu {
+    padding-left: 30%;
+}
+.first__span {
+    font-size: 19px;
+    font-weight: bold;
+    color: white;
+}
+.wrapper--orange {
+    background: #F87C2E;
+    padding-left: 5%;
+    .wrapper--orange--text__phone {
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+}
+.wrapper__mid--foter {
+    text-align: center;
+    .text__wrapper--mid--footer {
+        font-size: 17px;
+        display: block;
+    }
+    .span--recomend {
+        font-size: 13px;
+        display: block;
+    }
+    .wrapper--form {
+        margin: 0 auto;
+    }
+    .input--type__button-subscribe {
+        background: white;
+        color: #ff974b;
+        padding: 0 25px;
+    }
 }
