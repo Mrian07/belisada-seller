@@ -22,7 +22,11 @@ export class OnlyLoggedInUsersGuard implements CanActivateChild {
     this.user = localStorage.getItem('token');
 
     if (!this.user) {
-      this.router.navigateByUrl('/auth/sign-in');
+      this.router.navigate(['/auth/sign-in'], {
+        queryParams: {
+          routeback: state.url
+        }
+      });
       return false;
     } else {
       return true;

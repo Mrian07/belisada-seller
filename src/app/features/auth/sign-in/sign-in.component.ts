@@ -42,6 +42,7 @@ export class SignInComponent implements OnInit {
   storeName: FormControl;
   regSuccess: boolean;
   regForm: boolean;
+  routeback: string;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -60,6 +61,7 @@ export class SignInComponent implements OnInit {
     this.createFormRegControl();
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.routeback = params.routeback || '';
       if (params['token']) {
         localStorage.setItem(LocalStorageEnum.TOKEN_KEY, params['token']);
         this.userService.refreshToken().subscribe(
@@ -159,7 +161,7 @@ export class SignInComponent implements OnInit {
 
           this.userService.setUserToLocalStorage(token);
 
-          this.router.navigate(['']);
+          this.router.navigateByUrl(this.routeback);
         }
       }, error => {
         swal('belisada.co.id', 'unknown error', 'error');
