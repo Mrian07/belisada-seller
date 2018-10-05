@@ -81,9 +81,9 @@ export class OrderListComponent implements OnInit {
   private formData() {
     this.createComForm = this.fb.group({
 
-      actualCourierPrice: new FormControl(''),
-      orderNumber: new FormControl('', Validators.required),
-      noResi: new FormControl('', Validators.required)
+      actualCourierPrice: [''],
+      orderNumber: ['', [Validators.required]],
+      noResi: ['', [Validators.required]]
     });
   }
 
@@ -128,6 +128,7 @@ export class OrderListComponent implements OnInit {
     this.isForm = true;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
+      console.log('this.info.actualCourierPrice: ', this.info.actualCourierPrice);
       this.createComForm.patchValue({
         orderNumber : orderNumber,
         actualCourierPrice: this.info.actualCourierPrice,

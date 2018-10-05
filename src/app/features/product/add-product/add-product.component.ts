@@ -241,7 +241,7 @@ export class AddProductComponent implements OnInit {
     // this.addProductForm.controls['discount'][action]();
     // this.addProductForm.controls['qty'][action]();
     this.addProductForm.controls['specification'][action]();
-    this.addProductForm.controls['weight'][action]();
+    this.addProductForm.controls['weightRaw'][action]();
   }
 
   searchProductName(event) {
@@ -279,7 +279,7 @@ export class AddProductComponent implements OnInit {
       const myReader: FileReader = new FileReader();
       myReader.onloadend = (e) => {
         if (imageUrl.length < 5) {
-          imageUrl.push(myReader.result);
+          imageUrl.push(myReader.result.toString());
           this.addProductForm.patchValue({
             imageUrl: imageUrl
           });
