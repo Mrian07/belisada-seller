@@ -174,6 +174,35 @@ export class EditProductRequest {
   highlight: string;
 }
 
+export class EditProductFullRequest {
+  productId: number;
+  brandId: number;
+  brandName: string;
+  categoryThreeId: number;
+  classification: string;
+  couriers: any[];
+  description: string;
+  descriptionEn: string;
+  dimensionsWidth: number;
+  dimensionsheight: number;
+  dimensionslength: number;
+  guaranteeTime: string;
+  guaranteeType: string;
+  highlight: string;
+  highlightEn: string;
+  imageUrl: string[];
+  isGuarantee: boolean;
+  name: string;
+  nameEn: string;
+  pricelist: number;
+  specialPrice: number;
+  discount: number;
+  qty: number;
+  specification: ProductSpecification[];
+  volume: number;
+  weight: number;
+}
+
 export class ProductSuggestion {
   productId: number;
   name: string;

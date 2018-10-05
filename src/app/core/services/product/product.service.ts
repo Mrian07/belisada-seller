@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
-  UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest, UpdateStockResponse
+  UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest, UpdateStockResponse, EditProductFullRequest
 } from '@belisada-seller/core/models';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class ProductService {
         map(response => response as AddProductResponse)
       );
   }
-  editProduct(data: AddProductRequest) {
+  editProduct(data: EditProductFullRequest) {
     return this.http.put(this.configuration.apiURL + '/seller/product/update', data)
       .pipe(
         map(response => response as any)

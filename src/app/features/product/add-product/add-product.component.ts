@@ -10,7 +10,7 @@ import {
 import {
   BrandList, CategoryList, CategoryAttribute,
   ProductSpecification, Reference, Courier, EditProductRequest,
-  ProductDetailData, ProductSuggestion, SpecificationList
+  ProductDetailData, ProductSuggestion, SpecificationList, EditProductFullRequest
 } from '@belisada-seller/core/models';
 
 import { CategoryTypeEnum, ReferenceCodeEnum } from '@belisada-seller/core/enum';
@@ -587,7 +587,10 @@ export class AddProductComponent implements OnInit {
       this.loadingService.show();
       if (this.productId) {
         if (this.productStatus === ProductStatusEnum.RV) {
-          this.productService.editProduct(this.addProductForm.value).subscribe(response => {
+          let editProductFullRequest = new EditProductFullRequest();
+          editProductFullRequest = this.addProductForm.value;
+          editProductFullRequest.productId = this.productId;
+          this.productService.editProduct(editProductFullRequest).subscribe(response => {
             this.loadingService.hide();
             swal(
               'belisada.co.id',
