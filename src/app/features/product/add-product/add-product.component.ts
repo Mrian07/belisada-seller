@@ -10,7 +10,7 @@ import {
 import {
   BrandList, CategoryList, CategoryAttribute,
   ProductSpecification, Reference, Courier, EditProductRequest,
-  ProductDetailData, ProductSuggestion, SpecificationList
+  ProductDetailData, ProductSuggestion, SpecificationList, EditProductFullRequest
 } from '@belisada-seller/core/models';
 
 import { CategoryTypeEnum, ReferenceCodeEnum } from '@belisada-seller/core/enum';
@@ -79,6 +79,7 @@ export class AddProductComponent implements OnInit {
   warrantyType: Reference[];
   couriers: Courier[];
 
+  productStatus: string;
   productId: number;
   mProductId: number;
   productDetail: ProductDetailData = new ProductDetailData();
@@ -173,6 +174,7 @@ export class AddProductComponent implements OnInit {
   fillFormPatchValue(data: ProductDetailData) {
     if (this.productId) {
       this.couriers = data.couriers;
+      this.productStatus = data.status;
     }
     this.addProductForm.patchValue({
       name: data.name,
@@ -584,33 +586,50 @@ export class AddProductComponent implements OnInit {
     if (this.addProductForm.valid) {
       this.loadingService.show();
       if (this.productId) {
-        const editProductRequest = new EditProductRequest();
-        editProductRequest.classification = this.addProductForm.get('classification').value;
-        editProductRequest.couriers = this.addProductForm.get('couriers').value;
-        editProductRequest.highlight = this.addProductForm.get('highlight').value;
-        // editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
-        // editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
-        // editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
-        editProductRequest.discount = this.addProductForm.get('discount').value;
-        editProductRequest.guaranteeType = this.addProductForm.get('guaranteeType').value;
-        editProductRequest.guaranteeTime = this.addProductForm.get('guaranteeTime').value;
-        editProductRequest.pricelist = this.addProductForm.get('pricelist').value;
-        editProductRequest.productId = this.productId;
-        editProductRequest.qty = this.addProductForm.get('qty').value;
-        editProductRequest.specialPrice = this.addProductForm.get('specialPrice').value;
-        editProductRequest.weight = this.addProductForm.get('weight').value;
+        if (this.productStatus === ProductStatusEnum.RV) {
+          let editProductFullRequest = new EditProductFullRequest();
+          editProductFullRequest = this.addProductForm.value;
+          editProductFullRequest.productId = this.productId;
+          this.productService.editProduct(editProductFullRequest).subscribe(response => {
+            this.loadingService.hide();
+            swal(
+              'belisada.co.id',
+              response.message,
+              (response.status === 0) ? 'error' : 'success'
+            );
+            if (response.status === 1) {
+              this.router.navigate(['/listing-product']);
+            }
+          });
+        } else {
+          const editProductRequest = new EditProductRequest();
+          editProductRequest.classification = this.addProductForm.get('classification').value;
+          editProductRequest.couriers = this.addProductForm.get('couriers').value;
+          editProductRequest.highlight = this.addProductForm.get('highlight').value;
+          // editProductRequest.dimensionsheight = this.addProductForm.get('dimensionsheight').value;
+          // editProductRequest.dimensionslength = this.addProductForm.get('dimensionslength').value;
+          // editProductRequest.dimensionsWidth = this.addProductForm.get('dimensionsWidth').value;
+          editProductRequest.discount = this.addProductForm.get('discount').value;
+          editProductRequest.guaranteeType = this.addProductForm.get('guaranteeType').value;
+          editProductRequest.guaranteeTime = this.addProductForm.get('guaranteeTime').value;
+          editProductRequest.pricelist = this.addProductForm.get('pricelist').value;
+          editProductRequest.productId = this.productId;
+          editProductRequest.qty = this.addProductForm.get('qty').value;
+          editProductRequest.specialPrice = this.addProductForm.get('specialPrice').value;
+          editProductRequest.weight = this.addProductForm.get('weight').value;
 
-        this.productService.editProduct(editProductRequest).subscribe(response => {
-          this.loadingService.hide();
-          swal(
-            'belisada.co.id',
-            response.message,
-            (response.status === 0) ? 'error' : 'success'
-          );
-          if (response.status === 1) {
-            this.router.navigate(['/listing-product']);
-          }
-        });
+          this.productService.editProductBasic(editProductRequest).subscribe(response => {
+            this.loadingService.hide();
+            swal(
+              'belisada.co.id',
+              response.message,
+              (response.status === 0) ? 'error' : 'success'
+            );
+            if (response.status === 1) {
+              this.router.navigate(['/listing-product']);
+            }
+          });
+        }
       } else {
         this.productService.addProduct(this.addProductForm.value).subscribe(response => {
           this.loadingService.hide();
