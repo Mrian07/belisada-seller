@@ -21,7 +21,13 @@ export class ProductService {
         map(response => response as AddProductResponse)
       );
   }
-  editProduct(data: EditProductRequest) {
+  editProduct(data: AddProductRequest) {
+    return this.http.put(this.configuration.apiURL + '/seller/product/update', data)
+      .pipe(
+        map(response => response as any)
+      );
+  }
+  editProductBasic(data: EditProductRequest) {
     return this.http.put(this.configuration.apiURL + '/seller/product/basic/update', data)
       .pipe(
         map(response => response as any)
