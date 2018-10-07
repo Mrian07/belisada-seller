@@ -6,6 +6,7 @@ import {
 } from '@belisada-seller/core/models';
 import { NgForm } from '@angular/forms';
 import swal from 'sweetalert2';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'bss-profile-information',
@@ -16,8 +17,12 @@ export class ProfileInformationComponent implements OnInit {
 
   store: ProfileStoreResponse = new ProfileStoreResponse();
   updateStatus: UpdateStoreRequest = new UpdateStoreRequest();
+  updateAddress: UpdateStoreRequest = new UpdateStoreRequest();
   updateDescriptionRequest: UpdateDescriptionRequest = new UpdateDescriptionRequest();
   onViewAddress: Boolean = true;
+
+  baseUrlBuyer: string = environment.baseUrlBuyer;
+  provinces: Province[];
 
   constructor(
     private storeService: StoreService,
@@ -33,6 +38,54 @@ export class ProfileInformationComponent implements OnInit {
       this.updateDescriptionRequest.description = data.description;
       this.updateDescriptionRequest.imageStoreUrl = data.imageStoreUrl;
     });
+  }
+
+  /* open|close store */
+  changeStatus(el) {
+    let msg: string;
+    if (this.store.isoffday === false) {
+      msg = 'Yakin akan menutup toko';
+      this.updateStatus.isoffday = true;
+    } else {
+      msg = 'Yakin akan membuka toko';
+      this.updateStatus.isoffday = false;
+    }
+    swal({
+      title: msg,
+      type: 'warning',
+      showCancelButton: true,
+    }).then((result) => {
+      // console.log('stat:', result);
+      if (result.value) {
+        this.storeService.updateStatus(this.updateStatus).subscribe(rsl => {
+          console.log('rsl: ', rsl);
+          swal('Success', rsl.message, (rsl.status === 1) ? 'success' : 'error');
+          this.getProfile();
+        });
+      } else {
+        el.checked = !el.checked;
+      }
+    });
+  }
+
+  setUpdate(u) {
+    console.log('sua:', u);
+    if (this.store[u.name] === u.model) {
+      this.updateAddress[u.name] = u.model;
+    } else {
+      delete this.updateAddress[u.name];
+    }
+  }
+
+  /* address suggestion*/
+  getRegion() {
+    this.storeService.getProvince('209').subscribe(data => {
+      this.provinces = data;
+    });
+  }
+
+  hideRegionSuggest() {
+    setTimeout(() => delete this.provinces, 300);
   }
 
   editAddress() {
