@@ -1,3 +1,4 @@
+<span class="title">Profile Toko</span>
 <div class="heading-padding" *ngIf="store.statusCode === 'NA'">
     <div class="border-store-seller">
         <span class="text-center">
@@ -6,37 +7,58 @@
     </div>
 </div>
 
-<div class="row">
-    <form class="col-4" #descForm="ngForm" (ngSubmit)="saveDesc()">
-    <!-- <form class="col-4" (ngSubmit)="saveDesc()"> -->
-        <h2>Informasi Toko</h2>
-        <div class="border-foto-toko">
-            <div class="image">
-                <img src="{{userImgAvatar}}" alt="Profile Picture" #avaImg />
-            </div>
-<!--
-            <p><img src="assets/img/store_profile.png"></p> -->
-            <div *ngIf="!onViewDesc">
-                <div class="upload-btn-wrapper">
-                    <button class="btn btn--yellow component-center btn-size-100" style="cursor: pointer;">Ubah Foto Toko</button>
-                    <!-- <input type="file" name="myfile" (change)="setUrl($event, avaImg)"/> -->
-                    <input type="file" name="imageStoreUrl" (change)="setUrl($event, avaImg)" [(ngModel)]="store.imageStoreUrl"/>
+
+<div class="profile-conten">
+    <div>
+        <form #descForm="ngForm" (ngSubmit)="saveDesc()">
+            <div class="border-foto-toko">
+                <div class="image">
+                    <img src="{{userImgAvatar}}" alt="Profile Picture" #avaImg />
                 </div>
+    <!--
+                <p><img src="assets/img/store_profile.png"></p> -->
+                <div *ngIf="!onViewDesc">
+                    <div class="upload-btn-wrapper">
+                        <button class="btn btn--yellow component-center btn-size-100" style="cursor: pointer;">Ubah Foto Toko</button>
+                        <!-- <input type="file" name="myfile" (change)="setUrl($event, avaImg)"/> -->
+                        <input type="file" name="imageStoreUrl" (change)="setUrl($event, avaImg)" [(ngModel)]="store.imageStoreUrl"/>
+                    </div>
+                </div>
+                <!-- <input type="file" name="myfile" (change)="setUrl($event, avaImg)" *ngIf="!onViewDesc" class="btn btn--yellow component-center btn-size-100">Ubah Foto Toko -->
             </div>
-            <!-- <input type="file" name="myfile" (change)="setUrl($event, avaImg)" *ngIf="!onViewDesc" class="btn btn--yellow component-center btn-size-100">Ubah Foto Toko -->
+            <!-- <textarea [(ngModel)]="store.description" [disabled]="onViewDesc" name="description" #description="ngModel" class="border-ket-toko" title="klik untuk mengubah" style="resize:none;"></textarea> -->
+            <textarea [(ngModel)]="store.description" [disabled]="onViewDesc" name="description" #description="ngModel" class="border-ket-toko" title="klik untuk mengubah" style="resize:none;"></textarea>
+            <div class="edit-ket-toko" *ngIf="store.statusCode !== 'NA'">
+                <button type="button" *ngIf="onViewDesc" class="btn btn--yellow" (click)="editDesc()">
+                    <fa-icon [icon]="['far', 'edit']"></fa-icon>
+                    Edit</button>
+                <!-- <button type="submit" *ngIf="updateDesc.description" class="btn btn--yellow"><fa name="save"></fa> Save</button> -->
+                <button type="submit" *ngIf="onViewDesc == false" class="btn btn--yellow">
+                    <fa-icon [icon]="['far', 'save']"></fa-icon>
+                    Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="tab2">
+        <div class="frame-menu">
+        <div [ngClass]="(tabMenu=='profile')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('profile')">
+            Informasi Toko
         </div>
-        <!-- <textarea [(ngModel)]="store.description" [disabled]="onViewDesc" name="description" #description="ngModel" class="border-ket-toko" title="klik untuk mengubah" style="resize:none;"></textarea> -->
-        <textarea [(ngModel)]="store.description" [disabled]="onViewDesc" name="description" #description="ngModel" class="border-ket-toko" title="klik untuk mengubah" style="resize:none;"></textarea>
-        <div class="edit-ket-toko" *ngIf="store.statusCode !== 'NA'">
-            <button type="button" *ngIf="onViewDesc" class="btn btn--yellow" (click)="editDesc()">
-                <fa-icon [icon]="['far', 'edit']"></fa-icon>
-                Edit</button>
-            <!-- <button type="submit" *ngIf="updateDesc.description" class="btn btn--yellow"><fa name="save"></fa> Save</button> -->
-            <button type="submit" *ngIf="onViewDesc == false" class="btn btn--yellow">
-                <fa-icon [icon]="['far', 'save']"></fa-icon>
-                Save</button>
+        <div [ngClass]="(tabMenu=='rekening')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('rekening')">
+            Rekening Pencarian
         </div>
-    </form>
+        </div>
+        <div class="frame-menu-contain">
+            <bss-profile-information *ngIf="tabMenu=='profile'"></bss-profile-information> 
+            <bss-rekening *ngIf="tabMenu=='rekening'"></bss-rekening>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <div class="row">
+    
     <div class="col-8">
         <div class="row view-line">
             <div class="open-close-left">
@@ -113,4 +135,4 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->

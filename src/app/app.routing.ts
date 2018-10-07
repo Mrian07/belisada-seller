@@ -12,6 +12,7 @@ import { InvoiceNumberComponent } from '@belisada-seller/features/order-list/inv
 import { DiscussionReviewComponent } from '@belisada-seller/features/discussion-review/discussion-review.component';
 import { DiscussionComponent } from '@belisada-seller/features/discussion/discussion.component';
 import { ReviewComponent } from '@belisada-seller/features/review/review.component';
+import { ProfileInformationComponent } from '@belisada-seller/features/profile/profile-information/profile-information.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
           title: 'Profile Seller'
         },
       },
+
       {
         path: 'add-product',
         component: AddProductComponent,

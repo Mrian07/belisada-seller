@@ -14,3 +14,4 @@ export * from './attribute/attribute.model';
 export * from './auth/auth.model';
 export * from './transaction/transaction.model';
 export * from './discussion/discussion.model';
+export * from './rekening/rekening.model';

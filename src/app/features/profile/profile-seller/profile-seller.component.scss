@@ -8,3 +8,56 @@
     font-size: 1.4rem;
     font-family: 'Roboto', sans-serif;
 }
+
+.profile-conten{
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.tab2{
+    margin-left:10px;
+}
+
+.frame-menu{
+    border: 1px solid #f27138;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+    box-shadow: 2px 2px 4px #c9c9c9;
+    cursor: pointer;  
+}
+
+.btn-tab{
+    
+    &__active{
+        text-align: center;
+        background: #ffb871;
+        // border-bottom: 2px solid #f27138;
+        color: #ffffff;
+        padding:5px;
+        // margin-right:5px;
+        cursor: pointer;
+    }
+
+    &__noActive{
+        text-align: center;
+        color: #222222;
+        padding:5px;
+        // margin-right:5px;
+        cursor: pointer;
+    }  
+}
+
+.btn-tab__noActive:hover{
+    background: #f27138;
+    color:#ffffff;
+}
+
+.frame-menu-contain{
+    margin-top:10px;
+}
+
+.title{
+    font-family: arial;
+    font-size: 30px;
+}

@@ -32,6 +32,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '@env/environment';
 import { SharedModule } from '@belisada-seller/shared/shared.module';
+import { ProfileInformationComponent } from '@belisada-seller/features/profile/profile-information/profile-information.component';
+import { RekeningComponent } from '@belisada-seller/features/profile/rekening/rekening.component';
 
 library.add(fas, far, fab);
 
@@ -47,7 +49,9 @@ library.add(fas, far, fab);
     ListingProductComponent,
     DiscussionReviewComponent,
     DiscussionComponent,
-    ReviewComponent
+    ReviewComponent,
+    ProfileInformationComponent,
+    RekeningComponent
   ],
   imports: [
     BrowserAnimationsModule,

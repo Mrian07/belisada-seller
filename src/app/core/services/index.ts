@@ -9,3 +9,4 @@ export * from './courier/courier.service';
 export * from './store/store.service';
 export * from './auth/auth-guard.service';
 export * from './auth/auth.service';
+export * from './rekening/rekening.service';

@@ -8,6 +8,7 @@ import {
 import { StoreService } from '@belisada-seller/core/services';
 import { environment } from '@env/environment';
 import { Globals } from '@belisada-seller/core/services/globals/globals';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-seller',
@@ -15,6 +16,8 @@ import { Globals } from '@belisada-seller/core/services/globals/globals';
   styleUrls: ['./profile-seller.component.scss']
 })
 export class ProfileSellerComponent implements OnInit {
+
+  tabMenu = 'profile';
 
   userImgAvatar: string;
   onViewAddress: Boolean = true;
@@ -38,11 +41,16 @@ export class ProfileSellerComponent implements OnInit {
 
   constructor(
     private storeService: StoreService,
-    public global: Globals
+    public global: Globals,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.getProfile();
+  }
+
+  tab(data) {
+    this.tabMenu = data;
   }
 
   getProfile() {
