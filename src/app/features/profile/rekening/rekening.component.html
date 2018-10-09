@@ -1,4 +1,78 @@
-<p>
-  rekening works!
-</p>
-<div class="btn-add">Tambah Rekening</div>
+<div class="list-rek" *ngFor="let item of rekeningList">
+  <div><img src="{{item.imageUrl}}" border="0"></div>
+  <div>{{item.bankName}}<br>{{item.accountNumber}}<br>{{item.accountName}}</div>
+  <div class="b-btn">
+    <span class="l-edit">
+      <fa-icon (click)="editBank(item)" [icon]="['fas', 'edit']"></fa-icon>
+    </span>   
+    <span class="l-edit">
+      <fa-icon (click)="deleteBank(item.bankAccountId)" [icon]="['fas', 'trash']"></fa-icon>
+    </span>
+    
+  </div>
+
+</div>
+<div class="btn-add" (click)="addRekening()">Tambah Rekening</div>
+
+
+<app-models [(visible)]="popRek" class="frameAdd">
+  <div class="title-rek">Tambah Rekening</div>
+  <div class="text-info-rek">Pastikan Nomor Rekening & Nama Pemilik<br>Rekening sesuai buku tabungan.</div>
+    <div>
+      <form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit()" novalidate>
+        <input type="hidden" formControlName="bankAccountId">
+        <input type="hidden" formControlName="bankId">
+        <div class="modal-body">
+
+            <div class="lable-name">Nama Bank</div>
+            <div class="drick-select-container">
+                <div class="ui icon input parent">
+                    <input class="f-control drick-select__text" [ngClass]="{'active':onBankFocus}" type="text"
+                        formControlName="bankName" (keyup)="searchBank()" (focus)="onBankFocus = true"
+                        (focusout)="onBankBlur()" placeholder="Pilih Bank">
+                    <i class="drick-select__icon caret down icon"></i>
+                </div>
+                <div class="drick-select-container--toggle" [ngClass]="{'active':onBankFocus}"
+                    id="drick-scroll-container--brand"
+                    >
+                    <ul class="drick-select-list">
+                        <li *ngFor="let i of rekList" (click)="selectBank(i)">
+                            {{i.name}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+          <div class="lable-name">Nomor Rekening</div>
+          <div>
+          <input class="f-control" type="text" formControlName="accountNumber" placeholder="Masukan nomor rekening">
+            
+
+            
+          </div>
+
+          <div class="lable-name">Pemilik Rekening</div>
+          <div>
+          <input class="f-control" type="text" formControlName="accountName" placeholder="Masukan pemilik rekening">
+
+          </div>
+        </div>
+  
+        <div class="foot-rek">
+          <!-- <input type="button" (click)="cancel()" class="btn btn--orange m-left" value="Batal">
+          <input type="button" (click)="save()" class="btn btn--silver txt-batal" value="Simpan"> -->
+          <div class="a-rek-c">
+            <input type="button" (click)="cancel()" class="btn-rek-cancel" value="Batal">
+            <!-- <div class="btn-rek-cancel" (click)="cancel()" >Batal</div> -->
+          </div>
+          <div class="a-rek-s">
+            <input type="submit" class="btn-rek-save" value="Simpan">
+            <!-- <div class="btn-rek-save">Simpan</div> -->
+          </div>
+          
+          
+        </div>
+      </form>
+    </div>
+  
+  </app-models>

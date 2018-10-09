@@ -18,7 +18,11 @@ export class ProfileInformationComponent implements OnInit {
   updateStatus: UpdateStoreRequest = new UpdateStoreRequest();
   updateDescriptionRequest: UpdateDescriptionRequest = new UpdateDescriptionRequest();
   onViewAddress: Boolean = true;
-
+  provinces: Province[];
+  serverMessage: String;
+  cities: City[];
+  districts: District[];
+  villages: Village[];
   constructor(
     private storeService: StoreService,
   ) { }
@@ -62,4 +66,62 @@ export class ProfileInformationComponent implements OnInit {
       }
     });
   }
+
+
+
+    /* address suggestion*/
+    getRegion() {
+      this.storeService.getProvince('209').subscribe(data => {
+        this.provinces = data;
+      });
+    }
+    setRegion(o) {
+      this.store.regionName = o.regionName;
+      this.store.regionId = o.regionId;
+      delete this.store.cityName;
+    }
+    hideRegionSuggest() {
+      setTimeout(() => delete this.provinces, 300);
+    }
+
+    getCity() {
+      this.storeService.getCity(this.store.regionId).subscribe(data => {
+        this.cities = data;
+      });
+    }
+    setCity(o) {
+      this.store.cityName = o.cityName;
+      this.store.cityId = o.cityId;
+      delete this.store.districtName;
+    }
+    hideCitySuggest() {
+      setTimeout(() => delete this.cities, 300);
+    }
+
+    getDistrict() {
+      this.storeService.getDistrict(this.store.cityId).subscribe(data => {
+        this.districts = data;
+      });
+    }
+    setDistrict(o) {
+      this.store.districtName = o.districtName;
+      this.store.districtId = o.districtId;
+      delete this.store.villageName;
+    }
+    hideDistrictSuggest() {
+      setTimeout(() => delete this.districts, 300);
+    }
+
+    getVillage() {
+      this.storeService.getVillage(this.store.districtId).subscribe(data => {
+        this.villages = data;
+      });
+    }
+    setVillage(o) {
+      this.store.villageName = o.villageName;
+      this.store.villageId = o.villageId;
+    }
+    hideVillageSuggest() {
+      setTimeout(() => delete this.villages, 300);
+    }
 }

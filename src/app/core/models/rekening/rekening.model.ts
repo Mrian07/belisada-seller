@@ -5,6 +5,7 @@ export class AddRekeningRequest {
     bankId: number;
     bankName: string;
     isDefault: boolean;
+    bankAccountId: string;
 }
 
 export class RekeningRespon {
@@ -16,4 +17,11 @@ export class RekeningRespon {
     isDefault: boolean;
     accountType: string;
     bankAccountId: number;
+}
+
+export class RekeningUser {
+    bankId: number;
+    description: string;
+    imageUrl: string;
+    name: string;
 }

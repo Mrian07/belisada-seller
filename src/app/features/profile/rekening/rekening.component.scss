@@ -1,3 +1,78 @@
+@import "styles";
+
+.lable-name{
+    font-size: 12px;
+    color:#111111;
+    margin-top:10px;
+}
+
+.l-edit{
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.foot-rek{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    // grid-gap: 10px;
+    margin-bottom:10px;
+    margin-top:50px;
+}
+
+.a-rek-c{
+    text-align: left;
+}
+
+.a-rek-s{
+    text-align: right;
+    margin-left:50px;
+}
+
+.b-btn{
+    text-align: right;
+    margin-right: 20px;
+}
+
+.list-rek{
+    border: 1px solid #dddddd;
+    padding:10px;
+    margin-bottom:10px;
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-gap: 10px;
+    font-size: 12px;
+}
+
+.btn-rek-cancel{
+    text-align: center;
+    padding: 10px;
+    color:#111111;
+    background: #d6d6d6;
+    width:200px;
+    cursor: pointer;
+    border:0px;
+    font-size: 20px;
+}
+
+.btn-rek-cancel:hover{
+    background: #eae9e9;
+}
+
+.btn-rek-save{
+    text-align: center;
+    padding: 10px;
+    color:#ffffff;
+    background: #47ba0a;
+    width:200px;
+    cursor: pointer;
+    border:0px;
+    font-size: 20px;
+}
+
+.btn-rek-save:hover{
+    background: #59d914;    
+}
+
 .btn-add{
     color:#ffffff;
     background: #f57b2a;
@@ -10,4 +85,82 @@
 
 .btn-add:hover{
     background: #f3873e
+}
+
+.title-rek{
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.text-info-rek{
+    font-size: 12px;
+    text-align: center;
+}
+
+.field-r{
+    width: 100%;
+    padding:8px;
+}
+
+
+.drick-select-container {
+    position: relative;
+
+    &--fluid {
+        width: 100%;
+    }
+}
+
+.drick-select__text {
+    width: 100%;
+
+    &.active {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-bottom: 1px solid transparent !important;
+    }
+}
+
+.drick-select-container--toggle {
+    width: 100%;
+    max-height: 200px;
+    border: 1px solid rgba(34,36,38,.15);
+    border-top: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    left: 0;
+    top: 45px;
+    z-index: 2;
+    background: #fff;
+    display: none;
+    transition: all .2s;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    &.active {
+        display: block;
+        border-color: $color--dark-grey;
+    }
+}
+
+.drick-select-list {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    li {
+        padding: 5px 15px;
+        color: rgba(0,0,0,.87);
+        transition: all .2s;
+        font-size: 1.4rem;
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(0,0,0,.1);
+        }
+    }
 }
