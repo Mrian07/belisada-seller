@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
-  UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest, UpdateStockResponse, EditProductFullRequest
+  UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest,
+  UpdateStockResponse, EditProductFullRequest
 } from '@belisada-seller/core/models';
 
 @Injectable({
