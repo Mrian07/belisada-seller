@@ -18,6 +18,7 @@ export class RekeningComponent implements OnInit {
   onBankFocus: Boolean = false;
   rekeningList: RekeningRespon[];
   rekList: RekeningUser[];
+  formSubmited: Boolean = false;
 
   constructor(
     private rekeningService: RekeningService,
@@ -113,6 +114,8 @@ export class RekeningComponent implements OnInit {
 
 
   onSubmit() {
+    const form = this.createComForm;
+    this.formSubmited = true;
     const data: AddRekeningRequest = new AddRekeningRequest();
     data.accountType = '2';
     data.bankAccountId = this.createComForm.value.bankAccountId;
@@ -120,17 +123,19 @@ export class RekeningComponent implements OnInit {
     data.accountName = this.createComForm.value.accountName;
     data.bankId = this.createComForm.value.bankId;
     data.bankName = this.createComForm.value.bankName;
-
-    if (this.createComForm.value.bankAccountId) {
-      this.rekeningService.editRekening(data).subscribe(respon => {
-        this.loadData();
-        this.popRek = false;
-      });
-    } else {
-      this.rekeningService.addRekening(data).subscribe(respon => {
-        this.loadData();
-        this.popRek = false;
-      });
+    if (form.valid) {
+      if (this.createComForm.value.bankAccountId) {
+        this.rekeningService.editRekening(data).subscribe(respon => {
+          this.loadData();
+          this.popRek = false;
+        });
+      } else {
+        this.rekeningService.addRekening(data).subscribe(respon => {
+          this.loadData();
+          this.popRek = false;
+        });
+      }
+      this.formSubmited = false;
     }
   }
 }

@@ -26,35 +26,46 @@
 
             <div class="lable-name">Nama Bank</div>
             <div class="drick-select-container">
-                <div class="ui icon input parent">
-                    <input class="f-control drick-select__text" [ngClass]="{'active':onBankFocus}" type="text"
-                        formControlName="bankName" (keyup)="searchBank()" (focus)="onBankFocus = true"
-                        (focusout)="onBankBlur()" placeholder="Pilih Bank">
-                    <i class="drick-select__icon caret down icon"></i>
-                </div>
-                <div class="drick-select-container--toggle" [ngClass]="{'active':onBankFocus}"
-                    id="drick-scroll-container--brand"
-                    >
-                    <ul class="drick-select-list">
-                        <li *ngFor="let i of rekList" (click)="selectBank(i)">
-                            {{i.name}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
+              <div class="ui icon input parent">
+                  <input class="f-control drick-select__text" [ngClass]="{'active':onBankFocus}" type="text"
+                      formControlName="bankName" (keyup)="searchBank()" (focus)="onBankFocus = true"
+                      (focusout)="onBankBlur()" placeholder="Pilih Bank">
+                  <i class="drick-select__icon caret down icon"></i>
+              </div>
+              <div class="drick-select-container--toggle" [ngClass]="{'active':onBankFocus}"
+                  id="drick-scroll-container--brand"
+                  >
+                  <ul class="drick-select-list">
+                      <li *ngFor="let i of rekList" (click)="selectBank(i)">
+                          {{i.name}}
+                      </li>
+                  </ul>
+              </div>
+
+              <i class="inverted circular search link icon"></i>
+              <div *ngIf="createComForm.controls.bankName.invalid && (createComForm.controls.bankName.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
+                  <span class="tooltiptext">Nomor Bank Tidak Boleh Kosong</span>
+              </div> 
+          </div>
 
           <div class="lable-name">Nomor Rekening</div>
           <div>
           <input class="f-control" type="text" formControlName="accountNumber" placeholder="Masukan nomor rekening">
             
-
+            <i class="inverted circular search link icon"></i>
+            <div *ngIf="createComForm.controls.accountNumber.invalid && (createComForm.controls.accountNumber.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
+                <span class="tooltiptext">Nomor Rekening Tidak Boleh Kosong</span>
+            </div> 
             
           </div>
 
           <div class="lable-name">Pemilik Rekening</div>
           <div>
           <input class="f-control" type="text" formControlName="accountName" placeholder="Masukan pemilik rekening">
-
+          <i class="inverted circular search link icon"></i>
+          <div *ngIf="createComForm.controls.accountName.invalid && (createComForm.controls.accountName.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
+              <span class="tooltiptext">Pemilik Rekening Tidak Boleh Kosong</span>
+          </div> 
           </div>
         </div>
   
