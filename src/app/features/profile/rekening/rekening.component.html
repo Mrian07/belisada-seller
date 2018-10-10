@@ -28,7 +28,7 @@
             <div class="drick-select-container">
               <div class="ui icon input parent">
                   <input class="f-control drick-select__text" [ngClass]="{'active':onBankFocus}" type="text"
-                      formControlName="bankName" (keyup)="searchBank()" (focus)="onBankFocus = true"
+                      formControlName="bankName" (focus)="onBankFocus = true"
                       (focusout)="onBankBlur()" placeholder="Pilih Bank">
                   <i class="drick-select__icon caret down icon"></i>
               </div>
