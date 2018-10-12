@@ -1,0 +1,63 @@
+<span class="title">Bantuan Produk</span>
+<div class="pa-contain">
+  <div class="pa-head">
+    <div>Tanggal Komplain:<br>12 oktober 2018</div>
+    <div>Order ID<br>#97897978</div>
+    <div>Invoice<br>INV/#4353534</div>
+    <div>Komplain Expired<br>11:22:33</div>
+    <div>Nominal Pembayaran<br>Rp.222.000</div>
+  </div>
+  <div class="pa-foot">
+    <div class="pa-status">Status: <span class="pa-status--color">Menunggu Respon Penjual</span></div>
+    <div class="pa-btn-detail" (click)="viewDetail()">Liat Komplain</div>
+  </div>
+  <div class="pa-detail">
+      <!-- <div class="pa-detail" *ngIf="detail==true"> -->
+    <div class="pa-colm">
+      <div class="pa-sub-colm">
+        
+        <table>
+          <tr>
+            <td><b>Komplain:</b></td>
+            <td>Barang saya belum sampai nih</td>
+          </tr>
+          <tr>
+            <td><b>Deskripsi:</b></td>
+            <td>Pesanan saya salah</td>
+          </tr>
+        </table>
+        <div class="pa-sol">
+          <b>Solusi:</b>Pengembalian Dana Sebesar Rp.233.333
+        </div>
+      </div>
+      <div class="pa-sub-colm">
+        <div><b>Lanpiran Foto</b></div>
+        <div>Image</div>
+        <div class="pa-sell-btn">
+          <div class="pa-btn-tolak" (click)="btnTolak()">Tolak Komplain</div>
+          <div class="pa-btn-proses" (click)="btnProses()">Proses Komplain</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-models [(visible)]="popUpTolak" class="frameDialog">
+    <div class="pop-title">Tolak Komplain</div>
+    <div class="pa-info">Silakan Ketik Alasan Penolakan Komplain</div>
+    <div class="pa-f-btn">
+      <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
+      <div class="btn-submit">SUBMIT</div>
+    </div>
+    
+</app-models>
+
+<app-models [(visible)]="popUpProses" class="frameDialog">
+  <div class="pop-title">Proses Komplain</div>
+  <div class="pa-info">Apakah anda yakin akan memproses Komplain tersebut Dengan Metode dibawah</div>
+  <div class="pa-f-btn">
+    <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
+    <div class="btn-submit">SUBMIT</div>
+  </div>
+  
+</app-models>

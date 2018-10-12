@@ -13,6 +13,7 @@ import { DiscussionReviewComponent } from '@belisada-seller/features/discussion-
 import { DiscussionComponent } from '@belisada-seller/features/discussion/discussion.component';
 import { ReviewComponent } from '@belisada-seller/features/review/review.component';
 import { ProfileInformationComponent } from '@belisada-seller/features/profile/profile-information/profile-information.component';
+import { ProductAssistComponent } from './features/product-assist/product-assist.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,13 @@ const routes: Routes = [
         component: ReviewComponent,
         data: {
           title: 'review'
+        },
+      },
+      {
+        path: 'product-assist',
+        component: ProductAssistComponent,
+        data: {
+          title: 'product-assist'
         },
       },
     ],
