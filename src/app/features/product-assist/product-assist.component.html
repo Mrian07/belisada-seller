@@ -1,11 +1,11 @@
 <span class="title">Bantuan Produk</span>
-<div class="pa-contain">
+<div class="pa-contain" *ngFor="let item of list">
   <div class="pa-head">
-    <div>Tanggal Komplain:<br>12 oktober 2018</div>
-    <div>Order ID<br>#97897978</div>
-    <div>Invoice<br>INV/#4353534</div>
-    <div>Komplain Expired<br>11:22:33</div>
-    <div>Nominal Pembayaran<br>Rp.222.000</div>
+    <div>Tanggal Komplain:<br>{{item.created}}</div>
+    <div>Order ID<br>#{{item.orderNumber}}</div>
+    <div>Invoice<br>INV/#{{item.invoiceNumber}}</div>
+    <div>Komplain Expired<br>{{item.expireTime}}</div>
+    <div>Nominal Pembayaran<br>Rp.{{item.nominal | number}}</div>
   </div>
   <div class="pa-foot">
     <div class="pa-status">Status: <span class="pa-status--color">Menunggu Respon Penjual</span></div>
@@ -15,11 +15,11 @@
       <!-- <div class="pa-detail" *ngIf="detail==true"> -->
     <div class="pa-colm">
       <div class="pa-sub-colm">
-        
+        <img src="{{item.imageurl}}" border="0" width="120">
         <table>
           <tr>
             <td><b>Komplain:</b></td>
-            <td>Barang saya belum sampai nih</td>
+            <td>{{item.orderComplainIssue}}</td>
           </tr>
           <tr>
             <td><b>Deskripsi:</b></td>
@@ -27,7 +27,7 @@
           </tr>
         </table>
         <div class="pa-sol">
-          <b>Solusi:</b>Pengembalian Dana Sebesar Rp.233.333
+          <b>Solusi:</b> {{item.reasonOrderComplainIssueSolution}}
         </div>
       </div>
       <div class="pa-sub-colm">
@@ -45,6 +45,11 @@
 <app-models [(visible)]="popUpTolak" class="frameDialog">
     <div class="pop-title">Tolak Komplain</div>
     <div class="pa-info">Silakan Ketik Alasan Penolakan Komplain</div>
+    <form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="formReject">
+        <textarea formControlName="alsanReject" style="width:100%" rows="10"></textarea>
+      </div>
+    </form>
     <div class="pa-f-btn">
       <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
       <div class="btn-submit">SUBMIT</div>

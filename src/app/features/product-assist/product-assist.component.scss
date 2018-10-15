@@ -116,10 +116,12 @@
 .pop-title{
     text-align: center;
     font-weight: bold;
+    font-size: 15px;
 }
 
 .pa-info{
     text-align: center;
+    font-size: 12px;
 }
 
 .pa-f-btn{
@@ -136,12 +138,17 @@
     text-align: center;
     border-radius: 5px;
     margin-right:50px;
-    margin-left:10px;
+    margin-left:5px;
     cursor: pointer;
 }
 
 .btn-batal:hover{
     background: #e7e5e5;
+}
+
+.formReject{
+    text-align: center;
+    margin-bottom:10px;
 }
 
 .btn-submit{
