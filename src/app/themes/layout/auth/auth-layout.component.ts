@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'bss-auth-layout',
   template: `
-    <router-outlet></router-outlet>`
+    <div class="daddy-container">
+      <router-outlet></router-outlet>
+    </div>`
 })
 export class AuthLayoutComponent {
 
