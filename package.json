@@ -29,6 +29,7 @@
     "core-js": "^2.5.4",
     "firebase": "^5.4.2",
     "madrick-countdown-timer": "^1.0.1",
+    "mydatepicker": "^2.6.6",
     "node-sass": "^4.9.2",
     "rxjs": "^6.0.0",
     "sweetalert2": "^7.22.0",

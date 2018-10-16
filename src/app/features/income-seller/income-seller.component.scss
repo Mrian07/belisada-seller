@@ -1,0 +1,81 @@
+.text-center {
+    text-align: center;
+}
+
+.text-display__block {
+    display: block;
+}
+
+.text-bold { 
+    font-weight: bold;
+}
+
+.text-collor__black {
+     color: black;
+}
+
+
+
+.text__header--title {
+    font-size: 30px;
+    color: black;
+    display: block;
+}
+.wrapper--income-seler {
+    padding: 30px;
+}
+.background__header--title {
+    background: #ECECEC;
+    border: 1px solid #D8D8D8;
+    padding: 12px;
+   
+    .text--background__header--title {
+        font-size: 20px;
+        color: black;
+        
+    }
+}
+
+.header--datetimepicker {
+    padding-top: 10px;
+    
+    .wrapper__header--datetimepicker{
+        border: 1px solid;
+        padding-left: 5px;
+        padding-top: 6px;
+        .btn--wrapper {
+            margin: 19px;
+            margin-left: 13%;
+        }
+        .btn--orange {
+            background: #F57B2A;
+            color: white;
+            width: 100%;  
+        }
+        .btn--peach {
+            background: #DDB42E;
+               color: white;
+            width: 100%;
+        } 
+        .btn--green {
+            background: #067E5B;
+            color: white;
+         width: 100%;
+            
+        }
+        .text--saldo {
+            text-align: center;
+            display: block;
+        }
+    }
+}
+
+.wrapper--body {
+    border: 1px solid #eee;
+    margin-top: 10px;
+    .four-grid {
+        display: grid;
+        grid-template-columns: 10% 40% 30% 20%;
+        padding: 1em;
+    }
+}

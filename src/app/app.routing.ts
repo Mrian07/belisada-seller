@@ -13,6 +13,7 @@ import { DiscussionReviewComponent } from '@belisada-seller/features/discussion-
 import { DiscussionComponent } from '@belisada-seller/features/discussion/discussion.component';
 import { ReviewComponent } from '@belisada-seller/features/review/review.component';
 import { ProfileInformationComponent } from '@belisada-seller/features/profile/profile-information/profile-information.component';
+import { IncomeSellerComponent } from './features/income-seller/income-seller.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,13 @@ const routes: Routes = [
         component: OrderComponent,
         data: {
           title: 'listing-order'
+        },
+      },
+      {
+        path: 'testing',
+        component: IncomeSellerComponent,
+        data: {
+          title: 'My Income'
         },
       },
       {
