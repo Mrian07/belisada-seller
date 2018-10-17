@@ -9,10 +9,10 @@
   </div>
   <div class="pa-foot">
     <div class="pa-status">Status: <span class="pa-status--color">{{item.status}}</span></div>
-    <div class="pa-btn-detail" (click)="viewDetail()">Liat Komplain</div>
+    <div class="pa-btn-detail" (click)="viewDetail(detail, item.orderNumber)">Liat Komplain</div>
   </div>
-  <div class="pa-detail">
-      <!-- <div class="pa-detail" *ngIf="detail==true"> -->
+  <!-- <div class="pa-detail"> -->
+  <div class="pa-detail" *ngIf="detail==true && orderNumber==item.orderNumber">
     <div class="pa-colm">
       <div class="pa-sub-colm">
         <img src="{{item.imageurl}}" border="0" width="120">

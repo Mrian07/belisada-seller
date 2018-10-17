@@ -21,6 +21,7 @@ export class ProductAssistComponent implements OnInit {
   rejectForm: FormGroup;
   acceptForm: FormGroup;
   orderNumber: number;
+
   constructor(
     private complainSerive: ComplainService,
     private router: Router,
@@ -143,8 +144,15 @@ export class ProductAssistComponent implements OnInit {
       });
   }
 
-  viewDetail() {
+  viewDetail(status, orderNumber) {
     this.detail = true;
+      if (status === true) {
+        this.orderNumber = orderNumber;
+        this.detail = false;
+      } else {
+        this.orderNumber = orderNumber;
+        this.detail = true;
+      }
   }
 
   btnTolak(orderNumber) {
