@@ -99,13 +99,23 @@ export class OrderListComponent implements OnInit {
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
       console.log(b);
       this.listCart = response.content;
-      b.forEach((x) => {
-        console.log('x: ', x);
-        mct.countdown(x.expiredSellerProcessDate, (countdown) => {
-          this.listCart.find(i => i.invoiceNumber === x.invoiceNumber).countdown = countdown;
-          // this.countdown = countdown;
+      console.log(this.listCart.length);
+      if ( this.listCart.length === 0) {
+
+        console.log('asd');
+      
+      } if(this.listCart.length >= 0) {
+        b.forEach((x) => {
+          console.log('x: ', x);
+          mct.countdown(x.expiredSellerProcessDate, (countdown) => {
+            if(this.listCart.length >0) {
+              this.listCart.find(i => i.invoiceNumber === x.invoiceNumber).countdown = countdown;
+            }
+           
+            // this.countdown = countdown;
+          });
         });
-      });
+      }
       console.log('as', this.listCart);
       this.proddetail = response;
       this.a = response.totalElements;
