@@ -1,0 +1,184 @@
+.title{
+    font-family: arial;
+    font-size: 30px;
+}
+
+.pa-contain{
+    border: 1px solid #dddddd;
+    padding: 10px;
+}
+
+.pa-head{
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-gap: 10px;
+    font-size: 12px;
+    border: 1px solid #dddddd;
+    padding:10px;
+}
+.pa-foot{
+    background: #f4f4f4;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    grid-gap: 10px;
+    font-size: 12px;
+    padding:10px;
+}
+
+.pa-status{
+    color:#111111;
+    font-size: 15px;
+    &--color{
+        color:#FF0000;
+    }
+}
+
+.pa-btn-detail{
+    background: #c6c6c6;
+    color: #000000;
+    padding:5px;
+    border-radius:5px;
+    text-align: center;
+    margin-right:10px;
+    cursor: pointer;
+    box-shadow: 0 8px 6px -6px #9e9d9d;
+}
+
+.pa-btn-detail:hover{
+    background: #dddcdc;
+}
+
+.pa-detail{
+    padding:5px;
+    border: 1px solid #dddddd;
+    font-size: 12px;
+}
+
+.pa-colm{
+    display: grid;
+    grid-template-columns: 65% 35%;
+    grid-gap: 10px;
+}
+
+.pa-sol{
+    background: #d5ffd8;
+    color:#000000;
+    padding-top:5px;
+    padding-bottom: 5px;
+    margin-top:10px;
+    padding-left:5px;
+}
+
+.pa-sub-colm{
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.pa-sell-btn{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+    margin-top:10px;
+}
+
+.pa-btn-tolak{
+    text-align: center;
+    color:#000000;
+    background: #f5f5f5;
+    padding:5px;
+    border-radius:5px;
+    text-align: center;
+    margin-right:10px;
+    cursor: pointer;
+    box-shadow: 0 8px 6px -6px #9e9d9d;
+}
+
+.pa-btn-tolak:hover{
+    background: #fcf7f7;
+}
+
+.pa-btn-proses{
+    text-align: center;
+    color:#ffffff;
+    background: #f57b2a;
+    padding:5px;
+    border-radius:5px;
+    text-align: center;
+    margin-right:10px;
+    cursor: pointer;
+    box-shadow: 0 8px 6px -6px #9e9d9d;
+}
+
+.pa-btn-proses:hover{
+    background: #fe9e5e;
+}
+
+.pop-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.pa-info{
+    text-align: center;
+    font-size: 12px;
+}
+
+.pa-f-btn{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+    font-size: 12px;
+}
+
+.btn-batal{
+    background: #d6d6d6;
+    color:#000000;
+    padding:5px;
+    text-align: center;
+    border-radius: 5px;
+    margin-right:50px;
+    margin-left:5px;
+    cursor: pointer;
+}
+
+.btn-batal:hover{
+    background: #e7e5e5;
+}
+
+.formReject{
+    text-align: center;
+    margin-bottom:10px;
+}
+
+.btn-submit{
+    background: #47ba0a;
+    color:#ffffff;
+    padding:5px;
+    text-align: center;
+    border-radius: 5px;
+    margin-right:10px;
+    margin-left:50px;
+    cursor: pointer;
+}
+
+.btn-submit:hover{
+    background: #54d80e;
+}
+
+.pa-sol{
+    background: #d5ffd8;
+    color:#000000;
+    font-size: 12px;
+}
+
+.pa-b-pilih{
+    border: 1px solid #dddddd;
+    padding:8px;
+    font-size: 12px;
+    font-weight: bold;
+    margin:0px auto;
+    margin-top:10px;
+    margin-bottom:10px;
+    width:80%;
+}

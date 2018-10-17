@@ -1,5 +1,5 @@
 /* The container */
-.container {
+.container-checkbox {
     display: block;
     position: relative;
     padding-left: 32px;
@@ -44,7 +44,7 @@
 // }
 
 /* When the checkbox is checked, add a blue background */
-// .container input:checked ~ .checkmark {
+// .container-checkbox input:checked ~ .checkmark {
 //     background-color: #2196F3;
 // }
 
@@ -56,12 +56,12 @@
 }
 
 /* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
+.container-checkbox input:checked ~ .checkmark:after {
     display: block;
 }
 
 /* Style the checkmark/indicator */
-.container .checkmark:after {
+.container-checkbox .checkmark:after {
     left: 9px;
     top: 5px;
     width: 5px;
@@ -74,7 +74,7 @@
 }
 
 @media (min-width: 1366px) {
-    .container {
+    .container-checkbox {
         max-width: 1297px;
     }
 }

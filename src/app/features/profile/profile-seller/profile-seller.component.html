@@ -8,8 +8,8 @@
 </div>
 
 
-<div class="profile-conten">
-    <div>
+<div class="row">
+    <div class="col-4">
         <form #descForm="ngForm" (ngSubmit)="saveDesc()">
             <div class="border-foto-toko">
                 <div class="image">
@@ -39,7 +39,7 @@
             </div>
         </form>
     </div>
-    <div class="tab2">
+    <div class="col-8">
         <div class="frame-menu">
         <div [ngClass]="(tabMenu=='profile')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('profile')">
             Informasi Toko

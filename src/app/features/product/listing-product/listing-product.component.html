@@ -116,73 +116,64 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="col-12" *ngIf="rowSelected==item.productId">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="col-4">
-                                <!-- <img *ngFor="let item of productDetail.imageUrl" src="{{item}}"> -->
-                                <div class="con-image">
-                                    <img class="w__display--image" src="{{imgIndex}}"  height="200">
-                                    <span class="show-image-small" *ngFor="let item of productDetail.imageUrl" (click)="selectImg(item)"><img src='{{item}}' height="50"></span>
-                                </div>
-                            </div>
-                            <div class="col-5">
-                                <div class="kadal">
-                                    <div>
-                                        <span class="w__nmbarang">Nama Barang</span>
-                                        <span class="w__nmBarang">{{ productDetail.name }}</span>
-                                        <span class="w__hrgaBarang">Harga Barang</span>
-                                        <div *ngIf="productDetail.specialPrice > 0">
-                                            <span class="product-real-price">{{productDetail.specialPrice | currency:'Rp '}}</span>
-                                            <span class="product-discont"><s>{{productDetail.pricelist | currency:'Rp '}}</s></span>
-                                        </div>
-                                        <div *ngIf="productDetail.specialPrice === 0">
-                                            <span class="product-real-price">{{productDetail.pricelist | currency:'Rp '}}</span>
-                                        </div>
-                                        <!-- <span class="w__hrgaBarang">Harga Special</span>
-                                        <p class="w__hargabarangFromBackEnd">  {{ productDetail.specialPrice | number  }}</p> -->
-                                        <span class="w__hrgaBarang">Stock Barang</span>
-                                        <span class="w__nmBarang">{{ productDetail.qty }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="w__nmbarang">Kategori</span>
-                                        <span class="w__nmBarang">{{ (productDetail.categoryThreeId !== 0) ? productDetail.categoryThreeName : productDetail.categoryTwoName }}</span>
-                                        <span class="w__hrgaBarang">Spesifikasi</span>
-                                        <span class="w__nmBarang" *ngFor="let item of productDetail.specification">
-                                            - {{item.name}} : {{ item.value }}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span class="w__nmbarang">Jenis Garansi</span>
-                                        <span class="w__nmBarang">{{ productDetail.guaranteeTypeValue }}</span>
-                                        <span class="w__nmbarang">Garansi</span>
-                                        <span class="w__nmBarang">{{ productDetail.guaranteeTimeValue }}</span>
-                                        <span class="w__hrgaBarang">Berat Barang</span>
-                                        <span class="w__nmBarang">{{ productDetail.weight }} g</span>
-                                        <!-- <span class="w__hrgaBarang">Dimensi</span> -->
-                                        <!-- <span class="w__nmBarang">{{ productDetail.dimensionslength }} cm x {{ productDetail.dimensionsWidth }} cm x {{ productDetail.dimensionsheight }} cm</span> -->
-                                        <span class="w__hrgaBarang">Jasa Pengiriman</span>
-                                        <span class="w__nmBarang" *ngFor="let item of productDetail.couriers">{{ item.code }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <span class="w__nmbarang">Highlight</span>
-                                <div class="w__descr">
-                                    <p class="w__prodDessc">{{ productDetail.highlight }}</p>
-                                </div>
-                                <span class="w__nmbarang">Deskripsi</span>
-                                <div class="w__descr">
-                                    <p class="w__prodDessc">{{ productDetail.description | ellipsis:400 }}</p>
-                                </div>
-                                <div> <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
-                            </div>
-
+        <div class="row" *ngIf="rowSelected==item.productId">
+            <div class="col-4">
+                <!-- <img *ngFor="let item of productDetail.imageUrl" src="{{item}}"> -->
+                <div class="con-image">
+                    <img class="w__display--image" src="{{imgIndex}}"  height="200">
+                    <span class="show-image-small" *ngFor="let item of productDetail.imageUrl" (click)="selectImg(item)"><img src='{{item}}' height="50"></span>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="kadal">
+                    <div>
+                        <span class="w__nmbarang">Nama Barang</span>
+                        <span class="w__nmBarang">{{ productDetail.name }}</span>
+                        <span class="w__hrgaBarang">Harga Barang</span>
+                        <div *ngIf="productDetail.specialPrice > 0">
+                            <span class="product-real-price">{{productDetail.specialPrice | currency:'Rp '}}</span>
+                            <span class="product-discont"><s>{{productDetail.pricelist | currency:'Rp '}}</s></span>
                         </div>
+                        <div *ngIf="productDetail.specialPrice === 0">
+                            <span class="product-real-price">{{productDetail.pricelist | currency:'Rp '}}</span>
+                        </div>
+                        <!-- <span class="w__hrgaBarang">Harga Special</span>
+                        <p class="w__hargabarangFromBackEnd">  {{ productDetail.specialPrice | number  }}</p> -->
+                        <span class="w__hrgaBarang">Stock Barang</span>
+                        <span class="w__nmBarang">{{ productDetail.qty }}</span>
+                    </div>
+                    <div>
+                        <span class="w__nmbarang">Kategori</span>
+                        <span class="w__nmBarang">{{ (productDetail.categoryThreeId !== 0) ? productDetail.categoryThreeName : productDetail.categoryTwoName }}</span>
+                        <span class="w__hrgaBarang">Spesifikasi</span>
+                        <span class="w__nmBarang" *ngFor="let item of productDetail.specification">
+                            - {{item.name}} : {{ item.value }}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="w__nmbarang">Jenis Garansi</span>
+                        <span class="w__nmBarang">{{ productDetail.guaranteeTypeValue }}</span>
+                        <span class="w__nmbarang">Garansi</span>
+                        <span class="w__nmBarang">{{ productDetail.guaranteeTimeValue }}</span>
+                        <span class="w__hrgaBarang">Berat Barang</span>
+                        <span class="w__nmBarang">{{ productDetail.weight }} g</span>
+                        <!-- <span class="w__hrgaBarang">Dimensi</span> -->
+                        <!-- <span class="w__nmBarang">{{ productDetail.dimensionslength }} cm x {{ productDetail.dimensionsWidth }} cm x {{ productDetail.dimensionsheight }} cm</span> -->
+                        <span class="w__hrgaBarang">Jasa Pengiriman</span>
+                        <span class="w__nmBarang" *ngFor="let item of productDetail.couriers">{{ item.code }}</span>
                     </div>
                 </div>
+            </div>
+            <div class="col-3">
+                <span class="w__nmbarang">Highlight</span>
+                <div class="w__descr">
+                    <p class="w__prodDessc">{{ productDetail.highlight }}</p>
+                </div>
+                <span class="w__nmbarang">Deskripsi</span>
+                <div class="w__descr">
+                    <p class="w__prodDessc">{{ productDetail.description | ellipsis:400 }}</p>
+                </div>
+                <div> <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
             </div>
         </div>
     </div>

@@ -164,22 +164,18 @@
         <div class="row f-group">
             <label class="col-3 middle">Deskripsi</label>
             <div class="col-9">
-                <div class="col-9">
-                    <textarea formControlName="description" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
-                    <div *ngIf="(submitted || f.description.touched) && f.description.invalid">
-                        <bss-field-error [displayError]="f.description.errors.required" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error>
-                    </div>
+                <textarea formControlName="description" placeholder="Deskripsi" class="f-control" rows="4"></textarea>
+                <div *ngIf="(submitted || f.description.touched) && f.description.invalid">
+                    <bss-field-error [displayError]="f.description.errors.required" errorMsg="Silahkan masukan deskripsi produk kamu"></bss-field-error>
                 </div>
             </div>
         </div>
         <div class="row f-group">
             <label class="col-3 middle">Highlight</label>
             <div class="col-9">
-                <div class="col-9">
-                    <textarea formControlName="highlight" placeholder="Highlight" class="f-control" rows="4" maxlength="400"></textarea>
-                    <div *ngIf="(submitted || f.highlight.touched) && f.highlight.invalid">
-                        <bss-field-error [displayError]="f.highlight.errors.maxlength" errorMsg="Highlight maksimal 400 karakter"></bss-field-error>
-                    </div>
+                <textarea formControlName="highlight" placeholder="Highlight" class="f-control" rows="4" maxlength="400"></textarea>
+                <div *ngIf="(submitted || f.highlight.touched) && f.highlight.invalid">
+                    <bss-field-error [displayError]="f.highlight.errors.maxlength" errorMsg="Highlight maksimal 400 karakter"></bss-field-error>
                 </div>
             </div>
         </div>

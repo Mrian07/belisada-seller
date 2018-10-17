@@ -14,6 +14,7 @@ import { DiscussionComponent } from '@belisada-seller/features/discussion/discus
 import { ReviewComponent } from '@belisada-seller/features/review/review.component';
 import { ProfileInformationComponent } from '@belisada-seller/features/profile/profile-information/profile-information.component';
 import { IncomeSellerComponent } from './features/income-seller/income-seller.component';
+import { ProductAssistComponent } from './features/product-assist/product-assist.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,13 @@ const routes: Routes = [
         component: ReviewComponent,
         data: {
           title: 'review'
+        },
+      },
+      {
+        path: 'product-assist',
+        component: ProductAssistComponent,
+        data: {
+          title: 'product-assist'
         },
       },
     ],
