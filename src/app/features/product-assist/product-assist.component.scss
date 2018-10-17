@@ -1,3 +1,7 @@
+.frameDialog{
+    color:#000000;
+}
+
 .title{
     font-family: arial;
     font-size: 30px;
@@ -58,15 +62,6 @@
     display: grid;
     grid-template-columns: 65% 35%;
     grid-gap: 10px;
-}
-
-.pa-sol{
-    background: #d5ffd8;
-    color:#000000;
-    padding-top:5px;
-    padding-bottom: 5px;
-    margin-top:10px;
-    padding-left:5px;
 }
 
 .pa-sub-colm{
@@ -155,6 +150,7 @@
     background: #47ba0a;
     color:#ffffff;
     padding:5px;
+    border:0px;
     text-align: center;
     border-radius: 5px;
     margin-right:10px;
@@ -169,6 +165,22 @@
 .pa-sol{
     background: #d5ffd8;
     color:#000000;
+    padding-top:5px;
+    padding-bottom: 5px;
+    margin-top:10px;
+    padding-left:5px;
+    font-size: 12px;
+    width:300px;
+    margin:0px auto;
+}
+
+.pa-sol2{
+    background: #d5ffd8;
+    color:#000000;
+    padding-top:5px;
+    padding-bottom: 5px;
+    margin-top:10px;
+    padding-left:5px;
     font-size: 12px;
 }
 

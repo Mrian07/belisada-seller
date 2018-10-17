@@ -8,7 +8,7 @@
     <div>Nominal Pembayaran<br>Rp.{{item.nominal | number}}</div>
   </div>
   <div class="pa-foot">
-    <div class="pa-status">Status: <span class="pa-status--color">Menunggu Respon Penjual</span></div>
+    <div class="pa-status">Status: <span class="pa-status--color">{{item.status}}</span></div>
     <div class="pa-btn-detail" (click)="viewDetail()">Liat Komplain</div>
   </div>
   <div class="pa-detail">
@@ -26,7 +26,7 @@
             <td>Pesanan saya salah</td>
           </tr>
         </table>
-        <div class="pa-sol">
+        <div class="pa-sol2">
           <b>Solusi:</b> {{item.reasonOrderComplainIssueSolution}}
         </div>
       </div>
@@ -34,39 +34,44 @@
         <div><b>Lanpiran Foto</b></div>
         <div>Image</div>
         <div class="pa-sell-btn">
-          <div class="pa-btn-tolak" (click)="btnTolak()">Tolak Komplain</div>
-          <div class="pa-btn-proses" (click)="btnProses()">Proses Komplain</div>
+          <div class="pa-btn-tolak" (click)="btnTolak(item.orderNumber)">Tolak Komplain</div>
+          <div class="pa-btn-proses" (click)="btnProses(item.orderNumber)">Proses Komplain</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<app-models [(visible)]="popUpTolak" class="frameDialog">
+<app-models [(visible)]="popUpTolak" class="frameDialog"> 
+  <form class="ui form" [formGroup]="rejectForm" (ngSubmit)="submitReject()" novalidate>
+    <input type="hidden" formControlName="orderNumber">
     <div class="pop-title">Tolak Komplain</div>
     <div class="pa-info">Silakan Ketik Alasan Penolakan Komplain</div>
-    <form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit()" novalidate>
+    
       <div class="formReject">
-        <textarea formControlName="alsanReject" style="width:100%" rows="10"></textarea>
+        <textarea formControlName="rejectReason" style="width:100%" rows="10"></textarea>
       </div>
-    </form>
+    
     <div class="pa-f-btn">
       <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
-      <div class="btn-submit">SUBMIT</div>
+      <button type="submit" class="btn-submit">SUBMIT</button>
     </div>
-    
+  </form>
 </app-models>
 
 <app-models [(visible)]="popUpProses" class="frameDialog">
-  <div class="pop-title">Proses Komplain</div>
-  <div class="pa-info">Apakah anda yakin akan memproses<br> Komplain tersebut Dengan Metode dibawah</div>
-  <div class="pa-sol">Solusi: Pengambilan Dana Sebesar Rp.222.000</div>
-  <div class="pa-b-pilih">
-    Pilih Opsi Pengembalian Dana
-  </div>
-  <div class="pa-f-btn">
-    <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
-    <div class="btn-submit">SUBMIT</div>
-  </div>
-  
+  <form class="ui form" [formGroup]="acceptForm" (ngSubmit)="submitAccept()" novalidate>
+    <input type="hidden" formControlName="orderNumber">
+    <div class="pop-title">Proses Komplain</div>
+    <div class="pa-info">Apakah anda yakin akan memproses<br> Komplain tersebut Dengan Metode dibawah</div>
+    <div class="pa-sol">Solusi: Pengambilan Dana Sebesar Rp.222.000</div>
+    <div class="pa-b-pilih">
+      Pilih Opsi Pengembalian Dana<br>
+      <div *ngFor="let listItm of listPDC"><input type="radio" formControlName="complainAcceptCode" value="{{listItm.statusCode}}" /> {{listItm.status}}</div>
+    </div>
+    <div class="pa-f-btn">
+      <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
+      <button type="submit" class="btn-submit">SUBMIT</button>
+    </div>
+  </form>
 </app-models>
