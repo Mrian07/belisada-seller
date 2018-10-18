@@ -1,72 +1,100 @@
 <span class="title">Bantuan Produk</span>
-<div class="pa-contain" *ngFor="let item of list">
-  <div class="pa-head">
-    <div>Tanggal Komplain:<br>{{item.created}}</div>
-    <div>Order ID<br>#{{item.orderNumber}}</div>
-    <div>Invoice<br>INV/#{{item.invoiceNumber}}</div>
-    <div>Komplain Expired<br>{{item.expireTime}}</div>
-    <div>Nominal Pembayaran<br>Rp.{{item.nominal | number}}</div>
-  </div>
-  <div class="pa-foot">
-    <div class="pa-status">Status: <span class="pa-status--color">Menunggu Respon Penjual</span></div>
-    <div class="pa-btn-detail" (click)="viewDetail()">Liat Komplain</div>
-  </div>
-  <div class="pa-detail">
-      <!-- <div class="pa-detail" *ngIf="detail==true"> -->
-    <div class="pa-colm">
-      <div class="pa-sub-colm">
-        <img src="{{item.imageurl}}" border="0" width="120">
-        <table>
-          <tr>
-            <td><b>Komplain:</b></td>
-            <td>{{item.orderComplainIssue}}</td>
-          </tr>
-          <tr>
-            <td><b>Deskripsi:</b></td>
-            <td>Pesanan saya salah</td>
-          </tr>
-        </table>
-        <div class="pa-sol">
-          <b>Solusi:</b> {{item.reasonOrderComplainIssueSolution}}
+<div class="pa-contain">
+  <div *ngFor="let item of list">
+    <div class="pa-head">
+      <div>Tanggal Komplain:<br>{{item.created}}</div>
+      <div>Order ID<br>#{{item.orderNumber}}</div>
+      <div>Invoice<br>INV/#{{item.invoiceNumber}}</div>
+      <div>Komplain Expired<br>{{item.expireTime}}</div>
+      <div>Nominal Pembayaran<br>Rp.{{item.nominal | number}}</div>
+    </div>
+    <div class="pa-foot">
+      <div class="pa-status">Status: <span class="pa-status--color">{{item.status}}</span></div>
+      <div class="pa-btn-detail" (click)="viewDetail(detail, item.orderNumber)">Liat Komplain</div>
+    </div>
+    <!-- <div class="pa-detail"> -->
+    <div class="pa-detail" *ngIf="detail==true && orderNumber==item.orderNumber">
+      <div class="pa-colm">
+        <div class="pa-sub-colm">
+          <img src="{{item.imageurl}}" border="0" width="120">
+          <table>
+            <tr>
+              <td><b>Komplain:</b></td>
+              <td>{{item.orderComplainIssue}}</td>
+            </tr>
+            <tr>
+              <td><b>Deskripsi:</b></td>
+              <td>Pesanan saya salah</td>
+            </tr>
+          </table>
+          <div class="pa-sol2">
+            <b>Solusi:</b> {{item.reasonOrderComplainIssueSolution}}
+          </div>
         </div>
-      </div>
-      <div class="pa-sub-colm">
-        <div><b>Lanpiran Foto</b></div>
-        <div>Image</div>
-        <div class="pa-sell-btn">
-          <div class="pa-btn-tolak" (click)="btnTolak()">Tolak Komplain</div>
-          <div class="pa-btn-proses" (click)="btnProses()">Proses Komplain</div>
+        <div class="pa-sub-colm">
+          <div><b>Lanpiran Foto</b></div>
+          <div>Image</div>
+          <div class="pa-sell-btn">
+            <div class="pa-btn-tolak" (click)="btnTolak(item.orderNumber)" *ngIf="item.statusCode!='208' && item.statusCode!='206'">Tolak Komplain {{item.statusCode}}</div>
+            <div class="pa-btn-proses" (click)="btnProses(item.orderNumber)" *ngIf="item.statusCode!='208' && item.statusCode!='206'">Proses Komplain</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<app-models [(visible)]="popUpTolak" class="frameDialog">
+
+<div class="paging" *ngIf="a!=0">
+  <ul>
+    <li>
+      <a (click)="setPage(1)" [ngClass]="{disabled:currentPage == 1}">First</a>
+    </li>
+    <li>
+      <a (click)="setPage(currentPage, -1)" [ngClass]="{disabled:(currentPage-1) < 1}">Previous</a>
+    </li>
+    <li *ngFor="let p of pages">
+      <a (click)="setPage(p)" [ngClass]="currentPage == p?'current-page':''">{{p}}</a>
+    </li>
+    <li>
+      <a (click)="setPage(currentPage, +1)" [ngClass]="{disabled:currentPage == lastPage}">Next</a>
+    </li>
+    <li>
+      <a (click)="setPage(lastPage)" [ngClass]="{disabled:currentPage == lastPage}">Last</a>
+    </li>
+  </ul>
+</div>
+
+<app-models [(visible)]="popUpTolak" class="frameDialog"> 
+  <form class="ui form" [formGroup]="rejectForm" (ngSubmit)="submitReject()" novalidate>
+    <input type="hidden" formControlName="orderNumber">
     <div class="pop-title">Tolak Komplain</div>
     <div class="pa-info">Silakan Ketik Alasan Penolakan Komplain</div>
-    <form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit()" novalidate>
+    
       <div class="formReject">
-        <textarea formControlName="alsanReject" style="width:100%" rows="10"></textarea>
+        <textarea formControlName="rejectReason" style="width:100%" rows="10"></textarea>
       </div>
-    </form>
+    
     <div class="pa-f-btn">
       <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
-      <div class="btn-submit">SUBMIT</div>
+      <button type="submit" class="btn-submit">SUBMIT</button>
     </div>
-    
+  </form>
 </app-models>
 
 <app-models [(visible)]="popUpProses" class="frameDialog">
-  <div class="pop-title">Proses Komplain</div>
-  <div class="pa-info">Apakah anda yakin akan memproses<br> Komplain tersebut Dengan Metode dibawah</div>
-  <div class="pa-sol">Solusi: Pengambilan Dana Sebesar Rp.222.000</div>
-  <div class="pa-b-pilih">
-    Pilih Opsi Pengembalian Dana
-  </div>
-  <div class="pa-f-btn">
-    <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
-    <div class="btn-submit">SUBMIT</div>
-  </div>
-  
+  <form class="ui form" [formGroup]="acceptForm" (ngSubmit)="submitAccept()" novalidate>
+    <input type="hidden" formControlName="orderNumber">
+    <div class="pop-title">Proses Komplain</div>
+    <div class="pa-info">Apakah anda yakin akan memproses<br> Komplain tersebut Dengan Metode dibawah</div>
+    <div class="pa-sol">Solusi: Pengambilan Dana Sebesar Rp.222.000</div>
+    <div class="pa-b-pilih">
+      Pilih Opsi Pengembalian Dana<br>
+      <div *ngFor="let listItm of listPDC"><input type="radio" formControlName="complainAcceptCode" value="{{listItm.statusCode}}" /> {{listItm.status}}</div>
+    </div>
+    <div class="pa-f-btn">
+      <div class="btn-batal" (click)="cancelTolak()">BATAL</div>
+      <button type="submit" class="btn-submit">SUBMIT</button>
+    </div>
+  </form>
 </app-models>

@@ -47,3 +47,25 @@ export class ComplaintRequest {
     updated: string;
     updatedBy: number;
 }
+
+export class ComplaintPDC {
+    statusCode:	number;
+    status:	string;
+    statusId: number;
+}
+
+export class Accept {
+    complainAcceptCode: string;
+    orderNumber: string;
+    productId: number;
+    trxCartId: number;
+    status: number;
+}
+
+export class Reject {
+    orderNumber: string;
+    productId: number;
+    rejectReason: string;
+    trxCartId: number;
+    status: number;
+}
