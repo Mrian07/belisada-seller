@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ComplainService } from '@belisada-seller/core/services/complain/complain.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Content, ComplaintPDC, Accept, Reject } from '@belisada-seller/core/models';
+import { Complain, Content, ComplaintPDC, Accept, Reject } from '@belisada-seller/core/models';
 import swal from 'sweetalert2';
 
 @Component({
@@ -16,11 +16,17 @@ export class ProductAssistComponent implements OnInit {
   detail: Boolean = false;
   popUpTolak: Boolean = false;
   popUpProses: Boolean = false;
-  currentPage: number;
   alasanReject: string;
   rejectForm: FormGroup;
   acceptForm: FormGroup;
   orderNumber: number;
+
+  proddetail: Complain = new Complain();
+
+  lastPage: number;
+  currentPage: number;
+  pages: any = [];
+  a: any;
 
   constructor(
     private complainSerive: ComplainService,
@@ -30,11 +36,11 @@ export class ProductAssistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((queryParam) => {
-      this.currentPage = (queryParam.page) ? queryParam.page : 1;
-      // this.status = (queryParam.status) ? queryParam.status : 'ALL';
-      // this.orderList((queryParam.status) ? queryParam.status : 'ALL');
-    });
+    // this.activatedRoute.queryParams.subscribe((queryParam) => {
+    //   this.currentPage = (queryParam.page) ? queryParam.page : 1;
+    //   // this.status = (queryParam.status) ? queryParam.status : 'ALL';
+    //   // this.orderList((queryParam.status) ? queryParam.status : 'ALL');
+    // });
     this.loadData();
     this.loadPDC();
     this.formReject();
@@ -52,14 +58,28 @@ export class ProductAssistComponent implements OnInit {
   }
 
   loadData() {
-    const queryParams = {
-      itemperpage: 10,
-      page: this.currentPage,
-      // status_order: statusOrder
-    };
 
-    this.complainSerive.getComplain(queryParams).subscribe(response => {
-      this.list = response.content;
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
+      const queryParams = {
+        itemperpage: 10,
+        page: this.currentPage,
+      };
+
+      this.complainSerive.getComplain(queryParams).subscribe(response => {
+        this.list = response.content;
+
+        this.proddetail = response;
+        this.a = response.totalElements;
+        this.pages = [];
+        this.lastPage = this.proddetail.totalPages;
+        for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
+          if (r > 0 && r <= this.proddetail.totalPages) {
+            this.pages.push(r);
+          }
+        }
+
+      });
     });
   }
 
@@ -92,7 +112,7 @@ export class ProductAssistComponent implements OnInit {
       rejectData.rejectReason = this.rejectForm.controls['rejectReason'].value;
 
       this.complainSerive.rejectComplain(rejectData).subscribe(response => {
-        console.log('respon', response);
+
         this.popUpTolak = false;
 
         if (response.status === 1) {
@@ -173,6 +193,14 @@ export class ProductAssistComponent implements OnInit {
 
   cancelTolak() {
     this.popUpTolak = false;
+  }
+
+  setPage(page: number, increment?: number) {
+    if (increment) { page = +page + increment; }
+    if (page < 1 || page > this.proddetail.totalPages) { return false; }
+    // tslint:disable-next-line:max-line-length
+    this.router.navigate(['/product-assist'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
+    window.scrollTo(0, 0);
   }
 
 }
