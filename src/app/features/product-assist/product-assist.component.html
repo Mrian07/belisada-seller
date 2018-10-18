@@ -35,8 +35,8 @@
           <div><b>Lanpiran Foto</b></div>
           <div>Image</div>
           <div class="pa-sell-btn">
-            <div class="pa-btn-tolak" (click)="btnTolak(item.orderNumber)">Tolak Komplain</div>
-            <div class="pa-btn-proses" (click)="btnProses(item.orderNumber)">Proses Komplain</div>
+            <div class="pa-btn-tolak" (click)="btnTolak(item.orderNumber)" *ngIf="item.statusCode!='208' && item.statusCode!='206'">Tolak Komplain {{item.statusCode}}</div>
+            <div class="pa-btn-proses" (click)="btnProses(item.orderNumber)" *ngIf="item.statusCode!='208' && item.statusCode!='206'">Proses Komplain</div>
           </div>
         </div>
       </div>
