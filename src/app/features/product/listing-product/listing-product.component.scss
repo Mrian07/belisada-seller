@@ -90,7 +90,7 @@ grid-gap: 10px;
     display: grid;
     grid-template-columns:40% 31% 29%
 }
-.kadal {
+.wrapper--body {
     display: grid;
     grid-template-columns:repeat(3, 1fr);
     .w__nmbarang {
@@ -138,7 +138,10 @@ grid-gap: 10px;
     cursor: pointer;
     margin-bottom:8px;
 }
-
+.paging {
+    color: red;
+    margin: 0 auto;
+}
 .paging ul {
     list-style-type: none;
     padding: 0;
