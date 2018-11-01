@@ -11,7 +11,7 @@ import { ProductsResolver } from './product.resolver';
     CommonModule,
     SharedModule
   ],
-  declarations: [SearchProductMasterComponent, AddProductV2Component],
+  declarations: [],
   providers: [
     ProductsSandbox,
     ProductsResolver
