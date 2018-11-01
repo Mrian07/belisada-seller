@@ -65,6 +65,9 @@ export class AddProductRequest {
   imageUrl: string[];
   isGuarantee: boolean;
   name: string;
+  categoryOneName: string;
+  categoryTwoName: string;
+  categoryThreeName: string;
   nameEn: string;
   pricelist: number;
   specialPrice: number;

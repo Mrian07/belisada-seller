@@ -22,6 +22,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   addProductForm: FormGroup;
   a;
   b;
+  btnResi: boolean;
   constructor(
     private fb: FormBuilder,
     public productsSandbox: ProductsSandbox,
@@ -62,6 +63,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   test () {
     this.productsSandbox.reqProduct(this.addProductForm.value);
   }
+  
   ngOnDestroy() {
     console.log('123');
     // console.log('this.a:', this.a);
