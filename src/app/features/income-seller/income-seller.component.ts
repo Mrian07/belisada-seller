@@ -52,6 +52,7 @@ export class IncomeSellerComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     this.form();
     this.newMethod();
   }

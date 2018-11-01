@@ -19,4 +19,11 @@ export class CourierService {
         map(response => response as Courier[])
       );
   }
+    getCouriere(a): Observable<Courier[]> {
+
+    return this.http.get(this.configuration.apiURL + '/courier')
+      .pipe(
+        map(response => response as Courier[])
+      );
+  }
 }

@@ -1,0 +1,194 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row wrapper--product-detail">
+            <div class="col-3">
+                <div>
+                    <img *ngFor="let item of product?.imageUrl" [src]="productImage + item" class="wrapper--product-detail__image">
+                    <!-- <img [src]="productStoreUrl + item.imageUrl[0]" alt=""> -->
+                </div>
+
+                <br>
+
+                <span class="wrapper--product-detail__text">Spesifikasi Produk</span>
+                <div class="wrapper--product-detail__spec">
+                    <div *ngFor="let itemSpec of product?.specification">
+                        <span class="wrapper--product-detail__text--spec-det" *ngIf="itemSpec.value !== ''"> {{ itemSpec?.name }} {{ itemSpec?.value }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9 wrapper--product-detail2">
+                <h3 class="wrapper--product-detail2__text">Informasi Produk</h3>
+                <span class="wrapper--product-detail2__text2">
+                    {{product?.brandName}}
+                </span>
+                <br>
+                <span class="wrapper--product-detail2__text2">
+                    {{product?.name}}
+                </span>
+                <br>
+                <span class="wrapper--product-detail2__text2">
+                    {{product?.categoryOneName}} >   {{product?.categoryTwoName}} >  {{product?.categoryThreeName}}
+                </span>
+                <br>
+
+                <textarea class="wrapper--product-detail2__text2" readonly>
+                    {{product?.categoryOneName}} > {{product?.categoryTwoName}} > {{product?.categoryThreeName}}
+                </textarea>
+                <br>
+                <form [formGroup]="addProductForm">
+                    <h4>Warranty</h4>
+
+                    <div class="row f-group">
+                        <div class="col-3">
+                            <select formControlName="guaranteeType" class="form-control">
+                                <option value="" disabled>Tipe Garansi</option>
+                                <option *ngFor="let i of warr" [value]="i.statusCode">{{ i.status }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row f-group">
+                        <div class="col-3">
+                            <select formControlName="guaranteeTime" class="f-control">
+                                <option value="" disabled>Lama Garansi</option>
+                                <option *ngFor="let i of warrLong" [value]="i.statusCode">{{ i.status }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <tr>
+                                <th>
+                                    Pilih variasi sesuai dengan yang anda miliki
+                                </th>
+                                <th>
+                                    <span class="wrapper--product-detail2__variasi--in-variasi">Harga jual</span>
+                                    <input [(ngModel)]="daddyPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" />
+                                </th>
+                                <th>
+                                    <span class="wrapper--product-detail2__variasi--in-variasi">Harga promo</span>
+                                    <input [(ngModel)]="dadySpecialPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" />
+                                </th>
+                                <th>
+                                    <span class="wrapper--product-detail2__variasi--in-variasi">Stok barang</span>
+                                    <input [(ngModel)]="dadyStock" [ngModelOptions]="{standalone: true}" placeholder="stok" type="text" class="form-control">
+                                </th>
+                                <th>
+                                    <button class="btn" (click)="applyForAll()">Terapkan ke Semua</button>
+                                </th>
+                            </tr>
+                            <tbody formArrayName="varians">
+                                <tr [formGroupName]="i" *ngFor="let variant of getVariants(addProductForm); let i = index">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <img [src]="productStoreUrl + VariantAttr[i].imageUrl[0]" alt="">
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <span *ngFor="let item of VariantAttr[i].attributeVarians">{{ item.value }}</span>
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" formControlName="pricelist" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" formControlName="specialPrice" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" formControlName="qty" class="form-control">
+                                    </td>
+                                    <td>
+    
+                                        <label class="switch small">
+                                            <input formControlName="isUsed" type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                    <h4>Jasa Pengiriman</h4>
+                    <!-- <div class="row"> -->
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <img src="assets/img/delivery-man.png">
+                                            </div>
+                                            <div class="col-11" style="padding: 1%;">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                <h4>Pick up Services</h4>
+                                                            </div>
+
+                                                            <div class="col-7">
+                                                                <span style="font-size:15px">( Anda harus mengantarkan paket ke jasa pengiriman terdekat )</span>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                        <label class="switch small" *ngIf="isFlase === false" (click)="btncouroer()">
+                                                                                <input [checked]="false" type="checkbox">
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        <label class="switch small" *ngIf="isFlase === true" (click)="btncouroerfalse()">
+                                                                                <input [checked]="true" type="checkbox">
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <h4>Pick up Services</h4> -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">2</div>
+
+                        </div>
+                    </div>
+                    <!-- </div> -->
+
+                    <table class="table" *ngIf="isFlase === true">
+                        <tr *ngFor="let courier of  productsSandbox.coruerir$ | async">
+                            <td>{{ courier.name }}</td>
+                            <!-- <td>i</td> -->
+                            <td class="right">
+                                <label class="switch small">
+                                    <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-12 wrapper-btm">
+        <button (click)="postProductV2()" class="btn wrapper-btm__btn">Add Product</button>
+
+    </div>
+</div>
+<!-- <pre>
+{{ addProductForm.value | json }}
+</pre> -->

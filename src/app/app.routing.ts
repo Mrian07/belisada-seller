@@ -15,6 +15,9 @@ import { ReviewComponent } from '@belisada-seller/features/review/review.compone
 import { ProfileInformationComponent } from '@belisada-seller/features/profile/profile-information/profile-information.component';
 import { IncomeSellerComponent } from './features/income-seller/income-seller.component';
 import { ProductAssistComponent } from './features/product-assist/product-assist.component';
+import { SearchProductMasterComponent } from './features/product/search-product-master/search-product-master.component';
+import { AddProductV2Component } from './features/product/add-product-v2/add-product-v2.component';
+import { ProductsResolver } from './features/product/product.resolver';
 
 const routes: Routes = [
   {
@@ -33,6 +36,20 @@ const routes: Routes = [
       {
         path: 'add-product',
         component: AddProductComponent,
+        data: {
+          title: ''
+        },
+      },
+      {
+        path: 'products/:id',
+        component: AddProductV2Component,
+        resolve: {
+          productDetails: ProductsResolver
+        },
+      },
+      {
+        path: 'search-product-master',
+        component: SearchProductMasterComponent,
         data: {
           title: ''
         },
@@ -59,7 +76,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'testing',
+        path: 'Income',
         component: IncomeSellerComponent,
         data: {
           title: 'My Income'

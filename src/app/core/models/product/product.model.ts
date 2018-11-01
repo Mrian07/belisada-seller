@@ -12,6 +12,41 @@ export class Product {
   delivery: Delivery;
 }
 
+export class AddProdDetail {
+  status: number;
+  message: string;
+  data: AddProductRequest[];
+}
+
+export class Variant {
+  imageUrl: any [];
+  masterVarianId: number;
+  attributeVarians: VariantAttr[];
+}
+
+export class VariantAttr {
+  attributeId: number;
+  attributeValueId: number;
+  value: string;
+}
+
+export class ProductCreate {
+  classification: string;
+  couriers: Courier[];
+  guaranteeTime: string;
+  guaranteeType: string;
+  highlight: string;
+  masterId: number;
+  varians: Varians[];
+}
+
+export class Varians {
+  discount: string;
+  masterVarianId: string;
+  pricelist: number;
+  qty:  number;
+  specialPrice: number;
+}
 export class AddProductRequest {
   brandId: number;
   brandName: string;
@@ -81,6 +116,12 @@ export class ProductData {
   isactive: boolean;
   qtyTypeValue: string;
   qtyType: string;
+}
+
+export class ProdReq {
+  brand: string;
+  description: string;
+  productName: string;
 }
 
 export class UpdateStockRequest {
@@ -216,6 +257,7 @@ export class ProductSuggestion {
   categoryThreeId: number;
   categoryThreeName: string;
 }
+
 
 export class ProductSuggestionDetail {
   status: number;

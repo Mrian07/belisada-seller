@@ -6,7 +6,7 @@ import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
   UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest,
-  UpdateStockResponse, EditProductFullRequest
+  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate
 } from '@belisada-seller/core/models';
 
 @Injectable({
@@ -20,6 +20,13 @@ export class ProductService {
     return this.http.post(this.configuration.apiURL + '/seller/product/create', data)
       .pipe(
         map(response => response as AddProductResponse)
+      );
+  }
+
+  addProductV2(data: ProductCreate): Observable<ProductCreate[]> {
+    return this.http.post(this.configuration.apiURL + '/seller/product/create/v2', data)
+      .pipe(
+        map(response => response as ProductCreate[])
       );
   }
   editProduct(data: EditProductFullRequest) {
@@ -52,6 +59,26 @@ export class ProductService {
       );
   }
 
+  prodReq(data: ProdReq)  {
+    return this.http.post(this.configuration.apiURL + '/product-request/create', data)
+      .pipe(
+        map(rsl => rsl as ProdReq[])
+      );
+  }
+
+  getProdDetail(id: any): Observable<AddProductRequest[]>  {
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
+    .pipe(
+      map(rsl => rsl as AddProductRequest[])
+    );
+  }
+
+  getProdVariant(id: any): Observable<VariantAttr[]>  {
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest/varian/detail/' + id)
+    .pipe(
+      map(rsl => rsl as VariantAttr[])
+    );
+  }
   editHide(data) {
     return this.http.put(this.configuration.apiURL + '/seller/product/hide/update', data);
   }
@@ -78,6 +105,17 @@ export class ProductService {
     return this.http.get(this.configuration.apiURL + '/seller/product/suggest', {params: params})
       .pipe(
         map(response => response as ProductSuggestion[])
+      );
+  }
+  getProductSuggestionPart2(queryParams): Observable<ProductSuggestion> {
+    let params = new HttpParams();
+    Object.keys(queryParams).forEach(function(k) {
+      params = params.append(k, queryParams[k]);
+    });
+
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest', {params: params})
+      .pipe(
+        map(response => response as ProductSuggestion)
       );
   }
 
