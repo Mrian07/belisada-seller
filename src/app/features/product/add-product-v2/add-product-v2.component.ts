@@ -5,7 +5,9 @@ import { AddProductRequest, Reference, VariantAttr, Variant } from '@belisada-se
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { environment } from '@env/environment';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ProductService } from '@belisada-seller/core/services';
+import swal from 'sweetalert2';
 @Component({
   selector: 'bss-add-product-v2',
   templateUrl: './add-product-v2.component.html',
@@ -35,6 +37,8 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     public productsSandbox: ProductsSandbox,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private productService: ProductService,
+    private router: Router,
   ) {
     this.productStoreUrl = environment.thumborUrl + 'unsafe/50x50/center/filters:fill(fff)/';
     this.productImage = environment.thumborUrl + 'unsafe/80x80/center/filters:fill(fff)/';
@@ -151,8 +155,20 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public postProductV2() {
     console.log(this.addProductForm.value);
 
-    this.productsSandbox.postProdV2(this.addProductForm.value);
-   
+    // this.productsSandbox.postProdV2(this.addProductForm.value);
+
+    this.productService.addProductV2(this.addProductForm.value).subscribe(response => {
+      // this.loadingService.hide();
+      console.log(response);
+      swal(
+        'belisada.co.id',
+        response.message,
+        (response.status === 0) ? 'error' : 'success'
+      );
+      if (response.status === 1) {
+        this.router.navigate(['/listing-product']);
+      }
+    });
     // const couriers = this.addProductForm.get('couriers').value;
     // console.log(couriers);
     // if (checked) {

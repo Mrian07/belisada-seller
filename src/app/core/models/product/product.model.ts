@@ -31,6 +31,9 @@ export class VariantAttr {
 }
 
 export class ProductCreate {
+  status: string;
+  messsage: string;
+
   classification: string;
   couriers: Courier[];
   guaranteeTime: string;

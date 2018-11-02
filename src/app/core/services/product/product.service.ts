@@ -23,10 +23,10 @@ export class ProductService {
       );
   }
 
-  addProductV2(data: ProductCreate): Observable<ProductCreate[]> {
+  addProductV2(data: ProductCreate) {
     return this.http.post(this.configuration.apiURL + '/seller/product/create/v2', data)
       .pipe(
-        map(response => response as ProductCreate[])
+        map(response => response as any)
       );
   }
   editProduct(data: EditProductFullRequest) {
