@@ -154,7 +154,7 @@ export class ListingProductComponent implements OnInit {
       );
       return;
     }
-    this.router.navigate(['/add-product']);
+    this.router.navigate(['/search-product-master']);
     console.log('asdasd');
   }
 
