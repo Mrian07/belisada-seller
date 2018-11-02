@@ -50,12 +50,14 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   ngOnInit() {
     this._getWaranty();
     this._getDetailProd();
+    
     this.addProductForm = this.fb.group({
       couriers: [[]],
       guaranteeTime:  [''],
       guaranteeType:  [''],
       masterId: [''],
       varians: this.fb.array([]),
+      
     });
     this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
       if (varr) {
@@ -75,6 +77,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.masterId = params.id;
+      console.log(params.id)
     });
   }
 
@@ -115,6 +118,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         qty: this.dadyStock
       });
     });
+    // this.calculateDiscount();
   }
 
   // TODO: Change to the correct method
@@ -158,12 +162,12 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public postProductV2() {
     console.log(this.addProductForm.value);
 
+    this.calculateDiscount();
     // this.productsSandbox.postProdV2(this.addProductForm.value);
-
     this.productService.addProductV2(this.addProductForm.value).subscribe(response => {
-      // this.loadingService.hide();
-      console.log(response);
-      swal(
+        // this.loadingService.hide();
+        console.log(response);
+        swal(
         'belisada.co.id',
         response.message,
         (response.status === 0) ? 'error' : 'success'
@@ -187,29 +191,44 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     // });
   }
   calculateDiscount() {
-    const pricelist = +this.addProductForm.get('pricelist').value;
-    const specialPrice = +this.addProductForm.get('specialPrice').value;
-    console.log(pricelist + ' ------ ' + specialPrice);
-    if (specialPrice > 0) {
-      if (+specialPrice >= +pricelist) {
-        this.errMaxDiscount = true;
-      } else {
-        this.errMaxDiscount = false;
-      }
-    }
-    console.log(this.errMaxDiscount);
-    console.log(specialPrice);
-    if (pricelist && specialPrice && specialPrice !== 0) {
-      this.isDiscountActive = true;
-      this.totalDiscount = pricelist - specialPrice;
-      this.addProductForm.patchValue({
-        discount: Math.round(100 - ((specialPrice / pricelist) * 100))
-      });
-      // this.apr.discount = Math.round(100 - ((specialPrice / pricelist) * 100));
-    } else {
-      console.log('error');
-      this.isDiscountActive = false;
-    }
+    // const control = <FormArray>this.addProductForm.get('varians').value;
+    // this.VariantAttr.forEach((variant, index) => {
+      // this.addVariants();
+      const controls = this.getVariants(this.addProductForm);
+      controls.forEach(control => {
+        const con: FormGroup = control;
+        console.log('control: ', control);
+        control.patchValue({
+          discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
+        });
+      })
+      // controlz.at(index).patchValue({
+      //   discount: Math.round(100 - ((+controlz.at(index) / +this.daddyPrice) * 100))
+      // });
+    // });
+    // const pricelist = +this.addProductForm.get('pricelist').value;
+    // const specialPrice = +this.addProductForm.get('specialPrice').value;
+    // console.log(pricelist + ' ------ ' + specialPrice);
+    // if (specialPrice > 0) {
+    //   if (+specialPrice >= +pricelist) {
+    //     this.errMaxDiscount = true;
+    //   } else {
+    //     this.errMaxDiscount = false;
+    //   }
+    // }
+    // console.log(this.errMaxDiscount);
+    // console.log(specialPrice);
+    // if (pricelist && specialPrice && specialPrice !== 0) {
+    //   this.isDiscountActive = true;
+    //   this.totalDiscount = pricelist - specialPrice;
+    //   this.addProductForm.patchValue({
+    //     discount: Math.round(100 - ((specialPrice / pricelist) * 100))
+    //   });
+    //   // this.apr.discount = Math.round(100 - ((specialPrice / pricelist) * 100));
+    // } else {
+    //   console.log('error');
+    //   this.isDiscountActive = false;
+    // }
   }
 
   public onChangeVariant(code: string, checked: boolean, e) {
