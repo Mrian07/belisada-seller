@@ -4,6 +4,7 @@
             <div class="col-3">
                 <div>
                     <img *ngFor="let item of product?.imageUrl" [src]="productImage + item" class="wrapper--product-detail__image">
+                    <img *ngFor="let itemx of getDataProdV2?.imageUrl" [src]="productImage + itemx" class="wrapper--product-detail__image">
                     <!-- <img [src]="productStoreUrl + item.imageUrl[0]" alt=""> -->
                 </div>
 
@@ -24,15 +25,17 @@
                 <br>
                 <span class="wrapper--product-detail2__text2">
                     {{product?.name}}
+                    {{ getDataProdV2?.name }}
                 </span>
                 <br>
                 <span class="wrapper--product-detail2__text2">
-                    {{product?.categoryOneName}} >   {{product?.categoryTwoName}} >  {{product?.categoryThreeName}}
+                    {{product?.categoryOneName}}  <span *ngIf="product?.categoryOneName">></span>   {{product?.categoryTwoName}} <span *ngIf="product?.categoryOneName">></span>  {{product?.categoryThreeName}}
+                     {{ getDataProdV2?.categoryOneName}} >  {{getDataProdV2?.categoryTwoName}} > {{getDataProdV2?.categoryThreeName}} 
                 </span>
                 <br>
 
                 <textarea class="wrapper--product-detail2__text2" readonly>
-                    {{product?.categoryOneName}} > {{product?.categoryTwoName}} > {{product?.categoryThreeName}}
+                  {{ getDataProdV2?.description }}
                 </textarea>
                 <br>
                 <form [formGroup]="addProductForm">

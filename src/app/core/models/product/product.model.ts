@@ -50,6 +50,11 @@ export class Varians {
   qty:  number;
   specialPrice: number;
 }
+export class DetailResnponsev2 {
+  status: number;
+  message: string;
+  data: AddProductRequest;
+}
 export class AddProductRequest {
   brandId: number;
   brandName: string;

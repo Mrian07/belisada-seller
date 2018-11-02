@@ -138,7 +138,7 @@ export class ListingProductComponent implements OnInit {
   }
 
   goToEdit(e) {
-    this.router.navigate(['/edit-product/' + e]);
+    this.router.navigate(['/edit-products/' + e]);
   }
 
   selectImg(img) {

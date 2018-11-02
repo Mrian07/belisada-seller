@@ -48,6 +48,13 @@ const routes: Routes = [
         },
       },
       {
+        path: 'edit-products/:id',
+        component: AddProductV2Component,
+        resolve: {
+          productDetails: ProductsResolver
+        },
+      },
+      {
         path: 'search-product-master',
         component: SearchProductMasterComponent,
         data: {

@@ -6,7 +6,7 @@ import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
   UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest,
-  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate
+  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate, DetailResnponsev2
 } from '@belisada-seller/core/models';
 
 @Injectable({
@@ -123,6 +123,13 @@ export class ProductService {
     return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
       .pipe(
         map(response => response as ProductSuggestionDetail)
+      );
+  }
+
+  getProductV2(id): Observable<DetailResnponsev2> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/' + id)
+      .pipe(
+        map(response => response as DetailResnponsev2)
       );
   }
 }

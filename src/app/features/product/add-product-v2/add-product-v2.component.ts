@@ -19,6 +19,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public warr: Reference[];
   warrLong: Reference[];
   VariantAttr: Variant[];
+  getDataProdV2: AddProductRequest;
   isDiscountActive: Boolean = false;
   totalDiscount: number;
   value = '';
@@ -77,7 +78,27 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.masterId = params.id;
-      console.log(params.id)
+      console.log(params);
+      console.log('console.log(this.router.url);: ',this.router.url);
+      console.log(this.router.url);
+      if(this.router.url === '/products/' + params.id) {
+          console.log('123');
+      } else {
+       this.productService.getProductV2(params.id).subscribe(data => {
+        this.getDataProdV2 = data.data;
+        if ( data.status !== 0) {
+          console.log('data:', data);
+  
+          this.addProductForm.patchValue({
+            guaranteeType: data.data.guaranteeType,
+            guaranteeTime: data.data.guaranteeTime
+          });
+            console.log('data:', data);
+
+        }
+       });
+      }
+      // console.log(window.location.href)
     });
   }
 
