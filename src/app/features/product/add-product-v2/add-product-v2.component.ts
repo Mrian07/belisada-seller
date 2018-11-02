@@ -19,11 +19,14 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public warr: Reference[];
   warrLong: Reference[];
   VariantAttr: Variant[];
+  isDiscountActive: Boolean = false;
+  totalDiscount: number;
   value = '';
   addProductForm: FormGroup;
   productStoreUrl;
   productImage;
   isFlase: Boolean = false;
+  errMaxDiscount: Boolean = false;
   masterId: number;
   couuer: any [];
   masterVariantId: any;
@@ -182,6 +185,31 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     //   couriers: couriers,
     //   masterId: this.masterId
     // });
+  }
+  calculateDiscount() {
+    const pricelist = +this.addProductForm.get('pricelist').value;
+    const specialPrice = +this.addProductForm.get('specialPrice').value;
+    console.log(pricelist + ' ------ ' + specialPrice);
+    if (specialPrice > 0) {
+      if (+specialPrice >= +pricelist) {
+        this.errMaxDiscount = true;
+      } else {
+        this.errMaxDiscount = false;
+      }
+    }
+    console.log(this.errMaxDiscount);
+    console.log(specialPrice);
+    if (pricelist && specialPrice && specialPrice !== 0) {
+      this.isDiscountActive = true;
+      this.totalDiscount = pricelist - specialPrice;
+      this.addProductForm.patchValue({
+        discount: Math.round(100 - ((specialPrice / pricelist) * 100))
+      });
+      // this.apr.discount = Math.round(100 - ((specialPrice / pricelist) * 100));
+    } else {
+      console.log('error');
+      this.isDiscountActive = false;
+    }
   }
 
   public onChangeVariant(code: string, checked: boolean, e) {
