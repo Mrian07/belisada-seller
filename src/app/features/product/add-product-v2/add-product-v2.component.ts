@@ -55,15 +55,14 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   ngOnInit() {
     this._getWaranty();
     this._getDetailProd();
-    
     this.addProductForm = this.fb.group({
       couriers: [[]],
       guaranteeTime:  [''],
       guaranteeType:  [''],
-      masterId: [''],
+      masterId:  [''],
       varians: this.fb.array([]),
-      
     });
+
     this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
       if (varr) {
         this.VariantAttr = varr;
@@ -82,6 +81,9 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.masterId = params.id;
+      this.addProductForm.patchValue({
+        masterId: this.masterId
+      });
       console.log(params);
       console.log('console.log(this.router.url);: ',this.router.url);
       console.log(this.router.url);
@@ -210,6 +212,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     this.calculateDiscount();
     // console.log(this.addProductForm.value);
     if ( this.router.url === '/edit-products/' + this.masterId) {
+      console.log('this.addProductForm.value-asd---: ', this.addProductForm.value);
       this.productService.editProductPost(this.addProductForm.value).subscribe(response => {
         console.log(response);
         swal(
@@ -222,6 +225,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       }
     });
     } else {
+      console.log('this.addProductForm.value----: ', this.addProductForm.value);
       this.productService.addProductV2(this.addProductForm.value).subscribe(response => {
         console.log(response);
         swal(
