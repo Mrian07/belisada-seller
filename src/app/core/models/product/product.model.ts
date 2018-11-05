@@ -90,6 +90,7 @@ export class AddProductRequest {
   specification: ProductSpecification[];
   volume: number;
   weight: number;
+  productId: number;
 }
 
 export class AddProductResponse {

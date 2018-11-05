@@ -71,7 +71,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
           this.addVariants();
           const control = <FormArray>this.addProductForm.get('varians');
           control.at(index).patchValue({
-            masterVarianId: variant.masterVarianId
+            masterVarianId: variant.masterVarianId,
           });
         });
         console.log('a', varr);
@@ -97,6 +97,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
                 guaranteeType: productEdit.guaranteeType,
                 guaranteeTime: productEdit.guaranteeTime,
                 couriers: (this.productId) ? productEdit.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
+                masterId:  this.masterId
               });
             console.log('asd:', productEdit);
           }
@@ -201,7 +202,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     this.addProductForm.patchValue({
       couriers: couriers,
-      masterId: this.masterId
+      // masterId: this.masterId
     });
   }
 

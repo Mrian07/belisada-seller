@@ -55,7 +55,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
     this.b = mProductId;
     this.productsSandbox.productAdd(mProductId[0]);
     this.router.navigate(['/products/' + mProductId]);
-    window.location.reload();
+    // window.location.reload();
 
   }
   onProductNameBlur(): void {

@@ -43,6 +43,7 @@ const routes: Routes = [
       {
         path: 'products/:id',
         component: AddProductV2Component,
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
         resolve: {
           productDetails: ProductsResolver
         },
@@ -50,6 +51,7 @@ const routes: Routes = [
       {
         path: 'edit-products/:id',
         component: AddProductV2Component,
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
         resolve: {
           productDetails: ProductsResolver
         },
