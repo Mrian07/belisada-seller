@@ -13,6 +13,7 @@ import * as prodWarrantyLong from '../actions/product-warranty-long.action';
 import * as prodVariant from '../actions/product-variant.action';
 import * as courier from '../actions/courier.action';
 import * as postV2 from '../actions/product-detail-post.action';
+import * as productEditV2 from '../actions/product-edit-action';
 import { Store } from '@ngrx/store';
 // import * as store                 from '../index';
 import { ProductService, ReferenceService, CourierService } from '@belisada-seller/core/services';
@@ -47,19 +48,7 @@ export class ProductsEffects {
   /**
    * Product details
    */
-  @Effect()
-  getProductDetails$: Observable<Action> = this.actions$.pipe(
-    ofType(productDetailsActions.ActionTypes.LOAD),
-    map((action: productDetailsActions.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.productsApiClient.getProdListing(state).pipe(
-        map(products => new productDetailsActions.LoadSuccessAction(products.data)),
-        catchError(error  => of(new productDetailsActions.LoadFailAction()))
-
-      );
-    })
-  );
-
+  
   @Effect()
   getProductSearchMaster$: Observable<Action> = this.actions$.pipe(
     ofType(productSearchActions.ActionTypes.LOAD),
@@ -68,94 +57,118 @@ export class ProductsEffects {
       return this.productsApiClient.getProductSuggestion(state).pipe(
         map(products => new productSearchActions.LoadSuccessAction(products)),
         catchError(error  => of(new productSearchActions.LoadFailAction()))
-
+        
+        );
+      })
       );
-    })
-  );
-
-
-  @Effect()
-  postProductReq$: Observable<Action> = this.actions$.pipe(
-    ofType(prodReq.ActionTypes.LOAD),
-    map((action: prodReq.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.productsApiClient.prodReq(state).pipe(
-        map(products => new prodReq.LoadSuccessAction(products)),
-        catchError(error  => of(new prodReq.LoadFailAction()))
-      );
-    })
-  );
-
-
-  @Effect()
-  getProdDetail$: Observable<Action> = this.actions$.pipe(
-    ofType(proddetailAdd.ActionTypes.LOAD),
-    map((action: proddetailAdd.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.productsApiClient.getProdDetail(state).pipe(
-        map(products => new proddetailAdd.LoadSuccessAction(products)),
-        catchError(error  => of(new proddetailAdd.LoadFailAction()))
-      );
-    })
-  );
-
-  @Effect()
-  getProdVariant$: Observable<Action> = this.actions$.pipe(
-    ofType(prodVariant.ActionTypes.LOAD),
-    map((action: prodVariant.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.productsApiClient.getProdVariant(state).pipe(
-        map(products => new prodVariant.LoadSuccessAction(products)),
-        catchError(error  => of(new prodVariant.LoadFailAction()))
-      );
-    })
-  );
-
-
-  @Effect()
-  getProductWarranty$: Observable<Action> = this.actions$.pipe(
-    ofType(prodWarranty.ActionTypes.LOAD),
-    map((action: prodWarranty.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.prodctWarranty.getReference(state).pipe(
-        map(products => new prodWarranty.LoadSuccessAction(products)),
-        catchError(error  => of(new prodWarranty.LoadFailAction()))
-      );
-    })
-  );
-  @Effect()
-  getProductWarrantyLong$: Observable<Action> = this.actions$.pipe(
-    ofType(prodWarrantyLong.ActionTypes.LOAD),
-    map((action: prodWarrantyLong.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.prodctWarranty.getReference(state).pipe(
-        map(products => new prodWarrantyLong.LoadSuccessAction(products)),
-        catchError(error  => of(new prodWarrantyLong.LoadFailAction()))
-      );
-    })
-  );
-
-
-  @Effect()
-  corueier$: Observable<Action> = this.actions$.pipe(
-    ofType(courier.ActionTypes.LOAD),
-    map((action: courier.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.couerierApiClient.getCouriere(state).pipe(
-        map(products => new courier.LoadSuccessAction(products)),
-        catchError(error  => of(new courier.LoadFailAction()))
-      );
-    })
-  );
-  @Effect()
-  postProductV2$: Observable<Action> = this.actions$.pipe(
-    ofType(postV2.ActionTypes.LOAD),
-    map((action: postV2.LoadAction) => action.payload),
-    switchMap(state => {
-      return this.productsApiClient.addProductV2(state).pipe(
-        map(products => new postV2.LoadSuccessAction(products)),
-        catchError(error  => of(new postV2.LoadFailAction()))
-      );
-    })
-  );
-}
+      
+      
+      @Effect()
+      postProductReq$: Observable<Action> = this.actions$.pipe(
+        ofType(prodReq.ActionTypes.LOAD),
+        map((action: prodReq.LoadAction) => action.payload),
+        switchMap(state => {
+          return this.productsApiClient.prodReq(state).pipe(
+            map(products => new prodReq.LoadSuccessAction(products)),
+            catchError(error  => of(new prodReq.LoadFailAction()))
+            );
+          })
+          );
+          
+          
+          @Effect()
+          getProdDetail$: Observable<Action> = this.actions$.pipe(
+            ofType(proddetailAdd.ActionTypes.LOAD),
+            map((action: proddetailAdd.LoadAction) => action.payload),
+            switchMap(state => {
+              return this.productsApiClient.getProdDetail(state).pipe(
+                map(products => new proddetailAdd.LoadSuccessAction(products)),
+                catchError(error  => of(new proddetailAdd.LoadFailAction()))
+                );
+              })
+              );
+              
+              @Effect()
+              getProdVariant$: Observable<Action> = this.actions$.pipe(
+                ofType(prodVariant.ActionTypes.LOAD),
+                map((action: prodVariant.LoadAction) => action.payload),
+                switchMap(state => {
+                  return this.productsApiClient.getProdVariant(state).pipe(
+                    map(products => new prodVariant.LoadSuccessAction(products)),
+                    catchError(error  => of(new prodVariant.LoadFailAction()))
+                    );
+                  })
+                  );
+                  
+                  
+                  @Effect()
+                  getProductWarranty$: Observable<Action> = this.actions$.pipe(
+                    ofType(prodWarranty.ActionTypes.LOAD),
+                    map((action: prodWarranty.LoadAction) => action.payload),
+                    switchMap(state => {
+                      return this.prodctWarranty.getReference(state).pipe(
+                        map(products => new prodWarranty.LoadSuccessAction(products)),
+                        catchError(error  => of(new prodWarranty.LoadFailAction()))
+                        );
+                      })
+                      );
+                      @Effect()
+                      getProductWarrantyLong$: Observable<Action> = this.actions$.pipe(
+                        ofType(prodWarrantyLong.ActionTypes.LOAD),
+                        map((action: prodWarrantyLong.LoadAction) => action.payload),
+                        switchMap(state => {
+                          return this.prodctWarranty.getReference(state).pipe(
+                            map(products => new prodWarrantyLong.LoadSuccessAction(products)),
+                            catchError(error  => of(new prodWarrantyLong.LoadFailAction()))
+                            );
+                          })
+                          );
+                          
+                          
+                          @Effect()
+                          corueier$: Observable<Action> = this.actions$.pipe(
+                            ofType(courier.ActionTypes.LOAD),
+                            map((action: courier.LoadAction) => action.payload),
+                            switchMap(state => {
+                              return this.couerierApiClient.getCouriere(state).pipe(
+                                map(products => new courier.LoadSuccessAction(products)),
+                                catchError(error  => of(new courier.LoadFailAction()))
+                                );
+                              })
+                              );
+                              @Effect()
+                              postProductV2$: Observable<Action> = this.actions$.pipe(
+                                ofType(postV2.ActionTypes.LOAD),
+                                map((action: postV2.LoadAction) => action.payload),
+                                switchMap(state => {
+                                  return this.productsApiClient.addProductV2(state).pipe(
+                                    map(products => new postV2.LoadSuccessAction(products)),
+                                    catchError(error  => of(new postV2.LoadFailAction()))
+                                    );
+                                  })
+                                  );
+                                  @Effect()
+                                  getProductDetailForEdit$: Observable<Action> = this.actions$.pipe(
+                                    ofType(productEditV2.ActionTypes.LOAD),
+                                    map((action: productEditV2.LoadAction) => action.payload),
+                                    switchMap(state => {
+                                      return this.productsApiClient.getProductV2testing(state).pipe(
+                                        map(products => new productEditV2.LoadSuccessAction(products.data)),
+                                        catchError(error  => of(new productEditV2.LoadFailAction()))
+                                        );
+                                      })
+                                      );
+                                      @Effect()
+                                      getProductDetails$: Observable<Action> = this.actions$.pipe(
+                                        ofType(productDetailsActions.ActionTypes.LOAD),
+                                        map((action: productDetailsActions.LoadAction) => action.payload),
+                                        switchMap(state => {
+                                          return this.productsApiClient.getProdListing(state).pipe(
+                                            map(products => new productDetailsActions.LoadSuccessAction(products.data)),
+                                            catchError(error  => of(new productDetailsActions.LoadFailAction()))
+                                    
+                                          );
+                                        })
+                                      );
+                                    }
+                                    

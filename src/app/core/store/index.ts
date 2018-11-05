@@ -18,6 +18,7 @@ import * as fromProdWarrantyLong from './reducer/product-warranty-long.reducer';
 import * as fromProdVariant from './reducer/product-variant.reducer';
 import * as courier from './reducer/courier.reducer';
 import * as postProductV2 from './reducer/product-detail-post.reducer';
+import * as fromProdDetailForEdit from './reducer/product-edit.reducer';
 /**
  *
  * We treat each reducer like a table in a database. This means
@@ -33,6 +34,7 @@ export interface State {
   prodVariant: fromProdVariant.State;
   courier: courier.State;
   postProductV2: postProductV2.State;
+  getProdDetailForEdit: fromProdDetailForEdit.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -45,6 +47,7 @@ export const reducers: ActionReducerMap<State> = {
   prodVariant: fromProdVariant.reducer,
   courier: courier.reducer,
   postProductV2: postProductV2.reducer,
+  getProdDetailForEdit: fromProdDetailForEdit.reducer,
 };
  /**
  * Every reducer module exports selector functions, however child reducers
@@ -115,3 +118,10 @@ export const PostProdV2Loaded  = createSelector(PostProdV2, postProductV2.getLoa
 export const PostProdV2Loading = createSelector(PostProdV2, postProductV2.getLoading);
 export const PostProdV2Failed  = createSelector(PostProdV2, postProductV2.getFailed);
 export const PostProdV2Data    = createSelector(PostProdV2, postProductV2.getData);
+
+
+export const getProdDetailForEdit  = (state: State) => state.getProdDetailForEdit;
+export const getProdDetailForEditLoaded  = createSelector(getProdDetailForEdit, fromProdDetailForEdit.getLoaded);
+export const getProdDetailForEditLoading = createSelector(getProdDetailForEdit, fromProdDetailForEdit.getLoading);
+export const getProdDetailForEditFailed  = createSelector(getProdDetailForEdit, fromProdDetailForEdit.getFailed);
+export const getProdDetailForEditData    = createSelector(getProdDetailForEdit, fromProdDetailForEdit.getData);

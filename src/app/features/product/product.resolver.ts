@@ -26,6 +26,8 @@ export class ProductsResolver implements Resolve<any> {
         this.productsSandbox.productAdd(parseInt(route.params.id));
           // tslint:disable-next-line:radix
         this.productsSandbox.productVariant(parseInt(route.params.id));
+          // tslint:disable-next-line:radix
+        this.productsSandbox.getProductDetailForEdit(parseInt(route.params.id));
         return;
       }
 

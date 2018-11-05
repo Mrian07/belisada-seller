@@ -55,6 +55,12 @@ export class DetailResnponsev2 {
   message: string;
   data: AddProductRequest;
 }
+
+export class DetailResnponsev2testing {
+  status: number;
+  message: string;
+  data: AddProductRequest[];
+}
 export class AddProductRequest {
   brandId: number;
   brandName: string;
@@ -274,4 +280,23 @@ export class ProductSuggestionDetail {
   status: number;
   message: string;
   data: ProductDetailData;
+}
+
+
+export class ProductEditVarian {
+  attributeVarians: VariantAttr[];
+  data: DataAttr;
+  imageUrl: any[];
+  isUse: boolean;
+  masterVarianId: number;
+
+}
+
+export class DataAttr {
+  discount: number;
+  pricelist: number;
+  productId: number;
+  qty: number;
+  specialPrice: number;
+
 }

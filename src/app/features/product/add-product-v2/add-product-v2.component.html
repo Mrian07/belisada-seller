@@ -7,13 +7,13 @@
                     <img *ngFor="let itemx of getDataProdV2?.imageUrl" [src]="productImage + itemx" class="wrapper--product-detail__image">
                     <!-- <img [src]="productStoreUrl + item.imageUrl[0]" alt=""> -->
                 </div>
-
+                <!-- {{product.brandId}} -->
                 <br>
 
                 <span class="wrapper--product-detail__text">Spesifikasi Produk</span>
                 <div class="wrapper--product-detail__spec">
                     <div *ngFor="let itemSpec of product?.specification">
-                        <span class="wrapper--product-detail__text--spec-det" *ngIf="itemSpec.value !== ''"> {{ itemSpec?.name }} {{ itemSpec?.value }}</span>
+                        <span class="wrapper--product-detail__text--spec-det"> {{ itemSpec?.name }} {{ itemSpec?.value }}</span>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <br>
                 <span class="wrapper--product-detail2__text2">
                     {{product?.name}}
-                    {{ getDataProdV2?.name }}
+                    {{ productEdit?.name }}
                 </span>
                 <br>
                 <span class="wrapper--product-detail2__text2">
@@ -114,6 +114,9 @@
                                     </td>
                                 </tr>
                             </tbody>
+                            <!-- <div *ngFor="let item of dataVarianEdit">
+                                a
+                            </div> -->
                             
                         </table>
                     </div>
@@ -162,25 +165,43 @@
                             </div>
                             <div class="col-3">
                                 <h4>Tips Jasa Pengiriman</h4>
+                                {{routeUrl}}
                                 <span>Tombol disamping digunakan untuk memilih variasi yang anda ingin aktif atau matikan</span>
                             </div>
 
                         </div>
                     </div>
-                    <!-- </div> -->
-
-                    <table class="table" *ngIf="isFlase === true">
-                        <tr *ngFor="let courier of  productsSandbox.coruerir$ | async">
-                            <td>{{ courier.name }}</td>
-                            <!-- <td>i</td> -->
-                            <td class="right">
-                                <label class="switch small">
-                                    <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
+                        <!-- </div> -->
+                        <div *ngIf="!routeUrl">
+                            <table class="table" *ngIf="isFlase === true">
+                                <tr *ngFor="let courier of  product?.couriers">
+                                    <td>{{ courier.name }}</td>
+                                    <td class="right">
+                                        <label class="switch small">
+                                            <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    <!-- div *ngIf="routerUrl"
+                    dif *ngIf="routeUrl" -->
+                    <div *ngIf="routeUrl">
+                        <table class="table" *ngIf="isFlase === true">
+                            <tr *ngFor="let courier of  productsSandbox.coruerir$ | async">
+                                <td>{{ courier.name }}</td>
+                                <td class="right">
+                                    <label class="switch small">
+                                        <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                    
                 </form>
 
             </div>
@@ -197,16 +218,4 @@
 </div>
 <!-- <pre>
 {{ addProductForm.value | json }}
-</pre>
-<div >
-    <label class="col-3 middle">Jumlah Diskon</label>
-    <div class="col-3">
-        <div class="label--special-price">
-            <div class="pull-left">Rp</div><div class="pull-right">{{ totalDiscount | number}}</div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="col-6 middle">
-        <span class="label--discount">{{ f.discount.value }}%</span> <span class="label--discount-desc">Diskon pada product anda</span>
-    </div>
-</div> -->
+</pre> -->

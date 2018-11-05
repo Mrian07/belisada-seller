@@ -16,9 +16,10 @@ import swal from 'sweetalert2';
 export class AddProductV2Component implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription> = [];
   public product:        AddProductRequest;
+  public productEdit:        AddProductRequest;
   public warr: Reference[];
   warrLong: Reference[];
-  VariantAttr: Variant[];
+  VariantAttr: any[];
   getDataProdV2: AddProductRequest;
   isDiscountActive: Boolean = false;
   totalDiscount: number;
@@ -31,7 +32,9 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   masterId: number;
   couuer: any [];
   masterVariantId: any;
-
+  routeUrl: any;
+  productId: number;
+  dataVarianEdit: any;
   public daddyPrice: number;
   public dadySpecialPrice: number;
   public dadyStock: number;
@@ -46,6 +49,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   ) {
     this.productStoreUrl = environment.thumborUrl + 'unsafe/50x50/center/filters:fill(fff)/';
     this.productImage = environment.thumborUrl + 'unsafe/80x80/center/filters:fill(fff)/';
+    this.productId = this.activatedRoute.snapshot.params.id;
   }
 
   ngOnInit() {
@@ -81,24 +85,42 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       console.log(params);
       console.log('console.log(this.router.url);: ',this.router.url);
       console.log(this.router.url);
+      this.routeUrl = this.router.url === '/products/' + params.id;
       if(this.router.url === '/products/' + params.id) {
           console.log('123');
       } else {
-       this.productService.getProductV2(params.id).subscribe(data => {
-        this.getDataProdV2 = data.data;
-        if ( data.status !== 0) {
-          console.log('data:', data);
-  
-          this.addProductForm.patchValue({
-            guaranteeType: data.data.guaranteeType,
-            guaranteeTime: data.data.guaranteeTime
-          });
-            console.log('data:', data);
+        this.subscriptions.push(this.productsSandbox.getProductDetailForPost$.subscribe((productEdit: any) => {
+          // console.log(productEdit);
+          if (productEdit) {
+            this.product = productEdit;
+            this.addProductForm.patchValue({
+                guaranteeType: productEdit.guaranteeType,
+                guaranteeTime: productEdit.guaranteeTime,
+                couriers: (this.productId) ? productEdit.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
+              });
+            console.log('asd:', productEdit);
+          }
+        }));
 
-        }
-       });
+        this.productService.getProdVarian(params.id).subscribe(data => {
+          console.log('data', data);
+          this.VariantAttr = data;
+          data.forEach((dataV2, index) => {
+            this.addVariants();
+            const control = <FormArray>this.addProductForm.get('varians');
+            control.at(index).patchValue({
+              masterVarianId: dataV2.masterVarianId,
+              pricelist: dataV2.data.pricelist,
+              specialPrice: dataV2.data.specialPrice,
+              qty: dataV2.data.qty,
+            });
+          });
+          if (this.VariantAttr.length >= 1) {
+            console.log('asd');
+            this.isFlase = true;
+          }
+        });
       }
-      // console.log(window.location.href)
     });
   }
 
@@ -131,6 +153,10 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     return form.controls.varians.controls;
   }
 
+  public getVariantsx(form) {
+    return form.controls.varians.controls;
+  }
+
   public applyForAll() {
     this.getVariants(this.addProductForm).forEach(control => {
       control.patchValue({
@@ -139,7 +165,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         qty: this.dadyStock
       });
     });
-    // this.calculateDiscount();
+    this.calculateDiscount();
   }
 
   // TODO: Change to the correct method
@@ -154,7 +180,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
      if(asd.isUsed) {
        console.log('123')
      }
-      // console.log(asd.isUsed);
    });
     console.log(control.value);
   }
@@ -181,12 +206,10 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   }
 
   public postProductV2() {
-    console.log(this.addProductForm.value);
-
     this.calculateDiscount();
-    // this.productsSandbox.postProdV2(this.addProductForm.value);
-    this.productService.addProductV2(this.addProductForm.value).subscribe(response => {
-        // this.loadingService.hide();
+    // console.log(this.addProductForm.value);
+    if ( this.router.url === '/edit-products/' + this.masterId) {
+      this.productService.editProductPost(this.addProductForm.value).subscribe(response => {
         console.log(response);
         swal(
         'belisada.co.id',
@@ -197,24 +220,21 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         this.router.navigate(['/listing-product']);
       }
     });
-    // const couriers = this.addProductForm.get('couriers').value;
-    // console.log(couriers);
-    // if (checked) {
-    //   couriers.push(code);
-    // } else {
-    //   const index = couriers.findIndex(x => x === code);
-    //   if (index !== -1) { couriers.splice(index, 1); }
-    // }
-
-    // this.addProductForm.patchValue({
-    //   couriers: couriers,
-    //   masterId: this.masterId
-    // });
+    } else {
+      this.productService.addProductV2(this.addProductForm.value).subscribe(response => {
+        console.log(response);
+        swal(
+        'belisada.co.id',
+        response.message,
+        (response.status === 0) ? 'error' : 'success'
+      );
+      if (response.status === 1) {
+        this.router.navigate(['/listing-product']);
+      }
+    });
+    }
   }
   calculateDiscount() {
-    // const control = <FormArray>this.addProductForm.get('varians').value;
-    // this.VariantAttr.forEach((variant, index) => {
-      // this.addVariants();
       const controls = this.getVariants(this.addProductForm);
       controls.forEach(control => {
         const con: FormGroup = control;
@@ -222,34 +242,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         control.patchValue({
           discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
         });
-      })
-      // controlz.at(index).patchValue({
-      //   discount: Math.round(100 - ((+controlz.at(index) / +this.daddyPrice) * 100))
-      // });
-    // });
-    // const pricelist = +this.addProductForm.get('pricelist').value;
-    // const specialPrice = +this.addProductForm.get('specialPrice').value;
-    // console.log(pricelist + ' ------ ' + specialPrice);
-    // if (specialPrice > 0) {
-    //   if (+specialPrice >= +pricelist) {
-    //     this.errMaxDiscount = true;
-    //   } else {
-    //     this.errMaxDiscount = false;
-    //   }
-    // }
-    // console.log(this.errMaxDiscount);
-    // console.log(specialPrice);
-    // if (pricelist && specialPrice && specialPrice !== 0) {
-    //   this.isDiscountActive = true;
-    //   this.totalDiscount = pricelist - specialPrice;
-    //   this.addProductForm.patchValue({
-    //     discount: Math.round(100 - ((specialPrice / pricelist) * 100))
-    //   });
-    //   // this.apr.discount = Math.round(100 - ((specialPrice / pricelist) * 100));
-    // } else {
-    //   console.log('error');
-    //   this.isDiscountActive = false;
-    // }
+      });
   }
 
   public onChangeVariant(code: string, checked: boolean, e) {
@@ -264,9 +257,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     }
     this.addProductForm.patchValue({
       varians: variant,
-      // pricelist: this.addProductForm.get('pricelist').value,
-
-      // masterId: this.masterId
     });
   }
 

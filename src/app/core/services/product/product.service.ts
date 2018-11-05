@@ -6,7 +6,7 @@ import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
   UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest,
-  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate, DetailResnponsev2
+  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate, DetailResnponsev2, DetailResnponsev2testing, ProductEditVarian
 } from '@belisada-seller/core/models';
 
 @Injectable({
@@ -39,6 +39,13 @@ export class ProductService {
     return this.http.put(this.configuration.apiURL + '/seller/product/basic/update', data)
       .pipe(
         map(response => response as any)
+      );
+  }
+
+  editProductPost(data: AddProductRequest): Observable<AddProductResponse> {
+    return this.http.put(this.configuration.apiURL + '/seller/product/update/v2', data)
+      .pipe(
+        map(response => response as AddProductResponse)
       );
   }
 
@@ -132,4 +139,19 @@ export class ProductService {
         map(response => response as DetailResnponsev2)
       );
   }
+
+  getProductV2testing(id): Observable<DetailResnponsev2testing> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/' + id)
+      .pipe(
+        map(response => response as DetailResnponsev2testing)
+      );
+  }
+
+  getProdVarian(id): Observable<ProductEditVarian[]> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/varian/' + id)
+    .pipe(
+      map(response => response as ProductEditVarian[])
+    );
+  }
+
 }

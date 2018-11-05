@@ -11,6 +11,7 @@ import * as productWarrantyLong from '../../core/store/actions/product-warranty-
 import * as productVariant from '../../core/store/actions/product-variant.action';
 import * as corueri from '../../core/store/actions/courier.action';
 import * as postProductV2 from '../../core/store/actions/product-detail-post.action';
+import * as getProductForEdit from '../../core/store/actions/product-edit-action';
 import {
   ProductListing, ProductDetailList, ProductDetailData, ProdReq, AddProductRequest, ProductCreate
 } from '@belisada-seller/core/models';
@@ -47,6 +48,11 @@ export class ProductsSandbox {
 
   public productAddV2$         = this.appState$.select(store.PostProdV2Data);
   public productAddV2Loading$  = this.appState$.select(store.PostProdV2Loading);
+
+  public getProductDetailForPost$         = this.appState$.select(store.getProdDetailForEditData);
+  public getProductDetailForPostLoading$  = this.appState$.select(store.getProdDetailForEditLoading);
+
+
   private subscriptions: Array<Subscription> = [];
 
   constructor(
@@ -95,6 +101,11 @@ export class ProductsSandbox {
   public postProdV2(data: ProductCreate): void {
     this.appState$.dispatch(new postProductV2.LoadAction(data));
   }
+
+  public getProductDetailForEdit(id): void {
+    this.appState$.dispatch(new getProductForEdit.LoadAction(id));
+  }
+
 
 
 
