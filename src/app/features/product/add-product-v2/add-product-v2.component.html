@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-12">
         <div class="row wrapper--product-detail">
@@ -30,12 +31,12 @@
                 <br>
                 <span class="wrapper--product-detail2__text2">
                     {{product?.categoryOneName}}  <span *ngIf="product?.categoryOneName">></span>   {{product?.categoryTwoName}} <span *ngIf="product?.categoryOneName">></span>  {{product?.categoryThreeName}}
-                     {{ getDataProdV2?.categoryOneName}} >  {{getDataProdV2?.categoryTwoName}} > {{getDataProdV2?.categoryThreeName}} 
+                    
                 </span>
                 <br>
 
                 <textarea class="wrapper--product-detail2__text2" readonly>
-                  {{ getDataProdV2?.description }}
+                  {{ product?.description }}
                 </textarea>
                 <br>
                 <form [formGroup]="addProductForm">
@@ -86,10 +87,10 @@
                                             <div class="col-12">
                                                 <div class="row">
                                                     <div class="col-3">
-                                                        <img [src]="productStoreUrl + VariantAttr[i].imageUrl[0]" alt="">
+                                                        <img [src]="productStoreUrl + VariantAttr[i]?.imageUrl[0]" alt="">
                                                     </div>
                                                     <div class="col-9">
-                                                        <span *ngFor="let item of VariantAttr[i].attributeVarians">{{ item.value }}</span>
+                                                        <span *ngFor="let item of VariantAttr[i]?.attributeVarians">{{ item.value }}</span>
                                                     </div>
                                                 </div>
     
@@ -216,6 +217,6 @@
 
     </div>
 </div>
-<!-- <pre>
+<pre>
 {{ addProductForm.value | json }}
-</pre> -->
+</pre>

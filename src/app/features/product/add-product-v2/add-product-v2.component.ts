@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsSandbox } from '../products.sandbox';
 import { Subscription } from 'rxjs';
-import { AddProductRequest, Reference, VariantAttr, Variant } from '@belisada-seller/core/models';
+import { AddProductRequest, Reference, VariantAttr, Variant, ProductCreate } from '@belisada-seller/core/models';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { environment } from '@env/environment';
@@ -65,6 +65,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
       if (varr) {
+        console.log('ini var', varr);
         this.VariantAttr = varr;
         this.VariantAttr.forEach((variant, index) => {
           this.addVariants();
@@ -92,14 +93,15 @@ export class AddProductV2Component implements OnInit, OnDestroy {
           console.log('123');
       } else {
         this.subscriptions.push(this.productsSandbox.getProductDetailForPost$.subscribe((productEdit: any) => {
-          // console.log(productEdit);
+          console.log(productEdit);
           if (productEdit) {
             this.product = productEdit;
             this.addProductForm.patchValue({
                 guaranteeType: productEdit.guaranteeType,
                 guaranteeTime: productEdit.guaranteeTime,
                 couriers: (this.productId) ? productEdit.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
-                masterId:  this.masterId
+                masterId:  this.masterId,
+                productId: productEdit.productId
               });
             console.log('asd:', productEdit);
           }
@@ -109,6 +111,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
           console.log('data', data);
           this.VariantAttr = data;
           data.forEach((dataV2, index) => {
+            console.log('data v2:',dataV2)
             this.addVariants();
             const control = <FormArray>this.addProductForm.get('varians');
             control.at(index).patchValue({
@@ -116,6 +119,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
               pricelist: dataV2.data.pricelist,
               specialPrice: dataV2.data.specialPrice,
               qty: dataV2.data.qty,
+              productId: dataV2.data.productId
             });
           });
           if (this.VariantAttr.length >= 1) {
@@ -136,6 +140,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       specialPrice: [''],
       isUsed: [true],
       discount: [''],
+      productId: ['']
     });
   }
 
@@ -210,10 +215,31 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
   public postProductV2() {
     this.calculateDiscount();
-    // console.log(this.addProductForm.value);
+
+
+
+    const control = <FormArray>this.addProductForm.get('varians');
+    const b = control.value.filter(item => item.isUsed !== false);
+    console.log(b);
+
+
+
+    const a = this.addProductForm.value;
+    a.varians = b;
+    console.log('ini a', a);
+
+
+    /*
+       couriers: [[]],
+      guaranteeTime:  [''],
+      guaranteeType:  [''],
+      masterId:  [''],
+      varians: this.fb.array([]),
+     */
+   
     if ( this.router.url === '/edit-products/' + this.masterId) {
       console.log('this.addProductForm.value-asd---: ', this.addProductForm.value);
-      this.productService.editProductPost(this.addProductForm.value).subscribe(response => {
+      this.productService.editProductPost(a).subscribe(response => {
         console.log(response);
         swal(
         'belisada.co.id',
@@ -226,7 +252,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     });
     } else {
       console.log('this.addProductForm.value----: ', this.addProductForm.value);
-      this.productService.addProductV2(this.addProductForm.value).subscribe(response => {
+      this.productService.addProductV2(a).subscribe(response => {
         console.log(response);
         swal(
         'belisada.co.id',
@@ -243,7 +269,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       const controls = this.getVariants(this.addProductForm);
       controls.forEach(control => {
         const con: FormGroup = control;
-        console.log('control: ', control);
+        // console.log('control: ', control);
         control.patchValue({
           discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
         });
