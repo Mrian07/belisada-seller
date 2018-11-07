@@ -64,8 +64,9 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
+      
+      console.log('ini var', varr);
       if (varr) {
-        console.log('ini var', varr);
         this.VariantAttr = varr;
         this.VariantAttr.forEach((variant, index) => {
           this.addVariants();
@@ -100,7 +101,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
                 guaranteeType: productEdit.guaranteeType,
                 guaranteeTime: productEdit.guaranteeTime,
                 couriers: (this.productId) ? productEdit.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
-                masterId:  this.masterId,
+                masterId:  productEdit.masterId,
                 productId: productEdit.productId
               });
             console.log('asd:', productEdit);
@@ -119,7 +120,8 @@ export class AddProductV2Component implements OnInit, OnDestroy {
               pricelist: dataV2.data.pricelist,
               specialPrice: dataV2.data.specialPrice,
               qty: dataV2.data.qty,
-              productId: dataV2.data.productId
+              productId: dataV2.data.productId,
+              isUsed: dataV2.isUse
             });
           });
           if (this.VariantAttr.length >= 1) {
@@ -247,7 +249,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         (response.status === 0) ? 'error' : 'success'
       );
       if (response.status === 1) {
-        this.router.navigate(['/listing-product']);
+        // this.router.navigate(['/listing-product']);
       }
     });
     } else {

@@ -109,9 +109,12 @@
                                     <td>
     
                                         <label class="switch small">
-                                            <input formControlName="isUsed" type="checkbox">
+                                            <input formControlName="isUsed"   type="checkbox">
                                             <span class="slider round"></span>
                                         </label>
+                                    </td>
+                                    <td>
+                                        {{VariantAttr[i]?.imageUrl[0]}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -217,6 +220,6 @@
 
     </div>
 </div>
-<pre>
+<!-- <pre>
 {{ addProductForm.value | json }}
-</pre>
+</pre> -->
