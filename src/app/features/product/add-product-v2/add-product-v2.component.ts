@@ -339,6 +339,14 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       }
     }));
   }
+  numberCheck(event: any) {
+    const pattern = /[0-9]/;
+
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+    }
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());

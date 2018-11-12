@@ -72,11 +72,11 @@
                                 </th>
                                 <th>
                                     <span class="wrapper--product-detail2__variasi--in-variasi">Harga jual</span>
-                                    <input [(ngModel)]="daddyPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" />
+                                    <input [(ngModel)]="daddyPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" (keypress)="numberCheck($event)" />
                                 </th>
                                 <th>
                                     <span class="wrapper--product-detail2__variasi--in-variasi">Harga promo</span>
-                                    <input [(ngModel)]="dadySpecialPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" />
+                                    <input [(ngModel)]="dadySpecialPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" (keypress)="numberCheck($event)" />
                                 </th>
                                 <th>
                                     <span class="wrapper--product-detail2__variasi--in-variasi">Stok barang</span>
@@ -104,10 +104,10 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" (change)="calculateDiscount()"  formControlName="pricelist" class="form-control">
+                                        <input type="text" (change)="calculateDiscount()"  formControlName="pricelist" class="form-control" maxlength="10" (keypress)="numberCheck($event)">
                                     </td>
                                     <td>
-                                        <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control">
+                                        <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control" maxlength="10" (keypress)="numberCheck($event)">
                                     </td>
                                     <td>
                                         <input type="text" formControlName="qty" class="form-control">
