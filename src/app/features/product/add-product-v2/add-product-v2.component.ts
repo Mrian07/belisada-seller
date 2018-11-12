@@ -16,6 +16,7 @@ import swal from 'sweetalert2';
 export class AddProductV2Component implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription> = [];
   public product:        AddProductRequest;
+  public productV2:        AddProductRequest[];
   public productEdit:        AddProductRequest;
   public warr: Reference[];
   warrLong: Reference[];
@@ -38,6 +39,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public daddyPrice: number;
   public dadySpecialPrice: number;
   public dadyStock: number;
+  submitted: Boolean = false;
 
 
   constructor(
@@ -51,14 +53,15 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     this.productImage = environment.thumborUrl + 'unsafe/80x80/center/filters:fill(fff)/';
     this.productId = this.activatedRoute.snapshot.params.id;
   }
+  get f() { return this.addProductForm.controls; }
 
   ngOnInit() {
     this._getWaranty();
     this._getDetailProd();
     this.addProductForm = this.fb.group({
       couriers: [[]],
-      guaranteeTime:  [''],
-      guaranteeType:  [''],
+      guaranteeTime:  ['',  [Validators.required]],
+      guaranteeType:  ['', [Validators.required]],
       masterId:  [''],
       varians: this.fb.array([]),
     });
@@ -75,7 +78,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
             masterVarianId: variant.masterVarianId,
           });
         });
-        console.log('a', varr);
+        // console.log('a', varr);
       }
         this.productsSandbox.courier();
     }));
@@ -91,7 +94,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       console.log(this.router.url);
       this.routeUrl = this.router.url === '/products/' + params.id;
       if(this.router.url === '/products/' + params.id) {
-          console.log('123');
+          // console.log('123');
       } else {
         this.subscriptions.push(this.productsSandbox.getProductDetailForPost$.subscribe((productEdit: any) => {
           console.log(productEdit);
@@ -104,7 +107,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
                 masterId:  productEdit.masterId,
                 productId: productEdit.productId
               });
-            console.log('asd:', productEdit);
+            // console.log('asd:', productEdit);
           }
         }));
 
@@ -112,7 +115,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
           console.log('data', data);
           this.VariantAttr = data;
           data.forEach((dataV2, index) => {
-            console.log('data v2:',dataV2)
+            // console.log('data v2:',dataV2)
             this.addVariants();
             const control = <FormArray>this.addProductForm.get('varians');
             control.at(index).patchValue({
@@ -216,46 +219,48 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   }
 
   public postProductV2() {
+    this.submitted = true;
     this.calculateDiscount();
 
 
 
     const control = <FormArray>this.addProductForm.get('varians');
     const b = control.value.filter(item => item.isUsed !== false);
-    console.log(b);
+    // console.log(b);
 
 
 
     const a = this.addProductForm.value;
     a.varians = b;
-    console.log('ini a', a);
+    // console.log('ini a', a);
+    if (this.addProductForm.get('couriers').value.length <= 0) {
+      swal(
+        'Warning',
+        'Metode pengiriman harus diisi',
+        'warning'
+      );
+      return;
+    }
 
-
-    /*
-       couriers: [[]],
-      guaranteeTime:  [''],
-      guaranteeType:  [''],
-      masterId:  [''],
-      varians: this.fb.array([]),
-     */
-   
-    if ( this.router.url === '/edit-products/' + this.masterId) {
+    if (this.addProductForm.valid) {
+      console.log('ini kalo benar')
+          if ( this.router.url === '/edit-products/' + this.masterId) {
       console.log('this.addProductForm.value-asd---: ', this.addProductForm.value);
       this.productService.editProductPost(a).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         swal(
         'belisada.co.id',
         response.message,
         (response.status === 0) ? 'error' : 'success'
       );
       if (response.status === 1) {
-        // this.router.navigate(['/listing-product']);
+        this.router.navigate(['/listing-product']);
       }
     });
     } else {
       console.log('this.addProductForm.value----: ', this.addProductForm.value);
       this.productService.addProductV2(a).subscribe(response => {
-        console.log(response);
+        // console.log(response);
         swal(
         'belisada.co.id',
         response.message,
@@ -266,6 +271,19 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       }
     });
     }
+    } else {
+      console.log('ini kalo salah')
+    
+    }
+    /*
+       couriers: [[]],
+      guaranteeTime:  [''],
+      guaranteeType:  [''],
+      masterId:  [''],
+      varians: this.fb.array([]),
+     */
+   
+  
   }
   calculateDiscount() {
       const controls = this.getVariants(this.addProductForm);
@@ -281,7 +299,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public onChangeVariant(code: string, checked: boolean, e) {
     const variant = this.addProductForm.get('varians').value;
     this.masterVariantId = code;
-    console.log(variant, e);
+    // console.log(variant, e);
     if (checked) {
       variant.push(code);
     } else {
@@ -307,9 +325,17 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   }
 
   private _getDetailProd() {
+    // this.activatedRoute.params.subscribe((params: Params) => {
+    //   this.productService.getProductSuggestionDetailV2(params.id).subscribe(data => {
+    //     this.productV2 = data.data;
+    //     console.log('12312321',data.xdata);
+    //   });
+    // });
+  
     this.subscriptions.push(this.productsSandbox.productAdd$.subscribe((product: any) => {
       if (product) {
         this.product = product.data;
+        console.log('product: ', this.product);
       }
     }));
   }

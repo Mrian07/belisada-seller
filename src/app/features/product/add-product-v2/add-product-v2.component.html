@@ -48,6 +48,9 @@
                                 <option value="" disabled>Tipe Garansi</option>
                                 <option *ngFor="let i of warr" [value]="i.statusCode">{{ i.status }}</option>
                             </select>
+                            <div *ngIf="(submitted || f.guaranteeType.touched) && f.guaranteeType.invalid">
+                                    <bss-field-error [displayError]="f.guaranteeType.errors.required" errorMsg="Silahkan pilih jenis garansi"></bss-field-error>
+                                </div>
                         </div>
                     </div>
                     <div class="row f-group">
@@ -56,6 +59,9 @@
                                 <option value="" disabled>Lama Garansi</option>
                                 <option *ngFor="let i of warrLong" [value]="i.statusCode">{{ i.status }}</option>
                             </select>
+                            <div *ngIf="(submitted || f.guaranteeTime.touched) && f.guaranteeTime.invalid">
+                                    <bss-field-error [displayError]="f.guaranteeTime.errors.required" errorMsg="Silahkan pilih garansi"></bss-field-error>
+                                </div>
                         </div>
                     </div>
                     <div style="overflow-x:auto;">

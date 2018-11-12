@@ -91,7 +91,7 @@ export class ProductService {
   }
 
   getDetailById(id: any): Observable<ProductDetailList> {
-    return this.http.get(this.configuration.apiURL + '/seller/product/detail/' + id)
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/' + id)
       .pipe(
         map(response => response as ProductDetailList)
       );
@@ -127,6 +127,13 @@ export class ProductService {
   }
 
   getProductSuggestionDetail(id): Observable<ProductSuggestionDetail> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
+      .pipe(
+        map(response => response as ProductSuggestionDetail)
+      );
+  }
+
+  getProductSuggestionDetailV2(id): Observable<ProductSuggestionDetail> {
     return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
       .pipe(
         map(response => response as ProductSuggestionDetail)

@@ -7,6 +7,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Globals } from '@belisada-seller/core/services/globals/globals';
 import swal from 'sweetalert2';
 import { environment } from '@env/environment';
+import { Location } from '@angular/common';
 // import { ProductsSandbox } from '../products.sandbox';
 // import { Subscription } from 'rxjs';
 
@@ -139,7 +140,9 @@ export class ListingProductComponent implements OnInit {
 
   goToEdit(e) {
     this.router.navigate(['/edit-products/' + e]);
+    
     // window.location.reload();
+    // location.reload();
   }
 
   selectImg(img) {
