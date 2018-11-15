@@ -140,7 +140,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     // initialize our attributeVariants
     return this.fb.group({
       masterVarianId: [''],
-      pricelist: [''],
+      pricelist: ['', [Validators.required, Validators.min(100)]],
       qty: [''],
       specialPrice: [''],
       isUsed: [true],
@@ -232,7 +232,20 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     const a = this.addProductForm.value;
     a.varians = b;
-    // console.log('ini a', a);
+
+
+    const c = b;
+   const xx = b.forEach(element => {
+      if (element.pricelist === '0') {
+             swal(
+        'Warning',
+        'harga tidak boleh dibawah 100',
+        'warning'
+      );
+      return;
+      }
+     });
+
     if (this.addProductForm.get('couriers').value.length <= 0) {
       swal(
         'Warning',

@@ -86,6 +86,7 @@
                                     <button class="btn" (click)="applyForAll()">Terapkan ke Semua</button>
                                 </th>
                             </tr>
+                            
                             <tbody formArrayName="varians">
                                 <tr [formGroupName]="i" *ngFor="let variant of getVariants(addProductForm); let i = index">
                                     <td>
@@ -105,6 +106,7 @@
                                     </td>
                                     <td>
                                         <input type="text" (change)="calculateDiscount()"  formControlName="pricelist" class="form-control" maxlength="10" (keypress)="numberCheck($event)">
+                                   
                                     </td>
                                     <td>
                                         <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control" maxlength="10" (keypress)="numberCheck($event)">
