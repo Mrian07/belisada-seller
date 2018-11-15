@@ -80,7 +80,7 @@
                                 </th>
                                 <th>
                                     <span class="wrapper--product-detail2__variasi--in-variasi">Stok barang</span>
-                                    <input [(ngModel)]="dadyStock" [ngModelOptions]="{standalone: true}" placeholder="stok" type="text" class="form-control">
+                                    <input [(ngModel)]="dadyStock" [ngModelOptions]="{standalone: true}" placeholder="stok" type="text" class="form-control" (keypress)="numberCheck($event)">
                                 </th>
                                 <th>
                                     <button class="btn" (click)="applyForAll()">Terapkan ke Semua</button>
@@ -112,7 +112,7 @@
                                         <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control" maxlength="10" (keypress)="numberCheck($event)">
                                     </td>
                                     <td>
-                                        <input type="text" formControlName="qty" class="form-control">
+                                        <input type="text" formControlName="qty" class="form-control" (keypress)="numberCheck($event)">
                                     </td>
                                     <td>
     

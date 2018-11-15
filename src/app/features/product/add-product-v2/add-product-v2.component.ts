@@ -236,7 +236,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     const c = b;
    const xx = b.forEach(element => {
-      if (element.pricelist === '0') {
+      if (element.pricelist < 100) {
              swal(
         'Warning',
         'harga tidak boleh dibawah 100',
