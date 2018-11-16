@@ -157,11 +157,18 @@ export class ProductDetailList {
   data: ProductDetailData;
 }
 
+export class ProductDetailListV2 {
+  status: number;
+  message: string;
+  data: ProductDetailData[];
+}
+
 export class ProductDetailData {
   status: string;
   message: string;
   productId: number;
   name: string;
+  masterId: number;
   nameEn: string;
   highlight: string;
   highlightEn: string;

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsSandbox } from '../products.sandbox';
 import { Subscription } from 'rxjs';
-import { AddProductRequest, Reference, VariantAttr, Variant, ProductCreate } from '@belisada-seller/core/models';
+import { AddProductRequest, Reference, VariantAttr, Variant, ProductCreate, ProductDetailData } from '@belisada-seller/core/models';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { environment } from '@env/environment';
@@ -15,7 +15,7 @@ import swal from 'sweetalert2';
 })
 export class AddProductV2Component implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription> = [];
-  public product:        AddProductRequest;
+  public product:        ProductDetailData;
   public productV2:        AddProductRequest[];
   public productEdit:        AddProductRequest;
   public warr: Reference[];
@@ -65,6 +65,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       masterId:  [''],
       varians: this.fb.array([]),
     });
+    this.productsSandbox.courier();
 
     // this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
       
@@ -83,7 +84,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     //     this.productsSandbox.courier();
     // }));
 
-    this.productsSandbox.courier();
+   
     this.activatedRoute.params.subscribe((params: Params) => {
       this.masterId = params.id;
       this.addProductForm.patchValue({
@@ -107,20 +108,31 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       if(this.router.url === '/products/' + params.id) {
           // console.log('123');
       } else {
-        this.subscriptions.push(this.productsSandbox.getProductDetailForPost$.subscribe((productEdit: any) => {
-          console.log(productEdit);
-          if (productEdit) {
-            this.product = productEdit;
-            this.addProductForm.patchValue({
-                guaranteeType: productEdit.guaranteeType,
-                guaranteeTime: productEdit.guaranteeTime,
-                couriers: (this.productId) ? productEdit.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
-                masterId:  productEdit.masterId,
-                productId: productEdit.productId
-              });
-            // console.log('asd:', productEdit);
-          }
-        }));
+        this.productService.getDetailById(params.id).subscribe(data => {
+          this.product = data.data;
+          console.log('data:edited', data.data);
+          this.addProductForm.patchValue({
+                    guaranteeType: this.product.guaranteeType,
+                    guaranteeTime: this.product.guaranteeTime,
+                    couriers: (this.productId) ? this.product.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
+                    masterId:  this.product.masterId,
+                    productId: this.product.productId
+                  });
+        });
+        // this.subscriptions.push(this.productsSandbox.getProductDetailForPost$.subscribe((productEdit: any) => {
+        //   console.log('productEdit:',productEdit);
+        //   if (productEdit) {
+        //     this.product = productEdit;
+        //     this.addProductForm.patchValue({
+        //         guaranteeType: productEdit.guaranteeType,
+        //         guaranteeTime: productEdit.guaranteeTime,
+        //         couriers: (this.productId) ? productEdit.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
+        //         masterId:  productEdit.masterId,
+        //         productId: productEdit.productId
+        //       });
+        //     // console.log('asd:', productEdit);
+        //   }
+        // }));
 
         this.productService.getProdVarian(params.id).subscribe(data => {
           console.log('data', data);
