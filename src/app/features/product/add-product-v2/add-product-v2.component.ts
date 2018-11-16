@@ -66,11 +66,32 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       varians: this.fb.array([]),
     });
 
-    this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
+    // this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
       
-      console.log('ini var', varr);
-      if (varr) {
-        this.VariantAttr = varr;
+    //   console.log('ini var', varr);
+    //   if (varr) {
+    //     this.VariantAttr = varr;
+    //     this.VariantAttr.forEach((variant, index) => {
+    //       this.addVariants();
+    //       const control = <FormArray>this.addProductForm.get('varians');
+    //       control.at(index).patchValue({
+    //         masterVarianId: variant.masterVarianId,
+    //       });
+    //     });
+    //     // console.log('a', varr);
+    //   }
+    //     this.productsSandbox.courier();
+    // }));
+
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.masterId = params.id;
+      this.addProductForm.patchValue({
+        masterId: this.masterId
+      });
+      this.productService.getProdVariant(params.id).subscribe(data => {
+        console.log('data : variant', data);
+        this.VariantAttr = data;
         this.VariantAttr.forEach((variant, index) => {
           this.addVariants();
           const control = <FormArray>this.addProductForm.get('varians');
@@ -78,16 +99,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
             masterVarianId: variant.masterVarianId,
           });
         });
-        // console.log('a', varr);
-      }
-        this.productsSandbox.courier();
-    }));
-
-
-    this.activatedRoute.params.subscribe((params: Params) => {
-      this.masterId = params.id;
-      this.addProductForm.patchValue({
-        masterId: this.masterId
       });
       console.log(params);
       console.log('console.log(this.router.url);: ',this.router.url);
