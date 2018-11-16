@@ -83,7 +83,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     //     this.productsSandbox.courier();
     // }));
 
-
+    this.productsSandbox.courier();
     this.activatedRoute.params.subscribe((params: Params) => {
       this.masterId = params.id;
       this.addProductForm.patchValue({
