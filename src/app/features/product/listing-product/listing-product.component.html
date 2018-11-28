@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="col-5">
-                <div class="kadal">
+                <div class="wrapper--body">
                     <div>
                         <span class="w__nmbarang">Nama Barang</span>
                         <span class="w__nmBarang">{{ productDetail.name }}</span>
@@ -173,7 +173,9 @@
                 <div class="w__descr">
                     <p class="w__prodDessc">{{ productDetail.description | ellipsis:400 }}</p>
                 </div>
-                <div> <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
+                <div>
+                        <!-- <a [routerLink]="/edit-products/ + item.productId"><p>Products Categories</p></a> -->
+                    <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
   UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest,
-  UpdateStockResponse, EditProductFullRequest
+  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate, DetailResnponsev2, DetailResnponsev2testing, ProductEditVarian, ProductDetailListV2
 } from '@belisada-seller/core/models';
 
 @Injectable({
@@ -22,6 +22,13 @@ export class ProductService {
         map(response => response as AddProductResponse)
       );
   }
+
+  addProductV2(data: ProductCreate) {
+    return this.http.post(this.configuration.apiURL + '/seller/product/create/v2', data)
+      .pipe(
+        map(response => response as any)
+      );
+  }
   editProduct(data: EditProductFullRequest) {
     return this.http.put(this.configuration.apiURL + '/seller/product/update', data)
       .pipe(
@@ -35,12 +42,19 @@ export class ProductService {
       );
   }
 
+  editProductPost(data: AddProductRequest): Observable<AddProductResponse> {
+    return this.http.put(this.configuration.apiURL + '/seller/product/update/v2', data)
+      .pipe(
+        map(response => response as AddProductResponse)
+      );
+  }
+
   getProdListing(queryParams): Observable<ProductListing> {
     let params = new HttpParams();
     Object.keys(queryParams).forEach(function(k) {
       params = params.append(k, queryParams[k]);
     });
-    return this.http.get(this.configuration.apiURL + '/seller/product', {params: params})
+    return this.http.get(this.configuration.apiURL + '/seller/product/v2', {params: params})
       .pipe(
         map(response => response as ProductListing)
       );
@@ -52,14 +66,41 @@ export class ProductService {
       );
   }
 
+  prodReq(data: ProdReq)  {
+    return this.http.post(this.configuration.apiURL + '/product-request/create', data)
+      .pipe(
+        map(rsl => rsl as ProdReq[])
+      );
+  }
+
+  getProdDetail(id: any): Observable<AddProductRequest[]>  {
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
+    .pipe(
+      map(rsl => rsl as AddProductRequest[])
+    );
+  }
+
+  getProdVariant(id: any): Observable<VariantAttr[]>  {
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest/varian/detail/' + id)
+    .pipe(
+      map(rsl => rsl as VariantAttr[])
+    );
+  }
   editHide(data) {
     return this.http.put(this.configuration.apiURL + '/seller/product/hide/update', data);
   }
 
   getDetailById(id: any): Observable<ProductDetailList> {
-    return this.http.get(this.configuration.apiURL + '/seller/product/detail/' + id)
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/' + id)
       .pipe(
         map(response => response as ProductDetailList)
+      );
+  }
+
+  getDetailByIdV2(id: any): Observable<ProductDetailListV2[]> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/' + id)
+      .pipe(
+        map(response => response as ProductDetailListV2[])
       );
   }
   detailProduct(id: any): Observable<ProductDetailList[]> {
@@ -80,6 +121,17 @@ export class ProductService {
         map(response => response as ProductSuggestion[])
       );
   }
+  getProductSuggestionPart2(queryParams): Observable<ProductSuggestion> {
+    let params = new HttpParams();
+    Object.keys(queryParams).forEach(function(k) {
+      params = params.append(k, queryParams[k]);
+    });
+
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest', {params: params})
+      .pipe(
+        map(response => response as ProductSuggestion)
+      );
+  }
 
   getProductSuggestionDetail(id): Observable<ProductSuggestionDetail> {
     return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
@@ -87,4 +139,33 @@ export class ProductService {
         map(response => response as ProductSuggestionDetail)
       );
   }
+
+  getProductSuggestionDetailV2(id): Observable<ProductSuggestionDetail> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
+      .pipe(
+        map(response => response as ProductSuggestionDetail)
+      );
+  }
+
+  getProductV2(id): Observable<DetailResnponsev2> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/' + id)
+      .pipe(
+        map(response => response as DetailResnponsev2)
+      );
+  }
+
+  getProductV2testing(id): Observable<DetailResnponsev2testing> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/' + id)
+      .pipe(
+        map(response => response as DetailResnponsev2testing)
+      );
+  }
+
+  getProdVarian(id): Observable<ProductEditVarian[]> {
+    return this.http.get(this.configuration.apiURL + '/seller/product/detail/v2/varian/' + id)
+    .pipe(
+      map(response => response as ProductEditVarian[])
+    );
+  }
+
 }

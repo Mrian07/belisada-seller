@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { TransactionService } from '@belisada-seller/core/services/transaction/transaction.service';
 import { Cart, Resi, ListOrderSellerResponse, InvoiceData } from '@belisada-seller/core/models';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // import { InvoiceData } from '@belisada-seller/core/models/transaction/transaction.model';
 import mct from 'madrick-countdown-timer';
 import { environment } from '@env/environment';
@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnInit, OnDestroy {
 
   thumborUrl: string = environment.thumborUrl;
   disabled: Boolean = false;
@@ -97,16 +97,13 @@ export class OrderListComponent implements OnInit {
     this.transactionService.getListOrder(queryParams).subscribe(response => {
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
-      console.log(b);
+      // console.log(b);
       this.listCart = response.content;
       console.log(this.listCart.length);
       if ( this.listCart.length === 0) {
-
-        console.log('asd');
       
       } if(this.listCart.length >= 0) {
         b.forEach((x) => {
-          console.log('x: ', x);
           mct.countdown(x.expiredSellerProcessDate, (countdown) => {
             if(this.listCart.length >0) {
               this.listCart.find(i => i.invoiceNumber === x.invoiceNumber).countdown = countdown;
@@ -200,5 +197,9 @@ export class OrderListComponent implements OnInit {
     this.createComForm.controls['noResi'][action]();
   }
 
+  ngOnDestroy() {
+  //  this.ngOnInit();
+   this.orderList();
+  }
 
 }

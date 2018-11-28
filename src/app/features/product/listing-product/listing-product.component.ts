@@ -7,6 +7,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Globals } from '@belisada-seller/core/services/globals/globals';
 import swal from 'sweetalert2';
 import { environment } from '@env/environment';
+import { Location } from '@angular/common';
+// import { ProductsSandbox } from '../products.sandbox';
+// import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'bss-listing-product',
@@ -28,15 +31,15 @@ export class ListingProductComponent implements OnInit {
   a: any;
 
   hasAddress: Boolean = true;
-
+  // private subscriptions: Array<Subscription> = [];
   faCoffee = faPlusCircle;
-
   constructor(
     private fb: FormBuilder,
     private prodSe: ProductService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private storeService: StoreService
+    private storeService: StoreService,
+    // public productsSandbox: ProductsSandbox,
   ) {
     this.productDetail.description = '';
     this.rowSelected = -1;
@@ -44,15 +47,27 @@ export class ListingProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.subscriptions.push(this.productsSandbox.products$.subscribe((product: any) => {
+    //   if (!product) {
+    //     this.productsSandbox.loadProducts({
+    //       page: 1,
+    //       itemperpage: 10,
+    //       status : 'ALL'
+    //     });
+    //   }
+    // }));
+    // this.subscriptions.push(this.productsSandbox.productSearch$.subscribe((res: any) => {
+    //   if (!res) {
+    //     this.productsSandbox.getProductSearch({
+    //       q: 'samsung'
+    //     });
+    //     console.log(res);
+    //   }
+    // }));
     this.getProfile();
     this.myForm = this.fb.group({
       useremail: this.fb.array([]),
     });
-    // const queryParams = {
-    //   page: 1,
-    //   itemperpage: 10,
-    //   status : 'ALL'
-    // };
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.pages = [];
       this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
@@ -124,7 +139,10 @@ export class ListingProductComponent implements OnInit {
   }
 
   goToEdit(e) {
-    this.router.navigate(['/edit-product/' + e]);
+    this.router.navigate(['/edit-products/' + e]);
+    
+    // window.location.reload();
+    // location.reload();
   }
 
   selectImg(img) {
@@ -140,7 +158,7 @@ export class ListingProductComponent implements OnInit {
       );
       return;
     }
-    this.router.navigate(['/add-product']);
+    this.router.navigate(['/search-product-master']);
     console.log('asdasd');
   }
 

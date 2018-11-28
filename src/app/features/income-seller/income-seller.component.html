@@ -92,4 +92,23 @@
       </div>
   </div>
 <!-- </div> -->
+<div class="paging">
+	<ul>
+		<li>
+			<a (click)="setPage(1)" [ngClass]="{disabled:currentPage == 1}">First</a>
+		</li>
+		<li>
+			<a (click)="setPage(currentPage, -1)" [ngClass]="{disabled:(currentPage-1) < 1}">Previous</a>
+		</li>
+		<li *ngFor="let p of pages">
+			<a (click)="setPage(p)" [ngClass]="currentPage == p?'current-page':''">{{p}}</a>
+		</li>
+		<li>
+			<a (click)="setPage(currentPage, +1)" [ngClass]="{disabled:currentPage == lastPage}">Next</a>
+		</li>
+		<li>
+			<a (click)="setPage(lastPage)" [ngClass]="{disabled:currentPage == lastPage}">Last</a>
+		</li>
+	</ul>
+</div>
 </div>

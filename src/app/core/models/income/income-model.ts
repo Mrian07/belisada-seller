@@ -6,6 +6,7 @@ export class GetDataContentIncome {
     first: number;
     numberOfElements: number;
     data: any;
+    totalPages: number;
 }
 
 export class ContentData {

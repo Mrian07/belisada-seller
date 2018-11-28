@@ -52,6 +52,7 @@ export class IncomeSellerComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     this.form();
     this.newMethod();
   }
@@ -68,6 +69,13 @@ export class IncomeSellerComponent implements OnInit {
       };
       this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
         this.getData = response.content;
+        this.lastPage = response.totalPages;
+        for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
+          if (r > 0 && r <= this.lastPage) {
+            this.pages.push(r);
+          }
+        }
+        console.log(response);
         for (let i = 0; i < this.getData.length; i++) {
           this.getData[i].selected = this.xx;
           console.log('this.selectedAll', this.getData[i].status);
@@ -87,6 +95,14 @@ export class IncomeSellerComponent implements OnInit {
       date2: new FormControl(null, Validators.required),
     });
   }
+  setPage(page: number, increment?: number) {
+    if (increment) { page = +page + increment; }
+    if (page < 1 || page > this.lastPage) { return false; }
+    // tslint:disable-next-line:max-line-length
+    this.router.navigate(['/listing-product'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
+    window.scrollTo(0, 0);
+  }
+
 
   selectAll() {
     for (let i = 0; i < this.getData.length; i++) {

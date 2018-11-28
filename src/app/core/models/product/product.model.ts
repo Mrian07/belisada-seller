@@ -12,6 +12,55 @@ export class Product {
   delivery: Delivery;
 }
 
+export class AddProdDetail {
+  status: number;
+  message: string;
+  data: AddProductRequest[];
+}
+
+export class Variant {
+  imageUrl: any [];
+  masterVarianId: number;
+  attributeVarians: VariantAttr[];
+}
+
+export class VariantAttr {
+  attributeId: number;
+  attributeValueId: number;
+  value: string;
+}
+
+export class ProductCreate {
+  status: string;
+  messsage: string;
+
+  classification: string;
+  couriers: Courier[];
+  guaranteeTime: string;
+  guaranteeType: string;
+  highlight: string;
+  masterId: number;
+  varians: Varians[];
+}
+
+export class Varians {
+  discount: string;
+  masterVarianId: string;
+  pricelist: number;
+  qty:  number;
+  specialPrice: number;
+}
+export class DetailResnponsev2 {
+  status: number;
+  message: string;
+  data: AddProductRequest;
+}
+
+export class DetailResnponsev2testing {
+  status: number;
+  message: string;
+  data: AddProductRequest[];
+}
 export class AddProductRequest {
   brandId: number;
   brandName: string;
@@ -30,6 +79,9 @@ export class AddProductRequest {
   imageUrl: string[];
   isGuarantee: boolean;
   name: string;
+  categoryOneName: string;
+  categoryTwoName: string;
+  categoryThreeName: string;
   nameEn: string;
   pricelist: number;
   specialPrice: number;
@@ -38,6 +90,7 @@ export class AddProductRequest {
   specification: ProductSpecification[];
   volume: number;
   weight: number;
+  productId: number;
 }
 
 export class AddProductResponse {
@@ -83,6 +136,12 @@ export class ProductData {
   qtyType: string;
 }
 
+export class ProdReq {
+  brand: string;
+  description: string;
+  productName: string;
+}
+
 export class UpdateStockRequest {
   productId: number;
   qty: number;
@@ -98,11 +157,18 @@ export class ProductDetailList {
   data: ProductDetailData;
 }
 
+export class ProductDetailListV2 {
+  status: number;
+  message: string;
+  data: ProductDetailData[];
+}
+
 export class ProductDetailData {
   status: string;
   message: string;
   productId: number;
   name: string;
+  masterId: number;
   nameEn: string;
   highlight: string;
   highlightEn: string;
@@ -217,8 +283,28 @@ export class ProductSuggestion {
   categoryThreeName: string;
 }
 
+
 export class ProductSuggestionDetail {
   status: number;
   message: string;
   data: ProductDetailData;
+}
+
+
+export class ProductEditVarian {
+  attributeVarians: VariantAttr[];
+  data: DataAttr;
+  imageUrl: any[];
+  isUse: boolean;
+  masterVarianId: number;
+
+}
+
+export class DataAttr {
+  discount: number;
+  pricelist: number;
+  productId: number;
+  qty: number;
+  specialPrice: number;
+
 }
