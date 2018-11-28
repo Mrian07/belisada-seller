@@ -3,20 +3,11 @@
 }
 
 .static-label {
-    padding: 10px 20px;
+    padding: 1rem 2rem;
     margin: 8px 0;
     font-size: 1.4rem;
     font-family: 'Roboto', sans-serif;
 }
-
-// .profile-conten{
-//     display: grid;
-//     grid-template-columns: 40% 60%;
-// }
-
-// .tab2{
-//     margin-left:10px;
-// }
 
 .frame-menu{
     border: 1px solid #f27138;
@@ -32,10 +23,8 @@
     &__active{
         text-align: center;
         background: #ffb871;
-        // border-bottom: 2px solid #f27138;
         color: #ffffff;
         padding:5px;
-        // margin-right:5px;
         cursor: pointer;
     }
 
@@ -43,7 +32,6 @@
         text-align: center;
         color: #222222;
         padding:5px;
-        // margin-right:5px;
         cursor: pointer;
     }  
 }
@@ -54,10 +42,10 @@
 }
 
 .frame-menu-contain{
-    margin-top:10px;
+    margin-top:1rem;
 }
 
 .title{
     font-family: arial;
-    font-size: 30px;
+    font-size: 3rem;
 }

@@ -1,18 +1,18 @@
 .frame-title{
     display: grid;
     grid-template-columns: 357px 5% 17% 15% 1fr;
-    margin-top:20px;
-    font-size: 12px;
+    margin-top: 2rem;
+    font-size: 1.2rem;
 }
 
 .frame-contain{
-    margin-top:10px;
+    margin-top: 1rem;
     background: #ffffff;
     box-shadow: 2px 2px 4px #c9c9c9;
     border: 1px solid #f5f5f5;
 }
 .w__edit--cetak-label {
-    font-size: 11px !important;
+    font-size: 1.1rem !important;
     font-weight: bold;
     color: #a0a0a0;
 }
@@ -21,13 +21,13 @@
 }
 
 .nm-buyer{
-    padding:10px;
+    padding: 1rem;
     border-bottom: 1px solid #dddddd;
     width: 100%;
 }
 
 .cont-buyer{
-    padding: 10px;
+    padding: 1rem;
 }
 
 .right{
@@ -36,7 +36,7 @@
 
 .frame-cont{
     display: grid;
-    grid-template-columns: 572px 1fr 1fr 2fr;
+    grid-template-columns: 57.2rem 1fr 1fr 2fr;
     color: #111111;
 }
 
@@ -44,13 +44,14 @@
     display: grid;
     grid-template-columns: 50% 50%;
 }
+
 .nm-item{
-    font-size: 14px;
+    font-size: 1.4rem;
     display: block;
 }
 
 .nm-item-courier{
-    font-size: 12px;
+    font-size: 1.2rem;
     display: block;
 }
 
@@ -64,18 +65,18 @@
 
 .uang-item{
     color:#fd762c;
-    font-size: 14px;
+    font-size: 1.4rem;
     display: block;
 }
 
 .small-text{
-    font-size: 11px;
+    font-size: 1.1rem;
     font-weight: bold;
     color:#a0a0a0;
 }
 
 .blue-text{
-    font-size: 14px;
+    font-size: 1.4rem;
     color: #1e82fc;
     display: block;
 }
@@ -83,7 +84,7 @@
 .btn-order{
     background: #f5952c;
     color: #fffdfb;
-    padding: 15px;
+    padding: 1.5rem;
     text-align: center;
     cursor: pointer;
 }
@@ -99,24 +100,24 @@
 
 .print-order{
     cursor: pointer;
-    margin-left: 5px;
+    margin-left: 0.5rem;
 }
 
 .modal-body{
     background: #f7f7f7;
-    padding:10px;
+    padding: 1rem;
     border-radius:5px;
-    font-size: 12px;
+    font-size: 1.2rem;
 }
 
 .no-resi{
-    margin-bottom:20px;
-    font-size: 12px;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
 }
 
 .con-resi{
-    font-size: 12px;
-    margin-bottom:10px;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .line-resi{
@@ -126,7 +127,7 @@
 .c-resi{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    font-size: 12px;
+    font-size: 1.2rem;
 }
 
 .tr-black{
@@ -134,74 +135,44 @@
 }
 
 .foot-resi{
-    margin-top: 20px;
+    margin-top: 2rem;
     border-top: 1px solid #dddddd;
     background: #f7f7f7;
-    padding: 5px;
+    padding: 0.5rem;
     text-align: right;
 }
 
-// .btn-konfirm{
-//     padding: 5px;
-//     color: #ffffff;
-//     background: #f5660d;
-//     border-radius: 5px;
-//     font-size: 12px;
-//     border: 1px solid #c95811;
-//     margin-right: 10px;
-//     cursor: pointer;
-// }
-
-// .btn-konfirm:hover{
-//     background: #fa8034;
-// }
-
-// .btn-batal{
-//     padding: 5px;
-//     color: #3f3f3f;
-//     background: #e5e5e5;
-//     border-radius: 5px;
-//     font-size: 12px;
-//     border: 1px solid #3f3f3f;
-//     margin-right: 10px;
-//     cursor: pointer;
-// }
-
-// .btn-batal:hover{
-//     background: #f2f0f0;
-// }
-
 .field-r{
     width: 100%;
-    padding:8px;
+    padding: 0.8rem;
 }
 
 .no-resi{
-    margin-top:10px;
-    margin-bottom:0px;
+    margin-top: 1rem;
+    margin-bottom: 0px;
 }
 
 .m-left{
-    margin-right: 10px;
+    margin-right: 1rem;
 }
 
 .text-small{
-    font-size: 11px;
+    font-size: 1.1rem;
 }
 
 .error-body{
-    font-size: 15px;
+    font-size: 1.5rem;
     color: #f53b1a;
     text-align: center;
-    margin-top:20px;
+    margin-top: 2rem;
     background: #f7f7f7;
 }
 
 .success-body{
-    font-size: 15px;
+    font-size: 1.5rem;
     color: #111111;
     text-align: center;
-    margin-top:20px;
+    margin-top: 2rem;
     background: #f7f7f7;
 }
 
@@ -210,8 +181,8 @@
 }
 
 .paging{
-    margin-top:20px;
-    margin-bottom:20px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .paging ul {
@@ -224,7 +195,7 @@
 }
 .paging a {
     border: 1px solid #ebeef2;
-    padding: 3px 10px;
+    padding: 0.3rem 1rem;
     margin: 0 3px;
     border-radius: 5px;
 }

@@ -1,7 +1,7 @@
 @import "styles";
 
 label {
-    font-weight: 400;
+    font-weight: 40rem;
 }
 
 .add-product-form-wrapper {
@@ -15,7 +15,7 @@ label {
 }
 
 .drick-select-container {
-    width: 200px;
+    width: 20rem;
     position: relative;
 
     &--fluid {
@@ -35,14 +35,14 @@ label {
 
 .drick-select-container--toggle {
     width: 100%;
-    max-height: 200px;
+    max-height: 20rem;
     border: 1px solid rgba(34,36,38,.15);
     border-top: 0;
     overflow-y: auto;
     overflow-x: hidden;
     position: absolute;
     left: 0;
-    top: 45px;
+    top: 4.5rem;
     z-index: 2;
     background: #fff;
     display: none;
@@ -64,7 +64,7 @@ label {
     width: 100%;
 
     li {
-        padding: 5px 15px;
+        padding: 0.5rem 1.5rem;
         color: rgba(0,0,0,.87);
         transition: all .2s;
         font-size: 1.4rem;
@@ -77,7 +77,7 @@ label {
 }
 
 .margin-left{
-    margin-left:10px;
+    margin-left: 1rem;
 }
 .w_label--for-itemName {
     padding-right: 3%;
