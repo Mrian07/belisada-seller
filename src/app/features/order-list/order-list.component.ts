@@ -20,7 +20,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     hours: 0,
     minutes: 0,
     seconds: 0,
-
     status: 0,
     message: ''
 };
@@ -101,14 +100,12 @@ export class OrderListComponent implements OnInit, OnDestroy {
       this.listCart = response.content;
       console.log(this.listCart.length);
       if ( this.listCart.length === 0) {
-      
-      } if(this.listCart.length >= 0) {
+      } if (this.listCart.length >= 0) {
         b.forEach((x) => {
           mct.countdown(x.expiredSellerProcessDate, (countdown) => {
-            if(this.listCart.length >0) {
+            if (this.listCart.length > 0) {
               this.listCart.find(i => i.invoiceNumber === x.invoiceNumber).countdown = countdown;
             }
-           
             // this.countdown = countdown;
           });
         });
@@ -199,7 +196,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   //  this.ngOnInit();
-   this.orderList();
+  this.orderList();
   }
 
 }

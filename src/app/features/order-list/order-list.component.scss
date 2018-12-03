@@ -20,6 +20,10 @@
     padding-left: 15%;
 }
 
+.button {
+    background: white;
+}
+
 .nm-buyer{
     padding: 1rem;
     border-bottom: 1px solid #dddddd;
@@ -53,6 +57,7 @@
 .nm-item-courier{
     font-size: 1.2rem;
     display: block;
+    cursor: pointer;
 }
 
 .sku-item{

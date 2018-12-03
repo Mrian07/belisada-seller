@@ -34,8 +34,7 @@
 				<div class="col-4" *ngIf="item.countdown">
 					<!-- Batas Waktu Respon:  {{item.expiredSellerProcessDate}} -->
 				<span *ngIf="item.countdown.message !== 'EXPIRED'">
-					Batas Waktu Respon: {{item.countdown.days}}d - {{item.countdown.hours}}h - {{item.countdown.minutes}}m - {{item.countdown.seconds}}s
-					
+					Batas Waktu Respon: {{ item.countdown.days }}d - {{ item.countdown.hours }}h - {{ item.countdown.minutes }}m - {{ item.countdown.seconds }}s
 				</span>  
 				<span *ngIf="item.countdown.message === 'EXPIRED'">
 					{{item.countdown.message}}
@@ -93,7 +92,7 @@
 			</div>
 			<div>
 				<span class="nm-item-courier">{{item.noResi}} ({{item.courierCode}})</span>
-        <span class="nm-item-courier w__edit--cetak-label" (click)="gotoCetakLabelPengiriman(item.orderNumber)"><img src="assets/img/printer.png" border="0" width="20"> <span class="print-order"></span> Cetak Label Pengiriman </span>
+        		<span class="nm-item-courier w__edit--cetak-label" (click)="gotoCetakLabelPengiriman(item.orderNumber)"><img src="assets/img/printer.png" border="0" width="20"> <span class="print-order"></span> Cetak Label Pengiriman </span>
 
 			</div>
 			<div>
