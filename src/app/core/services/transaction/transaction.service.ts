@@ -1,4 +1,4 @@
-import { ShippingData } from './../../models/transaction/transaction.model';
+import { ShippingData, AcceptTransactionResponse, DeclineTransactionResponse } from './../../models/transaction/transaction.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Configuration } from '@belisada-seller/core/config';
@@ -44,5 +44,17 @@ export class TransactionService {
   }
   getBarcode(id) {
     return this.http.get(this.configuration.apiURL + '/seller/shipping/image?orderNumber=' + id);
+  }
+  acceptTransaction(orderNumber: string) {
+    return this.http.post(this.configuration.apiURL + '/seller/order/confirmation/transactionaccepted', { orderNumber: orderNumber })
+    .pipe(
+      map(response => response as AcceptTransactionResponse)
+    );
+  }
+  declineTransaction(orderNumber: string) {
+    return this.http.post(this.configuration.apiURL + '/seller/order/confirmation/transactionrejected', { orderNumber: orderNumber })
+    .pipe(
+      map(response => response as DeclineTransactionResponse)
+    );
   }
 }

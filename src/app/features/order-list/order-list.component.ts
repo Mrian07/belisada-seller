@@ -32,6 +32,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   listCart: Cart[];
   btnResi: boolean;
+  btnChoose: string;
   createComForm: FormGroup;
   actualCourierPrice: number;
   noResi: string;
@@ -197,6 +198,20 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   //  this.ngOnInit();
   this.orderList();
+  }
+
+  acceptTransaction(orderNumber) {
+    this.transactionService.acceptTransaction(orderNumber).subscribe(response => {
+      console.log(response);
+      this.orderList(this.status);
+    });
+  }
+
+  declineTransaction(orderNumber) {
+    this.transactionService.declineTransaction(orderNumber).subscribe(response => {
+      console.log(response);
+      this.orderList(this.status);
+    });
   }
 
 }

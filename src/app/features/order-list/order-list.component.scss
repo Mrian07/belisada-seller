@@ -15,9 +15,15 @@
     font-size: 1.1rem !important;
     font-weight: bold;
     color: #a0a0a0;
+    cursor: pointer;
+
+    &:hover{
+        color: #f5952c;
+    }
 }
 .w--status__wrapper {
     padding-left: 15%;
+    padding-right: 15%;
 }
 
 .button {
@@ -47,6 +53,7 @@
 .w-wrapper__for--cetak_invoice {
     display: grid;
     grid-template-columns: 50% 50%;
+    padding: 2.5rem;
 }
 
 .nm-item{
@@ -57,7 +64,7 @@
 .nm-item-courier{
     font-size: 1.2rem;
     display: block;
-    cursor: pointer;
+    padding-bottom: 2rem;
 }
 
 .sku-item{
@@ -90,12 +97,43 @@
     background: #f5952c;
     color: #fffdfb;
     padding: 1.5rem;
+    width: 20rem;
     text-align: center;
     cursor: pointer;
 }
 
 .btn-order:hover{
     background: #f4b876;
+}
+
+.choose{
+    padding-left: 9rem;
+}
+
+.btn-acc{
+    text-align: center;
+    background: #1ba344;
+    color: #ffffff;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+        background: #bfffb9;
+        }
+}
+
+.btn-dec{
+    text-align: center;
+    background: #ff0000;
+    color: #ffffff;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+            background: #ffb5b5;
+        }
 }
 
 .cart{
