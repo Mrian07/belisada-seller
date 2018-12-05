@@ -98,7 +98,7 @@
 				<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
 					{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
 				</div>
-				<div class="choose" *ngIf="item.statusOrderSellerCode === '187'">
+				<div class="choose" *ngIf="item.statusOrderSellerCode === '187'"> 
 					<span class="btn-acc" (click)="acceptTransaction(item.orderNumber)">Accept</span>
 					<span class="btn-dec" (click)="declineTransaction(item.orderNumber)">Decline</span>
 				</div>

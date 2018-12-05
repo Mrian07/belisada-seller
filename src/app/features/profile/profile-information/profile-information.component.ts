@@ -128,7 +128,6 @@ export class ProfileInformationComponent implements OnInit {
       this.store.regionId = o.regionId;
       delete this.store.cityName;
     }
-  
     getCity() {
       this.storeService.getCity(this.store.regionId).subscribe(data => {
         this.cities = data;

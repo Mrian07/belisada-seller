@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // import { InvoiceData } from '@belisada-seller/core/models/transaction/transaction.model';
 import mct from 'madrick-countdown-timer';
+import swal from 'sweetalert2';
 import { environment } from '@env/environment';
 @Component({
   selector: 'bss-order-list',
@@ -201,17 +202,56 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   acceptTransaction(orderNumber) {
-    this.transactionService.acceptTransaction(orderNumber).subscribe(response => {
-      console.log(response);
-      this.orderList(this.status);
+    swal({
+      title: 'belisada.co.id',
+      text: 'Anda yakin akan menerima pesanan?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Iya',
+      cancelButtonText: 'Tidak',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swal(
+          'Success!',
+          'Anda telah menerima pesanan. Silahkan segera proses pesanan Anda',
+          'success'
+        ).then(() => {
+          this.transactionService.acceptTransaction(orderNumber).subscribe(response => {
+            console.log(response);
+            this.orderList(this.status);
+          });
+        });
+      }
     });
   }
 
   declineTransaction(orderNumber) {
-    this.transactionService.declineTransaction(orderNumber).subscribe(response => {
-      console.log(response);
-      this.orderList(this.status);
-    });
-  }
-
+    swal({
+      title: 'belisada.co.id',
+      text: 'Anda yakin akan menolak pesanan?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Iya',
+      cancelButtonText: 'Tidak',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swal(
+          'Success!',
+          'Anda telah menolak pesanan.',
+          'success'
+        ).then(() => {
+          this.transactionService.declineTransaction(orderNumber).subscribe(response => {
+            console.log(response);
+            this.orderList(this.status);
+          });
+          });
+          }
+        });
+      }
 }
