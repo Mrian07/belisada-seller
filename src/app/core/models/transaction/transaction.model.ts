@@ -94,10 +94,10 @@ export class CartItems {
     total: number;
     totalWeight: number;
     weightPerItem: number;
-    varians: Varians[];
+    varians: VariansTransaction[];
 }
 
-export class Varians {
+export class VariansTransaction {
     attributeId: number;
     name: string;
     varians: DetailVarian[];
