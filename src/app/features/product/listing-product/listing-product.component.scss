@@ -7,7 +7,7 @@ a {
     cursor: pointer;
 }
 .w__myProduk {
-    font-size: 20px;
+    font-size: 2rem;
     font-weight: bold;
 }
 
@@ -17,7 +17,7 @@ a {
     margin-bottom: 3%;
     .w__text--tambah--produk {
         line-height: 7;
-        font-size: 22px;
+        font-size: 2.2rem;
         color: #8f8f8f;
         margin-left: 3rem;
         cursor: pointer;
@@ -33,14 +33,14 @@ a {
 .wrapper-w__for--listing--product {
     display: grid;
 grid-template-columns: 20% 27% 54%;
-grid-gap: 10px;
+grid-gap: 1rem;
 
 }
 
 .w__bacground--border {
     background-color: #f0f0f0;
     color: #444;
-    border-radius: 6px;
+    border-radius: 0.6rem;
     padding: 1rem;
 }
 .w_col-3 {
@@ -49,27 +49,31 @@ grid-gap: 10px;
 }
 
 .image-box {
-    height: 70px;
+    height: 7rem;
 }
-
 
 .w__margin--right {
     // margin-right: 7px;
     // padding: 13%;
 }
+
 .w__float--left {
     float: left;
     margin-right: 1rem;
 }
+
 .m__margin--top {
-    margin-top: 20px;
+    margin-top: 2rem;
 }
+
 .wrapper-X {
     grid-template-columns: 100%;
 }
+
 .w__kosongkan_stok {
     display: block;
 }
+
 .w__margin--input {
     margin-left: 5rem;
 }
@@ -78,6 +82,7 @@ grid-gap: 10px;
     display: grid;
     grid-template-columns: 45% 26% 25%;
 }
+
 .w__margin--switch {
     // margin-left: 3rem;
 }
@@ -102,41 +107,43 @@ grid-gap: 10px;
     }
     .w__hrgaBarang {
         display: block;
-        padding-top: 15px;
+        padding-top: 1.5rem;
     }
-
 }
+
 .w__prodDessc {
     word-wrap: break-word;
 }
+
 .w__descr {
     border: 1px solid #dfdfdf;
     padding: 1rem;
     text-align: justify;
 }
+
 .row {
-    margin-bottom: 4px !important;
+    margin-bottom: 0.4rem !important;
 }
 
-
 .con-image{
-    // width: 481px;
     text-align: center;
     .w__display--image {
         display: block;
     }
 }
+
 .w__hargabarangFromBackEnd {
     white-space: pre-wrap;
 
 }
+
 .show-image-small{
     border: 1px solid #dddddd;
-    margin-left:10px;
-    padding: 10px;
+    margin-left: 1rem;
+    padding: 1rem;
     display: inline-block;
     cursor: pointer;
-    margin-bottom:8px;
+    margin-bottom: 0.8rem;
 }
 .paging {
     color: red;
@@ -146,29 +153,33 @@ grid-gap: 10px;
     list-style-type: none;
     padding: 0;
     text-align: center;
-  }
-  .paging li {
-    display: inline-block;
+}
 
-  }
-  .paging a {
+.paging li {
+    display: inline-block;
+}
+
+.paging a {
     border: 1px solid #ebeef2;
-    padding: 3px 10px;
+    padding: 0.3rem 1rem;
     margin: 0 3px;
-    border-radius: 5px;
-  }
-  .paging a.current-page {
+    border-radius: 0.5rem;
+}
+
+.paging a.current-page {
     border: 1px solid #cde;
     background: #def;
     color: #999;
     cursor: default;
-  }
-  .paging a:not(.disabled):not(.current-page):hover {
+}
+
+.paging a:not(.disabled):not(.current-page):hover {
     color: #abc;
     cursor: pointer;
     border-color: #cde;
-  }
-  .paging a.disabled {
+}
+
+.paging a.disabled {
     color: #ccc;
     cursor: default;
-  }
+}

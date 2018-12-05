@@ -75,7 +75,11 @@
             <td colspan="4"><div class="i-line">&nbsp;</div></td>
           </tr>
         <tr *ngFor="let item of info.cartItems">
-          <td>{{item.name}}</td>
+          <td>{{item.name}}<br>
+            <span *ngFor="let varian of item.varians; let i = index">
+              {{varian.varians[0].value}} {{ (i === item.varians.length - 1) ? '' : ' - ' }}
+            </span>
+          </td>
           <td>x {{item.quantity}}</td>
           <td>{{item.weightPerItem}}kg</td>
           <td class="i-price">{{item.subtotal | currency:'Rp '}}</td>

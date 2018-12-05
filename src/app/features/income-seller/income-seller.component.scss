@@ -11,26 +11,24 @@
 }
 
 .text-collor__black {
-     color: black;
+    color: black;
 }
 
-
-
 .text__header--title {
-    font-size: 30px;
+    font-size: 3rem;
     color: black;
     display: block;
 }
 .wrapper--income-seler {
-    padding: 30px;
+    padding: 3rem;
 }
 .background__header--title {
     background: #ECECEC;
     border: 1px solid #D8D8D8;
-    padding: 12px;
+    padding: 1.2rem;
    
     .text--background__header--title {
-        font-size: 20px;
+        font-size: 2rem;
         color: black;
         
     }
@@ -71,7 +69,6 @@
 }
 
 .wrapper--body {
-    // border: 1px solid #eee;
     margin-top: 10px;
     .four-grid {
         display: grid;

@@ -16,41 +16,37 @@
 	</div>
 </div>
 <div class="frame-contain" *ngFor="let item of listCart">
-	<div class="nm-buyer">
-		<div class="row">
-			<div *ngIf="item.countdown === undefined; else login">
-				<div class="col-6">
-					{{item.namaPenerima}}
-				</div>
-				<div class="col-6 right">
-					No Pesanan : {{item.invoiceNumber}}
+		<div class="nm-buyer">
+				<div class="row">
+					<div *ngIf="item.countdown === undefined; else login">
+						<div class="col-6">
+							Customer : <b>{{item.namaPenerima}}</b>
+						</div>
+						<div class="col-6 right">
+							No Pesanan : <b>{{item.invoiceNumber}}</b>
+						</div>
+					</div>
+		
+					<ng-template #login>
+						<div class="col-4">
+								Customer : <b>{{item.namaPenerima}}</b>
+						</div>
+						<div class="col-4" *ngIf="item.countdown">
+							<!-- Batas Waktu Respon:  {{item.expiredSellerProcessDate}} -->
+						<span *ngIf="item.countdown.message !== 'EXPIRED'">
+							Batas Waktu Respon: {{ item.countdown.days }}d - {{ item.countdown.hours }}h - {{ item.countdown.minutes }}m - {{ item.countdown.seconds }}s
+						</span>  
+						<span *ngIf="item.countdown.message === 'EXPIRED'">
+							{{item.countdown.message}}
+						</span>
+							<!-- {{item.expiredSellerProcessDate.days}}d - {{item.expiredSellerProcessDate.hours}}h - {{item.expiredSellerProcessDate.minutes}}m - {{item.expiredSellerProcessDate.seconds}}s -->
+							</div>
+						<div class="col-4 right">
+							No Pesanan : <b>{{item.invoiceNumber}}</b>
+						</div>
+					</ng-template>
 				</div>
 			</div>
-
-			<ng-template #login>
-				<div class="col-4">
-					{{item.namaPenerima}}
-				</div>
-				<div class="col-4" *ngIf="item.countdown">
-					<!-- Batas Waktu Respon:  {{item.expiredSellerProcessDate}} -->
-				<span *ngIf="item.countdown.message !== 'EXPIRED'">
-					Batas Waktu Respon: {{item.countdown.days}}d - {{item.countdown.hours}}h - {{item.countdown.minutes}}m - {{item.countdown.seconds}}s
-					
-				</span>  
-				<span *ngIf="item.countdown.message === 'EXPIRED'">
-					{{item.countdown.message}}
-				</span>
-					<!-- {{item.expiredSellerProcessDate.days}}d - {{item.expiredSellerProcessDate.hours}}h - {{item.expiredSellerProcessDate.minutes}}m - {{item.expiredSellerProcessDate.seconds}}s -->
-					</div>
-				<div class="col-4 right">
-					No Pesanan : {{item.invoiceNumber}}
-				</div>
-			</ng-template>
-
-
-        </div>
-
-		</div>
 	<div class="cont-buyer">
 		<div class="frame-cont">
 			<div>
@@ -60,28 +56,29 @@
 					</div>
 					<div>
 						<span class="nm-item">{{itemChild.name}}</span>
+						<span *ngFor="let varian of itemChild.varians; let i = index">
+							{{varian.varians[0].value}} {{ (i === itemChild.varians.length - 1) ? '' : ' - ' }}
+						</span>
 						<span class="sku-item">[{{itemChild.sku}}]</span>
 					</div>
 					<div class="qty-item">
 							x{{itemChild.quantity}}
-			</div>
-			<div>
-				<span class="uang-item">{{itemChild.subtotal  | currency:'Rp ' }}</span>
-				<span class="small-text"> {{ item.paymentMethod }}</span>
-            </div>
-        </div>
-        <div class="w-wrapper__for--cetak_invoice">
-            <div>
+					</div>
+					<div>
+						<span class="uang-item">{{itemChild.subtotal  | currency:'Rp ' }}</span>
+						<span class="small-text"> {{ item.paymentMethod }}</span>
+            		</div>
+        		</div>
+        		<div class="w-wrapper__for--cetak_invoice">
+            		<div>
 
-			</div>
-			<div>
-				<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
-					Cetak Invoice
-				</div>
-			</div>
-        </div>
-
-
+					</div>
+					<div>
+						<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
+							Cetak Invoice
+						</div>
+					</div>
+        		</div>
 			</div>
 			<!-- <div>
 				<span class="uang-item">{{item.subTotal  | currency:'Rp ' }}</span>
@@ -93,14 +90,18 @@
 			</div>
 			<div>
 				<span class="nm-item-courier">{{item.noResi}} ({{item.courierCode}})</span>
-        <span class="nm-item-courier w__edit--cetak-label" (click)="gotoCetakLabelPengiriman(item.orderNumber)"><img src="assets/img/printer.png" border="0" width="20"> <span class="print-order"></span> Cetak Label Pengiriman </span>
+        		<span class="nm-item-courier w__edit--cetak-label" (click)="gotoCetakLabelPengiriman(item.orderNumber)"><img src="assets/img/printer.png" border="0" width="20"> <span class="print-order"></span> Cetak Label Pengiriman </span>
 
 			</div>
 			<div>
-        		<span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
-				<div class="btn-order" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
+				<span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
+				<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
 					{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
-        		</div>
+				</div>
+				<div class="choose" *ngIf="item.statusOrderSellerCode === '187'">
+					<span class="btn-acc" (click)="acceptTransaction(item.orderNumber)">Accept</span>
+					<span class="btn-dec" (click)="declineTransaction(item.orderNumber)">Decline</span>
+				</div>
 			</div>
 		</div>
 	</div>

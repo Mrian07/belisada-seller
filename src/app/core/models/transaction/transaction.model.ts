@@ -1,3 +1,5 @@
+import { BaseResponseModel } from '../base-response.model';
+
 export class ListingOrder {
     buyerEmail: string;
     buyerName: string;
@@ -60,13 +62,13 @@ export class Cart {
 }
 
 export class Countdown {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
 
-  status: number;
-  message: string;
+    status: number;
+    message: string;
 }
 
 export class Destinations {
@@ -92,6 +94,18 @@ export class CartItems {
     total: number;
     totalWeight: number;
     weightPerItem: number;
+    varians: Varians[];
+}
+
+export class Varians {
+    attributeId: number;
+    name: string;
+    varians: DetailVarian[];
+}
+
+export class DetailVarian {
+    attributeValueId: number;
+    value: string;
 }
 
 export class ListOrderSellerResponse {
@@ -163,4 +177,12 @@ export class ShippingListData {
     asuransi: string;
     courierName: string;
     courierService: string;
+}
+
+export class AcceptTransactionResponse extends BaseResponseModel {
+
+}
+
+export class DeclineTransactionResponse extends BaseResponseModel {
+
 }

@@ -1,13 +1,13 @@
 .frame-print{
     margin:0px auto;
-    width: 700px;
+    width: 70rem;
     border: 1px solid #dddddd;
-    padding:10px;
-    margin-top:20px;
+    padding: 1rem;
+    margin-top: 2rem;
 }
 
 .title-text{
-    font-size: 15px;
+    font-size: 1.5rem;
     color:#111111;
     font-weight: bold;
     display: block;
@@ -16,50 +16,50 @@
 .frame-print-cont{
     background: #efefef;
     color: #111111;
-    padding: 10px;
+    padding: 1rem;
 }
 
 .cont-title{
-    font-size: 20px;
+    font-size: 2rem;
     display: block;
 }
 
 .cont-hp{
-    font-size: 18px;
+    font-size: 1.8rem;
     display: block;
 }
 
 .cont-nama{
-    font-size: 15px;
+    font-size: 2rem;
     display: block;
     font-weight: bold;
 }
 
 .cont-almt{
-    font-size: 16px;
+    font-size: 1.6rem;
     display: block;
     font-weight: bold;
 }
 
 .cont-pack{
-    font-size: 16px;
+    font-size: 1.6rem;
     display: block;
     font-weight: bold;
     color: #111111;
 }
 .img--barcode {
-  width: 50%;
+    width: 50%;
 }
 
 @media print {
-  .do-not-print {
-    display: none!important;
-  }
-  .frame-print-cont{
-    background: #efefef;
-    color: #111111;
-    padding: 10px;
-    box-shadow: inset 0 0 0 1000px #efefef;
-}
+    .do-not-print {
+        display: none!important;
+    }
+    .frame-print-cont{
+        background: #efefef;
+        color: #111111;
+        padding: 10px;
+        box-shadow: inset 0 0 0 1000px #efefef;
+    }
 
 }

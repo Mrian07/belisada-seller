@@ -1,11 +1,11 @@
 .title{
     font-family: arial;
-    font-size: 30px;
+    font-size: 3rem;
 }
 
 .frame-menu{
-    margin-top:20px;
-    padding: 7px;
+    margin-top: 2rem;
+    padding: 0.7rem;
     border: 1px solid #dddddd;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -14,25 +14,14 @@
     cursor: pointer;  
 }
 
-// .menu{
-//     font-size: 13px;
-//     border-bottom: 2px solid #ffffff;
-// }
-
-// .menu:hover{
-//     font-weight: bold;
-//     color: #f37b37;
-//     border-bottom: 2px solid #f37b37;
-// }
-
 .btn-tab{
     
     &__active{
         text-align: center;
         border-bottom: 2px solid #f27138;
         color: #f27138;
-        padding:5px;
-        margin-right:5px;
+        padding: 0.5rem;
+        margin-right: 0.5rem;
         cursor: pointer;
     }
 
@@ -40,8 +29,8 @@
         text-align: center;
         border-bottom: 1px solid #ffffff;
         color: #222222;
-        padding:5px;
-        margin-right:5px;
+        padding: 0.5rem;
+        margin-right: 0.5rem;
         cursor: pointer;
     }
     
@@ -53,5 +42,5 @@
 }
 
 .frame-menu-contain{
-    margin-top:10px;
+    margin-top: 1rem;
 }
