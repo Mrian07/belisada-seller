@@ -4,11 +4,15 @@
         <div class="row wrapper--product-detail">
             <div class="col-3">
                 <div>
-                    <img *ngFor="let item of product?.imageUrl" [src]="productImage + item" class="wrapper--product-detail__image">
-                    <img *ngFor="let itemx of getDataProdV2?.imageUrl" [src]="productImage + itemx" class="wrapper--product-detail__image">
-                    <!-- <img [src]="productStoreUrl + item.imageUrl[0]" alt=""> -->
+                    <div>
+                        <img [src]="productImage + displayImage">
+                    </div>
+                    <div class="row small-gutters">
+                        <div class="col-md-5r" *ngFor="let item of product?.imageUrl">
+                            <img [src]="productImage + item">
+                        </div>
+                    </div>
                 </div>
-                <!-- {{product.brandId}} -->
                 <br>
 
                 <span class="wrapper--product-detail__text">Spesifikasi Produk</span>
@@ -36,7 +40,7 @@
                 <br>
 
                 <textarea class="wrapper--product-detail2__text2" readonly>
-                  {{ product?.description }}
+                    {{ product?.description }}
                 </textarea>
                 <br>
                 <form [formGroup]="addProductForm">
@@ -60,75 +64,66 @@
                                 <option *ngFor="let i of warrLong" [value]="i.statusCode">{{ i.status }}</option>
                             </select>
                             <div *ngIf="(submitted || f.guaranteeTime.touched) && f.guaranteeTime.invalid">
-                                    <bss-field-error [displayError]="f.guaranteeTime.errors.required" errorMsg="Silahkan pilih garansi"></bss-field-error>
-                                </div>
+                                <bss-field-error [displayError]="f.guaranteeTime.errors.required" errorMsg="Silahkan pilih garansi"></bss-field-error>
+                            </div>
                         </div>
                     </div>
-                    <div style="overflow-x:auto;">
-                        <table>
-                            <tr>
-                                <th>
-                                    Pilih variasi sesuai dengan yang anda miliki
-                                </th>
-                                <th>
-                                    <span class="wrapper--product-detail2__variasi--in-variasi">Harga jual</span>
-                                    <input [(ngModel)]="daddyPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" (keypress)="numberCheck($event)" />
-                                </th>
-                                <th>
-                                    <span class="wrapper--product-detail2__variasi--in-variasi">Harga promo</span>
-                                    <input [(ngModel)]="dadySpecialPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga" maxlength="10" (keypress)="numberCheck($event)" />
-                                </th>
-                                <th>
-                                    <span class="wrapper--product-detail2__variasi--in-variasi">Stok barang</span>
-                                    <input [(ngModel)]="dadyStock" [ngModelOptions]="{standalone: true}" placeholder="stok" type="text" class="form-control" (keypress)="numberCheck($event)">
-                                </th>
-                                <th>
-                                    <button class="btn" (click)="applyForAll()">Terapkan ke Semua</button>
-                                </th>
-                            </tr>
-                            
-                            <tbody formArrayName="varians">
-                                <tr [formGroupName]="i" *ngFor="let variant of getVariants(addProductForm); let i = index">
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="row">
-                                                    <div class="col-3">
-                                                        <img [src]="productStoreUrl + VariantAttr[i]?.imageUrl[0]" alt="">
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <span *ngFor="let item of VariantAttr[i]?.attributeVarians">{{ item.value }}</span>
-                                                    </div>
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" (change)="calculateDiscount()"  formControlName="pricelist" class="form-control" maxlength="10" (keypress)="numberCheck($event)">
-                                   
-                                    </td>
-                                    <td>
-                                        <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control" maxlength="10" (keypress)="numberCheck($event)">
-                                    </td>
-                                    <td>
-                                        <input type="text" formControlName="qty" class="form-control" (keypress)="numberCheck($event)">
-                                    </td>
-                                    <td>
-    
-                                        <label class="switch small">
-                                            <input formControlName="isUsed"   type="checkbox">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <!-- <div *ngFor="let item of dataVarianEdit">
-                                a
-                            </div> -->
-                            
-                        </table>
+
+                    <div class="row small-gutters u-margin-bottom-1">
+                        <div class="col-md-4">
+                            Pilih variasi sesuai dengan yang anda miliki
+                        </div>
+                        <div class="col-md-2">
+                            <input [(ngModel)]="daddyPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga jual" maxlength="10" (keypress)="numberCheck($event)" />
+                        </div>
+                        <div class="col-md-2">
+                            <input [(ngModel)]="dadySpecialPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga promo" maxlength="10" (keypress)="numberCheck($event)" />
+                        </div>
+                        <div class="col-md-2">
+                            <input [(ngModel)]="dadyStock" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="stok" (keypress)="numberCheck($event)" />
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn--default" (click)="applyForAll()">Terapkan ke Semua</button>
+                        </div>
                     </div>
+
+                    <div formArrayName="varians">
+                        <div class="row small-gutters u-margin-bottom-1" [formGroupName]="i" *ngFor="let variant of getVariants(addProductForm); let i = index">
+                            <div class="col-md-4">
+                                <!-- <img [src]="productStoreUrl + VariantAttr[i]?.imageUrl[0]" alt=""> -->
+                                <span [class]="'variant-separator variant-separator--' + i" *ngFor="let item of VariantAttr[i]?.attributeVarians; let i = index">{{ item.value }}</span>
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="text" (change)="calculateDiscount()"  formControlName="pricelist" class="form-control"
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control"
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" formControlName="qty" class="form-control" (keypress)="numberCheck($event)">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="switch small">
+                                    <input formControlName="isUsed" type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="offset-md-4 col-md-6">
+                                <div *ngIf="(submitted || variant.touched) && variant.errors">
+                                    <bss-field-error [displayError]="variant.errors.invalidprice" errorMsg="Harga promo tidak boleh lebih besar dari harga jual"></bss-field-error>
+                                </div>
+                                <div *ngIf="(submitted || variant.controls.pricelist.touched) && variant.controls.pricelist.invalid">
+                                    <bss-field-error [displayError]="variant.controls.pricelist.errors.min" errorMsg="Harga jual minimal Rp 100"></bss-field-error>
+                                    <bss-field-error [displayError]="variant.controls.pricelist.errors.required" errorMsg="Harga jual harus diisi"></bss-field-error>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <h4>Jasa Pengiriman</h4>
                     <!-- <div class="row"> -->
                     <div class="col-12">
@@ -220,11 +215,7 @@
 
 </div>
 <div class="row">
-    <div class="col-12 wrapper-btm">
-        <button (click)="postProductV2()" class="btn wrapper-btm__btn">Add Product</button>
-
+    <div class="col-12 wrapper-btm text-right">
+        <button (click)="postProductV2()" class="btn btn--orange">Add Product</button>
     </div>
 </div>
-<!-- <pre>
-{{ addProductForm.value | json }}
-</pre> -->

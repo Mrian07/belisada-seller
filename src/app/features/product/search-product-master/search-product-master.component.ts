@@ -5,6 +5,7 @@ import { ProductSuggestion } from '@belisada-seller/core/models';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'bss-search-product-master',
@@ -23,11 +24,16 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   a;
   b;
   btnResi: boolean;
+
+  public pImageThumborUrl: string;
+
   constructor(
     private fb: FormBuilder,
     public productsSandbox: ProductsSandbox,
     private router: Router,
-    ) { }
+  ) {
+    this.pImageThumborUrl = environment.thumborUrl + 'unsafe/80x80/';
+  }
 
   ngOnInit() {
     this.addProductForm = this.fb.group({
@@ -64,7 +70,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   test () {
     this.productsSandbox.reqProduct(this.addProductForm.value);
   }
-  
+
   ngOnDestroy() {
     console.log('123');
     // console.log('this.a:', this.a);

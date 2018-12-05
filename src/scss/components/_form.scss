@@ -57,6 +57,11 @@ label {
     transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s
 }
 
+.form-error {
+    color: red;
+    border-color: red;
+}
+
 .form-control-validation {
     font-weight: 700;
     font-size: 1.2rem;

@@ -1,6 +1,6 @@
 textarea {
     resize: none;
-  }
+}
 
 .search--wrapper {
     margin-top: 4%;
@@ -11,9 +11,7 @@ textarea {
 
     &__text {
         display: inline-block;
-        text-transform: capitalize;
     }
-   
 }
 
 .wrapper--image {
@@ -38,11 +36,11 @@ textarea {
 }
 
 .wrapper--modal {
- &__h4 {
-     display: block;
-     text-align: center;
-     text-transform: capitalize;
- }   
+    &__h4 {
+        display: block;
+        text-align: center;
+        text-transform: capitalize;
+    }   
 }
 
 
@@ -102,6 +100,15 @@ textarea {
         color: rgba(0,0,0,.87);
         transition: all .2s;
         font-size: 1.4rem;
+
+        &.product-list {
+            // display: table-cell;
+            vertical-align: middle;
+        }
+
+        .p-image {
+            vertical-align: middle;
+        }
 
         &:hover {
             cursor: pointer;

@@ -2,12 +2,21 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsSandbox } from '../products.sandbox';
 import { Subscription } from 'rxjs';
 import { AddProductRequest, Reference, VariantAttr, Variant, ProductCreate, ProductDetailData } from '@belisada-seller/core/models';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 
 import { environment } from '@env/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProductService } from '@belisada-seller/core/services';
 import swal from 'sweetalert2';
+
+function compareTwoPrices(c: AbstractControl) {
+  if (c.get('specialPrice').value === '' || c.get('pricelist').value === '') {
+    return null;
+  }
+
+  return +c.get('specialPrice').value >= +c.get('pricelist').value ?
+  { 'invalidprice': true } : null;
+}
 @Component({
   selector: 'bss-add-product-v2',
   templateUrl: './add-product-v2.component.html',
@@ -41,6 +50,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public dadyStock: number;
   submitted: Boolean = false;
 
+  public displayImage: string;
 
   constructor(
     public productsSandbox: ProductsSandbox,
@@ -50,7 +60,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     private router: Router,
   ) {
     this.productStoreUrl = environment.thumborUrl + 'unsafe/50x50/center/filters:fill(fff)/';
-    this.productImage = environment.thumborUrl + 'unsafe/80x80/center/filters:fill(fff)/';
+    this.productImage = environment.thumborUrl + 'unsafe/fit-in/400x400/center/filters:fill(fff)/';
     this.productId = this.activatedRoute.snapshot.params.id;
   }
   get f() { return this.addProductForm.controls; }
@@ -67,24 +77,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     });
     this.productsSandbox.courier();
 
-    // this.subscriptions.push(this.productsSandbox.productVaraiant$.subscribe((varr: any) => {
-      
-    //   console.log('ini var', varr);
-    //   if (varr) {
-    //     this.VariantAttr = varr;
-    //     this.VariantAttr.forEach((variant, index) => {
-    //       this.addVariants();
-    //       const control = <FormArray>this.addProductForm.get('varians');
-    //       control.at(index).patchValue({
-    //         masterVarianId: variant.masterVarianId,
-    //       });
-    //     });
-    //     // console.log('a', varr);
-    //   }
-    //     this.productsSandbox.courier();
-    // }));
-
-   
     this.activatedRoute.params.subscribe((params: Params) => {
       this.masterId = params.id;
       this.addProductForm.patchValue({
@@ -102,37 +94,23 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         });
       });
       console.log(params);
-      console.log('console.log(this.router.url);: ',this.router.url);
+      console.log('console.log(this.router.url): ', this.router.url);
       console.log(this.router.url);
       this.routeUrl = this.router.url === '/products/' + params.id;
-      if(this.router.url === '/products/' + params.id) {
-          // console.log('123');
+      if (this.router.url === '/products/' + params.id) {
+
       } else {
         this.productService.getDetailById(params.id).subscribe(data => {
           this.product = data.data;
           console.log('data:edited', data.data);
           this.addProductForm.patchValue({
-                    guaranteeType: this.product.guaranteeType,
-                    guaranteeTime: this.product.guaranteeTime,
-                    couriers: (this.productId) ? this.product.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
-                    masterId:  this.product.masterId,
-                    productId: this.product.productId
-                  });
+            guaranteeType: this.product.guaranteeType,
+            guaranteeTime: this.product.guaranteeTime,
+            couriers: (this.productId) ? this.product.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
+            masterId:  this.product.masterId,
+            productId: this.product.productId
+          });
         });
-        // this.subscriptions.push(this.productsSandbox.getProductDetailForPost$.subscribe((productEdit: any) => {
-        //   console.log('productEdit:',productEdit);
-        //   if (productEdit) {
-        //     this.product = productEdit;
-        //     this.addProductForm.patchValue({
-        //         guaranteeType: productEdit.guaranteeType,
-        //         guaranteeTime: productEdit.guaranteeTime,
-        //         couriers: (this.productId) ? productEdit.couriers.filter(x => x.isUse === true).map(x => x.code) : [],
-        //         masterId:  productEdit.masterId,
-        //         productId: productEdit.productId
-        //       });
-        //     // console.log('asd:', productEdit);
-        //   }
-        // }));
 
         this.productService.getProdVarian(params.id).subscribe(data => {
           console.log('data', data);
@@ -160,7 +138,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   }
 
   private _initVariants(): FormGroup {
-    // initialize our attributeVariants
     return this.fb.group({
       masterVarianId: [''],
       pricelist: ['', [Validators.required, Validators.min(100)]],
@@ -169,7 +146,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       isUsed: [true],
       discount: [''],
       productId: ['']
-    });
+    }, {validator: compareTwoPrices});
   }
 
   /**
@@ -212,11 +189,11 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
   xx() {
     const control = <FormArray>this.addProductForm.get('varians');
-   control.value.forEach(asd => {
-     if(asd.isUsed) {
-       console.log('123')
-     }
-   });
+    control.value.forEach(asd => {
+      if (asd.isUsed) {
+        console.log('123');
+      }
+    });
     console.log(control.value);
   }
 
@@ -251,6 +228,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     const b = control.value.filter(item => item.isUsed !== false);
     // console.log(b);
 
+    // console.log('control: ', control);
 
 
     const a = this.addProductForm.value;
@@ -258,16 +236,16 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
 
     const c = b;
-   const xx = b.forEach(element => {
+    const xx = b.forEach(element => {
       if (element.pricelist < 100) {
-             swal(
+      swal(
         'Warning',
         'harga tidak boleh dibawah 100',
         'warning'
       );
       return;
       }
-     });
+    });
 
     if (this.addProductForm.get('couriers').value.length <= 0) {
       swal(
@@ -279,20 +257,20 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     }
 
     if (this.addProductForm.valid) {
-      console.log('ini kalo benar')
-          if ( this.router.url === '/edit-products/' + this.masterId) {
-      console.log('this.addProductForm.value-asd---: ', this.addProductForm.value);
-      this.productService.editProductPost(a).subscribe(response => {
-        // console.log(response);
-        swal(
-        'belisada.co.id',
-        response.message,
-        (response.status === 0) ? 'error' : 'success'
-      );
-      if (response.status === 1) {
-        this.router.navigate(['/listing-product']);
-      }
-    });
+      console.log('ini kalo benar');
+      if ( this.router.url === '/edit-products/' + this.masterId) {
+        console.log('this.addProductForm.value-asd---: ', this.addProductForm.value);
+        this.productService.editProductPost(a).subscribe(response => {
+          // console.log(response);
+          swal(
+          'belisada.co.id',
+          response.message,
+          (response.status === 0) ? 'error' : 'success'
+        );
+        if (response.status === 1) {
+          this.router.navigate(['/listing-product']);
+        }
+      });
     } else {
       console.log('this.addProductForm.value----: ', this.addProductForm.value);
       this.productService.addProductV2(a).subscribe(response => {
@@ -308,18 +286,8 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     });
     }
     } else {
-      console.log('ini kalo salah')
-    
+      console.log('ini kalo salah');
     }
-    /*
-       couriers: [[]],
-      guaranteeTime:  [''],
-      guaranteeType:  [''],
-      masterId:  [''],
-      varians: this.fb.array([]),
-     */
-   
-  
   }
   calculateDiscount() {
       const controls = this.getVariants(this.addProductForm);
@@ -361,21 +329,16 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   }
 
   private _getDetailProd() {
-    // this.activatedRoute.params.subscribe((params: Params) => {
-    //   this.productService.getProductSuggestionDetailV2(params.id).subscribe(data => {
-    //     this.productV2 = data.data;
-    //     console.log('12312321',data.xdata);
-    //   });
-    // });
-  
     this.subscriptions.push(this.productsSandbox.productAdd$.subscribe((product: any) => {
       if (product) {
         this.product = product.data;
+        this.displayImage = this.product.imageUrl[0];
         console.log('product: ', this.product);
       }
     }));
   }
-  numberCheck(event: any) {
+  numberCheck(event: any, variant) {
+    console.log('variant: ', variant);
     const pattern = /[0-9]/;
 
     const inputChar = String.fromCharCode(event.charCode);

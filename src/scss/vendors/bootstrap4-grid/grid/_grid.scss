@@ -60,5 +60,6 @@
 
 @if $enable-grid-classes {
   @include make-grid-columns();
+  @include make-grid-columns-custom(5);
   @include make-grid-columns-custom(8);
 }

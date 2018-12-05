@@ -1,73 +1,52 @@
 <section class="search--wrapper">
-  <h4 class="search--wrapper__text">
-    silahkan mencari produk yang ingin anda tambahkan
-    <!-- <p *ngIf="(productsSandbox.productSearch$ | async)?.loading  === null">
-      xxxxxxxxx
-    </p> -->
-    <!-- {{productsSandbox.productsSearchLoading$ | async}} -->
-  </h4>
-  <div class="">
-      <div class="drick-select-container drick-select-container--fluid">
-          <div class="ui icon input parent">
-              <input class="f-control drick-select__text" [(ngModel)]="name" [ngClass]="{'active':onProductNameFocus}" type="text"
-                 (keyup)="searchProductName($event)" (focus)="onProductNameFocus = true"
-                  (focusout)="onProductNameBlur()" maxlength="160" placeholder="Nama Produk">
-              <i class="drick-select__icon caret down icon"></i>
-          </div>
-          <div class="drick-select-container--toggle__here" [ngClass]="{'active':onProductNameFocus}">
-              <ul class="drick-select-list">
-                  <li *ngFor="let i of productsSandbox.productSearch$ | async" (click)="selectProductName(i.productId, i.name)">
-                    <img  width="80px" src="{{ i.imageUrl }}">  {{i.name}}
-                  <li *ngIf="(productsSandbox.productSearch$ | async)?.length  === 0">
-                      Tidak ada hasil
-                  </li>
-              </ul>
-          </div>
-
-          <div class="wrapper--image" *ngIf="(productsSandbox.productSearch$ | async)?.length  === 0 || checkIfLength === true">
-            <div class="wrapper--image__image">
-              <img src="/assets/img/asetnotfound.png">
+    <h4 class="search--wrapper__text">
+        Silahkan mencari produk yang ingin anda tambahkan
+    </h4>
+    <div class="">
+        <div class="drick-select-container drick-select-container--fluid">
+            <div class="ui icon input parent">
+                <input class="f-control drick-select__text" [(ngModel)]="name" [ngClass]="{'active':onProductNameFocus}" type="text"
+                    (keyup)="searchProductName($event)" (focus)="onProductNameFocus = true"
+                    (focusout)="onProductNameBlur()" maxlength="160" placeholder="Nama Produk">
+                <i class="drick-select__icon caret down icon"></i>
             </div>
-            <span class="wrapper--image__text">
-                seperti nya produk yang anda cari tidak ada di database kami silahkan ajukan produk anda
-            </span>
-            <div class="wrapper--image__btn">
-              <button class="btn wrapper--image__btn--btn-color" (click)="btnResi = !btnResi" >Disini</button>
+            <div class="drick-select-container--toggle__here" [ngClass]="{'active':onProductNameFocus}">
+                <ul class="drick-select-list">
+                    <li *ngFor="let i of productsSandbox.productSearch$ | async"
+                        (click)="selectProductName(i.productId, i.name)" class="product-list">
+                        <img class="p-image" [src]="pImageThumborUrl + i.imageUrl">  {{i.name}}
+                    </li>
+                    <li *ngIf="(productsSandbox.productSearch$ | async)?.length  === 0">
+                        Tidak ada hasil
+                    </li>
+                </ul>
             </div>
-          </div>
-           
-          <!-- <div *ngIf="(submitted || f.name.touched) && f.name.invalid">
-              <bss-field-error [displayError]="f.name.errors.required" errorMsg="Silahkan masukan nama produk kamu"></bss-field-error>
-          </div> -->
-      </div>
-  </div>
 
-     <!-- <p *ngIf="(productsSandbox.productAdd$)">
-      xxxxxxxxx
-      {{productsSandbox.productAdd$.status}}z
-       {{ productAdd$.data }}
-    </p> -->
-
-
+            <div class="wrapper--image" *ngIf="(productsSandbox.productSearch$ | async)?.length  === 0 || checkIfLength === true">
+                <div class="wrapper--image__image">
+                    <img src="/assets/img/asetnotfound.png">
+                </div>
+                <span class="wrapper--image__text">
+                    seperti nya produk yang anda cari tidak ada di database kami silahkan ajukan produk anda
+                </span>
+                <div class="wrapper--image__btn">
+                    <button class="btn wrapper--image__btn--btn-color" (click)="btnResi = !btnResi" >Disini</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <app-models [(visible)]="btnResi" class="frameDialog">
-  <div class="wrapper--modal">
-    <h4 class="wrapper--modal__h4">
-      ajukan produk yang anda inginkan disini
-    </h4>
-    <form [formGroup]="addProductForm">
-      <input  formControlName="name"  type="text" class="f-control" placeholder="Merek Produk">
-      <input formControlName="nameProduk" type="text" class="f-control" placeholder="Nama Produk">
-      <textarea name="" class="f-control" id="" cols="30" rows="10" placeholder="Descripsi Produk"></textarea>
-
-
-      <button (click)= "test()" (click)="btnResi = !btnResi" class="btn">Tambah</button>
-    </form>
-  </div>
+    <div class="wrapper--modal">
+        <h4 class="wrapper--modal__h4">
+            Ajukan produk yang anda inginkan disini
+        </h4>
+        <form [formGroup]="addProductForm">
+            <input  formControlName="name"  type="text" class="f-control" placeholder="Merek Produk">
+            <input formControlName="nameProduk" type="text" class="f-control" placeholder="Nama Produk">
+            <textarea name="" class="f-control" id="" cols="30" rows="10" placeholder="Descripsi Produk"></textarea>
+            <button (click)= "test()" (click)="btnResi = !btnResi" class="btn">Tambah</button>
+        </form>
+    </div>
 </app-models>
-
-<!-- 
-<pre>
-  {{addProductForm.value | json}}
-</pre> -->
