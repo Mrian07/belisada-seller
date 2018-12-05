@@ -28,12 +28,15 @@ a {
 }
 .w--btn--new {
     width: 100%;
-    margin-top: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 .wrapper-w__for--listing--product {
     display: grid;
-grid-template-columns: 20% 27% 54%;
-grid-gap: 1rem;
+    grid-template-columns: 20% 27% 54%;
+    grid-gap: 1rem;
 
 }
 
@@ -98,8 +101,11 @@ grid-gap: 1rem;
 .wrapper--body {
     display: grid;
     grid-template-columns:repeat(3, 1fr);
+    padding: 4rem;
+
     .w__nmbarang {
         display: block;
+        color: rgb(255, 128, 55);
     }
     .w__nmBarang {
         font-weight: bold;
@@ -108,6 +114,7 @@ grid-gap: 1rem;
     .w__hrgaBarang {
         display: block;
         padding-top: 1.5rem;
+        color: rgb(255, 128, 55);
     }
 }
 
@@ -127,6 +134,8 @@ grid-gap: 1rem;
 
 .con-image{
     text-align: center;
+    padding: 4rem;
+
     .w__display--image {
         display: block;
     }

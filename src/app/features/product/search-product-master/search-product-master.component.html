@@ -43,10 +43,10 @@
             Ajukan produk yang anda inginkan disini
         </h4>
         <form [formGroup]="addProductForm">
-            <input  formControlName="name"  type="text" class="f-control" placeholder="Merek Produk">
-            <input formControlName="nameProduk" type="text" class="f-control" placeholder="Nama Produk">
-            <textarea name="" class="f-control" id="" cols="30" rows="10" placeholder="Descripsi Produk"></textarea>
-            <button (click)= "test()" (click)="btnResi = !btnResi" class="btn">Tambah</button>
+            <input  formControlName="brand"  type="text" class="f-control" placeholder="Merek Produk">
+            <input formControlName="productName" type="text" class="f-control" placeholder="Nama Produk">
+            <textarea formControlName="description" class="f-control" id="" cols="30" rows="10" placeholder="Deskripsi Produk"></textarea>
+            <button (click)= "addProduct()" (click)="btnResi = !btnResi" class="btn">Tambah</button>
         </form>
     </div>
 </app-models>

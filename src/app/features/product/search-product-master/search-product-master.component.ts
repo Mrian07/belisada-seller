@@ -5,6 +5,7 @@ import { ProductSuggestion } from '@belisada-seller/core/models';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 import { environment } from '@env/environment';
 
 @Component({
@@ -37,8 +38,9 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.addProductForm = this.fb.group({
-      name: [''],
-      nameProduk: [''],
+      brand: [''],
+      productName: [''],
+      description: [''],
     });
     console.log('x');
   }
@@ -67,8 +69,29 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   onProductNameBlur(): void {
     setTimeout(() => { this.onProductNameFocus = false; }, 200);
   }
-  test () {
-    this.productsSandbox.reqProduct(this.addProductForm.value);
+
+  addProduct () {
+    swal({
+      title: 'belisada.co.id',
+      text: 'Anda yakin semua data produk baru yang anda masukkan sudah benar?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swal(
+          'Success!',
+          'Selamat! Produk baru telah ditambahkan',
+          'success'
+        ).then(() => {
+          this.productsSandbox.reqProduct(this.addProductForm.value);
+        });
+      }
+    });
   }
 
   ngOnDestroy() {

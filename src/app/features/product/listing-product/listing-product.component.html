@@ -117,14 +117,14 @@
             </div>
         </div>
         <div class="row" *ngIf="rowSelected==item.productId">
-            <div class="col-4">
+            <div class="col-3">
                 <!-- <img *ngFor="let item of productDetail.imageUrl" src="{{item}}"> -->
                 <div class="con-image">
                     <img class="w__display--image" src="{{imgIndex}}"  height="200">
                     <span class="show-image-small" *ngFor="let item of productDetail.imageUrl" (click)="selectImg(item)"><img src='{{item}}' height="50"></span>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-8">
                 <div class="wrapper--body">
                     <div>
                         <span class="w__nmbarang">Nama Barang</span>
@@ -163,21 +163,8 @@
                         <span class="w__nmBarang" *ngFor="let item of productDetail.couriers">{{ item.code }}</span>
                     </div>
                 </div>
-            </div>
-            <div class="col-3">
-                <span class="w__nmbarang">Highlight</span>
-                <div class="w__descr">
-                    <p class="w__prodDessc">{{ productDetail.highlight }}</p>
-                </div>
-                <span class="w__nmbarang">Deskripsi</span>
-                <div class="w__descr">
-                    <p class="w__prodDessc">{{ productDetail.description | ellipsis:400 }}</p>
-                </div>
-                <div>
                         <!-- <a [routerLink]="/edit-products/ + item.productId"><p>Products Categories</p></a> -->
-                    <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">Edit </button></div>
-            </div>
-        </div>
+                    <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">EDIT </button>
     </div>
     <div class="paging" *ngIf="a!=0">
         <ul>
