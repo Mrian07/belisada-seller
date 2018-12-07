@@ -85,7 +85,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
       if (result.value) {
         swal(
           'Success!',
-          'Selamat! Produk baru telah ditambahkan',
+          'Terimakasih. Data Produk telah masuk ke sistem kami dan akan direview oleh tim kami.',
           'success'
         ).then(() => {
           this.productsSandbox.reqProduct(this.addProductForm.value);
