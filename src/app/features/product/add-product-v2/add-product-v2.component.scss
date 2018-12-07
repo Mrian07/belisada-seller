@@ -40,9 +40,11 @@ textarea {
 
 .wrapper--product-detail2 {
     padding-top: 3%;
-    &__text {
-
+    
+    textarea {
+        font-size: 1.8rem;
     }
+
     &__text2 {
         background: #efefef;
     }
@@ -56,6 +58,10 @@ textarea {
             text-align: center;
         }
     }
+}
+
+form {
+    padding-top: 2.5rem;
 }
 
 .wrapper-btm {
@@ -128,21 +134,22 @@ textarea {
 
 .wrapp {
     display: grid;
-  // color: $color-red;
-  grid-template-columns: 80% 30%
+    // color: $color-red;
+    grid-template-columns: 80% 30%
 }
 .wrapp__inside {
     display: grid;
-  // color: $color-red;
-  grid-template-columns: 10% 15% 24% 24% 24%;
-  padding-bottom: 10px;
-  &--image {
-      position: relative;
-      &__image {
+    // color: $color-red;
+    grid-template-columns: 10% 15% 24% 24% 24%;
+    padding-bottom: 10px;
+    
+    &--image {
+        position: relative;
+        
+        &__image {
         position: absolute;
+        }   
     }
-  }
- 
 }
 
 table {

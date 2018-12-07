@@ -18,7 +18,7 @@
                 <span class="wrapper--product-detail__text">Spesifikasi Produk</span>
                 <div class="wrapper--product-detail__spec">
                     <div *ngFor="let itemSpec of product?.specification">
-                        <span class="wrapper--product-detail__text--spec-det"> {{ itemSpec?.name }} {{ itemSpec?.value }}</span>
+                        <span class="wrapper--product-detail__text--spec-det"> {{ itemSpec?.value }}</span>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 </span>
                 <br>
 
-                <textarea class="wrapper--product-detail2__text2" readonly>
+                <textarea class="wrapper--product-detail2__text2" rows="7" readonly>
                     {{ product?.description }}
                 </textarea>
                 <br>
