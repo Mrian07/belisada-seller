@@ -249,6 +249,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
           this.transactionService.declineTransaction(orderNumber).subscribe(response => {
             console.log(response);
             this.orderList(this.status);
+
           });
           });
           }

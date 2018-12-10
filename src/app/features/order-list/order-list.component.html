@@ -31,7 +31,7 @@
 						<div class="col-4">
 								Customer : <b>{{item.namaPenerima}}</b>
 						</div>
-						<div class="col-4" *ngIf="item.countdown">
+						<div class="col-4" *ngIf="item.countdown && item.statusOrderSellerCode !== '183'">
 							<!-- Batas Waktu Respon:  {{item.expiredSellerProcessDate}} -->
 						<span *ngIf="item.countdown.message !== 'EXPIRED'">
 							Batas Waktu Respon: {{ item.countdown.days }}d - {{ item.countdown.hours }}h - {{ item.countdown.minutes }}m - {{ item.countdown.seconds }}s
