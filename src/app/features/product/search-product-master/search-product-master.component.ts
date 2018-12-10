@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { ProductsSandbox } from '../products.sandbox';
 import { ProductSuggestion } from '@belisada-seller/core/models';
 import { Store } from '@ngrx/store';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { environment } from '@env/environment';
@@ -21,12 +21,13 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   onProductNameFocus: Boolean = false;
   name: string;
   checkIfLength: Boolean = false;
-  addProductForm: FormGroup;
+  public addProductForm: FormGroup;
   a;
   b;
   btnResi: boolean;
 
   public pImageThumborUrl: string;
+  public reactiveForm;
 
   constructor(
     private fb: FormBuilder,
@@ -38,13 +39,17 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.addProductForm = this.fb.group({
-      brand: [''],
-      productName: [''],
-      description: [''],
+      brand: new FormControl('', [Validators.required]),
+      productName: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
     });
     console.log('x');
   }
 
+  onSubmitTemplateBased() {
+    console.log(this.addProduct);
+    this.addProductForm.reset();
+  }
 
   searchProductName(e) {
     const queryParams = {

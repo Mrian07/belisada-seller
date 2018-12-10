@@ -42,11 +42,35 @@
         <h4 class="wrapper--modal__h4">
             Ajukan produk yang anda inginkan disini
         </h4>
-        <form [formGroup]="addProductForm">
-            <input  formControlName="brand"  type="text" class="f-control" placeholder="Merek Produk">
-            <input formControlName="productName" type="text" class="f-control" placeholder="Nama Produk">
-            <textarea formControlName="description" class="f-control" id="" cols="30" rows="10" placeholder="Deskripsi Produk"></textarea>
-            <button (click)= "addProduct()" (click)="btnResi = !btnResi" class="btn">Tambah</button>
+        <form [formGroup]="addProductForm" (ngSubmit)="onSubmitTemplateBased()">
+            <div class="form-group">
+                <input  formControlName="brand"  type="text" class="form-control" placeholder="Merek Produk" [ngClass]="{
+                    'has-danger': addProductForm.controls.brand.invalid && (addProductForm.controls.brand.dirty || addProductForm.controls.brand.touched),
+                    'has-success': addProductForm.controls.brand.valid && (addProductForm.controls.brand.dirty || addProductForm.controls.brand.touched)
+                    }">
+                <div *ngIf="addProductForm.controls.brand.invalid && (addProductForm.controls.brand.dirty || addProductForm.controls.brand.touched)" class="alert alert-danger toll tooltip testing">
+                    <span class="tooltiptext" *ngIf="addProductForm.controls.brand.errors.required">Merek Produk harus diisi</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="productName" type="text" class="form-control" placeholder="Nama Produk" [ngClass]="{
+                    'has-danger': addProductForm.controls.productName.invalid && (addProductForm.controls.productName.dirty || addProductForm.controls.productName.touched),
+                    'has-success': addProductForm.controls.productName.valid && (addProductForm.controls.productName.dirty || addProductForm.controls.productName.touched)
+                    }">
+                <div *ngIf="addProductForm.controls.productName.invalid && (addProductForm.controls.productName.dirty || addProductForm.controls.productName.touched)" class="alert alert-danger toll tooltip testing">
+                    <span class="tooltiptext" *ngIf="addProductForm.controls.productName.errors.required">Nama Produk harus diisi</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea formControlName="description" class="f-control" id="" cols="30" rows="10" placeholder="Deskripsi Produk" [ngClass]="{
+                    'has-danger': addProductForm.controls.description.invalid && (addProductForm.controls.description.dirty || addProductForm.controls.description.touched),
+                    'has-success': addProductForm.controls.description.valid && (addProductForm.controls.description.dirty || addProductForm.controls.description.touched)
+                    }"></textarea>
+                <div *ngIf="addProductForm.controls.description.invalid && (addProductForm.controls.description.dirty || addProductForm.controls.description.touched)" class="alert alert-danger toll tooltip testing">
+                    <span class="tooltiptext" *ngIf="addProductForm.controls.description.errors.required">Deskripsi Produk harus diisi</span>
+                </div>
+            </div>
+            <button (click)= "addProduct()" (click)="btnResi = !btnResi" (click)="revert()" class="btn" [disabled]="addProductForm.invalid">Tambah</button>
         </form>
     </div>
 </app-models>

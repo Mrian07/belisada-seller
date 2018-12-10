@@ -87,6 +87,46 @@ textarea {
     }
 }
 
+.form-control {
+    &.has-danger {
+        // border: 3px solid #ccc;
+        border-color: red;
+    }
+    &.has-success {
+        border-color: #ccc;
+    }
+}
+
+.testing {
+    border-radius: 6px;
+    border: 1px solid;
+    color: red;
+    width: 363px;
+    text-align: center;
+    padding: 5px 9px 6px;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    // background-color: black;
+
+    visibility: visible;
+    position: relative;
+    z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
 .drick-select-list {
     display: inline-block;
     list-style: none;
