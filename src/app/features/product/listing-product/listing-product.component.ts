@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ProductService, StoreService } from '@belisada-seller/core/services';
-import { ProductListing, ProductDetailList, ProductDetailData } from '@belisada-seller/core/models';
+import { ProductListing, ProductDetailList, ProductDetailData, ProductSuggestion } from '@belisada-seller/core/models';
+import { Subscription } from 'rxjs';
+import { ProductsSandbox } from '../products.sandbox';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Globals } from '@belisada-seller/core/services/globals/globals';
@@ -28,7 +30,16 @@ export class ListingProductComponent implements OnInit {
   lastPage: number;
   currentPage: number;
   pages: any = [];
+  private subscriptions: Array<Subscription> = [];
+  productSuggestionList: ProductSuggestion[];
+  onProductNameFocus: Boolean = false;
+  name: string;
+  checkIfLength: Boolean = false;
   a: any;
+  b;
+
+
+  status = 'AP';
 
   hasAddress: Boolean = true;
   // private subscriptions: Array<Subscription> = [];
@@ -36,6 +47,7 @@ export class ListingProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private prodSe: ProductService,
+    public productsSandbox: ProductsSandbox,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private storeService: StoreService,
@@ -68,34 +80,56 @@ export class ListingProductComponent implements OnInit {
     this.myForm = this.fb.group({
       useremail: this.fb.array([]),
     });
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.pages = [];
-      this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
-      const queryParams = {
-        page: this.currentPage,
-        itemperpage: 10,
-      };
-      this.prodSe.getProdListing(queryParams).subscribe(response => {
-        this.pages = [];
-        this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
-        this.proddetail = response;
-        this.a = response.dataCount;
-        this.lastPage = this.proddetail.pageCount;
-        for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
-          if (r > 0 && r <= this.proddetail.pageCount) {
-            this.pages.push(r);
-          }
-        }
-
-        });
+    this.activatedRoute.queryParams.subscribe((queryParam) => {
+      this.currentPage = (queryParam.page) ? queryParam.page : 1;
+      this.status = (queryParam.status) ? queryParam.status : 'AP';
+      this.prodList();
     });
+  }
+
+  prodList(q?: string) {
+    const queryParams = {
+      itemperpage: 10,
+      page: this.currentPage,
+      status: this.status
+    };
+
+    if (q) queryParams['name'] = q;
+
+    this.prodSe.getProdListing(queryParams).subscribe(response => {
+      this.proddetail = response;
+      this.a = response.dataCount;
+      this.pages = [];
+      this.lastPage = this.proddetail.pageCount;
+      for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
+        if (r > 0 && r <= this.proddetail.pageCount) {
+          this.pages.push(r);
+        }
+      }
+
+    });
+  }
+
+  searchProductName(e) {
+    this.prodList(e.target.value);
+  }
+  selectProductName(mProductId, name) {
+    this.name = name;
+    this.b = mProductId;
+    this.productsSandbox.productAdd(mProductId[0]);
+    this.router.navigate(['/listing-product/' + mProductId]);
+    // window.location.reload();
+
+  }
+  onProductNameBlur(): void {
+    setTimeout(() => { this.onProductNameFocus = false; }, 200);
   }
 
   setPage(page: number, increment?: number) {
     if (increment) { page = +page + increment; }
     if (page < 1 || page > this.proddetail.pageCount) { return false; }
     // tslint:disable-next-line:max-line-length
-    this.router.navigate(['/listing-product'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
+    this.router.navigate(['/listing-product'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
   }
 
@@ -140,7 +174,6 @@ export class ListingProductComponent implements OnInit {
 
   goToEdit(e) {
     this.router.navigate(['/edit-products/' + e]);
-    
     // window.location.reload();
     // location.reload();
   }
@@ -184,7 +217,7 @@ export class ListingProductComponent implements OnInit {
       emailFormArray.push(new FormControl(email));
 
     } else {
-      const index = emailFormArray.controls.findIndex(x => x.value == email);
+      const index = emailFormArray.controls.findIndex(x => x.value === email);
       emailFormArray.removeAt(index);
 
     }

@@ -12,7 +12,15 @@
             </div>
         </a>
     </div>
-    <div class="col-12" *ngFor="let item of proddetail.data">
+    <div class="col-12">
+        <div class="drick-select-container drick-select-container--fluid">
+        <div class="ui icon input parent">
+            <input class="f-control drick-select__text" [(ngModel)]="name" [ngClass]="{'active':onProductNameFocus}" type="text"
+                (keyup)="searchProductName($event)" maxlength="160" placeholder="Nama Produk">
+        </div>
+        </div>
+    </div>
+    <div class="col-12" *ngFor="let item of proddetail.data" [ngClass]="{'active':onProductNameFocus}">
         <div class="row w__bacground--border">
             <div class="col-3" >
                 <p class="w__float--left">
@@ -106,7 +114,7 @@
                     </div>
                     <div class="w__middle">
                         <div>
-                            <span class="w__kosongkan_stok">
+                            <span class="w__kosongkan_stok" > 
                                 View Product
                             </span>
                             <fa-icon  (click)="openCloseRow(item.productId)" [icon]="['fas', 'search']"></fa-icon>
@@ -166,7 +174,8 @@
                         <!-- <a [routerLink]="/edit-products/ + item.productId"><p>Products Categories</p></a> -->
                     <button *ngIf="item.status !== 'REJECTED'" (click)="goToEdit(item.productId)" class="btn btn--yellow w--btn--new">EDIT </button>
     </div>
-    <div class="paging" *ngIf="a!=0">
+</div>
+<div class="paging" *ngIf="a!=0">
         <ul>
             <li>
                 <a (click)="setPage(1)" [ngClass]="{disabled:currentPage == 1}">First</a>
@@ -185,4 +194,4 @@
             </li>
         </ul>
     </div>
-</div>
+    </div>

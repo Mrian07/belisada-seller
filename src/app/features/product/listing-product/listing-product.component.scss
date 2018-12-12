@@ -154,9 +154,32 @@ a {
     cursor: pointer;
     margin-bottom: 0.8rem;
 }
+
+.drick-select-container {
+    width: 200px;
+    position: relative;
+    text-align: right;
+    padding-bottom: 3rem;
+
+    &--fluid {
+        width: 100%;
+    }
+}
+
+.drick-select__text {
+    width: 20%;
+
+    &.active {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-bottom: 1px solid transparent !important;
+    }
+}
+
 .paging {
     color: red;
     margin: 0 auto;
+    padding-top: 2rem;
 }
 .paging ul {
     list-style-type: none;
