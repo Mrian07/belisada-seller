@@ -39,9 +39,11 @@
                 </span>
                 <br>
 
-                <textarea class="wrapper--product-detail2__text2" rows="7" readonly>
-                    {{ product?.description }}
-                </textarea>
+                <div class="descbox" readonly>
+                    <div class="desc">
+                        {{ product?.description }}
+                    </div>
+                </div>
                 <br>
                 <form [formGroup]="addProductForm">
                     <h4>Warranty</h4>
