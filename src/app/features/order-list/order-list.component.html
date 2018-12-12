@@ -59,7 +59,8 @@
 						<span *ngFor="let varian of itemChild.varians; let i = index">
 							{{varian.varians[0].value}} {{ (i === itemChild.varians.length - 1) ? '' : ' - ' }}
 						</span>
-						<span class="sku-item">[{{itemChild.sku}}]</span>
+						<span class="sku-item">[{{itemChild.sku}}]<br></span>
+						<span class="note-item">Note : <br> {{itemChild.note}}</span>
 					</div>
 					<div class="qty-item">
 							x{{itemChild.quantity}}
@@ -68,16 +69,6 @@
 						<span class="uang-item">{{itemChild.subtotal  | currency:'Rp ' }}</span>
 						<span class="small-text"> {{ item.paymentMethod }}</span>
             		</div>
-        		</div>
-        		<div class="w-wrapper__for--cetak_invoice">
-            		<div>
-
-					</div>
-					<div>
-						<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
-							Cetak Invoice
-						</div>
-					</div>
         		</div>
 			</div>
 			<!-- <div>
@@ -95,12 +86,21 @@
 			</div>
 			<div>
 				<span> Biaya Kirim : {{ item.courierPrice | currency:'Rp ' }}  </span>
-				<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
-					{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
-				</div>
 				<div class="choose" *ngIf="item.statusOrderSellerCode === '187'"> 
 					<span class="btn-acc" (click)="acceptTransaction(item.orderNumber)">Accept</span>
 					<span class="btn-dec" (click)="declineTransaction(item.orderNumber)">Decline</span>
+				</div>
+				<div class="w-wrapper__for--cetak_invoice">
+						<div>
+							<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
+								{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
+							</div>
+						</div>
+						<div>
+							<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
+								Cetak Invoice
+							</div>
+						</div>
 				</div>
 			</div>
 		</div>
