@@ -46,11 +46,6 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
     console.log('x');
   }
 
-  onSubmitTemplateBased() {
-    console.log(this.addProduct);
-    this.addProductForm.reset();
-  }
-
   searchProductName(e) {
     const queryParams = {
       q: e.target.value
@@ -94,6 +89,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
           'success'
         ).then(() => {
           this.productsSandbox.reqProduct(this.addProductForm.value);
+          this.addProductForm.reset();
         });
       }
     });

@@ -174,6 +174,7 @@ export class ProductDetailData {
   highlightEn: string;
   description: string;
   sku: string;
+  note: string;
   brandId: number;
   brandName: string;
   storeId: number;

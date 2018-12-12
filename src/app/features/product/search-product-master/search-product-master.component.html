@@ -42,7 +42,7 @@
         <h4 class="wrapper--modal__h4">
             Ajukan produk yang anda inginkan disini
         </h4>
-        <form [formGroup]="addProductForm" (ngSubmit)="onSubmitTemplateBased()">
+        <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
             <div class="form-group">
                 <input  formControlName="brand"  type="text" class="form-control" placeholder="Merek Produk" [ngClass]="{
                     'has-danger': addProductForm.controls.brand.invalid && (addProductForm.controls.brand.dirty || addProductForm.controls.brand.touched),
@@ -70,7 +70,7 @@
                     <span class="tooltiptext" *ngIf="addProductForm.controls.description.errors.required">Deskripsi Produk harus diisi</span>
                 </div>
             </div>
-            <button (click)= "addProduct()" (click)="btnResi = !btnResi" (click)="revert()" class="btn" [disabled]="addProductForm.invalid">Tambah</button>
+            <button type="submit" class="btn btn--orange" [disabled]="addProductForm.invalid">Tambah</button>
         </form>
     </div>
 </app-models>
