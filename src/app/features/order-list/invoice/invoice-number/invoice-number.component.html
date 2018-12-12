@@ -90,14 +90,12 @@
     <div class="i-pengiriman">
       <div class="row">
         <div class="col-6">
-            <span class="i-title">Metode Pengiriman</span><br>
-            {{info.courierCode}}<br>
-            <span class="i-title">Asuransi:</span> <span *ngIf="info.useAsuransi === false">Tidak</span> <span *ngIf="info.useAsuransi === true">Iya</span>
+            <span class="i-title">Metode Pengiriman</span>
         </div>
         <div class="col-6">
           <div class="row i-kg">
             <div class="col-4">
-                <span class="i-title">{{info.totalWeight}}kg</span>
+                <span class="i-title"> {{info.courierCode}}</span>
             </div>
             <div class="col-8">
                 <span class="i-price">{{info.courierPrice | currency:'Rp '}}</span>
@@ -106,6 +104,25 @@
         </div>
       </div>
     </div>
+
+    <div class="i-asuransi">
+        <div class="row">
+          <div class="col-6">
+              <span class="i-title">Asuransi</span> 
+          </div>
+          <div class="col-6">
+            <div class="row i-kg">
+              <div class="col-4">
+                  <span *ngIf="info.useAsuransi === false">Tidak</span> <span *ngIf="info.useAsuransi === true">Iya</span>
+              </div>
+              <div class="col-8">
+                  <span class="i-price">{{info.asuransi | currency:'Rp '}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <div class="i-total i-right">
       TOTAL: <span class="i-price">{{info.total | currency:'Rp '}}</span>
     </div>

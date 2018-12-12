@@ -62,11 +62,16 @@
 }
 
 .i-line{
- border-top: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
 }
 
 .i-pengiriman{
   border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  margin-top: 2rem;
+}
+
+.i-asuransi{
   border-bottom: 1px solid #dddddd;
   margin-top: 2rem;
 }
