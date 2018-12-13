@@ -18,7 +18,8 @@
     
     &__active{
         text-align: center;
-        border-bottom: 2px solid #f27138;
+        border-bottom: 4px solid #f27138;
+        border-radius: 2px;
         color: #f27138;
         padding: 0.5rem;
         margin-right: 0.5rem;
@@ -37,7 +38,6 @@
 }
 
 .btn-tab__noActive:hover{
-    border-bottom: 2px solid #f27138;
     color: #f27138;
 }
 
