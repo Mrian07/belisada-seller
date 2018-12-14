@@ -24,7 +24,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   public addProductForm: FormGroup;
   a;
   b;
-  btnResi: boolean;
+  showDialog: boolean;
 
   public pImageThumborUrl: string;
   public reactiveForm;
@@ -71,6 +71,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   }
 
   addProduct () {
+    this.showDialog = false;
     swal({
       title: 'belisada.co.id',
       text: 'Anda yakin semua data produk baru yang anda masukkan sudah benar?',
@@ -90,6 +91,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
         ).then(() => {
           this.productsSandbox.reqProduct(this.addProductForm.value);
           this.addProductForm.reset();
+          console.log('showDialog: ', this.showDialog);
         });
       }
     });

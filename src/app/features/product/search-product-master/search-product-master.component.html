@@ -30,14 +30,14 @@
                     seperti nya produk yang anda cari tidak ada di database kami silahkan ajukan produk anda
                 </span>
                 <div class="wrapper--image__btn">
-                    <button class="btn wrapper--image__btn--btn-color" (click)="btnResi = !btnResi" >Disini</button>
+                    <button class="btn wrapper--image__btn--btn-color" (click)="showDialog = !showDialog" >Disini</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<app-models [(visible)]="btnResi" class="frameDialog">
+<app-models [(visible)]="showDialog" class="frameDialog">
     <div class="wrapper--modal">
         <h4 class="wrapper--modal__h4">
             Ajukan produk yang anda inginkan disini
@@ -70,7 +70,18 @@
                     <span class="tooltiptext" *ngIf="addProductForm.controls.description.errors.required">Deskripsi Produk harus diisi</span>
                 </div>
             </div>
-            <button type="submit" class="btn btn--orange" [disabled]="addProductForm.invalid">Tambah</button>
+            <div *ngIf="addProductForm.invalid || status === 1; else add">
+                <div class="component-left">
+                    <div class="component-left"></div>
+                    <button class="btn btn-orange-disabled" [disabled]="addProductForm.invalid|| status === 1">Tambah</button>
+                </div>
+            </div>
+            <ng-template #add>
+                <div class="component-left">
+                    <button class="btn btn--orange">Tambah</button>
+                </div>
+            </ng-template>
         </form>
     </div>
 </app-models>
+
