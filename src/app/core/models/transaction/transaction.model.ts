@@ -38,7 +38,6 @@ export class Cart {
     destinationId: number;
     destinations: Destinations[];
     invoiceNumber: string;
-
     namaPenerima: string;
     noResi: string;
     orderNumber: string;

@@ -10,13 +10,13 @@ import { ProductsSandbox } from '../product/products.sandbox';
 })
 export class OrderComponent implements OnInit {
 
-  tabOrder = 'ALL';
+  tabOrder = '187';
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {
     this.activatedRoute.queryParams.subscribe((queryParam) => {
-      this.tabOrder = (queryParam.status) ? queryParam.status : 'ALL';
+      this.tabOrder = (queryParam.status) ? queryParam.status : '187';
     });
   }
 

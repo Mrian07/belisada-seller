@@ -30,7 +30,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   // @Input() status: string;
   visible: boolean;
   status = 'ALL';
-
+  toggleArrBol: boolean[];
   listCart: Cart[];
   btnResi: boolean;
   btnChoose: string;
@@ -58,7 +58,9 @@ export class OrderListComponent implements OnInit, OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+    this.toggleArrBol = [];
+  }
 
   ngOnInit() {
 
@@ -66,8 +68,10 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.formData();
     this.activatedRoute.queryParams.subscribe((queryParam) => {
       this.currentPage = (queryParam.page) ? queryParam.page : 1;
-      this.status = (queryParam.status) ? queryParam.status : 'ALL';
-      this.orderList((queryParam.status) ? queryParam.status : 'ALL');
+      // this.status = (queryParam.status) ? queryParam.status : 'ALL';
+      // this.orderList((queryParam.status) ? queryParam.status : 'ALL');
+      this.status = (queryParam.status) ? queryParam.status : 187;
+      this.orderList((queryParam.status) ? queryParam.status : 187);
     });
   }
 
@@ -99,6 +103,9 @@ export class OrderListComponent implements OnInit, OnDestroy {
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
       // console.log(b);
+      response.content.forEach((item, index) => {
+        this.toggleArrBol.push(false);
+      });
       this.listCart = response.content;
       console.log(this.listCart.length);
       if ( this.listCart.length === 0) {
