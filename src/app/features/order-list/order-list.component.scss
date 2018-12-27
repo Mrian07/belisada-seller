@@ -1,10 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700,900');
+
 .frame-title{
     display: grid;
-    grid-template-columns: 357px 5% 17% 15% 1fr;
+    grid-template-columns: 16.6% 12.6% 14.6% 12.6% 14.6% 11.6%;
     margin-top: 2rem;
     font-size: 1.2rem;
+    text-align: center;
+    height: 40px;
+    box-shadow: 0 1.5px 3px 0 rgba(255, 64, 64, 0.16);
+    background-color: #ffffff;
+    z-index: 1;
+    position: relative;
 }
 
+.table-header {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 13pt;
+    color: #2e2e2e;
+    padding-top: 5px;
+}
 .cust{
     color:black;
 }
@@ -14,6 +29,9 @@
     background: #ffffff;
     box-shadow: 2px 2px 4px #c9c9c9;
     border: 1px solid #f5f5f5;
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .w__edit--cetak-label {
@@ -21,6 +39,7 @@
     font-weight: bold;
     color: #a0a0a0;
     cursor: pointer;
+    margin-top: 41px;
 
     &:hover{
         color: #f5952c;
@@ -34,27 +53,63 @@
 .button {
     background: white;
 }
-
-.nm-buyer{
+.trans-list{
     padding: 1rem;
     border-bottom: 1px solid #dddddd;
     width: 100%;
+    color: #2e2e2e;
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fcfcfc;
+    font-family: Roboto;
 }
-
-.cont-buyer{
+.order-data {
+    display:grid;
+    grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
+}
+.bold {
+    font-weight: bold;
+}
+.red-font {
+    color:#ff581a;
+}
+.cont-buyer {
     padding: 1rem;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .right{
     text-align: right;
 }
+.float-right{
+    float: right;
+}
 
 .frame-cont{
     display: grid;
-    grid-template-columns: 57.2rem 1fr 1fr 2fr;
+    grid-template-columns: 28% 26% 12% 12% 22%;
     color: #111111;
 }
+.table-container{
+    background-color: #fff;
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+    padding-top: 13px;
+    padding-bottom: 22px;
+}
+.product-list {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+.margin-bottom {
+    margin-bottom: 10px;
+}
 
+.name {
+    font-weight: bold;
+}
 .w-wrapper__for--cetak_invoice {
     display: grid;
     grid-template-columns: 15% 30% 10% 30% 15%;
@@ -62,10 +117,24 @@
 }
 
 .nm-item{
-    font-size: 1.4rem;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.7rem;
     display: block;
+    font-weight: 700;
+    color:#002867;
 }
 
+.nm-var{
+    font-family: "Roboto", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color:#797979;
+    text-transform: uppercase;
+}
+
+.product-set {
+    margin-bottom: 10px;
+}
 .nm-item-courier{
     font-size: 1.2rem;
     display: block;
@@ -114,43 +183,65 @@
 }
 
 .choose{
-    padding-left: 9rem;
+    margin-left:auto;
+    margin-right:auto;
+    display: table;
+    margin-top: 15px;
 }
 
 .btn-acc{
     text-align: center;
-    background: #67e98e;
+    width: #{46.3 * 2}px;
+    height: #{15.7 * 2}px;
+    border-radius: 5px;
+    background-color: #ff9e57;
     color: #ffffff;
     padding: 0.5rem;
     margin-right: 0.5rem;
     cursor: pointer;
+    text-transform: uppercase;
+    display: block;
+    font-size: 11pt;
+    font-weight: bold;
+    float: left;
 
     &:hover {
-        background: #bfffb9;
+        background-color: #ac5517;
         }
 }
 
 .btn-dec{
     text-align: center;
-    background: #f15b5b;
+    width: #{46.3 * 2}px;
+    height: #{15.7 * 2}px;
+    border-radius: 5px;
+    background-color: #919191;
     color: #ffffff;
     padding: 0.5rem;
     margin-right: 0.5rem;
     cursor: pointer;
+    text-transform: uppercase;
+    display: block;
+    font-size: 11pt;
+    font-weight: bold;
+    float: right;
 
     &:hover {
-            background: #ffb5b5;
+        background-color: #4d4d4d;
         }
 }
 
-.cart{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-}
+// .cart{
+//     display: grid;
+//     grid-template-columns: repeat(4, 1fr);
+// }
 
 .print-order{
     cursor: pointer;
     margin-left: 0.5rem;
+    color: #f79829;
+    text-transform: uppercase;
+    font-size: 1.4rem;
 }
 
 .modal-body{
@@ -263,4 +354,12 @@
 .paging a.disabled {
     color: #ccc;
     cursor: default;
+}
+
+.zoom-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: block;
+    float: right;
+    margin-right: 8%;
 }

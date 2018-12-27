@@ -38,6 +38,8 @@ export class ListingProductComponent implements OnInit {
   a: any;
   b;
 
+  toggleArrBol: boolean[];
+
 
   status = 'AP';
 
@@ -53,6 +55,7 @@ export class ListingProductComponent implements OnInit {
     private storeService: StoreService,
     // public productsSandbox: ProductsSandbox,
   ) {
+    this.toggleArrBol = [];
     this.productDetail.description = '';
     this.rowSelected = -1;
     this.prodImg = environment.thumborUrl + 'unsafe/fit-in/80x80/';
