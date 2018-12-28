@@ -25,7 +25,7 @@ function compareTwoPrices(c: AbstractControl) {
 })
 export class AddProductV2Component implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription> = [];
-  public product:        ProductDetailData;
+  public product:        ProductDetailData = new ProductDetailData();
   public productV2:        AddProductRequest[];
   public productEdit:        AddProductRequest;
   public warr: Reference[];
@@ -85,25 +85,30 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       this.addProductForm.patchValue({
         masterId: this.masterId
       });
-      this.productService.getProdVariant(params.id).subscribe(data => {
-        console.log('data : variant', data);
-        this.VariantAttr = data;
-        this.VariantAttr.forEach((variant, index) => {
-          this.addVariants();
-          const control = <FormArray>this.addProductForm.get('varians');
-          control.at(index).patchValue({
-            masterVarianId: variant.masterVarianId,
-          });
-        });
-      });
+
+      
       console.log(params);
       console.log('console.log(this.router.url): ', this.router.url);
       console.log(this.router.url);
       this.routeUrl = this.router.url === '/products/' + params.id;
       if (this.router.url === '/products/' + params.id) {
 
+        this.productService.getProdVariant(params.id).subscribe(data => {
+          console.log('data : variant', data);
+          this.VariantAttr = data;
+          this.VariantAttr.forEach((variant, index) => {
+            this.addVariants();
+            const control = <FormArray>this.addProductForm.get('varians');
+            control.at(index).patchValue({
+              masterVarianId: variant.masterVarianId,
+            });
+          });
+  
+        });
+
       } else {
         this.productService.getDetailById(params.id).subscribe(data => {
+
           this.product = data.data;
           console.log('data:edited', data.data);
           this.addProductForm.patchValue({
@@ -119,7 +124,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
           console.log('data', data);
           this.VariantAttr = data;
           data.forEach((dataV2, index) => {
-            // console.log('data v2:',dataV2)
+            console.log('data v2222:', dataV2 );
             this.addVariants();
             const control = <FormArray>this.addProductForm.get('varians');
             control.at(index).patchValue({
@@ -130,11 +135,47 @@ export class AddProductV2Component implements OnInit, OnDestroy {
               productId: dataV2.data.productId,
               isUsed: dataV2.isUse
             });
+            console.log('isusernya', dataV2.isUse);
+            if (dataV2.isUse === false) {
+              control.at(index).get('pricelist').disable();
+              control.at(index).get('specialPrice').disable();
+              control.at(index).get('qty').disable();
+              // control.at(index)['pricelist'].disable();
+              // dataV2['specialPrice'].disable();
+              // dataV2['qty'].disable();
+            }
+
           });
           if (this.VariantAttr.length >= 1) {
             console.log('asd');
             this.isFlase = true;
           }
+
+          // const isUsed = variant.controls['isUsed'].value;
+          // if (isUsed === false) {
+          //   variant.controls['pricelist'].disable();
+          //   variant.controls['specialPrice'].disable();
+          //   variant.controls['qty'].disable();
+          // } else {
+          //   variant.controls['pricelist'].enable();
+          //   variant.controls['specialPrice'].enable();
+          //   variant.controls['qty'].enable();
+          // }
+          // console.log(variant.controls['isUsed'].value);
+
+
+
+          // if (control.isUsed === false) {
+          //   .controls['pricelist'].disable();
+          //   variant.controls['specialPrice'].disable();
+          //   variant.controls['qty'].disable();
+          // } else {
+          //   variant.controls['pricelist'].enable();
+          //   variant.controls['specialPrice'].enable();
+          //   variant.controls['qty'].enable();
+          // }
+
+
         });
       }
     });
@@ -151,7 +192,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       variant.controls['specialPrice'].enable();
       variant.controls['qty'].enable();
     }
-    console.log(variant.controls['isUsed'].value);
   }
 
   private _initVariants(): FormGroup {
@@ -273,7 +313,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     if (this.addProductForm.get('couriers').value.length <= 0) {
       swal(
         'Warning',
-        'Metode pengiriman harus diisi',
+        'Jasa pengiriman harus dipilih',
         'warning'
       );
       this.loadingService.hide();
@@ -284,6 +324,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     console.log('isi hasilnya', this.addProductForm.value);
 
     if (this.addProductForm.valid) {
+
       if ( this.router.url === '/edit-products/' + this.masterId) {
         console.log('this.addProductForm.value-asd---: ', this.addProductForm.value);
         this.productService.editProductPost(productFormModified).subscribe(response => {
@@ -299,6 +340,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
           }
         });
       } else {
+
         console.log('this.addProductForm.value----: ', this.addProductForm.value);
         this.productService.addProductV2(productFormModified).subscribe(response => {
           // console.log(response);
@@ -359,6 +401,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   }
 
   private _getDetailProd() {
+    // getProdDetail(id: any)
     this.subscriptions.push(this.productsSandbox.productAdd$.subscribe((product: any) => {
       if (product) {
         this.product = product.data;
