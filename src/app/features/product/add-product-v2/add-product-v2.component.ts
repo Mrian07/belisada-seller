@@ -121,10 +121,8 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         });
 
         this.productService.getProdVarian(params.id).subscribe(data => {
-          console.log('data', data);
           this.VariantAttr = data;
           data.forEach((dataV2, index) => {
-            console.log('data v2222:', dataV2 );
             this.addVariants();
             const control = <FormArray>this.addProductForm.get('varians');
             control.at(index).patchValue({
@@ -135,14 +133,15 @@ export class AddProductV2Component implements OnInit, OnDestroy {
               productId: dataV2.data.productId,
               isUsed: dataV2.isUse
             });
-            console.log('isusernya', dataV2.isUse);
             if (dataV2.isUse === false) {
+              control.at(index).patchValue({
+                pricelist: '',
+                specialPrice: '',
+                qty: '',
+              });
               control.at(index).get('pricelist').disable();
               control.at(index).get('specialPrice').disable();
               control.at(index).get('qty').disable();
-              // control.at(index)['pricelist'].disable();
-              // dataV2['specialPrice'].disable();
-              // dataV2['qty'].disable();
             }
 
           });
@@ -277,18 +276,18 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
   public postProductV2() {
 
+    // console.log('invalid controls: ', this.findInvalidControls(this.addProductForm));
+
     // this.loadingService.show();
     this.submitted = true;
     this.calculateDiscount();
 
     const control = <FormArray>this.addProductForm.get('varians');
     const variantsOnlyChecked = control.value.filter(item => item.isUsed !== false);
-    console.log('variantsOnlyChecked: ', variantsOnlyChecked);
 
     // console.log('control: ', control);
 
     const variantsControls = <FormArray>this.getVariants(this.addProductForm);
-    console.log('variantsControls: ', variantsControls);
 
     // return;
     const productFormModified = this.addProductForm.value;
@@ -319,9 +318,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       this.loadingService.hide();
       return;
     }
-
-    console.log('hasilnya', this.addProductForm.valid);
-    console.log('isi hasilnya', this.addProductForm.value);
 
     if (this.addProductForm.valid) {
 
@@ -423,5 +419,17 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
 
+  }
+
+  // !-- Utilities for checking invalid field from reactive form control
+  public findInvalidControls(form) {
+    const invalid = [];
+    const controls = form.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
+    }
+    return invalid;
   }
 }
