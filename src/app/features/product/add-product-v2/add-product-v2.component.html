@@ -98,27 +98,26 @@
 
                             <div class="col-md-2">
                                 <input type="text" (change)="calculateDiscount()"  formControlName="pricelist" class="form-control"
-                                    [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-2">
                                 <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control"
-                                    [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-2">
                                 <input type="text" formControlName="qty" class="form-control" (keypress)="numberCheck($event)">
                             </div>
                             <div class="col-md-2">
                                 <label class="switch small">
-                                    <input formControlName="isUsed" type="checkbox">
+                                    <input formControlName="isUsed" type="checkbox" (change)="toggleControl(variant)">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-
                             <div class="offset-md-4 col-md-6">
-                                <div *ngIf="(submitted || variant.touched) && variant.errors">
+                                <div *ngIf="(submitted || variant.touched) && variant.errors && variant.controls.isUsed.value == true">
                                     <bss-field-error [displayError]="variant.errors.invalidprice" errorMsg="Harga promo tidak boleh lebih besar dari harga jual"></bss-field-error>
                                 </div>
-                                <div *ngIf="(submitted || variant.controls.pricelist.touched) && variant.controls.pricelist.invalid">
+                                <div *ngIf="(submitted || variant.controls.pricelist.touched) && variant.controls.pricelist.invalid && variant.controls.isUsed.value == true">
                                     <bss-field-error [displayError]="variant.controls.pricelist.errors.min" errorMsg="Harga jual minimal Rp 100"></bss-field-error>
                                     <bss-field-error [displayError]="variant.controls.pricelist.errors.required" errorMsg="Harga jual harus diisi"></bss-field-error>
                                 </div>
@@ -218,6 +217,6 @@
 </div>
 <div class="row">
     <div class="col-12 wrapper-btm text-right">
-        <button (click)="postProductV2()" class="btn btn--orange">Add Product</button>
+        <button (click)="postProductV2()" class="btn btn--orange">Save Product</button>
     </div>
 </div>

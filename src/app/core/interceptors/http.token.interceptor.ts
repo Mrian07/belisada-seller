@@ -16,11 +16,12 @@ import swal from 'sweetalert2';
 
 
 import { AuthService } from '@belisada-seller/core/services';
+import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
 
-  constructor(private inj: Injector, private routes: Router, private location: Location) {}
+  constructor(private inj: Injector, private routes: Router, private location: Location, private loadingService: LoadingService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const auth = this.inj.get(AuthService);
     const token = auth.getToken();
@@ -40,6 +41,8 @@ export class HttpTokenInterceptor implements HttpInterceptor {
         }
       }, (err: any) => {
         if (err instanceof HttpErrorResponse) {
+
+          console.log('errror nih', err);
           if (err.status === 401) {
             if (token) {
               // swal('Anda belum Login atau Session Anda Expired, Anda Harus Login ulang')
@@ -63,7 +66,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
             // .then((result) => {
             //  this.routes.navigateByUrl('/maintenance');
           // });
+          } else if (err.status === 504) {
+            swal('belisada.co.id', 'Oops!...something wrong... 504', 'error');
+            this.loadingService.hide();
           } else {
+            swal('belisada.co.id', err.statusText, 'error');
+            this.loadingService.hide();
             // swal('Oops!...something wrong...')
             // .then((result) => {
             //  this.routes.navigateByUrl('/maintenance');
