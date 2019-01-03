@@ -130,7 +130,7 @@
 					<div class="choose">
 							<!-- *ngIf="item.statusOrderSellerCode === '187'" -->
 						<span class="btn-acc" (click)="acceptTransaction(item.orderNumber)">Proses</span>
-						<span class="btn-dec" (click)="declineTransaction(item.orderNumber)">Tolak</span>
+						<span class="btn-dec" (click)="declineTransactionModal(item.orderNumber)">Tolak</span>
 					</div>
 					<div class="w-wrapper__for--cetak_invoice">
 							<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
@@ -165,7 +165,22 @@
 		</li>
 	</ul>
 </div>
-<app-models [(visible)]="btnResi" class="frameDialog">
+<app-modal [(visible)]="cancelOrderModal" maxwidth="600" class="frameDialog">
+	<div>
+		<h2 class="text-center">Anda Yakin menolak Order Ini?</h2>
+		<div>
+			<textarea class="sn-form-control tolak" type="text" placeholder="Tulis alasan penolakan anda"></textarea>
+		</div>
+		<div>
+			<p class="text-center">Melakukan tolak order akan mempengaruhi performa toko anda!</p>
+			<div>
+				<button class="btn pull-left grey" (click)="expression">Batal</button>
+				<button class="btn pull-right red" (click)="declineTransaction(item.orderNumber)">Tolak</button>
+			</div>
+		</div>
+	</div>
+</app-modal>
+<app-modal [(visible)]="btnResi" class="frameDialog">
 	<div *ngIf="isErrorResi == true">
 		<div class="error-body">
 			Maaf nomor resi yang Anda masukan tidak terdaftar<br> atau sudah tidak berlaku.
@@ -218,4 +233,4 @@
 		</div>
 	</div>
 
-</app-models>
+</app-modal>

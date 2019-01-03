@@ -16,14 +16,14 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { AuthLayoutComponent } from '@belisada-seller/themes/layout/auth/auth-layout.component';
 import { SideAuthComponent } from '@belisada-seller/themes/components/side-auth/side-auth.component';
-import { ModelsComponent } from '@belisada-seller/shared/components/models/models.component';
+import { ModalComponent } from '@belisada-seller/shared/components/modal/modal.component';
 import { FieldErrorComponent } from '@belisada-seller/features/product/field-error/field-error.component';
 import { SharedModule } from '@belisada-seller/shared/shared.module';
 
 library.add(fas, far, fab);
 
 const COMPONENTS = [
-  ModelsComponent,
+  ModalComponent,
   FieldErrorComponent,
   HeaderComponent,
   FooterComponent,

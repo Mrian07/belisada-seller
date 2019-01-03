@@ -65,7 +65,7 @@
   </ul>
 </div>
 
-<app-models [(visible)]="popUpTolak" class="frameDialog"> 
+<app-modal [(visible)]="popUpTolak" class="frameDialog"> 
   <form class="ui form" [formGroup]="rejectForm" (ngSubmit)="submitReject()" novalidate>
     <input type="hidden" formControlName="orderNumber">
     <div class="pop-title">Tolak Komplain</div>
@@ -80,9 +80,9 @@
       <button type="submit" class="btn-submit">SUBMIT</button>
     </div>
   </form>
-</app-models>
+</app-modal>
 
-<app-models [(visible)]="popUpProses" class="frameDialog">
+<app-modal [(visible)]="popUpProses" class="frameDialog">
   <form class="ui form" [formGroup]="acceptForm" (ngSubmit)="submitAccept()" novalidate>
     <input type="hidden" formControlName="orderNumber">
     <div class="pop-title">Proses Komplain</div>
@@ -97,4 +97,4 @@
       <button type="submit" class="btn-submit">SUBMIT</button>
     </div>
   </form>
-</app-models>
+</app-modal>

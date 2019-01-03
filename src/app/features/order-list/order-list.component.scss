@@ -363,3 +363,45 @@
     float: right;
     margin-right: 8%;
 }
+.tolak {
+    height: 200px;
+    font-family: Helvetica;
+    color: black;
+    font-size: 14pt;
+    font-style: italic;
+}
+
+:host ::ng-deep .dialog {
+    padding: 35px;
+    top: 20%;
+}
+
+.red {
+    background-color: #fd5353;
+    font-family: Helvetica;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16pt;
+    width: 120px;
+    height: 30px;
+}
+
+.grey {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-size: 16pt;
+    width: 120px;
+    height: 30px;
+}
+
+.btn {
+    padding: 0px;
+}
+p {
+    color: black;
+    padding: 20px 0;
+}
+
+h2 {
+    color: black;
+}
