@@ -1,11 +1,11 @@
-import { TestingServicesService } from './../../../core/services/testService/testing-services.service';
+import { TestingServicesService } from '../../../core/services/testService/testing-services.service';
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter, HostBinding } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
-  selector: 'app-models',
-  templateUrl: './models.component.html',
-  styleUrls: ['./models.component.scss'],
+  selector: 'app-modal',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss'],
   animations: [
     trigger('dialog', [
       transition('void => *', [
@@ -18,7 +18,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
     ])
   ]
 })
-export class ModelsComponent implements OnInit {
+export class ModalComponent implements OnInit {
   // @HostBinding('class.is-open')
   @Input() myFunction: Function;
   @Input() closable = true;

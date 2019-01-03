@@ -26,7 +26,7 @@ const routes: Routes = [
     canActivateChild: [OnlyLoggedInUsersGuard],
     children: [
       {
-        path: '',
+        path: 'profile',
         component: ProfileSellerComponent,
         data: {
           title: 'Profile Seller'

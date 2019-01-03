@@ -27,6 +27,8 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   info: InvoiceData = new InvoiceData();
 
+  cancelOrderModal: boolean;
+
   // @Input() status: string;
   visible: boolean;
   status = 'ALL';
@@ -60,6 +62,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {
     this.toggleArrBol = [];
+    this.cancelOrderModal = false;
   }
 
   ngOnInit() {
@@ -234,32 +237,35 @@ export class OrderListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  declineTransactionModal(orderNumber) {
+    this.cancelOrderModal = true;
+  }
   declineTransaction(orderNumber) {
-    swal({
-      title: 'belisada.co.id',
-      text: 'Anda yakin akan menolak pesanan?',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Iya',
-      cancelButtonText: 'Tidak',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swal(
-          'Success!',
-          'Anda telah menolak pesanan.',
-          'success'
-        ).then(() => {
-          this.transactionService.declineTransaction(orderNumber).subscribe(response => {
-            console.log(response);
-            this.orderList(this.status);
+    this.cancelOrderModal = false;
+    // swal({
+    //   title: 'belisada.co.id',
+    //   text: 'Anda yakin akan menolak pesanan?',
+    //   type: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Iya',
+    //   cancelButtonText: 'Tidak',
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   reverseButtons: true
+    // }).then((result) => {
+    //   if (result.value) {
+    //     swal(
+    //       'Success!',
+    //       'Anda telah menolak pesanan.',
+    //       'success'
+    //     ).then(() => {
+    //       this.transactionService.declineTransaction(orderNumber).subscribe(response => {
+    //         console.log(response);
+    //         this.orderList(this.status);
 
-          });
-          });
-          }
-        });
-      }
+    //       });
+    //       });
+    //       }
+    //     });
+  }
 }

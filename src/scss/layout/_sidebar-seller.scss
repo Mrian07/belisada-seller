@@ -8,30 +8,50 @@
     margin-top:10px;
 }
 .dummy-backgorund {
-    background-color: #eee;
+    //background-color: #eee;
     // width: 300px;
     margin: 5px;
-    padding: 8px;
+    padding: 5px;
     cursor: pointer;
-    border-right: 5px solid #f57b2a;
+    border-left: 4px solid #fff;
+    font-size: 14pt;
+    font-weight: 100;
+
+    &_active{
+        .dummy-backgorund {
+            margin: 5px;
+            padding: 5px;
+            cursor: pointer;
+            background-color: #ffebd6;
+            border-left: 4px solid #f8992e;
+            font-size: 14pt;
+            font-weight: 100;
+        }
+    }
 }
 
 .dummy-backgorund:hover {
-    background-color: #f6f6f6;
-    border-right: 5px solid #f57b2a;
+    background-color: #ffcf9a;
+    border-left: 4px solid #f8992e;
 }
+
+// .dummy-backgorund p {
+//     display: inline;
+//     margin-top: -2px;
+//     vertical-align: middle;
+// }
 
 .profile-toko-text {
     color: black !important;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .img-small-store-for-sidebar {
-    width: 37px;
+    width: 40px;
     padding-left: 11px;
-    padding-top: 10px;
     padding-right: 3px;
-
+    vertical-align:text-bottom;
+    margin-right: 10px;
 }
 .right-pull {
     text-align: right;

@@ -1,28 +1,32 @@
 <div class="containPage">
     <div class="row">
         <div class="col-12">
-        <span class="title-sidebar-seller">MERCHANT</span>
-        <div class="border-sidebar-seller">
-        <a class="profile-toko-text" [routerLink]="['/']">
+        <span class="title-sidebar-seller">LOGO BELISADA</span>
+        <a class="profile-toko-text" [routerLink]="['/profile']" routerLinkActive="dummy-backgorund_active">
             <div class="dummy-backgorund">
-                <!-- <img class="img-small-store-for-sidebar" src="assets/img/store_icon.png"> -->
-                Profil Toko
-                <!-- <fa-icon [icon]="['fas', 'bell']"></fa-icon> -->
+                <div>
+                    <img class="img-small-store-for-sidebar" src="assets/img/icon-profiltoko.png">
+                    <span>Profil Toko</span>
+                    <!-- <fa-icon [icon]="['fas', 'bell']"></fa-icon> -->
+                </div>
             </div>
         </a>
-        <a class="profile-toko-text" [routerLink]="['/listing-product']">
+        <a class="profile-toko-text" [routerLink]="['/listing-product']" routerLinkActive="dummy-backgorund_active" >
             <div class="dummy-backgorund">
+                <img class="img-small-store-for-sidebar" src="assets/img/icon-profiltoko.png">
                 Listing Product
             </div>
         </a>
-        <a class="profile-toko-text" [routerLink]="['/listing-order']">
+        <a class="profile-toko-text" [routerLink]="['/listing-order']" routerLinkActive="dummy-backgorund_active">
             <div class="dummy-backgorund">
+                <img class="img-small-store-for-sidebar" src="assets/img/icon-profiltoko.png">
                 Listing Order
             </div>
         </a>
-        <a class="profile-toko-text" [routerLink]="['/Income']">
+        <a class="profile-toko-text" [routerLink]="['/Income']" routerLinkActive="dummy-backgorund_active">
             <div class="dummy-backgorund">
-            My Income
+                <img class="img-small-store-for-sidebar" src="assets/img/icon-profiltoko.png">
+                My Income
             </div>
         </a>
         <!-- <a class="profile-toko-text" [routerLink]="['/search-product-master']">
@@ -30,22 +34,23 @@
                     search-product-master
             </div>
         </a> -->
-        <a class="profile-toko-text" [routerLink]="['/discussion-review']">
+        <a class="profile-toko-text" [routerLink]="['/discussion-review']" routerLinkActive="dummy-backgorund_active">
             <div class="dummy-backgorund">
+                <img class="img-small-store-for-sidebar" src="assets/img/icon-profiltoko.png">
                 Discussion & Review
             </div>
         </a>
-        <a class="profile-toko-text" [routerLink]="['/product-assist']">
+        <a class="profile-toko-text" [routerLink]="['/product-assist']" routerLinkActive="dummy-backgorund_active">
             <div class="dummy-backgorund">
+                <img class="img-small-store-for-sidebar" src="assets/img/icon-profiltoko.png">
                 Bantuan Produk
             </div>
         </a>
         <a class="profile-toko-text" (click)="logout()">
             <div class="dummy-backgorund">
+                <img class="img-small-store-for-sidebar" src="assets/img/icon-profiltoko.png">
                 Logout
             </div>
         </a>
-        
-        </div>
     </div>
 </div>
