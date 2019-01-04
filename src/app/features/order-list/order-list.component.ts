@@ -103,6 +103,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     };
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
+      console.log('isi datanya', response);
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
       // console.log(b);

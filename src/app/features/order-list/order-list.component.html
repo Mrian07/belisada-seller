@@ -87,6 +87,10 @@
 							<span class="nm-var" *ngFor="let varian of itemChild.varians; let i = index">
 								{{varian.varians[0].value}} {{ (i === itemChild.varians.length - 1) ? '' : ' - ' }}
 							</span>
+							<div *ngIf="note!=''" class="note">
+								<strong>Note:</strong><br>
+								{{itemChild.note}}
+							</div>
 						</div>
 						<div class="col-2 qty-item">
 							X {{itemChild.quantity}}
