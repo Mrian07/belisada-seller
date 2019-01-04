@@ -38,8 +38,8 @@
 							{{item.subTotal | currency:'Rp ':'symbol':'1.0'}}
 						</div>
 						<div class="center bold">
-							<span class="red-font"><!-- *ngIf="item.countdown && item.statusOrderSellerCode !== '183'; else elseTemplate" -->
-								{{ item.countdown.days }} : {{ item.countdown.hours }} : {{ item.countdown.minutes }}
+							<span class="red-font" *ngIf="item.countdown"><!-- *ngIf="item.countdown && item.statusOrderSellerCode !== '183'; else elseTemplate" -->
+								{{ item.countdown?.days }} : {{ item.countdown?.hours }} : {{ item.countdown?.minutes }}
 							</span>
 							<ng-template #elseTemplate>
 									<span>-</span>

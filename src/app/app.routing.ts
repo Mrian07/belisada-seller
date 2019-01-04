@@ -26,6 +26,11 @@ const routes: Routes = [
     canActivateChild: [OnlyLoggedInUsersGuard],
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/profile'
+      },
+      {
         path: 'profile',
         component: ProfileSellerComponent,
         data: {
@@ -151,7 +156,7 @@ const routes: Routes = [
   // },
   // {
   //   path: '**',
-  //   component: Page404Component,
+  //   redirectTo: '/profile'
   // },
 ];
 
