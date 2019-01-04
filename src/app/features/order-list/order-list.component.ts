@@ -103,7 +103,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     };
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
-      console.log('data semua', response);
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
       // console.log(b);
@@ -111,7 +110,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
         this.toggleArrBol.push(false);
       });
       this.listCart = response.content;
-      console.log(this.listCart.length);
       if ( this.listCart.length === 0) {
       } if (this.listCart.length >= 0) {
         b.forEach((x) => {
@@ -145,7 +143,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.isForm = true;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
-      console.log('this.info.actualCourierPrice: ', this.info.actualCourierPrice);
       this.createComForm.patchValue({
         orderNumber : orderNumber,
         actualCourierPrice: this.info.actualCourierPrice,
