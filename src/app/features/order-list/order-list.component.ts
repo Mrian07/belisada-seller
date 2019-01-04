@@ -239,7 +239,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   declineTransactionModal(orderNumber) {
     this.cancelOrderModal = true;
   }
-  declineTransaction(orderNumber) {
+  declineTransaction() {
     this.cancelOrderModal = false;
     // swal({
     //   title: 'belisada.co.id',
@@ -267,4 +267,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     //       }
     //     });
   }
+
+  expression() { }
 }
