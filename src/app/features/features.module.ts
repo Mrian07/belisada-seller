@@ -14,7 +14,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     FontAwesomeModule,
     ReactiveFormsModule
-    
   ],
   declarations: [OrderPrintComponent, InvoiceNumberComponent, IncomeSellerComponent]
 })
