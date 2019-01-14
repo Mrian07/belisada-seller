@@ -49,10 +49,9 @@ export class IncomeSellerComponent implements OnInit {
 
     private dateUtil: DateUtil,
     private activatedRoute: ActivatedRoute) {
-   }
+  }
 
   ngOnInit() {
-    
     this.form();
     this.newMethod();
   }
