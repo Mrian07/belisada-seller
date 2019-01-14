@@ -11,6 +11,8 @@ import { DateUtil } from '@belisada-seller/core/util';
 
 import swal from 'sweetalert2';
 
+import { ResponseWithdrawal} from '@belisada-seller/core/models';
+
 @Component({
   selector: 'bss-income-seller',
   templateUrl: './income-seller.component.html',
@@ -211,10 +213,7 @@ export class IncomeSellerComponent implements OnInit {
 
   }
 
-  
-
   tarikDana() {
-    // console.log(this.invNumPart2.length);
     if (this.invNumPart2.length === 0) {
       swal('Alert', 'Anda belum memilih saldo yang akan ditarik', 'error');
     } else {
@@ -235,9 +234,15 @@ export class IncomeSellerComponent implements OnInit {
             itemperpage: 10,
           };
           this.incomeS.postIncome(a).subscribe(response => {
-          this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
-            this.getData = x.content;
-            });
+
+            if (response.status === 3) {
+              swal('Gagal', 'Silakan isi rekening bank Anda terlebih dulu pada halaman profile', 'error');
+            } else {
+              this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
+                this.getData = x.content;
+                });
+            }
+
           });
           console.log('invNumPart2', this.invNumPart2);
         }
