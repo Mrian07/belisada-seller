@@ -5,7 +5,7 @@
       <div class="text--background__header--title">
         <span>* </span>
         <span>Total </span>
-        <span class="text-bold">Saldo Anda </span>
+        <span class="text-bold">Saldo yang bisa ditarik </span>
         <span>adalah Rp </span>
         <span class="text-bold"> {{getTotal | currency:'Rp '}} </span>
       </div>
@@ -62,7 +62,7 @@
                 <div class="col-5">
                     <button [ngClass]="btn_withrawal === true ? 'btn btn--green btn--height72': 'btn btn--disabled btn--height72'"
                     
-                     (click)="tarikDana()">Tarik Dana</button>
+                    (click)="tarikDana()">Tarik Dana</button>
                 </div>
               </div>
             </div>

@@ -62,10 +62,11 @@ export class IncomeSellerComponent implements OnInit {
   ngOnInit() {
     this.form();
     this.newMethod();
-    console.log('data allssss', this.getData);
   }
   private newMethod() {
     this.incomeS.getTotal().subscribe(res => {
+
+      console.log('hasil semua', res);
       this.getTotal = res.data;
     });
     this.activatedRoute.queryParams.subscribe((params: Params) => {
