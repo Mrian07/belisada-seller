@@ -1,0 +1,44 @@
+<div class="frame-dis-contain">
+    <div *ngFor="let item of list; let in = index">
+    <div class="title-dis" (click)="openOS(openDetail, item.productId)">
+
+            <img src="{{item.productImage}}" width="100">
+            {{item.name}}
+    </div>
+    <div class="contain-dis" *ngIf="openDetail==true && productId==item.productId">
+        <div class="in" *ngFor="let itemChild of listChild">
+            <div class="iImg">
+                <img src="{{itemChild.imageAvatarUrl}}" class="imgUser">
+            </div>
+            <div class="iCon">
+                <p><label>{{itemChild.name}}  </label></p>
+                <div class="product__rating">
+                    <fa-icon class="product-rating__star--fill" [icon]="['fas', 'star']" *ngFor="let i of Arr(itemChild.star).fill(1)"></fa-icon>
+                    <fa-icon class="product-rating__star--empty" [icon]="['fas', 'star']" *ngFor="let i of Arr(5 - itemChild.star).fill(1)"></fa-icon> 
+                </div><br>
+                {{itemChild.message}}
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="paging" *ngIf="a!=0">
+	<ul>
+		<li>
+			<a (click)="setPage(1)" [ngClass]="{disabled:currentPage == 1}">First</a>
+		</li>
+		<li>
+			<a (click)="setPage(currentPage, -1)" [ngClass]="{disabled:(currentPage-1) < 1}">Previous</a>
+		</li>
+		<li *ngFor="let p of pages">
+			<a (click)="setPage(p)" [ngClass]="currentPage == p?'current-page':''">{{p}}</a>
+		</li>
+		<li>
+			<a (click)="setPage(currentPage, +1)" [ngClass]="{disabled:currentPage == lastPage}">Next</a>
+		</li>
+		<li>
+			<a (click)="setPage(lastPage)" [ngClass]="{disabled:currentPage == lastPage}">Last</a>
+		</li>
+	</ul>
+</div>
+

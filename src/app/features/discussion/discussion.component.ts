@@ -31,6 +31,8 @@ export class DiscussionComponent implements OnInit {
   pages: any = [];
   a: any;
 
+  isLoading: boolean;
+
   constructor(
     public discussionService: DiscussionService,
     private fb: FormBuilder,
@@ -41,6 +43,7 @@ export class DiscussionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.loadDis();
     // this.createFormControl();
   }
