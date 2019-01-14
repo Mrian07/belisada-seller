@@ -60,7 +60,9 @@
                 </div>
             
                 <div class="col-5">
-                    <button class="btn btn--green btn--height72" (click)="tarikDana()">Tarik Dana</button>
+                    <button [ngClass]="btn_withrawal === true ? 'btn btn--green btn--height72': 'btn btn--disabled btn--height72'"
+                    
+                     (click)="tarikDana()">Tarik Dana</button>
                 </div>
               </div>
             </div>
@@ -73,7 +75,7 @@
   <div class="col-12 wrapper--body">
       <div class="four-grid" *ngFor="let item of getData">
           <div>
-            <input type="checkbox" [checked]=item.selected (change)="onChange(item.invoiceNumber, $event.target.checked)"/>
+            <input type="checkbox" [checked]=item.selected (change)="onChange(item, $event.target.checked)" *ngIf="item.statusWithdrawCode==221"/>
 
           </div>
           <div><span> {{  item.createdTime }} </span><br>

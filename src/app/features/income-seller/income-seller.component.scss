@@ -52,15 +52,21 @@
         }
         .btn--peach {
             background: #DDB42E;
-               color: white;
+            color: white;
             width: 100%;
         } 
         .btn--green {
             background: #067E5B;
             color: white;
-         width: 100%;
-            
+            width: 100%;
         }
+
+        .btn--disabled {
+            background: #dddddd;
+            color: white;
+            width: 100%;
+        }
+
         .text--saldo {
             text-align: center;
             display: block;

@@ -25,6 +25,7 @@ export class SearchProductMasterComponent implements OnInit, OnDestroy {
   a;
   b;
   showDialog: boolean;
+  status: number;
 
   public pImageThumborUrl: string;
   public reactiveForm;

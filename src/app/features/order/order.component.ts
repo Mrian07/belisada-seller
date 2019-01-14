@@ -11,6 +11,8 @@ import { ProductsSandbox } from '../product/products.sandbox';
 export class OrderComponent implements OnInit {
 
   tabOrder = '187';
+  showSearch: boolean;
+  keywordSearch: string;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -27,5 +29,9 @@ export class OrderComponent implements OnInit {
     this.tabOrder = data;
     this.router.navigate(['/listing-order'], { queryParams: {page: 1, status: data}, queryParamsHandling: 'merge' });
   }
+
+  onSearchSubmit() { }
+  searchK(event) { }
+  onSearchFocusOut() { }
 
 }
