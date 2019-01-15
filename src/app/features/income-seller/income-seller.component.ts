@@ -36,6 +36,8 @@ export class IncomeSellerComponent implements OnInit {
 
   btn_withrawal: Boolean = false;
 
+  totalTransfer: any = [];
+
   myDatePickerOptions: IMyDpOptions = {
     // other options... https://github.com/kekeh/mydatepicker#options-attribute
     dateFormat: this.defaultDateFormat,
@@ -65,8 +67,6 @@ export class IncomeSellerComponent implements OnInit {
   }
   private newMethod() {
     this.incomeS.getTotal().subscribe(res => {
-
-      console.log('hasil semua', res);
       this.getTotal = res.data;
     });
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -215,7 +215,21 @@ export class IncomeSellerComponent implements OnInit {
   }
 
   tarikDana() {
-    if (this.invNumPart2.length === 0) {
+
+    this.totalTransfer = [];
+    for (let i = 0; i < this.invNumPart2.length; i++) {
+      const index = this.getData.findIndex(x => x.invoiceNumber === this.invNumPart2[i]);
+      console.log('index', index);
+      if (index) {
+        this.totalTransfer.push(this.getData[index].grandTotal);
+      }
+    }
+
+    const valTotalTransfer = this.totalTransfer.reduce((sum, item) => sum + item, 0);
+
+    if (valTotalTransfer <= 50000) {
+      swal('Alert', 'Maaf minimal tarik dana Rp.50.000', 'error');
+    } else if (this.invNumPart2.length === 0) {
       swal('Alert', 'Anda belum memilih saldo yang akan ditarik', 'error');
     } else {
 
