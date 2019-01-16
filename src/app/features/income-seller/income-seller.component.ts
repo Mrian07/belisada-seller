@@ -252,6 +252,8 @@ export class IncomeSellerComponent implements OnInit {
 
             if (response.status === 3) {
               swal('Gagal', 'Silakan isi rekening bank Anda terlebih dulu pada halaman profile', 'error');
+            } else if (response.status === 4) {
+              swal('Gagal', 'Maaf minimal tarik dana Rp.50.000', 'error');
             } else {
               this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
                 this.getData = x.content;
