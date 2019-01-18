@@ -114,6 +114,10 @@
                                 </label>
                             </div>
                             <div class="offset-md-4 col-md-6">
+                                <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid && variant.controls.isUsed.value == true">
+                                    <bss-field-error [displayError]="variant.controls.qty.errors.min" errorMsg="Minimal stok 5"></bss-field-error>
+                                    <bss-field-error [displayError]="variant.controls.qty.errors.required" errorMsg="Stok harus diisi"></bss-field-error>
+                                </div>
                                 <div *ngIf="(submitted || variant.touched) && variant.errors && variant.controls.isUsed.value == true">
                                     <bss-field-error [displayError]="variant.errors.invalidprice" errorMsg="Harga promo tidak boleh lebih besar dari harga jual"></bss-field-error>
                                 </div>

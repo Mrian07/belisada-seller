@@ -197,7 +197,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     return this.fb.group({
       masterVarianId: [''],
       pricelist: ['', [Validators.required, Validators.min(100)]],
-      qty: [''],
+      qty: ['', [Validators.required, Validators.min(5)]],
       specialPrice: [''],
       isUsed: [true],
       discount: [''],
@@ -406,13 +406,14 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       }
     }));
   }
-  numberCheck(event: any) {
+  numberCheck(event: any, val) {
     const pattern = /[0-9]/;
 
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
         event.preventDefault();
     }
+
   }
 
   ngOnDestroy() {
