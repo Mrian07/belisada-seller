@@ -173,21 +173,23 @@
 		</li>
 	</ul>
 </div>
+
 <app-modal [(visible)]="cancelOrderModal" maxwidth="600" class="frameDialog">
-	<div>
+	<form [formGroup]="cancelForm" (ngSubmit)="onSubmit(orderNumber)">
 		<h2 class="text-center">Anda Yakin menolak Order Ini?</h2>
 		<div>
-			<textarea class="sn-form-control tolak" type="text" placeholder="Tulis alasan penolakan anda"></textarea>
+			<textarea formControlName="reason" class="sn-form-control tolak" type="text" placeholder="Tulis alasan penolakan anda"></textarea>
 		</div>
 		<div>
 			<p class="text-center">Melakukan tolak order akan mempengaruhi performa toko anda!</p>
 			<div>
-				<button class="btn pull-left grey" (click)="expression">Batal</button>
-				<button class="btn pull-right red" (click)="declineTransaction()">Tolak</button>
+				<button class="btn pull-left grey" type="button" (click)="back()">Batal</button>
+				<button class="btn pull-right red" type="submit">Tolak</button>
 			</div>
 		</div>
-	</div>
+	</form>
 </app-modal>
+
 <app-modal [(visible)]="btnResi" class="frameDialog">
 	<div *ngIf="isErrorResi == true">
 		<div class="error-body">
