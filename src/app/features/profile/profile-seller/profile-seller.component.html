@@ -41,12 +41,12 @@
     </div>
     <div class="col-8">
         <div class="frame-menu">
-        <div [ngClass]="(tabMenu=='profile')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('profile')">
-            Informasi Toko
-        </div>
-        <div [ngClass]="(tabMenu=='rekening')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('rekening')">
-            Rekening Pencarian
-        </div>
+            <div [ngClass]="(tabMenu=='profile')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('profile')">
+                Informasi Toko
+            </div>
+            <div [ngClass]="(tabMenu=='rekening')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('rekening')">
+                Rekening Pencairan
+            </div>
         </div>
         <div class="frame-menu-contain">
             <bss-profile-information *ngIf="tabMenu=='profile'"></bss-profile-information> 

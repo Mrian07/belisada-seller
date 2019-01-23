@@ -178,6 +178,10 @@
     cursor: pointer;
 }
 
+.btn {
+    padding: 0.4rem 2rem;
+}
+
 .btn-order:hover{
     background: #f4b876;
 }
@@ -392,10 +396,6 @@
     font-size: 16pt;
     width: 120px;
     height: 30px;
-}
-
-.btn {
-    padding: 10px;
 }
 
 p {
