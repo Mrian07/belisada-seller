@@ -136,11 +136,11 @@
 						<span class="btn-acc" (click)="acceptTransaction(item.orderNumber)">Proses</span>
 						<span class="btn-dec" (click)="declineTransactionModal(item.orderNumber)">Tolak</span>
 					</div>
+					<div *ngIf="item.statusOrderSellerCode === '196'">
+						<p><b><br>No Resi :</b> &nbsp;{{ item.noResi }}</p>
+					</div>
 					<div class="w-wrapper__for--cetak_invoice">
 							<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190' && item.statusOrderSellerCode !== '196'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
-								{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
-							</div>
-							<div class="btn-order" *ngIf="item.statusOrderSellerCode === '196'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
 								{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
 							</div>
 							<!--<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
