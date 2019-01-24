@@ -63,6 +63,8 @@
     font-family: Roboto;
 
     &__light{
+        box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+        background-color: #fcfcfc;
         background: #c8fab5;
         padding: 1rem;
         color: #000000;
