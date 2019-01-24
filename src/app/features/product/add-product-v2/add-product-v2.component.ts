@@ -438,7 +438,4 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     }
     return invalid;
   }
-
-  addVarian() {
-  }
 }
