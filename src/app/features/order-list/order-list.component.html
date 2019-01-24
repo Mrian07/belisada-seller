@@ -20,64 +20,65 @@
 </div>
 <div class="table-container">
 	<div class="frame-contain" *ngFor="let item of listCart; let idx = index">
-			<div class="trans-list">
-					<div class="order-data">
-						<div class="center">
-							#{{item.invoiceNumber}}
-						</div>
-						<div class="center">
-							{{item.createdOrder.split(' ')[0]}}
-						</div>
-						<div class="center">
-							{{item.namaPenerima}}
-						</div>
-						<div class="center">
-							{{item.totalQty}}
-						</div>
-						<div class="center bold">
-							{{item.subTotal - item.asuransi | currency:'Rp ':'symbol':'1.0'}}
-						</div>
-						<div class="center bold">
-							<span class="red-font" *ngIf="item.countdown"><!-- *ngIf="item.countdown && item.statusOrderSellerCode !== '183'; else elseTemplate" -->
-								{{ item.countdown?.days }} : {{ item.countdown?.hours }} : {{ item.countdown?.minutes }}
-							</span>
-							<ng-template #elseTemplate>
-									<span>-</span>
-							</ng-template>
-						</div>
-						<div class="float-right">
-							<img (click)="toggleArrBol[idx] = !toggleArrBol[idx]" src="assets/img/zoom-in.png" border="0" class="zoom-icon">
-						</div>
-						<!-- <div *ngIf="item.countdown === undefined; else login">
-							<div class="col-6">
-								Customer : <b>{{item.namaPenerima}}</b>
-							</div>
-							<div class="col-6 right">
-								No Pesanan : <b>{{item.invoiceNumber}}</b>
-							</div>
-						</div> -->
-			
-						<!-- <ng-template #login>
-							<div class="col-4 cust">
-								Customer : <b>{{item.namaPenerima}}</b>
-							</div>
-							<div class="col-4" *ngIf="item.countdown && item.statusOrderSellerCode !== '183'">
-								Batas Waktu Respon:  {{item.expiredSellerProcessDate}} 
-							<span *ngIf="item.countdown.message !== 'EXPIRED'">
-								Batas Waktu Respon: {{ item.countdown.days }}d - {{ item.countdown.hours }}h - {{ item.countdown.minutes }}m - {{ item.countdown.seconds }}s
-							</span>
-							<span *ngIf="item.countdown.message === 'EXPIRED'">
-								{{item.countdown.message}}
-							</span>
-								{{item.expiredSellerProcessDate.days}}d - {{item.expiredSellerProcessDate.hours}}h - {{item.expiredSellerProcessDate.minutes}}m - {{item.expiredSellerProcessDate.seconds}}s
-							</div>
-							<div class="col-4" *ngIf="item.statusOrderSellerCode === '183'"></div>
-							<div class="col-4 right">
-								No Pesanan : <b>{{item.invoiceNumber}}</b>
-							</div>
-						</ng-template> -->
-					</div>
+		<div 
+		[ngClass]="item.statusOrderSellerCode === '187' ? 'trans-list__light' : 'trans-list'">
+			<div class="order-data">
+				<div class="center">
+					#{{item.invoiceNumber}}
 				</div>
+				<div class="center">
+					{{item.createdOrder.split(' ')[0]}}
+				</div>
+				<div class="center">
+					{{item.namaPenerima}}
+				</div>
+				<div class="center">
+					{{item.totalQty}}
+				</div>
+				<div class="center bold">
+					{{item.subTotal - item.asuransi | currency:'Rp ':'symbol':'1.0'}}
+				</div>
+				<div class="center bold">
+					<span class="red-font" *ngIf="item.countdown"><!-- *ngIf="item.countdown && item.statusOrderSellerCode !== '183'; else elseTemplate" -->
+						{{ item.countdown?.days }} : {{ item.countdown?.hours }} : {{ item.countdown?.minutes }}
+					</span>
+					<ng-template #elseTemplate>
+							<span>-</span>
+					</ng-template>
+				</div>
+				<div class="float-right">
+					<img (click)="toggleArrBol[idx] = !toggleArrBol[idx]" src="assets/img/zoom-in.png" border="0" class="zoom-icon">
+				</div>
+				<!-- <div *ngIf="item.countdown === undefined; else login">
+					<div class="col-6">
+						Customer : <b>{{item.namaPenerima}}</b>
+					</div>
+					<div class="col-6 right">
+						No Pesanan : <b>{{item.invoiceNumber}}</b>
+					</div>
+				</div> -->
+	
+				<!-- <ng-template #login>
+					<div class="col-4 cust">
+						Customer : <b>{{item.namaPenerima}}</b>
+					</div>
+					<div class="col-4" *ngIf="item.countdown && item.statusOrderSellerCode !== '183'">
+						Batas Waktu Respon:  {{item.expiredSellerProcessDate}} 
+					<span *ngIf="item.countdown.message !== 'EXPIRED'">
+						Batas Waktu Respon: {{ item.countdown.days }}d - {{ item.countdown.hours }}h - {{ item.countdown.minutes }}m - {{ item.countdown.seconds }}s
+					</span>
+					<span *ngIf="item.countdown.message === 'EXPIRED'">
+						{{item.countdown.message}}
+					</span>
+						{{item.expiredSellerProcessDate.days}}d - {{item.expiredSellerProcessDate.hours}}h - {{item.expiredSellerProcessDate.minutes}}m - {{item.expiredSellerProcessDate.seconds}}s
+					</div>
+					<div class="col-4" *ngIf="item.statusOrderSellerCode === '183'"></div>
+					<div class="col-4 right">
+						No Pesanan : <b>{{item.invoiceNumber}}</b>
+					</div>
+				</ng-template> -->
+			</div>
+		</div>
 		<div class="cont-buyer" *ngIf="toggleArrBol[idx]">
 			<div class="frame-cont">
 				<div>
@@ -132,7 +133,6 @@
 				</div>
 				<div>
 					<div class="choose" *ngIf="item.statusOrderSellerCode === '187' && item.statusOrderSellerCode !== '190'"> 
-							<!-- *ngIf="item.statusOrderSellerCode === '187'" -->
 						<span class="btn-acc" (click)="acceptTransaction(item.orderNumber)">Proses</span>
 						<span class="btn-dec" (click)="declineTransactionModal(item.orderNumber)">Tolak</span>
 					</div>
