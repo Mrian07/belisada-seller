@@ -16,5 +16,6 @@ export * from './transaction/transaction.model';
 export * from './discussion/discussion.model';
 export * from './review/review.model';
 export * from './rekening/rekening.model';
+export * from './reason/reason.model';
 export * from './income/income-model';
 export * from './complain/complain.model';
