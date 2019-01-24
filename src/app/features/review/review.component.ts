@@ -37,6 +37,7 @@ export class ReviewComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {
+    this.list = [];
   }
 
   ngOnInit() {

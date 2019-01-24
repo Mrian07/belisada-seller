@@ -40,6 +40,7 @@ export class DiscussionComponent implements OnInit {
     private router: Router,
   ) {
     this.inputFormGroup = [];
+    this.list = [];
   }
 
   ngOnInit() {
