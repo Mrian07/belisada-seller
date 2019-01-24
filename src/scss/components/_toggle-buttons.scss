@@ -37,12 +37,12 @@
 
 input:checked + .slider {
     background-color: $color--proteus-green;
-    color: $color--ash;
+    color: $color--white;
     // border: .1rem solid $color--ash;
 }
 
 input:checked + .slider:before {
-    @include prefix((transform: translateX(6.5rem)), webkit moz ms o);
+    @include prefix((transform: translateX(5.5rem)), webkit moz ms o);
 }
 
 /*------ ADDED CSS ---------*/

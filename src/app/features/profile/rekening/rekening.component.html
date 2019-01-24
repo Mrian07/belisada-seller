@@ -1,14 +1,19 @@
 <div class="list-rek" *ngFor="let item of rekeningList">
-  <div><img src="{{item.imageUrl}}" border="0"></div>
+  <div class="verticalMiddle">
+    <img src="{{item.imageUrl}}">
+  </div>
   <div>{{item.bankName}}<br>{{item.accountNumber}}<br>{{item.accountName}}</div>
   <div class="b-btn">
-    <span class="l-edit">
-      <fa-icon (click)="editBank(item)" [icon]="['fas', 'edit']"></fa-icon>
-    </span>   
-    <span class="l-edit">
-      <fa-icon (click)="deleteBank(item.bankAccountId)" [icon]="['fas', 'trash']"></fa-icon>
-    </span>
-    
+    <div class="verticalMiddle">
+      <div class="center">
+        <span class="l-edit">
+          <fa-icon (click)="editBank(item)" [icon]="['fas', 'edit']"></fa-icon>
+        </span>   
+        <span class="l-edit">
+          <fa-icon (click)="deleteBank(item.bankAccountId)" [icon]="['fas', 'trash']"></fa-icon>
+        </span>
+      </div>
+    </div>
   </div>
 
 </div>
