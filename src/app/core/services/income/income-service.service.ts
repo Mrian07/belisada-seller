@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Configuration } from '@belisada-seller/core/config';
 import {
-  GetDataContentIncome
+  GetDataContentIncome,
+  ResponseWithdrawal
 } from '@belisada-seller/core/models';
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,11 @@ export class IncomeServiceService {
         map(response => response as GetDataContentIncome)
       );
   }
-    postIncome(data) {
-    return this.http.post(this.configuration.apiURL + '/seller/withdraw', data);
+    postIncome(data): Observable<ResponseWithdrawal> {
+    return this.http.post(this.configuration.apiURL + '/seller/withdraw', data)
+    .pipe(
+      map(response => response as ResponseWithdrawal)
+    );
   }
 
   getTotal() {

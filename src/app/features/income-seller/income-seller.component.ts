@@ -8,6 +8,11 @@ import { IncomeServiceService } from '@belisada-seller/core/services';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ContentData } from '@belisada-seller/core/models';
 import { DateUtil } from '@belisada-seller/core/util';
+
+import swal from 'sweetalert2';
+
+import { ResponseWithdrawal} from '@belisada-seller/core/models';
+
 @Component({
   selector: 'bss-income-seller',
   templateUrl: './income-seller.component.html',
@@ -28,6 +33,11 @@ export class IncomeSellerComponent implements OnInit {
   invNumPart2: any = [];
   selectedAll: any;
   xx: false;
+
+  btn_withrawal: Boolean = false;
+
+  totalTransfer: any = [];
+
   myDatePickerOptions: IMyDpOptions = {
     // other options... https://github.com/kekeh/mydatepicker#options-attribute
     dateFormat: this.defaultDateFormat,
@@ -49,10 +59,9 @@ export class IncomeSellerComponent implements OnInit {
 
     private dateUtil: DateUtil,
     private activatedRoute: ActivatedRoute) {
-   }
+  }
 
   ngOnInit() {
-    
     this.form();
     this.newMethod();
   }
@@ -69,6 +78,9 @@ export class IncomeSellerComponent implements OnInit {
       };
       this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
         this.getData = response.content;
+
+        console.log('data all', this.getData);
+
         this.lastPage = response.totalPages;
         for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
           if (r > 0 && r <= this.lastPage) {
@@ -106,18 +118,72 @@ export class IncomeSellerComponent implements OnInit {
 
   selectAll() {
     for (let i = 0; i < this.getData.length; i++) {
-      this.getData[i].selected = true;
-      this.invNumPart2.push(this.getData[i].invoiceNumber);
+      if (this.getData[i].statusWithdrawCode === '221') {
+        if (this.invNumPart2.indexOf(this.getData[i].invoiceNumber) !== -1) {
+        } else {
+          this.invNumPart2.push(this.getData[i].invoiceNumber);
+        }
+
+        this.getData[i].selected = true;
+
+        if (this.invNumPart2.length >= 1) {
+          this.btn_withrawal = true;
+        } else {
+          this.btn_withrawal = false;
+        }
+      }
+      console.log(this.invNumPart2);
     //  const a = JSON.stringify(this.invNumPart2);
       // console.log(a)
-      console.log(  this.invNumPart2);
       // console.log('res',response);
     }
-    // console.log( this.getData);
   }
+
+  onChange(item: any, isChecked: boolean) {
+
+    if (isChecked === true) {
+
+      this.invNumPart2.push(item.invoiceNumber);
+      console.log('isi A:',  this.invNumPart2);
+      item.selected = true;
+    } else {
+      this.invNumPart2.splice(item.invoiceNumber, 1);
+        console.log('isi A:',   this.invNumPart2);
+        item.selected = false;
+    }
+
+    if (this.invNumPart2.length >= 1) {
+      this.btn_withrawal = true;
+    } else {
+      this.btn_withrawal = false;
+    }
+
+    // for (let i = 0; i < this.getData.length; i++) {
+    //   this.getData[i].selected = true;
+    //   this.invNumPart2.push(this.getData[i].invoiceNumber);
+    //   console.log(  this.invNumPart2);
+    // }
+
+
+    // console.log('pilih', email, isChecked );
+
+    // const emailFormArray = < FormArray > this.myForm.controls.useremail;
+    // console.log('apa ini', emailFormArray);
+    // if (isChecked) {
+    //     emailFormArray.push(new FormControl(email));
+    // this.invNum = email;
+
+    // } else {
+    //   const index = emailFormArray.controls.findIndex(x => x.value == email);
+    //   emailFormArray.removeAt(index);
+
+    // }
+  }
+
   asd(e) {
     console.log('asdasd', e);
   }
+
   testing() {
     // console.log(editProfileRequest);
     if (this.fGroup.valid) {
@@ -125,7 +191,7 @@ export class IncomeSellerComponent implements OnInit {
       const editProfileRequest: ContentData = new ContentData();
       const datestart = editProfileRequest.datestart =
       this.dateUtil.formatMyDate(this.fGroup.controls['date1'].value.date, this.defaultDateFormat);
-     const dateend =  editProfileRequest.dateend =
+      const dateend =  editProfileRequest.dateend =
       this.dateUtil.formatMyDate(this.fGroup.controls['date2'].value.date, this.defaultDateFormat);
       console.log(editProfileRequest);
       this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -143,59 +209,89 @@ export class IncomeSellerComponent implements OnInit {
           });
       });
     } else {
-      console.log('b')
+      console.log('b');
     }
-                
 
   }
-  onChange(email: any, isChecked: boolean) {
-    const emailFormArray = < FormArray > this.myForm.controls.useremail;
-    
-    if (isChecked) {
-      emailFormArray.push(new FormControl(email));
-      // console.log(emailFormArray.value);
-  //  console.log(email);
-  this.invNum = email;
 
- } else {
-   const index = emailFormArray.controls.findIndex(x => x.value == email);
-   emailFormArray.removeAt(index);
-  //  console.log(email);
+  tarikDana() {
 
-  }
-}
+    this.totalTransfer = [];
+    for (let i = 0; i < this.invNumPart2.length; i++) {
+      const index = this.getData.findIndex(x => x.invoiceNumber === this.invNumPart2[i]);
+      console.log('index', index);
+      if (index) {
+        this.totalTransfer.push(this.getData[index].grandTotal);
+      }
+    }
 
-tarikDana() {
-  if ( this.myForm.valid ) {
-    const a = {
-    invoiceNumber: this.myForm.get('useremail').value,
-  };
-  console.log(a);
-  const queryParams = {
-    page: this.currentPage,
-    itemperpage: 10,
-  };
-  this.incomeS.postIncome(a).subscribe(response => {
-    this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
-      this.getData = x.content;
-      });
-    });
-  } else {
-    const a = {
-    invoiceNumber: this.invNumPart2
-  };
-  console.log(a);
-  const queryParams = {
-    page: this.currentPage,
-    itemperpage: 10,
-  };
-  this.incomeS.postIncome(a).subscribe(response => {
-    this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
-      this.getData = x.content;
-      });
-    });
-    console.log('invNumPart2', this.invNumPart2)
-  }
-}
+    const valTotalTransfer = this.totalTransfer.reduce((sum, item) => sum + item, 0);
+
+    if (valTotalTransfer <= 50000) {
+      swal('Alert', 'Maaf minimal tarik dana Rp.50.000', 'error');
+    } else if (this.invNumPart2.length === 0) {
+      swal('Alert', 'Anda belum memilih saldo yang akan ditarik', 'error');
+    } else {
+
+      swal({
+        title: 'Alert',
+        text: 'Apakah Anda yakin akan melakukan penarikan dana',
+        type: 'info',
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.value === true) {
+            const a = {
+            invoiceNumber: this.invNumPart2
+          };
+
+          const queryParams = {
+            page: this.currentPage,
+            itemperpage: 10,
+          };
+          this.incomeS.postIncome(a).subscribe(response => {
+
+            if (response.status === 3) {
+              swal('Gagal', 'Silakan isi rekening bank Anda terlebih dulu pada halaman profile', 'error');
+            } else if (response.status === 4) {
+              swal('Gagal', 'Maaf minimal tarik dana Rp.50.000', 'error');
+            } else {
+              this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
+                this.getData = x.content;
+                });
+            }
+
+          });
+          console.log('invNumPart2', this.invNumPart2);
+        }
+
+
+
+
+
+
+          // if ( this.myForm.valid ) {
+          //   const a = {
+          //     invoiceNumber: this.myForm.get('useremail').value,
+          //   };
+
+          //   const queryParams = {
+          //     page: this.currentPage,
+          //     itemperpage: 10,
+          //   };
+          //   this.incomeS.postIncome(a).subscribe(response => {
+          //     this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
+          //       this.getData = x.content;
+          //       });
+          //   });
+
+          // } else {
+
+
+          // }
+
+        });
+      }
+
+    }
 
 }

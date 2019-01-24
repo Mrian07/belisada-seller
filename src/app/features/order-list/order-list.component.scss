@@ -61,7 +61,16 @@
     box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
     background-color: #fcfcfc;
     font-family: Roboto;
+
+    &__light{
+        box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+        background-color: #fcfcfc;
+        background: #c8fab5;
+        padding: 1rem;
+        color: #000000;
+    }
 }
+
 .order-data {
     display:grid;
     grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
@@ -395,8 +404,9 @@
 }
 
 .btn {
-    padding: 0px;
+    padding: 10px;
 }
+
 p {
     color: black;
     padding: 20px 0;
@@ -404,4 +414,30 @@ p {
 
 h2 {
     color: black;
+}
+
+.note {
+    margin-top:1.5rem;
+    background: #f5f4f4;
+    color:#111111;
+    padding:5px;
+    border-radius:5px;
+}
+
+.declined {
+
+    p {
+        color: red;
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+}
+
+.done {
+
+    p {
+        color: rgb(0, 231, 19);
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
 }

@@ -114,6 +114,10 @@
                                 </label>
                             </div>
                             <div class="offset-md-4 col-md-6">
+                                <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid && variant.controls.isUsed.value == true">
+                                    <bss-field-error [displayError]="variant.controls.qty.errors.max" errorMsg="Maksimal stok 5"></bss-field-error>
+                                    <bss-field-error [displayError]="variant.controls.qty.errors.required" errorMsg="Stok harus diisi"></bss-field-error>
+                                </div>
                                 <div *ngIf="(submitted || variant.touched) && variant.errors && variant.controls.isUsed.value == true">
                                     <bss-field-error [displayError]="variant.errors.invalidprice" errorMsg="Harga promo tidak boleh lebih besar dari harga jual"></bss-field-error>
                                 </div>
@@ -127,6 +131,7 @@
                     <div class="wrapper--image__btn">
                         <button class="btn wrapper--image__btn--btn-color" (click)="addVarian()" >Tambah Varian</button>
                     </div>
+
                     <!-- <app-modal [(visible)]="showRequestVarian" class="frameDialog">
                         <div class="wrapper--modal">
                             <h4 class="wrapper--modal__h4">
@@ -174,6 +179,7 @@
                             </form>
                         </div>
                     </app-modal> -->
+
                     <h4 style="margin-top: 50px;">Jasa Pengiriman</h4>
                     <!-- <div class="row"> -->
                     <div class="col-12">

@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { TransactionService } from '@belisada-seller/core/services/transaction/transaction.service';
-import { Cart, Resi, ListOrderSellerResponse, InvoiceData } from '@belisada-seller/core/models';
+import { Cart, Resi, ListOrderSellerResponse, InvoiceData, AddReason } from '@belisada-seller/core/models';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 // import { InvoiceData } from '@belisada-seller/core/models/transaction/transaction.model';
 import mct from 'madrick-countdown-timer';
 import swal from 'sweetalert2';
 import { environment } from '@env/environment';
+import { ReasonService } from '@belisada-seller/core/services';
+import { LoadingService } from '@belisada-seller/core/services/global/loading.service';
 @Component({
   selector: 'bss-order-list',
   templateUrl: './order-list.component.html',
@@ -37,6 +39,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   btnResi: boolean;
   btnChoose: string;
   createComForm: FormGroup;
+  cancelForm: FormGroup;
   actualCourierPrice: number;
   noResi: string;
   orderNumber: string;
@@ -45,6 +48,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   isErrorResi: Boolean = false;
   proddetail: ListOrderSellerResponse = new ListOrderSellerResponse();
   submitted: Boolean = false;
+  formSubmited: Boolean = false;
   lastPage: number;
   currentPage: number;
   pages: any = [];
@@ -57,6 +61,8 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   constructor(
     private transactionService: TransactionService,
+    private reasonService: ReasonService,
+    private loadingService: LoadingService,
     private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute
@@ -69,6 +75,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
     this.isStatus();
     this.formData();
+    this.cancelData();
     this.activatedRoute.queryParams.subscribe((queryParam) => {
       this.currentPage = (queryParam.page) ? queryParam.page : 1;
       // this.status = (queryParam.status) ? queryParam.status : 'ALL';
@@ -103,6 +110,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     };
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
+      console.log('isi datanya', response);
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
       // console.log(b);
@@ -110,7 +118,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
         this.toggleArrBol.push(false);
       });
       this.listCart = response.content;
-      console.log(this.listCart.length);
       if ( this.listCart.length === 0) {
       } if (this.listCart.length >= 0) {
         b.forEach((x) => {
@@ -144,7 +151,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.isForm = true;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
-      console.log('this.info.actualCourierPrice: ', this.info.actualCourierPrice);
       this.createComForm.patchValue({
         orderNumber : orderNumber,
         actualCourierPrice: this.info.actualCourierPrice,
@@ -237,35 +243,59 @@ export class OrderListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  back() {
+    this.cancelOrderModal = false;
+  }
+
   declineTransactionModal(orderNumber) {
     this.cancelOrderModal = true;
+    this.orderNumber = orderNumber;
   }
-  declineTransaction(orderNumber) {
-    this.cancelOrderModal = false;
-    // swal({
-    //   title: 'belisada.co.id',
-    //   text: 'Anda yakin akan menolak pesanan?',
-    //   type: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Iya',
-    //   cancelButtonText: 'Tidak',
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   reverseButtons: true
-    // }).then((result) => {
-    //   if (result.value) {
-    //     swal(
-    //       'Success!',
-    //       'Anda telah menolak pesanan.',
-    //       'success'
-    //     ).then(() => {
-    //       this.transactionService.declineTransaction(orderNumber).subscribe(response => {
-    //         console.log(response);
-    //         this.orderList(this.status);
 
-    //       });
-    //       });
-    //       }
-    //     });
+  private cancelData() {
+    this.cancelForm = this.fb.group({
+      orderNumber: ['', [Validators.required]],
+      reason: ['', [Validators.required]]
+    });
   }
+
+  onSubmit(orderNumber) {
+    this.cancelForm.patchValue({
+      orderNumber: orderNumber
+    });
+    const _data: AddReason = new AddReason();
+    _data.orderNumber = this.cancelForm.controls['orderNumber'].value;
+    _data.reason = this.cancelForm.controls['reason'].value;
+    this.reasonService.addReason(_data).subscribe(data => {
+      this.loadingService.hide();
+      swal({
+        title: 'belisada.co.id',
+        text: 'Anda yakin akan menolak pesanan?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Iya',
+        cancelButtonText: 'Tidak',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {
+          swal(
+            'Success!',
+            'Anda telah menolak pesanan.',
+            'success'
+          ).then(() => {
+            this.reasonService.addReason(_data).subscribe(response => {
+              console.log(response);
+              this.orderList(this.status);
+            });
+            });
+            }
+    });
+    this.cancelForm.reset();
+    this.cancelOrderModal = false;
+  });
+}
+
 }

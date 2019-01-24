@@ -25,7 +25,10 @@ export class ContentData {
 }
 
 export class Selected {
-    selected: boolean = false;
+    selected: Boolean = false;
 }
 
-
+export class ResponseWithdrawal {
+    status: any;
+    message: string;
+}

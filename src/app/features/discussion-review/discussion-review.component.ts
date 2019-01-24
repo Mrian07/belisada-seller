@@ -22,7 +22,7 @@ export class DiscussionReviewComponent implements OnInit {
     if (tabOrder === data) {
       this.tabOrder = data;
     } else {
-      this.router.navigateByUrl('/buyer/order');
+      this.router.navigateByUrl('/discussion-review');
       this.tabOrder = data;
     }
   }

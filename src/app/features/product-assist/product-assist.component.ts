@@ -67,6 +67,7 @@ export class ProductAssistComponent implements OnInit {
       };
 
       this.complainSerive.getComplain(queryParams).subscribe(response => {
+        console.log('datanya nih', response);
         this.list = response.content;
 
         this.proddetail = response;
