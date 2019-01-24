@@ -1,4 +1,4 @@
-<div class="bs-header">
+<!-- <div class="bs-header">
     <div class="bs-header__logo-box">
         <a routerLink="/" target="_top">
             <img src="/assets/img/logo.png" alt="">
@@ -65,6 +65,100 @@
                     <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
                 </span>
             </li>
+        </ul>
+    </div>
+</div> -->
+<div class="bs-header">
+    <div class="bs-header__logo-box">
+        <a routerLink="/" target="_top">
+            <img src="/assets/img/logo.png" alt="">
+        </a>
+        <span class="title-sidebar-seller">Seller Dashboard</span>
+    </div>
+    <!-- <div class="bs-header__search-box">
+        <div class="search-by-category-wrapper">
+            <div class="select-box-container">
+                <div class="select-box select-box-orange" (click)="isSelectBoxActive = !isSelectBoxActive">
+                    <span>All Category</span>
+                    <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
+                    <input type="hidden" name="">
+                </div>
+                <div class="drick-select-container--toggle" [ngClass]="{'active':isSelectBoxActive}">
+                    <ul class="drick-select-list">
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                        <li>aaaaa</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="input-group icon-right with-select-box">
+                <input type="text" class="input" placeholder="Temukan produk idaman anda"/>
+                <fa-icon [icon]="['fas', 'search']"></fa-icon>
+            </div>
+        </div>
+    </div> -->
+    <div class="bs-header__account-box">
+        <ul>
+            <li>
+                <a *ngIf="isLogin === false" routerLink="/account/sign-in">
+                    <div class="profile-wrapper">
+                        <img class="u-display-block centered-block-element img-circle" src="/assets/img/profile.png" alt="">
+                        <span class="u-display-block text-profile">Masuk</span>
+                    </div>
+                </a>
+                <a *ngIf="isLogin === true" class="account-menu--trigger" (click)="toggleAccountMenu()" (clickOutside)="onClickOutside($event)">
+                    <div class="profile-wrapper">
+                        <img class="u-display-block centered-block-element img-circle pull-left thumb-header" src="/assets/img/avatarbackup.png" alt="">
+                        <span class="u-display-block text-profile pull-right">{{ userData.name.split(' ')[0] }}</span>
+                    </div>
+                </a>
+                <div [ngClass]="isAccountMenu ? 'show-element' : 'hide-element'" class="account-menu__container">
+                    <div class="arrow-up"></div>
+                    <div (click)="goToProfile()" class="cursor-on-profile">Profile</div>
+                    <div>Items</div>
+                    <div>Items</div>
+                    <div><button class="btn rounded btn--navy" (click)="logout()">Logout</button></div>
+                </div>
+            </li>
+            <li>
+                <a *ngIf="isLogin === true" (click)="toggleMessageMenu()" (clickOutside)="onClickOutsideBell($event)" class="account-menu--trigger message-box">
+                    <fa-icon [icon]="['fas', 'bell']"></fa-icon>
+                </a>
+                <div class="smallNotifCount">6</div>
+                <div [ngClass]="isMessageMenu ? 'show-element' : 'hide-element'" class="account-menu__message">
+                        <div class="arrow-up"></div>
+                        <div (click)="goToProfile()" class="cursor-on-profile pull-left deviderNotif">
+                            Notification
+                            <div class="notifCount pull-right">6</div>
+                        </div>
+                        <div class="notifList">
+                            <div class="notifList-group">
+                                <div class="notifIcon-container pull-left">
+                                    <fa-icon class="notifIcon" [icon]="['fas', 'shopping-bag']"></fa-icon>
+                                </div>
+                                <div class="notifText-container">
+                                    <div class="notifTitle">Anda Memiliki Order Baru</div>
+                                    <div class="notifContent">6 Order baru di toko Anda</div>
+                                    <div class="notifTime">1 hour ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </li>
+            <!-- <li>
+                <img class="country-flag" src="/assets/img/id_flag.png" alt="">
+                <span class="text-language">
+                    ID<br>
+                    <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
+                </span>
+            </li> -->
         </ul>
     </div>
 </div>

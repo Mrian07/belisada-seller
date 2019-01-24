@@ -50,6 +50,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public dadySpecialPrice: number;
   public dadyStock: number;
   submitted: Boolean = false;
+  showRequestVarian: boolean;
 
   public displayImage: string;
 
@@ -370,6 +371,11 @@ export class AddProductV2Component implements OnInit, OnDestroy {
           discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
         });
       });
+  }
+
+  addVarian() {
+    this.showRequestVarian = true;
+    console.log('showRequestVarian: ', this.showRequestVarian);
   }
 
   public onChangeVariant(code: string, checked: boolean, e) {

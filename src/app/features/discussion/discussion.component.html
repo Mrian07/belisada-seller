@@ -1,53 +1,59 @@
 <div class="frame-dis-contain">
+    <div class="verticalMiddle">
+        <div class="noDiscussion">
+            <img src="assets/img/nodiscussion.JPG" height="200">
+            <div class="noDiscussionLabel">Anda belum memiliki diskusi produk</div>
+        </div>
+    </div>
     <div *ngFor="let item of list; let in = index">
-    <div class="title-dis" (click)="openOS(openDetail, item.productId, item.discusId)">
+        <div class="title-dis" (click)="openOS(openDetail, item.productId, item.discusId)">
 
             <img src="{{item.productImage}}" width="100">
             {{item.productName}}
-    </div>
-    <div class="contain-dis" *ngIf="openDetail==true && discusId==item.discusId">
-        <div class="in">
-            <div class="iImg">
-                <img src="{{item.imageAvatarUrl}}" class="imgUser">
-            </div>
-            <div class="iCon">
-                <p><label>{{item.name}}  </label></p>
-                {{item.message}}
-            </div>
         </div>
-        <!-- <div class="question-dis" *ngFor="let itemChild of listChild"> -->
-        <div class="question-dis" *ngFor="let itemChild of item.childs">    
-        <div class="i">
-            <div class="iImg">
-                <img src="{{itemChild.imageAvatarUrl}}" class="imgUser">
+        <div class="contain-dis" *ngIf="openDetail==true && discusId==item.discusId">
+            <div class="in">
+                <div class="iImg">
+                    <img src="{{item.imageAvatarUrl}}" class="imgUser">
+                </div>
+                <div class="iCon">
+                    <p><label>{{item.name}}  </label></p>
+                    {{item.message}}
+                </div>
             </div>
-            <div class="iCon">
-                <p><label>{{itemChild.name}}  </label></p>
-                {{itemChild.message}}
+            <!-- <div class="question-dis" *ngFor="let itemChild of listChild"> -->
+            <div class="question-dis" *ngFor="let itemChild of item.childs">    
+            <div class="i">
+                <div class="iImg">
+                    <img src="{{itemChild.imageAvatarUrl}}" class="imgUser">
+                </div>
+                <div class="iCon">
+                    <p><label>{{itemChild.name}}  </label></p>
+                    {{itemChild.message}}
+                </div>
             </div>
-        </div>
-        <div class="i" *ngFor="let itemChilds of itemChild.childs">
-            <div class="iImg">
-                <img src="{{itemChilds.imageAvatarUrl}}" class="imgUser">
+            <div class="i" *ngFor="let itemChilds of itemChild.childs">
+                <div class="iImg">
+                    <img src="{{itemChilds.imageAvatarUrl}}" class="imgUser">
+                </div>
+                <div class="iCon">
+                    <p><label>{{itemChilds.name}}</label></p>
+                    {{itemChilds.message}}
+                </div>
             </div>
-            <div class="iCon">
-                <p><label>{{itemChilds.name}}</label></p>
-                {{itemChilds.message}}
             </div>
-        </div>
-        </div>
 
-        <form class="ui form" [formGroup]="inputFormGroup[item.discusId]" (ngSubmit)="onSubmit(item)" novalidate>
-            <textarea class="text-area" formControlName="message"></textarea>
-            <div class="btn-dis">
-            <button type="submit" class="btn btn--orange m-left">Kirim</button>
-            <input type="button" (click)="openOS(openDetail, item.productId, item.discusId)" class="btn btn--silver txt-batal" value="Batal">
-            </div>
-        </form>
-    </div>
+            <form class="ui form" [formGroup]="inputFormGroup[item.discusId]" (ngSubmit)="onSubmit(item)" novalidate>
+                <textarea class="text-area" formControlName="message"></textarea>
+                <div class="btn-dis">
+                <button type="submit" class="btn btn--orange m-left">Kirim</button>
+                <input type="button" (click)="openOS(openDetail, item.productId, item.discusId)" class="btn btn--silver txt-batal" value="Batal">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-<div class="paging" *ngIf="a!=0">
+<div class="paging"><!-- *ngIf="a!=0" -->
 	<ul>
 		<li>
 			<a (click)="setPage(1)" [ngClass]="{disabled:currentPage == 1}">First</a>

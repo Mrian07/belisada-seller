@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   userData: UserData = new UserData();
   isLogin: Boolean = false;
   isAccountMenu: Boolean = false;
+  isMessageMenu: Boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -62,6 +63,12 @@ export class HeaderComponent implements OnInit {
 
   toggleAccountMenu() {
     this.isAccountMenu = !this.isAccountMenu;
+    this.isMessageMenu = false;
+  }
+
+  toggleMessageMenu() {
+    this.isMessageMenu = !this.isMessageMenu;
+    this.isAccountMenu = false;
   }
 
   onClickOutside(event: Object) {
@@ -69,6 +76,13 @@ export class HeaderComponent implements OnInit {
       this.isAccountMenu = false;
     }
   }
+
+  onClickOutsideBell(event: Object) {
+    if (event && event['value'] === true) {
+      this.isMessageMenu = false;
+    }
+  }
+
   goToProfile() {
     this.router.navigateByUrl('/buyer/profile');
   }

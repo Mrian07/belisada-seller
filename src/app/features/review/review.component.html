@@ -1,0 +1,27 @@
+<div class="frame-dis-contain">
+    <div class="verticalMiddle">
+        <div class="noDiscussion">
+            <img src="assets/img/noreview.JPG" height="200">
+            <div class="noDiscussionLabel">Anda belum memiliki diskusi produk</div>
+        </div>
+    </div>
+</div>
+<div class="paging" ><!-- *ngIf="a!=0" -->
+        <ul>
+            <li>
+                <a (click)="setPage(1)" [ngClass]="{disabled:currentPage == 1}">First</a>
+            </li>
+            <li>
+                <a (click)="setPage(currentPage, -1)" [ngClass]="{disabled:(currentPage-1) < 1}">Previous</a>
+            </li>
+            <li *ngFor="let p of pages">
+                <a (click)="setPage(p)" [ngClass]="currentPage == p?'current-page':''">{{p}}</a>
+            </li>
+            <li>
+                <a (click)="setPage(currentPage, +1)" [ngClass]="{disabled:currentPage == lastPage}">Next</a>
+            </li>
+            <li>
+                <a (click)="setPage(lastPage)" [ngClass]="{disabled:currentPage == lastPage}">Last</a>
+            </li>
+        </ul>
+    </div>

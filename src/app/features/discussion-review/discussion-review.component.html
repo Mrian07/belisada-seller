@@ -1,15 +1,39 @@
-<span class="title">Discussion & Review</span>
-<div class="frame-menu">
+<!-- <div class="frame-menu">
   <div [ngClass]="(tabOrder=='Discussion')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Discussion', tabOrder)">
     Diskusi Produk
   </div>
   <div [ngClass]="(tabOrder=='Review')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Review', tabOrder)">
     Review Produk
   </div>
+</div> -->
+
+<div class="tab-container">
+  <div class="tabWrapper">
+    <div [ngClass]="(tabOrder=='Discussion')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Discussion', tabOrder)">
+      Diskusi Produk
+    </div>
+    <div [ngClass]="(tabOrder=='Review')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Review', tabOrder)">
+      Review Produk
+    </div>
+  </div>
 </div>
 
   <!-- <bss-discussion [status]="tabOrder"></bss-discussion> -->
   <!-- <bss-discussion *ngIf="tabOrder=='Discussion'"></bss-discussion>  -->
+<div class="frame-menu-contain">
+  <div class="wrapper-top">
+    <div class="search__box">
+      <div class="search__wrapper">
+        <input type="text" [(ngModel)]="keywordSearch" class="search__input"
+          (keyup.enter)="onSearchSubmit()" (keyup)="searchK($event)"
+          (focus)="showSearch = true" (focusout)="onSearchFocusOut()" placeholder="Pencarian Produk">
+        <fa-icon (click)="onSearchSubmit()" class="search__icon" [icon]="['fas', 'search']"></fa-icon>
+      </div>
+      <!-- <button class="search__button" (click)="onSearchSubmit()">Cari</button> -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
   <bss-discussion *ngIf="tabOrder=='Discussion'"></bss-discussion>
   <bss-review *ngIf="tabOrder=='Review'"></bss-review>
+</div>
 
