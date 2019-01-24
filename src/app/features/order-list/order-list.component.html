@@ -139,6 +139,12 @@
 					<div *ngIf="item.statusOrderSellerCode === '196'">
 						<p><b><br>No Resi :</b> &nbsp;{{ item.noResi }}</p>
 					</div>
+					<div class="declined" *ngIf="item.statusOrderSellerCode === '183'">
+						<p><br>Pesanan ditolak</p>
+					</div>
+					<div class="done" *ngIf="item.statusOrderSellerCode === '221'">
+						<p><br>Transaksi Selesai</p>
+					</div>
 					<div class="w-wrapper__for--cetak_invoice">
 							<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190' && item.statusOrderSellerCode !== '196'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
 								{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}

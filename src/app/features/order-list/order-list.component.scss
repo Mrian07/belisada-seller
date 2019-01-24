@@ -414,3 +414,21 @@ h2 {
     padding:5px;
     border-radius:5px;
 }
+
+.declined {
+
+    p {
+        color: red;
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+}
+
+.done {
+
+    p {
+        color: rgb(0, 231, 19);
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+}
