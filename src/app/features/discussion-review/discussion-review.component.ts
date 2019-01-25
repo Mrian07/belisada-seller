@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 })
 export class DiscussionReviewComponent implements OnInit {
   tabOrder: string;
+  keywordSearch;
+  showSearch: boolean;
+
   constructor(
     private router: Router
   ) {
@@ -26,5 +29,9 @@ export class DiscussionReviewComponent implements OnInit {
       this.tabOrder = data;
     }
   }
+
+  onSearchSubmit() {}
+  searchK(event) {}
+  onSearchFocusOut() {}
 
 }

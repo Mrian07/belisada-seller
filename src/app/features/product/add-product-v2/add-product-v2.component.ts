@@ -412,7 +412,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       }
     }));
   }
-  numberCheck(event: any, val) {
+  numberCheck(event: any) {
     const pattern = /[0-9]/;
 
     const inputChar = String.fromCharCode(event.charCode);
