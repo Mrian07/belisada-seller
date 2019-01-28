@@ -73,19 +73,20 @@
 
                     <div class="row small-gutters u-margin-bottom-1">
                         <div class="col-md-4">
-                            Pilih variasi sesuai dengan yang anda miliki
+                            Pilih Varian sesuai dengan yang anda miliki
                         </div>
+                        <div class="col-md-1"></div>
                         <div class="col-md-2">
                             <input [(ngModel)]="daddyPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga jual" maxlength="10" (keypress)="numberCheck($event)" />
                         </div>
                         <div class="col-md-2">
                             <input [(ngModel)]="dadySpecialPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga promo" maxlength="10" (keypress)="numberCheck($event)" />
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <input [(ngModel)]="dadyStock" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="stok" (keypress)="numberCheck($event)" />
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn--default" (click)="applyForAll()">Terapkan ke Semua</button>
+                            <button class="btn btn--default" (click)="applyForAll()">Terapkan<br>ke Semua</button>
                         </div>
                     </div>
 
@@ -95,7 +96,12 @@
                                 <!-- <img [src]="productStoreUrl + VariantAttr[i]?.imageUrl[0]" alt=""> -->
                                 <span [class]="'variant-separator variant-separator--' + i" *ngFor="let item of VariantAttr[i]?.attributeVarians; let i = index">{{ item.value }}</span>
                             </div>
-
+                            <div class="col-md-1">
+                                <label class="switch small">
+                                    <input formControlName="isUsed" type="checkbox" (change)="toggleControl(variant)">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
                             <div class="col-md-2">
                                 <input type="text" (change)="calculateDiscount()"  formControlName="pricelist" class="form-control"
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
@@ -104,16 +110,10 @@
                                 <input type="text" (change)="calculateDiscount()"  formControlName="specialPrice" class="form-control"
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <input type="text" formControlName="qty" class="form-control" (keypress)="numberCheck($event)">
                             </div>
-                            <div class="col-md-2">
-                                <label class="switch small">
-                                    <input formControlName="isUsed" type="checkbox" (change)="toggleControl(variant)">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            <div class="offset-md-4 col-md-6">
+                            <div class="offset-md-5 col-md-5">
                                 <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid && variant.controls.isUsed.value == true">
                                     <bss-field-error [displayError]="variant.controls.qty.errors.max" errorMsg="Maksimal stok 5"></bss-field-error>
                                     <bss-field-error [displayError]="variant.controls.qty.errors.required" errorMsg="Stok harus diisi"></bss-field-error>
