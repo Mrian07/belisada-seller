@@ -121,10 +121,11 @@
                 </a>
                 <div [ngClass]="isAccountMenu ? 'show-element' : 'hide-element'" class="account-menu__container">
                     <div class="arrow-up"></div>
-                    <div (click)="goToProfile()" class="cursor-on-profile">Profile</div>
-                    <div>Items</div>
-                    <div>Items</div>
-                    <div><button class="btn rounded btn--navy" (click)="logout()">Logout</button></div>
+                    <div class="contain-menu">
+                        <div (click)="goToProfile()" class="cursor-on-profile m-hover">Profile Toko Anda</div>
+                    </div>
+                    
+                    <div><button class="btn rounded btn--navy btn-size-100" (click)="logout()">Logout</button></div>
                 </div>
             </li>
             <li>

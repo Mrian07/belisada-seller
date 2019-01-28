@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToProfile() {
-    this.router.navigateByUrl('/buyer/profile');
+    this.router.navigateByUrl('/profile');
   }
 
 }
