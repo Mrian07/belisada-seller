@@ -79,8 +79,6 @@ export class IncomeSellerComponent implements OnInit {
       this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
         this.getData = response.content;
 
-        console.log('data all', this.getData);
-
         this.lastPage = response.totalPages;
         for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
           if (r > 0 && r <= this.lastPage) {

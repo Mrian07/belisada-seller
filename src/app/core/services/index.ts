@@ -12,3 +12,4 @@ export * from './auth/auth.service';
 export * from './rekening/rekening.service';
 export * from './reason/reason.service';
 export * from './income/income-service.service';
+export * from './transaction/transaction.service';

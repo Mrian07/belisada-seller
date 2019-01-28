@@ -3,6 +3,10 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import swal from 'sweetalert2';
 import { LocalStorageEnum } from '@belisada-seller/core/enum';
 
+import {
+  TransactionService
+} from '@belisada-seller/core/services';
+
 @Component({
     selector: 'bss-sidebar-seller',
     templateUrl: './sidebar-seller.component.html',
@@ -10,13 +14,22 @@ import { LocalStorageEnum } from '@belisada-seller/core/enum';
 })
 export class SidebarSellerComponent implements OnInit {
 
+  countVal: any;
+
   constructor(
     private router: Router,
+    private transactionService: TransactionService
   ) { }
 
   ngOnInit() {
+    this.countOrder();
   }
 
+  countOrder() {
+    this.transactionService.orderCount().subscribe(response => {
+      this.countVal = response;
+    });
+  }
   storeProfile() {
     this.router.navigateByUrl('/seller/profile-seller');
   }

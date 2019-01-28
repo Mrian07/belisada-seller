@@ -57,4 +57,8 @@ export class TransactionService {
       map(response => response as DeclineTransactionResponse)
     );
   }
+
+  orderCount() {
+    return this.http.get(this.configuration.apiURL + '/seller/order/count');
+  }
 }
