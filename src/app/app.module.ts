@@ -1,7 +1,7 @@
 import { ActivationComponent } from './features/activation/activation.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { LocationStrategy, PathLocationStrategy, APP_BASE_HREF } from '@angular/common';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { LocationStrategy, PathLocationStrategy, APP_BASE_HREF, registerLocaleData } from '@angular/common';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -44,8 +44,11 @@ import { ProductsEffects } from './core/store/effects/product.effect';
 import { SearchProductMasterComponent } from './features/product/search-product-master/search-product-master.component';
 import { AddProductV2Component } from './features/product/add-product-v2/add-product-v2.component';
 import { ProductsResolver } from './features/product/product.resolver';
+import localeId from '@angular/common/locales/id';
 // import { reducer } from './core/store/reducer/product-detail.reducer';
 library.add(fas, far, fab);
+
+registerLocaleData(localeId, 'id');
 
 @NgModule({
   declarations: [
@@ -99,7 +102,8 @@ library.add(fas, far, fab);
       multi: true
     },
     ProductsSandbox,
-    ProductsResolver
+    ProductsResolver,
+    { provide: LOCALE_ID, useValue: 'id' },
   ],
   bootstrap: [AppComponent]
 })
