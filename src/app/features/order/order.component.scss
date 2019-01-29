@@ -6,7 +6,7 @@
 .frame-menu{
     margin-top: 2rem;
     padding: 0.7rem;
-    border: 1px solid #dddddd;
+    border: 1px solid #ececec;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     text-align: center;
@@ -17,7 +17,6 @@
 }
 
 .btn-tab{
-    
     &__active{
         text-align: center;
         border-bottom: 4px solid #f27138;
