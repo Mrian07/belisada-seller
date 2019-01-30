@@ -45,6 +45,7 @@ import { SearchProductMasterComponent } from './features/product/search-product-
 import { AddProductV2Component } from './features/product/add-product-v2/add-product-v2.component';
 import { ProductsResolver } from './features/product/product.resolver';
 import localeId from '@angular/common/locales/id';
+import { ListingProductManageComponent } from './features/product/listing-product-manage/listing-product-manage.component';
 // import { reducer } from './core/store/reducer/product-detail.reducer';
 library.add(fas, far, fab);
 
@@ -55,6 +56,7 @@ registerLocaleData(localeId, 'id');
     AppComponent,
     OrderComponent,
     OrderListComponent,
+    ListingProductManageComponent,
     ProfileComponent,
     ProfileSellerComponent,
     AddProductComponent,

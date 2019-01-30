@@ -18,6 +18,7 @@ import { ProductAssistComponent } from './features/product-assist/product-assist
 import { SearchProductMasterComponent } from './features/product/search-product-master/search-product-master.component';
 import { AddProductV2Component } from './features/product/add-product-v2/add-product-v2.component';
 import { ProductsResolver } from './features/product/product.resolver';
+import { ListingProductManageComponent } from './features/product/listing-product-manage/listing-product-manage.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,13 @@ const routes: Routes = [
         component: ListingProductComponent,
         data: {
           title: 'listing-product'
+        },
+      },
+      {
+        path: 'listing-product-manage',
+        component: ListingProductManageComponent,
+        data: {
+          title: 'listing-product-manage'
         },
       },
       {

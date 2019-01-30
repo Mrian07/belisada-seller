@@ -4,13 +4,12 @@
 }
 
 .frame-menu{
-    margin-top: 2rem;
     padding: 0.7rem;
     border: 1px solid #ececec;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     text-align: center;
-    box-shadow: 2px 2px 4px #c9c9c9;
+    box-shadow: 0 2px 3px 0 rgba(255, 187, 64, 0.42);
     cursor: pointer;
     z-index: 1;
     position: relative;

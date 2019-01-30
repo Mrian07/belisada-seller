@@ -10,15 +10,13 @@ import { Globals } from '@belisada-seller/core/services/globals/globals';
 import swal from 'sweetalert2';
 import { environment } from '@env/environment';
 import { Location } from '@angular/common';
-// import { ProductsSandbox } from '../products.sandbox';
-// import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'bss-listing-product',
-  templateUrl: './listing-product.component.html',
-  styleUrls: ['./listing-product.component.scss']
+  selector: 'bss-listing-product-manage',
+  templateUrl: './listing-product-manage.component.html',
+  styleUrls: ['./listing-product-manage.component.scss']
 })
-export class ListingProductComponent implements OnInit {
+export class ListingProductManageComponent implements OnInit {
   public rowSelected: number;
   prodImg: any;
   proddetail: ProductListing = new ProductListing();
@@ -37,7 +35,6 @@ export class ListingProductComponent implements OnInit {
   checkIfLength: Boolean = false;
   a: any;
   b;
-  tabOrder: string;
   toggleArrBol: boolean[];
 
 
@@ -62,7 +59,6 @@ export class ListingProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tabOrder = 'all';
     // this.subscriptions.push(this.productsSandbox.products$.subscribe((product: any) => {
     //   if (!product) {
     //     this.productsSandbox.loadProducts({
@@ -229,6 +225,7 @@ export class ListingProductComponent implements OnInit {
 
   getProfile() {
     this.storeService.profile().subscribe(profile => {
+
       if (profile.addressId === 0 ) {
         console.log('asssdasd');
         this.hasAddress = false;
