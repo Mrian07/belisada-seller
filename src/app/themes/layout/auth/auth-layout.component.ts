@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'bss-auth-layout',
@@ -30,7 +31,6 @@ import { Component, OnInit } from '@angular/core';
     </div>`
 })
 export class AuthLayoutComponent {
-
-  constructor() { }
-
+    baseUrl = environment.baseUrlSeller;
+    constructor() { }
 }
