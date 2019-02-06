@@ -1,8 +1,8 @@
 .img-store{
-    font-size: 20px;
-    text-align: center;
-    color: #111111;
-    font-size: 30px;
+    height: 100vh;
+    width: 739px;
+    background-repeat: no-repeat;
+    background-image: url("assets/img/seller-img.png");
 }
 
 .conStore{
@@ -37,18 +37,14 @@
     font-size:40px;
 }
 
-.b-form{
-    border:1px solid #292827;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow:  0 8px 6px -6px #8f8d8d;
-}
-
 .input-login-form{
     border: 1px solid #dddddd;
-    padding: 18px;
-    border-radius: 0px 5px 5px 0px;
-    width: calc(100% - 6.5rem);
+    padding: 18px 18px 18px 55px;
+    border-radius: 5px;
+    width: calc(100%);
+    position: relative;
+    background-color: transparent;
+    font-size: 18px;
 }
 
 .storeIcon{
@@ -79,6 +75,6 @@
 .togel{
     cursor: pointer;
     position: absolute;
-    right: 1.5rem;
+    right: 2rem;
     top: 1.5rem;
 }

@@ -7,6 +7,55 @@
     margin-bottom:1rem;
 }
 
+.center {
+    margin: 0 auto;
+    a {
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.titlePage {
+    margin-top: 10px;
+    h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 37px;
+        color: #0c4d99;
+        text-align: center;
+    }
+}
+
+.emailIcon {
+    position: relative;
+    background-color: transparent;
+    &:after {
+        position: absolute;
+        font-family: "FontAwesome";
+        content: "\f0e0";
+        color: #a1a1a1;
+        font-size: 18pt;
+        left: 20px;
+        top: -12px;
+        z-index: 999;
+    }
+}
+
+.passwordIcon {
+    position: relative;
+    background-color: transparent;
+    &:after {
+        position: absolute;
+        font-family: "FontAwesome";
+        content: "\f13e";
+        color: #a1a1a1;
+        font-size: 18pt;
+        left: 20px;
+        top: -10px;
+        z-index: 999;
+    }
+}
+
 .btn-tab{
     
     &__active{
@@ -51,8 +100,6 @@
     border-radius: 0.2em;
     font-size: 1.6rem;
     color: #FFF;
-    margin-top: 5%;
-    margin-left: 14%;
 }
 .loginBtn:before {
     content: "";
@@ -105,4 +152,145 @@
 
 .regSuccess{
     padding-top:2rem;
+}
+
+.link-text {
+    margin: 15px 0;
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: #1687ff;
+        &:hover{
+            color: #1164bd;
+        }
+    }
+}
+
+h5 {
+    margin: 25px 0;
+    position: relative;
+    span{
+        background-color: #fff;
+        padding: 15px;
+        font-size: 15pt;
+        color: #9c9c9c;
+    }
+    &:after {
+        height: 1.2em;
+        position: absolute;
+        border-top: 1px solid #9c9c9c;
+        z-index: -1;
+        content:"";
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.socialContainer {
+    margin-top: 0px;
+}
+
+$white: #fff;
+$google-blue: #4285f4;
+$button-active-blue: #1669F2;
+
+.google-btn {
+    width: 225px;
+    height: 42px;
+    background-color: $google-blue;
+    border-radius: 2px;
+    margin: 0 auto;
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+    .google-icon-wrapper {
+        position: absolute;
+        margin-top: 1px;
+        margin-left: 1px;
+        width: 40px;
+        height: 40px;
+        border-radius: 2px;
+        background-color: $white;
+    }
+    .google-icon {
+        position: absolute;
+        margin-top: 11px;
+        margin-left: -8px;
+        width: 18px;
+        height: 18px;
+    }
+    .btn-text {
+        float: right;
+        margin: 10px 29px 0 0;
+        color: $white;
+        font-size: 14px;
+        letter-spacing: 0.2px;
+        font-family: "Roboto";
+    }
+    &:hover {
+        box-shadow: 0 0 6px $google-blue;
+        background-color: #629eff;
+    }
+    &:active {
+        background: $button-active-blue;
+    }
+}
+
+.facebookLoginBtnMain {
+	background-color: #4267b2;
+	//margin: 8px;
+	border: none;
+	display: inline-block;
+	text-decoration: none;
+	color: #fff;
+	font-family: sans-serif;
+	outline: none;
+	cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+}
+
+.facebookLoginBtnMain:hover {
+    background: #5979d1;
+    box-shadow: 0 0 6px $google-blue;
+}
+
+.facebookLoginBtnMain span {
+	float: right;
+}
+
+.xLargeFacebookBtn.facebookLoginBtnMain {
+	height: 42px;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 6px;
+	border-radius: 4px;
+}
+
+.xLargeFacebookBtn.facebookLoginBtnMain svg {
+	height: 30px;
+}
+
+.xLargeFacebookBtn.facebookLoginBtnMain span {
+	height: 28px;
+	line-height: 28px;
+	padding: 0 16px;
+}
+
+.verticalMiddle {
+    vertical-align: middle;
+    position: relative;
+    height: 930px;
+}
+
+.verticalMiddleInside {
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%,-50%);
+    max-width: 500px;
 }

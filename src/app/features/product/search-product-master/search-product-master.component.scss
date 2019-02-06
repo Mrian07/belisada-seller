@@ -3,21 +3,21 @@ textarea {
 }
 
 .search--wrapper {
-    margin-top: 4%;
     border: 1px solid #FBC98A;
-    padding: 20rem 0;
+    padding: 5rem 0;
     text-align: center;
     height: 100%;
 
     &__text {
         display: inline-block;
+        text-transform: capitalize;
     }
 }
 
 .wrapper--image {
     width: 30%;
     display: inline-block;
-    margin-top: 15%;
+    margin-top: 10%;
 
     &__image {
         text-align: center;
