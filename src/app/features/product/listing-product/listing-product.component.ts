@@ -91,6 +91,9 @@ export class ListingProductComponent implements OnInit {
     });
   }
 
+  tab(tab?) {
+  }
+
   prodList(q?: string) {
     const queryParams = {
       itemperpage: 10,

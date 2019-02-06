@@ -14,7 +14,7 @@ export class ProductsResolver implements Resolve<any> {
 
   /**
    * Triggered when application hits product details route.
-   * It subscribes to product list data and finds one with id from the route params.  
+   * It subscribes to product list data and finds one with id from the route params.
    *
    * @param route
    */
@@ -28,7 +28,7 @@ export class ProductsResolver implements Resolve<any> {
     // if (this.productsSubscription) return;
     // this.productsSubscription = this.productsSandbox.productAdd$.subscribe(product => {
     //   if (!product) {
-      
+
     //     return;
     //   }
 

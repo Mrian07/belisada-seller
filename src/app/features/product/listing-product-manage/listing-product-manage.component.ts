@@ -36,6 +36,8 @@ export class ListingProductManageComponent implements OnInit {
   a: any;
   b;
   toggleArrBol: boolean[];
+  keywordSearch;
+  showSearch: Boolean = false;
 
 
   status = 'AP';
@@ -231,6 +233,14 @@ export class ListingProductManageComponent implements OnInit {
         this.hasAddress = false;
       }
     });
+  }
+
+  onSearchSubmit() {
+
+  }
+
+  onSearchFocusOut() {
+
   }
 
 }
