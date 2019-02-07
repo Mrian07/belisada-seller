@@ -283,18 +283,31 @@ $button-active-blue: #1669F2;
 .verticalMiddle {
     vertical-align: middle;
     position: relative;
-    height: 930px;
+    height: 100vh;
 }
 
-.verticalMiddleInside {
-    vertical-align: middle;
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translate(-50%,-50%);
-    max-width: 500px;
+@media screen and (min-width: 1101px) {
+    .verticalMiddleInside {
+        vertical-align: middle;
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        transform: translate(-50%,-50%);
+        max-width: 500px;
+    }
 }
-
+@media screen and (max-width: 1100px) {
+    .verticalMiddleInside {
+        vertical-align: middle;
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        transform: translate(-50%,-50%);
+        max-width: 500px;
+        zoom: 0.8;
+        -moz-transform: scale(0.8);
+    }
+}
 .copyright {
     width: 100%;
     display: inline-block;
