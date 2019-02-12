@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '@env/environment';
 
 @Component({
-  selector: 'bss-auth-layout',
-  template: `
-    <div class="daddy-container">
-      <router-outlet></router-outlet>
-    </div>`
+    selector: 'bss-auth-layout',
+    template: `<router-outlet></router-outlet>`
 })
 export class AuthLayoutComponent {
-
-  constructor() { }
-
+    baseUrl = environment.baseUrlSeller;
+    constructor() { }
 }

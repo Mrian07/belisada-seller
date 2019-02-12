@@ -334,6 +334,14 @@
     color: #000000;
 }
 
+.buttonSize {
+    height: 35px;
+    width: 120px;
+    font-size: 12pt;
+    font-weight: 600;
+    padding: 1rem 2rem;
+}
+
 .paging{
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -409,7 +417,7 @@
 
 p {
     color: black;
-    padding: 20px 0;
+    padding: 15px 0;
 }
 
 h2 {
@@ -420,24 +428,34 @@ h2 {
     margin-top:1.5rem;
     background: #f5f4f4;
     color:#111111;
-    padding:5px;
+    padding: 5px 12px;
     border-radius:5px;
 }
 
 .declined {
-
+    background-color: #ff5858;
+    padding: 0.75rem 1rem;
+    margin: 32px 15px 0;
+    border-radius: 1rem;
     p {
-        color: #e40909;
+        padding: 0;
+        color: #fff;
         font-size: 1.8rem;
         font-weight: 500;
+        text-align: center;
     }
 }
 
 .done {
-
+    background-color: #5fbf5b;
+    padding: 0.75rem 1rem;
+    margin: 32px 15px 0;
+    border-radius: 1rem;
     p {
-        color: #27ce4c;
+        padding: 0;
+        color: #fff;
         font-size: 1.8rem;
         font-weight: 500;
+        text-align: center;
     }
 }

@@ -10,6 +10,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 library.add(fas, far, fab);
 
@@ -21,6 +22,6 @@ library.add(fas, far, fab);
     AuthRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [AuthComponent, SignInComponent]
+  declarations: [AuthComponent, SignInComponent, ForgotPasswordComponent]
 })
 export class AuthModule { }

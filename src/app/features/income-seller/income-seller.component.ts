@@ -37,7 +37,6 @@ export class IncomeSellerComponent implements OnInit {
   btn_withrawal: Boolean = false;
 
   totalTransfer: any = [];
-
   myDatePickerOptions: IMyDpOptions = {
     // other options... https://github.com/kekeh/mydatepicker#options-attribute
     dateFormat: this.defaultDateFormat,

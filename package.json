@@ -31,6 +31,7 @@
     "angularfire2": "^5.0.0-rc.12",
     "core-js": "^2.5.4",
     "firebase": "^5.4.2",
+    "font-awesome": "^4.7.0",
     "madrick-countdown-timer": "^1.0.1",
     "mydatepicker": "^2.6.6",
     "node-sass": "^4.9.2",

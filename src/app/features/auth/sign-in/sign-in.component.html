@@ -1,154 +1,165 @@
-<div class="container has-footer">
-
-    <div class="row">
-        <div class="col-12">
-            <a href="{{ baseUrl }}"><img src="assets/img/logo.png" width="300"></a>   
-        </div>
-        <!-- <div class="col-5">
-            <div class="backHome" (click)="goHome()"><fa-icon [icon]="['fas', 'arrow-left']"></fa-icon> Back To Home</div>
-        </div> -->
-    </div>
-    <div class="row">
-        <div class="col-7">
-            <div class="img-store"><img src="assets/img/store_image.png"><p>Buka Toko dan Jual Produkmu secara mudah di Belisada.co.id</p></div>
-        </div>
-        <div class="col-5">
-
-            
+<div>
+    <div class="verticalMiddle">
+        <div class="col-5 verticalMiddleInside pull-left">
+            <div class="center">
+                <a href="{{ baseUrl }}">
+                    <img src="assets/img/logo.png">
+                </a>
+            </div>
+            <div class="titlePage">
+                <h1>Login as Seller</h1>
+            </div>
+            <!-- <h1>Welcome To Seller Panel</h1> -->
             <div class="conLoginStore b-form">
-
-                    <div class="frame-menu">
-                        <div [ngClass]="(tabMenu=='login')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('login')">
-                            LOG IN
-                        </div>
-                        <div [ngClass]="(tabMenu=='registrasi')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('registrasi')">
-                            REGISTRASI
-                        </div>
+                <div class="frame-menu">
+                    <div [ngClass]="(tabMenu=='login')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('login')">
+                        LOG IN
                     </div>
+                    <div [ngClass]="(tabMenu=='registrasi')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('registrasi')">
+                        REGISTRASI
+                    </div>
+                </div>
 
 <!--  <div class="title-store-login">Store Login</div> -->
-                    <div *ngIf="tabMenu=='login'">
-                        <div *ngIf="msg!==undefined && signinFormGroup.pristine" class="alert-error-store">
-                            <p>{{ msg }}</p>
+                <div *ngIf="tabMenu=='login'">
+                    <div *ngIf="msg!==undefined && signinFormGroup.pristine" class="alert-error-store">
+                        <p>{{ msg }}</p>
+                    </div>
+                    <form class="ui form" [formGroup]="signinFormGroup" (ngSubmit)="onSubmit()" novalidate>
+                        <div class="form-group">
+                            <span class="emailIcon"></span>
+                            <input type="email" class="input-login-form" formControlName="email" name="email" [ngClass]="{
+                            'has-danger': signinFormGroup.controls.email.invalid && (signinFormGroup.controls.email.dirty || formSubmited),
+                            'has-success': signinFormGroup.controls.email.valid}">
+                            <i class="inverted circular search link icon"></i>
+                            <div *ngIf="signinFormGroup.controls.email.invalid && (signinFormGroup.controls.email.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
+                                <span class="tooltiptext">Format email invalid</span>
+                            </div>
                         </div>
-                    
-                        <form class="ui form" [formGroup]="signinFormGroup" (ngSubmit)="onSubmit()" novalidate>
-                            <div class="form-group">
-        
-                                <div class="storeIcon"><fa-icon [icon]="['fas', 'user-circle']"></fa-icon></div>
-                                <input type="email" class="input-login-form" placeholder="Email" formControlName="email" name="email" [ngClass]="{
-                                    'has-danger': signinFormGroup.controls.email.invalid && (signinFormGroup.controls.email.dirty || formSubmited),
-                                    'has-success': signinFormGroup.controls.email.valid}">
-                    
-                                    <i class="inverted circular search link icon"></i>
-                                    <div *ngIf="signinFormGroup.controls.email.invalid && (signinFormGroup.controls.email.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
-                                        <span class="tooltiptext">Format email invalid</span>
-                                    </div>    
-                
+                        <div class="form-group p-relative">
+                            <span class="passwordIcon"></span>
+                            <input type="password" class="input-login-form" id="password" formControlName="password" required [ngClass]="{
+                                'has-danger': signinFormGroup.controls.password.invalid && (signinFormGroup.controls.password.dirty && signinFormGroup.controls.password.touched),
+                                'has-success': signinFormGroup.controls.password.valid && (signinFormGroup.controls.password.dirty && signinFormGroup.controls.password.touched)
+                                }">
+                                <div class="togel" (click)="togglePass()"><fa-icon [icon]="['fas', 'eye']"></fa-icon></div>
+                            <div *ngIf="signinFormGroup.controls.password.invalid && (signinFormGroup.controls.password.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
+                                <span class="tooltiptext">Password tidak boleh kosong</span>
+                            </div>    
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="link-text"><a [routerLink]="['/auth/forgot-password']">Forgot Password?</a></p>
+                                <!-- <p><input type="checkbox" formControlName="isRemember" value="true"> Ingatkan</p> -->
+                                <!-- <label class="container">
+                                        <div class="text-box">
+                                            <span class="heading-primary-main">Remember me </span>
+                                        </div>
+                                        <input type="checkbox" formControlName="isSubscribe" (change)="changeValue()">
+                                        <span class="checkmark"></span>
+                                    </label> -->
                             </div>
-                            <div class="form-group p-relative">
-                                <div class="storeIcon"><fa-icon [icon]="['fas', 'key']"></fa-icon></div>
-                                
-                                <input type="password" class="input-login-form" placeholder="Password" id="password" formControlName="password" required [ngClass]="{
-                                    'has-danger': signinFormGroup.controls.password.invalid && (signinFormGroup.controls.password.dirty && signinFormGroup.controls.password.touched),
-                                    'has-success': signinFormGroup.controls.password.valid && (signinFormGroup.controls.password.dirty && signinFormGroup.controls.password.touched)
-                                    }">
-
-                                    <div class="togel" (click)="togglePass()"><fa-icon [icon]="['fas', 'eye']"></fa-icon></div>
-                                <div *ngIf="signinFormGroup.controls.password.invalid && (signinFormGroup.controls.password.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
-                                    <span class="tooltiptext">Password tidak boleh kosong</span>
-                                </div>    
+                            <div class="col-12">
+                                <button class="btn btn--orange btn-size-100 text-login component-center">Sign In</button>    
                             </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <p><a href="{{baseUrl}}/account/forgot-password" class="link-text">Forgot Password?</a></p>
-                                    <p><input type="checkbox" formControlName="isRemember" value="true"> Ingatkan</p>
-                                    <!-- <label class="container">
-                                            <div class="text-box">
-                                                <span class="heading-primary-main">Remember me </span>
-                                            </div>
-                                            <input type="checkbox" formControlName="isSubscribe" (change)="changeValue()">
-                                            <span class="checkmark"></span>
-                                        </label> -->
+                        </div>
+                        <!-- <div class="border-btn">
+                            <div class="text-registration">
+                                Lupa Password? <a routerLink="/account/forgot-password" class="link-text">Klik</a> Disini
+                            </div>
+                            <div class="component-center">
+                                <button class="btn btn--orange btn-size-55 text-btn component-center" type="submit" >LOGIN</button>
+                            </div>
+                        </div> -->
+                    </form>
+                    <!-- <button (click)="facebookLogin()" class="loginBtn loginBtn--facebook">
+                        Login with Facebook
+                    </button> -->
+                    <!-- <button class="loginBtn loginBtn--google">
+                        Login with Google
+                    </button> -->
+                    <h5><span>OR</span></h5>
+                    <div class="socialContainer">
+                        <div class="col-6 pull-left no-padding">
+                            <div (click)="facebookLogin()" class="facebookLoginBtnMain xLargeFacebookBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216" class="_55a2"><path fill="white" d="
+                                    M204.1 0H11.9C5.3 0 0 5.3 0 11.9v192.2c0 6.6 5.3 11.9 11.9
+                                    11.9h103.5v-83.6H87.2V99.8h28.1v-24c0-27.9 17-43.1 41.9-43.1
+                                    11.9 0 22.2.9 25.2 1.3v29.2h-17.3c-13.5 0-16.2 6.4-16.2
+                                    15.9v20.8h32.3l-4.2 32.6h-28V216h55c6.6 0 11.9-5.3
+                                    11.9-11.9V11.9C216 5.3 210.7 0 204.1 0z"></path></svg>
+                                <span>Sign In with Facebook</span>
+                            </div>
+                        </div>
+                        <div class="col-6 pull-right no-padding">
+                            <div (click)="googleLogin()" class="google-btn">
+                                <div class="google-icon-wrapper">
+                                    <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
                                 </div>
-                                <div class="col-6">
-                                    <button class="btn btn--orange btn-size-100 text-login component-center" >LOGIN</button>    
+                                <p class="btn-text"><b>Sign In with Google</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="copyright">
+                        <h1>&copy; Belisada 2019</h1>
+                    </div>
+                </div>
+                <div *ngIf="tabMenu=='registrasi'">
+                    <div *ngIf="regForm==true">
+
+                        <form [formGroup]="regFromGroup" class=" center-for-button" (ngSubmit)="onRegistrasi()" #fs="ngForm" novalidate>
+                            <input type="hidden" class="input-style-text-100" formControlName="storeUrl" placeholder="URL toko mengikuti nama toko anda" />
+                            <input type="text" formControlName="nameOwner" maxlength="30" class="input-style-text-100" placeholder="Masukan nama pemilik toko">
+                            <bss-field-error [displayError]="isFieldValid('nameOwner')" errorMsg="Nama pemilik toko tidak boleh kosong"></bss-field-error>
+                            <input type="text" formControlName="name" maxlength="30" (keypress)="onNameKeydown($event)" class="input-style-text-100" placeholder="Masukan nama toko">
+                            <div *ngIf="regFromGroup.controls.name.errors && regFromGroup.controls.name.errors.server; else nameCheckingTemplate" class="alert alert-danger toll tooltip">
+                                <div class="testing">
+                                    <span class="tooltiptext">{{serverMessage}}</span>
                                 </div>
                             </div>
-
-
-                            <!-- <div class="border-btn">
-                                <div class="text-registration">
-                                    Lupa Password? <a routerLink="/account/forgot-password" class="link-text">Klik</a> Disini
-                                </div>
-                                <div class="component-center">
-                                    <button class="btn btn--orange btn-size-55 text-btn component-center" type="submit" >LOGIN</button>
-                                </div>
-                            </div> -->
+                            <ng-template #nameCheckingTemplate>
+                                <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Nama toko tidak boleh kosong"></bss-field-error>
+                            </ng-template>
+                            <div *ngIf="nameChecking" class="alert alert-danger toll tooltip">Memeriksa nama Toko <img src="assets/img/wait.gif"></div>
+            
+                            <input type="text" formControlName="email" maxlength="60" class="input-style-text-100" placeholder="Masukan email">
+                            <div *ngIf="regFromGroup.controls.email?.invalid && (regFromGroup.controls.email.dirty && regFromGroup.controls.email.touched); else emailOn" class="alert alert-danger toll tooltip testing">
+                                <span class="tooltiptext">Harap masukan format email dengan benar</span>
+                            </div>
+                            <ng-template #emailOn>
+                                <bss-field-error [displayError]="isFieldValid('email')" errorMsg="Email tidak boleh kosong"></bss-field-error>
+                            </ng-template>
+            
+                            <input type="password" formControlName="password" maxlength="60" class="input-style-text-100" placeholder="Masukan password">
+                            <div *ngIf="regFromGroup.controls.password.errors && (regFromGroup.controls.password.dirty || regFromGroup.controls.password.touched)" class="alert alert-danger toll tooltip-for-password testing">
+                                <p *ngIf="regFromGroup.controls.password.errors.required" class="tooltiptext">Password tidak boleh kosong</p>
+            
+                                <p *ngIf="regFromGroup.controls.password.errors.minlength" class="tooltiptext">Minimal panjang password 7 karakter. </p>
+                            </div>
+            
+                            <div class="agrements">Dengan klik DAFTAR,Anda telah menyetujui <span class="syarat-and-ketentuan">Syarat & Ketentuan</span> </div>
+                            <div class="agrements paddingclass"> Serta <span class="syarat-and-ketentuan"> Kebijakan Privasi</span> belisada.co.id </div>
+                            <button class="btn btn--orange btn-size-55 text-btn component-center center-for-button">Daftar</button>
                         </form>
 
-                        <button (click)="facebookLogin()" class="loginBtn loginBtn--facebook">
-                            Login with Facebook
-                        </button>
-
-                        <button (click)="googleLogin()" class="loginBtn loginBtn--google">
-                            Login with Google
-                        </button>
                     </div>
-
-                    <div *ngIf="tabMenu=='registrasi'">
-                        <div *ngIf="regForm==true">
-
-                            <form [formGroup]="regFromGroup" class=" center-for-button" (ngSubmit)="onRegistrasi()" #fs="ngForm" novalidate>
-                                <input type="hidden" class="input-style-text-100" formControlName="storeUrl" placeholder="URL toko mengikuti nama toko anda" />
-                                <input type="text" formControlName="nameOwner" maxlength="30" class="input-style-text-100" placeholder="Masukan nama pemilik toko">
-                                <bss-field-error [displayError]="isFieldValid('nameOwner')" errorMsg="Nama pemilik toko tidak boleh kosong"></bss-field-error>
-                                <input type="text" formControlName="name" maxlength="30" (keypress)="onNameKeydown($event)" class="input-style-text-100" placeholder="Masukan nama toko">
-                                <div *ngIf="regFromGroup.controls.name.errors && regFromGroup.controls.name.errors.server; else nameCheckingTemplate" class="alert alert-danger toll tooltip">
-                                    <div class="testing">
-                                        <span class="tooltiptext">{{serverMessage}}</span>
-                                    </div>
-                                </div>
-                                <ng-template #nameCheckingTemplate>
-                                    <bss-field-error [displayError]="isFieldValid('name')" errorMsg="Nama toko tidak boleh kosong"></bss-field-error>
-                                </ng-template>
-                                <div *ngIf="nameChecking" class="alert alert-danger toll tooltip">Memeriksa nama Toko <img src="assets/img/wait.gif"></div>
-                
-                                <input type="text" formControlName="email" maxlength="60" class="input-style-text-100" placeholder="Masukan email">
-                                <div *ngIf="regFromGroup.controls.email?.invalid && (regFromGroup.controls.email.dirty && regFromGroup.controls.email.touched); else emailOn" class="alert alert-danger toll tooltip testing">
-                                    <span class="tooltiptext">Harap masukan format email dengan benar</span>
-                                </div>
-                                <ng-template #emailOn>
-                                    <bss-field-error [displayError]="isFieldValid('email')" errorMsg="Email tidak boleh kosong"></bss-field-error>
-                                </ng-template>
-                
-                                <input type="password" formControlName="password" maxlength="60" class="input-style-text-100" placeholder="Masukan password">
-                                <div *ngIf="regFromGroup.controls.password.errors && (regFromGroup.controls.password.dirty || regFromGroup.controls.password.touched)" class="alert alert-danger toll tooltip-for-password testing">
-                                    <p *ngIf="regFromGroup.controls.password.errors.required" class="tooltiptext">Password tidak boleh kosong</p>
-                
-                                    <p *ngIf="regFromGroup.controls.password.errors.minlength" class="tooltiptext">Minimal panjang password 7 karakter. </p>
-                                </div>
-                
-                                <div class="agrements">Dengan klik DAFTAR,Anda telah menyetujui <span class="syarat-and-ketentuan">Syarat & Ketentuan</span> </div>
-                                <div class="agrements paddingclass"> Serta <span class="syarat-and-ketentuan"> Kebijakan Privasi</span> belisada.co.id </div>
-                                <button class="btn btn--orange btn-size-55 text-btn component-center center-for-button">Daftar</button>
-                            </form>
-
-                        </div>
+                    <div class="copyright">
+                        <h1>&copy; Belisada 2019</h1>
                     </div>
-                    <div *ngIf="regSuccess==true" class="regSuccess">
-                        <div class="title">Pendaftaran Berhasil</div>
-                        <div class="text-success">Selamat Toko Anda Berhasil Didaftarkan</div>
-                    </div>
-
+                </div>
+                <div *ngIf="regSuccess==true" class="regSuccess">
+                    <div class="title">Pendaftaran Berhasil</div>
+                    <div class="text-success">Selamat Toko Anda Berhasil Didaftarkan</div>
+                </div>
             </div>
-
+        </div>
+        <div class="img-store pull-right">
+            <!-- <img src="assets/img/seller-img.png"> -->
         </div>
     </div>
-    
 </div>
 
-<app-footer></app-footer>
+
 
 
