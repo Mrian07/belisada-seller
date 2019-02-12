@@ -216,10 +216,7 @@ export class IncomeSellerComponent implements OnInit {
     this.totalTransfer = [];
     for (let i = 0; i < this.invNumPart2.length; i++) {
       const index = this.getData.findIndex(x => x.invoiceNumber === this.invNumPart2[i]);
-      console.log('index', index);
-      if (index) {
-        this.totalTransfer.push(this.getData[index].grandTotal);
-      }
+      this.totalTransfer.push(this.getData[index].grandTotal);
     }
 
     const valTotalTransfer = this.totalTransfer.reduce((sum, item) => sum + item, 0);
