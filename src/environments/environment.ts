@@ -8,6 +8,12 @@ export const environment = {
   baseUrlSeller: 'https://seller0.belisada.id',
   baseUrlBuyer: 'https://dev.belisada.id',
   thumborUrl: 'http://img.belisada.id/',
+  // chatUrl: '',
+  // chatServerPort: '',
+  // socketServerPort: '',
+  elasticSearchUrl: 'http://elastic.belisada.id:3000',
+  chatUrl: 'https://chat0.belisada.id',
+  socketUrl: 'https://chat0-websock.belisada.id',
   firebase: {
     apiKey: 'AIzaSyBIUJNYI-q2h2Bh1Drb7GvDuK7KDjx_e5o',
     authDomain: 'belisada-dev.firebaseapp.com',

@@ -46,6 +46,7 @@ import { AddProductV2Component } from './features/product/add-product-v2/add-pro
 import { ProductsResolver } from './features/product/product.resolver';
 import localeId from '@angular/common/locales/id';
 import { ListingProductManageComponent } from './features/product/listing-product-manage/listing-product-manage.component';
+import { ChatComponent } from './features/chat/chat.component';
 // import { reducer } from './core/store/reducer/product-detail.reducer';
 library.add(fas, far, fab);
 
@@ -69,7 +70,8 @@ registerLocaleData(localeId, 'id');
     RekeningComponent,
     ProductAssistComponent,
     SearchProductMasterComponent,
-    AddProductV2Component
+    AddProductV2Component,
+    ChatComponent
   ],
   imports: [
     BrowserAnimationsModule,

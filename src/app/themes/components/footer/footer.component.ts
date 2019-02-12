@@ -3,6 +3,14 @@ import { FormControl, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 import { SubscribeRequest } from '@belisada-seller/core/models';
 import { SubscribeService } from '@belisada-seller/core/services';
+
+import { UserService } from '@belisada-seller/core/services';
+import { UserData } from '@belisada-seller/core/models';
+
+import { LocalStorageEnum } from '@belisada-seller/core/enum';
+
+import { ChatService } from '@belisada-seller/core/services/globals/chat.service';
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -10,10 +18,19 @@ import { SubscribeService } from '@belisada-seller/core/services';
 export class FooterComponent implements OnInit {
   subscribe_email: FormControl;
   subscribeRequest: SubscribeRequest = new SubscribeRequest();
+  user: UserData[];
+  userData: UserData = new UserData();
+  storeId: number;
 
-  constructor(private onSubs: SubscribeService) {}
+  constructor(
+    private onSubs: SubscribeService,
+
+    private _userService: UserService,
+    private _chatService: ChatService
+    ) {}
 
   ngOnInit() {
+    this.userData = this._userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
     this.subscribe_email = new FormControl('', [
     Validators.required,
     Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')
@@ -32,9 +49,16 @@ export class FooterComponent implements OnInit {
         }
       },
       error => {
-        swal('Ops, try again later');
+        swal('Oops, try again later');
       });
     }
+  }
+
+  alertChat() {
+    // console.log('storeID:', this.userData.storeId);
+    // this.storeId = this.userData.storeId;
+    console.log('show:', this._chatService.show());
+    this._chatService.show();
   }
 
 }

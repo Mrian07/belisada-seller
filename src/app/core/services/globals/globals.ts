@@ -6,4 +6,7 @@ import { Injectable } from '@angular/core';
 export class Globals {
   storeStatus: String = 'NA';
   isLoading: Boolean = false;
+  showChat: Boolean = false;
+  storeId: number;
+  socket;
 }
