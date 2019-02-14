@@ -41,6 +41,7 @@ export class DiscussionComponent implements OnInit {
   ) {
     this.inputFormGroup = [];
     this.list = [];
+    this.listChild = [];
   }
 
   ngOnInit() {

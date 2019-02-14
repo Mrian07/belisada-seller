@@ -1,0 +1,118 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div *ngFor="let room of chatRooms">
+                {{ room.name }}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div *ngFor="let message of chatMessages" [ngStyle]="{'text-align': userData.userId == message.user.usr_user_id ? 'right': 'left'}">
+                {{message.message}}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form [formGroup]="chatFormGroup" (ngSubmit)="submit()">
+                        <input formControlName="message" class="form-control" type="text">
+                        <button type="submit" class="btn btn--orange">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="chatting">
+    <header class="header">
+        <div class="header__top">
+            <span><fa-icon class="icon red" [icon]="['fas', 'circle']"></fa-icon></span>
+            <span><fa-icon class="icon yellow" [icon]="['fas', 'circle']"></fa-icon></span>
+            <span><fa-icon class="icon green" [icon]="['fas', 'circle']"></fa-icon></span>
+            <span><h4>Chat Room</h4></span>
+            <span>
+                <fa-icon class="exit" (click)="exit()" [icon]="['fas', 'times']"></fa-icon>
+            </span>
+        </div>
+        <div class="header__side">
+            <span class="header__title">Belisada Chat</span>
+        </div>
+        <div class="header__main">
+            <span class="header__title">{{ selectedRoom?.name1 }}</span>
+            <span class="header__stat">
+                <span class="circle circle--online"></span>
+                online
+            </span>
+        </div>
+        <div class="clearfix"></div>
+    </header>
+    <aside class="sidebar">
+        <div class="search">
+            <input class="search__text" type="text" placeholder="Search" />
+            <fa-icon class="search__icon--left" [icon]="['fas', 'search']"></fa-icon>
+            <fa-icon class="search__icon--right" [icon]="['fas', 'plus']"></fa-icon>
+        </div>
+        <div class="rooms" *ngFor="let room of chatRooms">
+            <!-- <div class="room active">
+                <div class="room__avatar">
+                    <img src="https://img.belisada.id/unsafe/50x50/center/filters:fill(fff)/https://cdn.myacico.co.id/myacico/image/avatar/avatarbackup.png" alt="">
+                    <span class="circle circle--online"></span>
+                </div>
+                <div class="room__info">
+                    <h3 class="room__name">Toko Gaban</h3>
+                    <p class="room__last-message">In this respect, your platform should...</p>
+                </div>
+            </div> -->
+            <div class="room" (click)="activateRoom(room)" [ngClass]="(selectedRoom?._id === room._id)?'room__active':'room__noActive'">
+                <div class="room__avatar">
+                    <img [src]="room.avatar1" alt="">
+                    <span class="circle circle--online"></span>
+                </div>
+                <div class="room__info">
+                    <h3 class="room__name">{{ room.name1 }}</h3>
+                    <p class="room__last-message">In this respect, your platform should...</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main class="content">
+        <!-- <div class="messages" *ngFor="let message of room.messages"> -->
+        <div class="messages">
+            <article [ngClass]="{'sender': message.user.usr_user_id == userData.userId, 'receiver': message.user.usr_user_id != userData.userId}" *ngFor="let message of chatMessages">
+                <div class="avatar">
+                    <img [src]="'https://img.belisada.id/unsafe/50x50/center/filters:fill(fff)/' + message.user.basic_imageurl_avatar" alt="">
+                </div>
+                <div class="message">
+                    <div class="message__pointer"></div>
+                    <div class="message__balloon">
+                        <p>{{ message.message }}</p>
+                        <div class="message__timestamp">
+                        {{ message.date | date : "d MMM h:mm a" }}
+                        </div>
+                    </div>
+                    <span class="message__tick">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076">
+                            <path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" fill="#4fc3f7"/>
+                        </svg>
+                    </span>
+                </div>
+            </article>
+        </div>
+
+        <footer>
+            <form [formGroup]="chatFormGroup" (ngSubmit)="submit()">
+                <input class="message__input" formControlName="message" placeholder="Type something here to say...">
+                <div class="message__toolbox">
+                    <fa-icon class="icon" [icon]="['fas', 'paperclip']" ngxFilePicker></fa-icon>
+                    <!-- <emoji-mart><fa-icon class="icon" [icon]="['fas', 'smile']"></fa-icon></emoji-mart> -->
+                    <!-- <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart> -->
+                    <fa-icon class="icon" [icon]="['fas', 'smile']"></fa-icon>
+                    <!-- <emoji-mart [hidden]="!emoji"></emoji-mart> -->
+                    <button type="submit" class="button__send">
+                        <fa-icon class="button__send-icon" [icon]="['fas', 'paper-plane']"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </footer>
+    </main>
+    <div class="clearfix"></div>
+</div>
