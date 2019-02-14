@@ -70,7 +70,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._getWaranty();
-    this._getDetailProd();
     this.addProductForm = this.fb.group({
       couriers: [[]],
       guaranteeTime:  ['',  [Validators.required]],
@@ -87,12 +86,12 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         masterId: this.masterId
       });
 
-      
       console.log(params);
       console.log('console.log(this.router.url): ', this.router.url);
       console.log(this.router.url);
       this.routeUrl = this.router.url === '/products/' + params.id;
       if (this.router.url === '/products/' + params.id) {
+        this._getDetailProd();
 
         this.productService.getProdVariant(params.id).subscribe(data => {
           console.log('data : variant', data);
@@ -104,13 +103,13 @@ export class AddProductV2Component implements OnInit, OnDestroy {
               masterVarianId: variant.masterVarianId,
             });
           });
-  
         });
 
       } else {
         this.productService.getDetailById(params.id).subscribe(data => {
 
           this.product = data.data;
+          this.displayImage = this.product.imageUrl[0];
           console.log('data:edited', data.data);
           this.addProductForm.patchValue({
             guaranteeType: this.product.guaranteeType,
@@ -406,9 +405,9 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     // getProdDetail(id: any)
     this.subscriptions.push(this.productsSandbox.productAdd$.subscribe((product: any) => {
       if (product) {
+        console.log('product: ', product);
         this.product = product.data;
         this.displayImage = this.product.imageUrl[0];
-        console.log('product: ', this.product);
       }
     }));
   }

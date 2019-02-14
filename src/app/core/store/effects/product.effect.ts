@@ -81,6 +81,7 @@ export class ProductsEffects {
             ofType(proddetailAdd.ActionTypes.LOAD),
             map((action: proddetailAdd.LoadAction) => action.payload),
             switchMap(state => {
+              console.log('state: ', state);
               return this.productsApiClient.getProdDetail(state).pipe(
                 map(products => new proddetailAdd.LoadSuccessAction(products)),
                 catchError(error  => of(new proddetailAdd.LoadFailAction()))

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Configuration } from '@belisada-seller/core/config';
 import {
   AddProductRequest, AddProductResponse, ProductListing,
   UpdateStockRequest, ProductDetailList, ProductSuggestion, ProductSuggestionDetail, EditProductRequest,
-  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate, DetailResnponsev2, DetailResnponsev2testing, ProductEditVarian, ProductDetailListV2
+  UpdateStockResponse, EditProductFullRequest, ProdReq, AddProdDetail, VariantAttr, ProductCreate,
+  DetailResnponsev2, DetailResnponsev2testing, ProductEditVarian, ProductDetailListV2
 } from '@belisada-seller/core/models';
 
 @Injectable({
@@ -76,6 +77,7 @@ export class ProductService {
   getProdDetail(id: any): Observable<AddProductRequest[]>  {
     return this.http.get(this.configuration.apiURL + '/seller/product/suggest/detail/' + id)
     .pipe(
+      tap(rsl => console.log('rsl: ', rsl)),
       map(rsl => rsl as AddProductRequest[])
     );
   }
