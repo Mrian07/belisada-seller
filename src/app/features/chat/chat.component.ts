@@ -49,8 +49,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.socket = this.globals.socket;
 
     this.chatService.getMyChatRooms(this.userData.userId).subscribe(res => {
-      this.chatRooms = res;
-      this.selectedRoom = res[0];
+      this.chatRooms = res.filter(x => this.userData.storeId === +x.unique_identifier.split('~')[1]);
+      this.selectedRoom = this.chatRooms[0];
       const joinRoom = new JoinRoom();
       joinRoom.uniqueIdentifier = this.selectedRoom.unique_identifier;
       joinRoom.roomType = RoomTypeEnum.BS;
