@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 import { environment } from '@env/environment';
 import { ReasonService } from '@belisada-seller/core/services';
 import { LoadingService } from '@belisada-seller/core/services/global/loading.service';
+import { ShareMessageService } from '@belisada-seller/core/services/share-message/share-message.service';
 @Component({
   selector: 'bss-order-list',
   templateUrl: './order-list.component.html',
@@ -65,14 +66,14 @@ export class OrderListComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private router: Router,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private shareMessageService: ShareMessageService
   ) {
     this.toggleArrBol = [];
     this.cancelOrderModal = false;
   }
 
   ngOnInit() {
-
     this.isStatus();
     this.formData();
     this.cancelData();
@@ -103,6 +104,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   orderList(statusOrder?: string) {
+    this.shareMessageService.changeMessage('reload-sidebar');
     const queryParams = {
       itemperpage: 10,
       page: this.currentPage,
