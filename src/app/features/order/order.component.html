@@ -1,5 +1,8 @@
 <!-- <span class="title">Listing Order</span> -->
 <div class="frame-menu">
+  <div [ngClass]="(tabOrder=='182')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('182')">
+    Belum Dibayar
+  </div>
   <div [ngClass]="(tabOrder=='187')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('187')">
     Harus Kirim
   </div>
