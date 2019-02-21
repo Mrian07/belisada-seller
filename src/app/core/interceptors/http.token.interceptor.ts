@@ -41,7 +41,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
         }
       }, (err: any) => {
         if (err instanceof HttpErrorResponse) {
-
+          this.loadingService.hide();
           console.log('errror nih', err);
           if (err.status === 401) {
             if (token) {
