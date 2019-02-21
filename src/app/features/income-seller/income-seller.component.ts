@@ -12,6 +12,7 @@ import { DateUtil } from '@belisada-seller/core/util';
 import swal from 'sweetalert2';
 
 import { ResponseWithdrawal} from '@belisada-seller/core/models';
+import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Component({
   selector: 'bss-income-seller',
@@ -55,7 +56,7 @@ export class IncomeSellerComponent implements OnInit {
   };
   constructor(private incomeS: IncomeServiceService, private router: Router,
     private fb: FormBuilder,
-
+    private loadingService: LoadingService,
     private dateUtil: DateUtil,
     private activatedRoute: ActivatedRoute) {
   }
@@ -75,7 +76,9 @@ export class IncomeSellerComponent implements OnInit {
         page: this.currentPage,
         itemperpage: 10,
       };
+      this.loadingService.show();
       this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
+        this.loadingService.hide();
         this.getData = response.content;
 
         this.lastPage = response.totalPages;
@@ -105,10 +108,12 @@ export class IncomeSellerComponent implements OnInit {
     });
   }
   setPage(page: number, increment?: number) {
+    console.log('page: ', page);
     if (increment) { page = +page + increment; }
     if (page < 1 || page > this.lastPage) { return false; }
     // tslint:disable-next-line:max-line-length
-    this.router.navigate(['/listing-product'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
+    console.log('page2: ', page);
+    this.router.navigate(['/Income'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
   }
 
