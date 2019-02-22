@@ -28,7 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DiscussionReviewComponent } from '@belisada-seller/features/discussion-review/discussion-review.component';
 import { DiscussionComponent } from '@belisada-seller/features/discussion/discussion.component';
 import { ReviewComponent } from '@belisada-seller/features/review/review.component';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireMessagingModule } from 'angularfire2/messaging';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '@env/environment';
@@ -46,6 +48,9 @@ import { AddProductV2Component } from './features/product/add-product-v2/add-pro
 import { ProductsResolver } from './features/product/product.resolver';
 import localeId from '@angular/common/locales/id';
 import { ListingProductManageComponent } from './features/product/listing-product-manage/listing-product-manage.component';
+import { ChatComponent } from './features/chat/chat.component';
+import { MessagingService } from './shared/messaging.service';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 // import { reducer } from './core/store/reducer/product-detail.reducer';
 library.add(fas, far, fab);
 
@@ -69,7 +74,8 @@ registerLocaleData(localeId, 'id');
     RekeningComponent,
     ProductAssistComponent,
     SearchProductMasterComponent,
-    AddProductV2Component
+    AddProductV2Component,
+    ChatComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -77,7 +83,9 @@ registerLocaleData(localeId, 'id');
     FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireMessagingModule,
     AppRoutingModule,
     FeaturesModule,
     ThemesModule,
@@ -106,6 +114,8 @@ registerLocaleData(localeId, 'id');
     ProductsSandbox,
     ProductsResolver,
     { provide: LOCALE_ID, useValue: 'id' },
+    MessagingService,
+    AsyncPipe,
   ],
   bootstrap: [AppComponent]
 })

@@ -100,6 +100,7 @@ export class ListingProductManageComponent implements OnInit {
 
     this.prodSe.getProdListing(queryParams).subscribe(response => {
       this.proddetail = response;
+      console.log('proddetail.data', this.proddetail.data);
       this.a = response.dataCount;
       this.pages = [];
       this.lastPage = this.proddetail.pageCount;
@@ -136,11 +137,9 @@ export class ListingProductManageComponent implements OnInit {
   }
 
   public openCloseRow(idReserva: number): void {
-
     this.prodSe.getDetailById(idReserva).subscribe(res => {
       this.productDetail = res.data;
       this.productDetail.couriers = this.productDetail.couriers.filter(x => x.isUse === true);
-
       this.imgIndex = this.productDetail.imageUrl[0];
     });
     if (this.rowSelected === -1) {

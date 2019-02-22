@@ -1,116 +1,16 @@
-<div class="row wrapper--income-seler">
-  <div class="col-12">
-    <span class="text__header--title">My Income</span>
-    <div class="background__header--title">
-      <div class="text--background__header--title">
-        <span>* </span>
-        <span>Total </span>
-        <span class="text-bold">Saldo yang bisa ditarik </span>
-        <span>adalah </span>
-        <span class="text-bold"> {{getTotal | currency:'Rp ':'symbol':'1.0'}} </span>
-      </div>
-      <div class="text--background__header--title">
-        <span>* </span>
-        <span class="text-bold">Minimum penarikan Saldo </span>
-        <span> sebesar </span>
-        <span>Rp 50.000</span>
-      </div> 
+<div class="tab-container">
+  <div class="tabWrapper">
+    <div [ngClass]="(tabOrder=='MyIncome')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('MyIncome', tabOrder)">
+      My Income
+    </div>
+    <div [ngClass]="(tabOrder=='IncomeHistory')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('IncomeHistory', tabOrder)">
+      Income History
     </div>
   </div>
-  <div class="col-12 header--datetimepicker">
-    <!-- <div class="wrapper-two__row--dtp">
-      <div>1</div>
-      <div>2</div>
-    </div> -->
-    <div class="row" >
-      <div class="col-6 ">
-        <!-- <div class="row"> -->
-        
-          <div class="wrapper__header--datetimepicker">
-              <form [formGroup]="fGroup" >
-                <div class="row">
-                    <div class="col-3">
-                        <my-date-picker class="frame-date" name="mydate" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
-                      </div>
-                      <div class="col-1">-</div>
-                  
-                    <div class="col-3">
-                      <my-date-picker class="frame-date" name="mydate" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn--orange" (click)="testing()">Cari tanggal</button>
-                      </div>
-                </div>
-                
-              </form>
-              <div class="row">
-                  <div class="col-12">
-                    <span class="text--saldo">Saldo dari tanggal dd/mm/yy - dd/mm/yy</span>
-                  </div>
-              </div>
-          </div>
-        <!-- </div> -->
-      </div>
-      <div class="col-6 ">
-          <!-- <div class="row"> -->
-            <div class="col-12 wrapper__header--datetimepicker">
-              <div class="row btn--wrapper">
-                <div class="col-5">
-                  <button class="btn btn--peach btn--height72"  (click)="selectAll()"> Pilih Semua </button>
-                </div>
-            
-                <div class="col-5">
-                    <button [ngClass]="btn_withrawal === true ? 'btn btn--green btn--height72': 'btn btn--disabled btn--height72'"
-                    
-                    (click)="tarikDana()">Tarik Dana</button>
-                </div>
-              </div>
-            </div>
-          <!-- </div> -->
-        </div> 
-    </div>
-  </div>
-
-<!-- <div class="row"> -->
-  <div class="col-12 wrapper--body">
-      <div class="four-grid" *ngFor="let item of getData">
-          <div>
-            <input type="checkbox" [checked]=item.selected (change)="onChange(item, $event.target.checked)" *ngIf="item.statusWithdrawCode==221"/>
-
-          </div>
-          <div><span> {{  item.createdTime }} </span><br>
-            <span class="text-collor__black text-bold"> {{ item.status }} {{ item.invoiceNumber }}</span>
-            <!-- <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook</a> -->
-            <fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon>
-          </div>
-          <div>
-            <span class="text-collor__black text-center text-display__block">Status</span>
-            <span class="text-collor__black text-center text-display__block"> {{ item.statusWithdraw }}</span>
-          </div>
-          <div>
-              <span class="text-collor__black text-center text-display__block">Nominal</span>
-              <span class="text-collor__black text-center text-display__block"> {{item.grandTotal | currency:'Rp ':'symbol':'1.0'}} </span>
-          </div>
-      </div>
-  </div>
-<!-- </div> -->
-<div class="paging">
-	<ul>
-		<li>
-			<a (click)="setPage(1)" [ngClass]="{disabled:currentPage == 1}">First</a>
-		</li>
-		<li>
-			<a (click)="setPage(currentPage, -1)" [ngClass]="{disabled:(currentPage-1) < 1}">Previous</a>
-		</li>
-		<li *ngFor="let p of pages">
-			<a (click)="setPage(p)" [ngClass]="currentPage == p?'current-page':''">{{p}}</a>
-		</li>
-		<li>
-			<a (click)="setPage(currentPage, +1)" [ngClass]="{disabled:currentPage == lastPage}">Next</a>
-		</li>
-		<li>
-			<a (click)="setPage(lastPage)" [ngClass]="{disabled:currentPage == lastPage}">Last</a>
-		</li>
-	</ul>
 </div>
+<div class="frame-menu-contain">
+  <div class="wrapper-top">
+    <bss-my-income *ngIf="tabOrder=='MyIncome'"></bss-my-income>
+    <bss-income-history *ngIf="tabOrder=='IncomeHistory'"></bss-income-history>
+  </div>
 </div>

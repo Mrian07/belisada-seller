@@ -10,6 +10,9 @@ export class UserData {
     email: string;
     name: string;
     role: number;
+    storeId: number;
+    storeName: string;
+    userId: number;
 }
 
 export class SignupData {
