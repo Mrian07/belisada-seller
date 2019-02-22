@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatComponent } from './chat/chat.component';
+import { MyIncomeComponent } from './income-seller/my-income/my-income.component';
+import { IncomeHistoryComponent } from './income-seller/income-history/income-history.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,6 @@ import { ChatComponent } from './chat/chat.component';
     FontAwesomeModule,
     ReactiveFormsModule,
   ],
-  declarations: [OrderPrintComponent, InvoiceNumberComponent, IncomeSellerComponent]
+  declarations: [OrderPrintComponent, InvoiceNumberComponent, IncomeSellerComponent, MyIncomeComponent, IncomeHistoryComponent]
 })
 export class FeaturesModule { }

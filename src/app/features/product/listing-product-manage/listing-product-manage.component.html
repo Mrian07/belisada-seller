@@ -29,7 +29,42 @@
             </div>
         </div> -->
     </div>
+    <div class="tableHeader">
+        <div>Nama Produk</div>
+        <div>Variasi</div>
+        <div>Harga</div>
+        <div>Stok</div>
+        <div>Penjualan</div>
+        <div>Action</div>
+    </div>
     <div class="col-12" *ngFor="let item of proddetail.data" [ngClass]="{'active':onProductNameFocus}">
+        <div class="row tableContent">
+            <div class="col-3 pull-left">
+                <div class="verticalMiddle">
+                    <div class="verticalMiddleInside pull-left">
+                        <img class="thumbnail" [src]="prodImg + item.imageUrl">
+                    </div>
+                    <div class="descProd verticalMiddleInside">
+                        <p>{{ item.name }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-7 verticalMiddle sub">
+                <div class="verticalMiddleInside">
+                    <div class="tableDetail">
+                        <div class="subColumn">Kolom 2</div>
+                        <div class="subColumn">{{item.pricelist | currency:'Rp ':'symbol':'1.0'}}</div>
+                        <div class="subColumn">{{item.qty}}</div>
+                        <div class="subColumn">Kolom 5</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 pull-right">
+                <div class="verticalMiddleInside cursor-pointer" (click)="goToEdit(item.productId)">
+                    <button class="btn btnWhiteBorder">Edit</button>
+                </div>
+            </div>
+        </div>
         <div class="row w__background--border">
             <div class="col-3" >
                 <p class="w__float--left">
@@ -42,68 +77,54 @@
                 <div class="wrapper__three">
                     <div>
                         <div>
-                            <div>
-                                <div>
-                                    <span *ngIf="item.status === 'REJECTED' && item.isactive !== false" class="w__middle" style="color:red;">Status :  {{ item.status }}</span>
-                                    <span *ngIf="item.isactive === false" class="w__middle">Status : HIDDEN</span>
-                                </div>
-                                <div >
-                                    <span *ngIf="item.status === 'APPROVED' && item.isactive !== false" class="w__middle" style="color:green;">Status :  {{ item.status }}</span>
-                                </div>
-                                <div>
-                                    <span *ngIf="item.status === 'NEED APPROVAL' && item.isactive !== false" class="w__middle">Status :  {{ item.status }}</span>
-                                </div>
-                                <div>
-                                    <span *ngIf="item.status === 'REVISE' && item.isactive !== false" class="w__middle">Status :  {{ item.status }}</span>
-                                </div>
-                            </div>
+                            <span *ngIf="item.status === 'REJECTED' && item.isactive !== false" class="w__middle" style="color:red;">Status :  {{ item.status }}</span>
+                            <span *ngIf="item.isactive === false" class="w__middle">Status : HIDDEN</span>
+                        </div>
+                        <div>
+                            <span *ngIf="item.status === 'APPROVED' && item.isactive !== false" class="w__middle" style="color:green;">Status :  {{ item.status }}</span>
+                        </div>
+                        <div>
+                            <span *ngIf="item.status === 'NEED APPROVAL' && item.isactive !== false" class="w__middle">Status :  {{ item.status }}</span>
+                        </div>
+                        <div>
+                            <span *ngIf="item.status === 'REVISE' && item.isactive !== false" class="w__middle">Status :  {{ item.status }}</span>
                         </div>
                     </div>
                     <div class="w__middle">
                         <div>
-                            <div>
-                                <div *ngIf="item.status === 'REJECTED'"></div>
-                                <div *ngIf="item.status === 'APPROVED'">
-                                    <span class="w__middle" style="color:green;" [ngClass]="{'color-red': (item.qty === 0)}">Stock :  {{ item.qty }}</span>
-                                </div>
-                                <div *ngIf="item.status === 'NEED APPROVAL'"></div>
+                            <div *ngIf="item.status === 'REJECTED'"></div>
+                            <div *ngIf="item.status === 'APPROVED'">
+                                <span class="w__middle" style="color:green;" [ngClass]="{'color-red': (item.qty === 0)}">Stock :  {{ item.qty }}</span>
                             </div>
+                            <div *ngIf="item.status === 'NEED APPROVAL'"></div>
                         </div>
                     </div>
                     <div class="w__middle">
                         <div>
-                            <div>
-                                <div *ngIf="item.status === 'REJECTED'">
-                                    <span class="w__middle" style="color:red;">Status :  {{ item.status }}</span> 
-                                </div>
-                                <div *ngIf="item.status === 'APPROVED'">
-                                    <span class="w__middle" style="color:green;">Terjual :  {{ item.sold }}</span>
-                                </div>
-                                <div *ngIf="item.status === 'NEED APPROVAL'">
-                                    <span class="w__middle">Status :  {{ item.status }}</span> 
-                                </div>
+                            <div *ngIf="item.status === 'REJECTED'">
+                                <span class="w__middle" style="color:red;">Status :  {{ item.status }}</span> 
+                            </div>
+                            <div *ngIf="item.status === 'APPROVED'">
+                                <span class="w__middle" style="color:green;">Terjual :  {{ item.sold }}</span>
+                            </div>
+                            <div *ngIf="item.status === 'NEED APPROVAL'">
+                                <span class="w__middle">Status :  {{ item.status }}</span> 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-4">
-                <div class="wrapper__tiga">
-                    <div class="w__middle">
+                <div class="pull-right">
+                    <!-- <div class="w__middle">
                         <div *ngIf="item.status !== 'REJECTED'">
-                            <div>
-                                <span class="w__kosongkan_stok">
-                                    kosongkan stock
-                                </span>
-                                <input [checked]=false class="w__margin--input" type="checkbox" (change)="onChange(item.productId, $event.target.checked)">
-                            </div>
+                            <span class="w__kosongkan_stok">Kosongkan Stock</span>
+                            <input [checked]=false class="w__margin--input" type="checkbox" (change)="onChange(item.productId, $event.target.checked)">
                         </div>
                     </div>
                     <div class="w__middle">
                         <div *ngIf="item.status !== 'REJECTED'">
-                            <span class="w__kosongkan_stok">
-                                Visibility
-                            </span>
+                            <span class="w__kosongkan_stok">Visibility</span>
                             <div *ngIf="item.isactive === true; else login">
                                 <label class="switch small w__margin--switch">
                                     <input type="checkbox" (click)="bSlider(item.productId, true)" [checked]=true>
@@ -118,12 +139,13 @@
                                 </label>
                             </ng-template>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="w__middle">
                         <div class="cursor-pointer" (click)="openCloseRow(item.productId)">
+                            <button class="btn ">Edit</button>
                             <fa-icon class="displayInline" [icon]="['fas', 'search']"></fa-icon>
                             <span class="w__kosongkan_stok displayInline" > 
-                                View Detail
+                                Edit
                             </span>
                         </div>
                     </div>

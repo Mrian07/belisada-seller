@@ -1,121 +1,63 @@
-.text-center {
-    text-align: center;
-}
-
-.text-display__block {
-    display: block;
-}
-
-.text-bold { 
-    font-weight: bold;
-}
-
-.text-collor__black {
-    color: black;
-}
-
-.text__header--title {
-    font-size: 3rem;
-    color: black;
-    display: block;
-}
-.wrapper--income-seler {
-    padding: 3rem;
-}
-.background__header--title {
-    background: #ECECEC;
-    border: 1px solid #D8D8D8;
-    padding: 1.2rem;
-   
-    .text--background__header--title {
-        font-size: 2rem;
-        color: black;
-        
-    }
-}
-
-.header--datetimepicker {
-    padding-top: 10px;
-    
-    .wrapper__header--datetimepicker{
-        border: 1px solid;
-        padding-left: 5px;
-        padding-top: 6px;
-        .btn--wrapper {
-            margin: 19px;
-            margin-left: 13%;
-        }
-        .btn--orange {
-            background: #F57B2A;
-            color: white;
-            width: 100%;  
-        }
-        .btn--peach {
-            background: #DDB42E;
-            color: white;
-            width: 100%;
-        } 
-        .btn--green {
-            background: #067E5B;
-            color: white;
-            width: 100%;
-        }
-
-        .btn--disabled {
-            background: #dddddd;
-            color: white;
-            width: 100%;
-        }
-
-        .text--saldo {
-            text-align: center;
-            display: block;
-        }
-    }
-}
-
-.wrapper--body {
-    margin-top: 10px;
-    .four-grid {
-        display: grid;
-        grid-template-columns: 10% 40% 30% 20%;
-        padding: 1em;
-    }
-}
-
-.paging {
-    margin: 0 auto;
-    margin-top:20px;
-}
-
-.paging ul {
-    list-style-type: none;
-    padding: 0;
-    text-align: center;
-}
-
-.paging li {
+.tab-container {
+    width: 100%;
     display: inline-block;
+    height: 52px;
+    box-shadow: 0 2px 3px 0 rgba(255, 187, 64, 0.42);
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13pt;
+    border: 1px solid #ececec;
 }
 
-.paging a {
-    border: 1px solid #ebeef2;
-    padding: 3px 10px;
-    margin: 0 3px;
-    border-radius: 5px;
+.tabWrapper {
+    display: block;
+    margin: 0 auto;
+    width: 500px;
 }
-.paging a.current-page {
-    border: 1px solid #cde;
-    background: #def;
-    color: #999;
-    cursor: default;
+
+.btn-tab{
+    &__active{
+        display:inline-block;
+        text-align: center;
+        color: #f27138;
+        width: 49%;
+        padding:10px;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 3px solid #f27138;
+        margin-right: 3px;
+    }
+
+    &__noActive{
+        display:inline-block;
+        text-align: center;
+        color: #222222;
+        width: 49%;
+        padding:10px;
+        cursor: pointer;
+        position: relative;
+        border-bottom: none;
+        margin-right: 3px;
+    }
 }
-.paging a:not(.disabled):not(.current-page):hover {
-    color: #abc;
-    cursor: pointer;
-    border-color: #cde;
+
+.btn-tab__noActive:hover{
+    border-bottom: 0.3rem solid #f27138;
+    color: #f27138;
 }
-.paging a.disabled {
-    color: #ccc;
-    cursor: default;
+
+.wrapper-top {
+    margin-top: 15px;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+}
+
+.frame-menu-contain{
+    background-color: #f7f7f7;
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+    padding: 6px 20px 20px;
+    margin-bottom: 50px;
 }
