@@ -6,6 +6,7 @@ import { LocalStorageEnum } from '@belisada-seller/core/enum';
 import {
   TransactionService
 } from '@belisada-seller/core/services';
+import { ShareMessageService } from '@belisada-seller/core/services/share-message/share-message.service';
 
 @Component({
     selector: 'bss-sidebar-seller',
@@ -18,11 +19,21 @@ export class SidebarSellerComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private shareMessageService: ShareMessageService
   ) { }
 
   ngOnInit() {
     this.countOrder();
+    this.cekFlag();
+  }
+
+  cekFlag() {
+    this.shareMessageService.currentMessage.subscribe(respon => {
+      if (respon === 'reload-sidebar') {
+        this.countOrder();
+      }
+    });
   }
 
   countOrder() {
