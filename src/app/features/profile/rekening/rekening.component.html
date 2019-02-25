@@ -55,7 +55,7 @@
 
           <div class="lable-name">Nomor Rekening</div>
           <div>
-          <input class="f-control" type="text" formControlName="accountNumber" placeholder="Masukan nomor rekening">
+          <input class="f-control" type="text" (keypress)="numberOnly($event)" formControlName="accountNumber" placeholder="Masukan nomor rekening">
             
             <i class="inverted circular search link icon"></i>
             <div *ngIf="createComForm.controls.accountNumber.invalid && (createComForm.controls.accountNumber.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
