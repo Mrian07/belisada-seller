@@ -19,7 +19,6 @@ import { SideAuthComponent } from '@belisada-seller/themes/components/side-auth/
 import { ModalComponent } from '@belisada-seller/shared/components/modal/modal.component';
 import { FieldErrorComponent } from '@belisada-seller/features/product/field-error/field-error.component';
 import { SharedModule } from '@belisada-seller/shared/shared.module';
-import { ChatComponent } from '@belisada-seller/features/chat/chat.component';
 
 library.add(fas, far, fab);
 
