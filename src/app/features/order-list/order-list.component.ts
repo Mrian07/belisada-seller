@@ -151,6 +151,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   getOrderNumber(orderNumber) {
     this.isStatus();
     this.isForm = true;
+    this.orderNumber = orderNumber;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
       this.createComForm.patchValue({
@@ -170,6 +171,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   prosesResi() {
+
     this.submitted = true;
     if (this.createComForm.valid) {
       const resi: Resi = new Resi();
@@ -190,6 +192,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
           this.isErrorResi = true;
         } else {
           this.isProsesResi = true;
+          this.orderList(this.status);
         }
 
       });
@@ -238,7 +241,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
           'success'
         ).then(() => {
           this.transactionService.acceptTransaction(orderNumber).subscribe(response => {
-            console.log(response);
             this.orderList(this.status);
           });
         });
