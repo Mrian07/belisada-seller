@@ -1,27 +1,3 @@
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <div *ngFor="let room of chatRooms">
-                {{ room.name }}
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div *ngFor="let message of chatMessages" [ngStyle]="{'text-align': userData.userId == message.user.usr_user_id ? 'right': 'left'}">
-                {{message.message}}
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <form [formGroup]="chatFormGroup" (ngSubmit)="submit()">
-                        <input formControlName="message" class="form-control" type="text">
-                        <button type="submit" class="btn btn--orange">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <div class="chatting">
     <header class="header">
         <div class="header__top">

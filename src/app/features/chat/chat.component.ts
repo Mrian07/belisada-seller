@@ -7,7 +7,7 @@ import { ChatService } from '@belisada-seller/core/services/globals/chat.service
 import { ChatMessage } from '@belisada-seller/core/models/chat/chat-message.model';
 
 import Socket = SocketIOClient.Socket;
-import { ProfileStoreResponse } from '@belisada-seller/core/models/store/store.model';
+// import { ProfileStoreResponse } from '@belisada-seller/core/models/store/store.model';
 import { RoomTypeEnum } from '@belisada-seller/core/enum/room-type.enum';
 import { JoinRoom } from '@belisada-seller/core/interfaces/join-room.interface';
 import { Globals } from '@belisada-seller/core/services/globals/globals';
@@ -27,10 +27,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   public chatMessages = [];
   public chatRooms: ChatRoom[] = [];
   public userData: UserData = new UserData;
-  public profileStoreResponse: ProfileStoreResponse = new ProfileStoreResponse;
-  public roomData: ChatRoom = new ChatRoom;
+  // public profileStoreResponse: ProfileStoreResponse = new ProfileStoreResponse;
+  // public roomData: ChatRoom = new ChatRoom;
 
-  _id: string;
+  // _id: string;
   selectedRoom: any;
 
   // storeId: number;
@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     private chatService: ChatService,
     private fb: FormBuilder,
     private userService: UserService,
-    private storeService: StoreService,
+    // private storeService: StoreService,
   ) { }
 
   ngOnInit() {
