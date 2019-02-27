@@ -213,10 +213,9 @@
 		<div class="no-resi tr-black">No Pesanan: #{{info.paymentNumber}}</div>
 		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
 			Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
-		<form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit()" novalidate>
-			<input class="field-r" type="hidden" formControlName="orderNumber">
+		<form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit(orderNumber)" novalidate>
+			<input class="field-r" type="text" formControlName="orderNumber">
 			<div class="modal-body">
-				{{orderNumber}}
 				<span class="line-resi"><b>Alamat Pengiriman</b></span>
 				<span class="line-resi tr-black">{{info.namaPenerima}}</span>
 				<span class="line-resi tr-black">{{info.alamatPenerima}}.</span>

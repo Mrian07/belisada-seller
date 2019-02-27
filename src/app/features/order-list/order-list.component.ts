@@ -104,6 +104,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   orderList(statusOrder?: string) {
+    this.loadingService.show();
     this.shareMessageService.changeMessage('reload-sidebar');
     const queryParams = {
       itemperpage: 10,
@@ -112,7 +113,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     };
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
-      console.log('isi datanya', response);
+      this.loadingService.hide();
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
       // console.log(b);
@@ -151,6 +152,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   getOrderNumber(orderNumber) {
     this.isStatus();
     this.isForm = true;
+    this.orderNumber = orderNumber;
     this.transactionService.getInvoice(orderNumber).subscribe(respon => {
       this.info = respon.data;
       this.createComForm.patchValue({
@@ -170,6 +172,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   prosesResi() {
+
     this.submitted = true;
     if (this.createComForm.valid) {
       const resi: Resi = new Resi();
@@ -190,6 +193,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
           this.isErrorResi = true;
         } else {
           this.isProsesResi = true;
+          this.orderList(this.status);
         }
 
       });
@@ -238,7 +242,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
           'success'
         ).then(() => {
           this.transactionService.acceptTransaction(orderNumber).subscribe(response => {
-            console.log(response);
             this.orderList(this.status);
           });
         });

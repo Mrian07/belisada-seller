@@ -52,10 +52,10 @@
             <div class="col-7 verticalMiddle sub">
                 <div class="verticalMiddleInside">
                     <div class="tableDetail">
-                        <div class="subColumn">Kolom 2</div>
+                        <div class="subColumn">-</div>
                         <div class="subColumn">{{item.pricelist | currency:'Rp ':'symbol':'1.0'}}</div>
                         <div class="subColumn">{{item.qty}}</div>
-                        <div class="subColumn">Kolom 5</div>
+                        <div class="subColumn">-</div>
                     </div>
                 </div>
             </div>
@@ -115,8 +115,8 @@
                 </div>
             </div>
             <div class="col-4">
-                <div class="pull-right"> -->
-                    <!-- <div class="w__middle">
+                <div class="pull-right">
+                    <div class="w__middle">
                         <div *ngIf="item.status !== 'REJECTED'">
                             <span class="w__kosongkan_stok">Kosongkan Stock</span>
                             <input [checked]=false class="w__margin--input" type="checkbox" (change)="onChange(item.productId, $event.target.checked)">
@@ -139,8 +139,8 @@
                                 </label>
                             </ng-template>
                         </div>
-                    </div> -->
-                    <!-- <div class="w__middle">
+                    </div>
+                    <div class="w__middle">
                         <div class="cursor-pointer" (click)="openCloseRow(item.productId)">
                             <button class="btn ">Edit</button>
                             <fa-icon class="displayInline" [icon]="['fas', 'search']"></fa-icon>

@@ -28,7 +28,7 @@
     <div class="row without-margin-bot view-line">
         <div class="col-3 title-line">Phone</div>
         <div class="col-9 title-line">
-            <input type="number" title="klik untuk mengubah" class="input-style-text input-editable" [disabled]="onViewAddress" [(ngModel)]="store.phone" name="phone" #phone="ngModel">
+            <input type="text" (keypress)="numberOnly($event)" title="klik untuk mengubah" class="input-style-text input-editable" [disabled]="onViewAddress" [(ngModel)]="store.phone" name="phone" #phone="ngModel">
         </div>
     </div>
     <div class="row without-margin-bot view-line">
