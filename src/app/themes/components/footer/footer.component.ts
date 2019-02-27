@@ -9,8 +9,6 @@ import { UserData } from '@belisada-seller/core/models';
 
 import { LocalStorageEnum } from '@belisada-seller/core/enum';
 
-import { ChatService } from '@belisada-seller/core/services/globals/chat.service';
-
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -26,7 +24,6 @@ export class FooterComponent implements OnInit {
     private onSubs: SubscribeService,
 
     private _userService: UserService,
-    private _chatService: ChatService
     ) {}
 
   ngOnInit() {
@@ -52,13 +49,6 @@ export class FooterComponent implements OnInit {
         swal('Oops, try again later');
       });
     }
-  }
-
-  alertChat() {
-    // console.log('storeID:', this.userData.storeId);
-    // this.storeId = this.userData.storeId;
-    console.log('show:', this._chatService.show());
-    this._chatService.show();
   }
 
 }
