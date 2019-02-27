@@ -3,7 +3,8 @@ import { environment } from '@env/environment';
 
 @Component({
     selector: 'bss-auth-layout',
-    template: `<router-outlet></router-outlet>`
+    templateUrl: './auth-layout.component.html',
+    styleUrls: ['./auth-layout.component.scss']
 })
 export class AuthLayoutComponent {
     baseUrl = environment.baseUrlSeller;
