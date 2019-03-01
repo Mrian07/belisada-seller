@@ -7,6 +7,7 @@ import { IncomeServiceService } from '@belisada-seller/core/services';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DateUtil } from '@belisada-seller/core/util';
 import swal from 'sweetalert2';
+import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Component({
   selector: 'bss-income-history',
@@ -52,6 +53,7 @@ export class IncomeHistoryComponent implements OnInit {
   constructor(private incomeS: IncomeServiceService, private router: Router,
     private fb: FormBuilder,
     private dateUtil: DateUtil,
+    private loadingService: LoadingService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -59,6 +61,7 @@ export class IncomeHistoryComponent implements OnInit {
     this.newMethod();
   }
   private newMethod() {
+    this.loadingService.show();
     this.incomeS.getTotal().subscribe(res => {
       this.getTotal = res.data;
     });
@@ -78,12 +81,11 @@ export class IncomeHistoryComponent implements OnInit {
             this.pages.push(r);
           }
         }
-        console.log(response);
         for (let i = 0; i < this.getData.length; i++) {
           this.getData[i].selected = this.xx;
           console.log('this.selectedAll', this.getData[i].status);
         }
-        console.log(response.content);
+        this.loadingService.hide();
       });
     });
   }

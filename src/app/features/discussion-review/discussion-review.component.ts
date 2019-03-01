@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
 
 @Component({
   selector: 'bss-discussion-review',
@@ -12,7 +13,8 @@ export class DiscussionReviewComponent implements OnInit {
   showSearch: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {
     this.tabOrder = 'Discussion';
   }
@@ -21,10 +23,12 @@ export class DiscussionReviewComponent implements OnInit {
   }
 
   tab(data, tabOrder) {
-
+    this.loadingService.show();
     if (tabOrder === data) {
       this.tabOrder = data;
+      this.loadingService.hide();
     } else {
+      this.loadingService.hide();
       this.router.navigateByUrl('/discussion-review');
       this.tabOrder = data;
     }
