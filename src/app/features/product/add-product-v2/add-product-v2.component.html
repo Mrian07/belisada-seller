@@ -87,6 +87,15 @@
                         </div>
                         <div class="col-md-2">
                             <button class="btn btn--default applyToAll" (click)="applyForAll()">Terapkan<br>ke Semua</button>
+                            <div class="tooltip tooltipApply">
+                                <fa-icon class="tooltipApplyIcon" [icon]="['fas','info-circle']"></fa-icon>
+                                <div class="right">
+                                    <div class="text-content">
+                                        <p>Tombol <span style="font-weight: bold; color: #fd9426;">"Terapkan Ke Semua"</span> akan menerapkan harga jual dan stock menjadi sama ke seluruh varian.</p>
+                                    </div>
+                                    <i></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -191,10 +200,10 @@
                                             <img class="iconCourier" src="assets/img/delivery-man.png">
                                             <h4>Non pick up services</h4>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-5">
                                             <span class="courierInfo">Anda harus mengantarkan paket ke jasa pengiriman terdekat</span>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-3">
                                             <label class="switch small verticalMiddle" *ngIf="isFlase === false" (click)="btncouroer()">
                                                 <input [checked]="false" type="checkbox">
                                                 <span class="slider round"></span>
@@ -203,13 +212,23 @@
                                                 <input [checked]="true" type="checkbox">
                                                 <span class="slider round"></span>
                                             </label>
+                                            <div class="tooltip">
+                                                <fa-icon class="tooltipIcon" [icon]="['fas','info-circle']"></fa-icon>
+                                                <div class="right">
+                                                    <div class="text-content">
+                                                        <h3>Tips Jasa Pengiriman</h3>
+                                                        <span>Tombol disamping digunakan Untuk Memilih penyedia pengiriman yang ingin anda aktfikan.</span>
+                                                    </div>
+                                                    <i></i>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="selectCourier" *ngIf="!routeUrl">
                                 <table class="table" *ngIf="isFlase === true">
-                                    <tr *ngFor="let courier of  product?.couriers">
+                                    <tr *ngFor="let courier of product?.couriers">
                                         <td>{{ courier.name }}</td>
                                         <td class="right">
                                             <label class="switch small">
@@ -235,9 +254,7 @@
                             </div>
                         </div>
                         <div class="col-3">
-                            <h4>Tips Jasa Pengiriman</h4>
-                            {{routeUrl}}
-                            <span>Tombol disamping digunakan untuk memilih variasi yang anda ingin aktif atau matikan</span>
+                            
                         </div>
                     </div>
                     <!-- div *ngIf="routerUrl"

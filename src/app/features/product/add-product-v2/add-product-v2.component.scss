@@ -258,7 +258,7 @@ th, td {
 .verticalMiddle {
     position: absolute;
     top: 50%;
-    transform: translate(0,-50%);
+    transform: translate(50%,-50%);
 }
 
 .selectCourier {
@@ -266,4 +266,114 @@ th, td {
     border-right: 1px solid #fd9426;
     border-bottom: 1px solid #fd9426;
     margin: -1px -15px 0;
+}
+
+// Tooltip
+
+.tooltip {
+    display:inline-block;
+    position:relative;
+    border-bottom:1px dotted #666;
+}
+
+.tooltip h3 {
+    margin:0 0 10px;
+}
+
+.tooltip .right {
+    min-width:200px;
+    max-width:400px;
+    top:50%;
+    left:100%;
+    margin-left:116px;
+    transform:translate(0, -49%);
+    padding:0;
+    color:#EEEEEE;
+    background-color:#323d42;
+    font-weight:normal;
+    font-size:13px;
+    border-radius:8px;
+    position:absolute;
+    z-index:99999999;
+    box-sizing:border-box;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    visibility:hidden; opacity:0; transition:opacity 0.5s;
+}
+
+.tooltipApply .right {
+    min-width:120px;
+    max-width:400px;
+    top:50%;
+    left:100%;
+    margin-left:37px;
+    transform:translate(0, -49%);
+    padding:0;
+    color:#EEEEEE;
+    background-color:#323d42;
+    font-weight:normal;
+    font-size:13px;
+    border-radius:8px;
+    position:absolute;
+    z-index:99999999;
+    box-sizing:border-box;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    visibility:hidden; opacity:0; transition:opacity 0.8s;
+}
+
+.switch.small {
+    left: 0;
+}
+
+.tooltipIcon {
+    right: -99px;
+    top: -14px;
+    position: absolute;
+}
+
+.tooltipApplyIcon {
+    right: -28px;
+    top: -10px;
+    position: absolute;
+    font-size: 18px;
+}
+
+.tooltipApplyIcon:hover + .right {
+    visibility:visible;
+    opacity:1;
+    top: 3px;
+}
+
+.tooltipIcon:hover + .right {
+    visibility:visible;
+    opacity:1;
+}
+
+.tooltip .right img {
+    width:400px;
+    border-radius:8px 8px 0 0;
+}
+.tooltip .text-content {
+    padding:10px 15px;
+    text-align: left;
+}
+
+.tooltip .right i {
+    position:absolute;
+    top:50%;
+    right:100%;
+    margin-top:-12px;
+    width:12px;
+    height:24px;
+    overflow:hidden;
+}
+.tooltip .right i::after {
+    content:'';
+    position:absolute;
+    width:12px;
+    height:12px;
+    left:0;
+    top:50%;
+    transform:translate(50%,-50%) rotate(-45deg);
+    background-color:#444444;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }
