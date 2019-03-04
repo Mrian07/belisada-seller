@@ -104,7 +104,7 @@ export class IncomeHistoryComponent implements OnInit {
     if (increment) { page = +page + increment; }
     if (page < 1 || page > this.lastPage) { return false; }
     // tslint:disable-next-line:max-line-length
-    this.router.navigate(['/listing-product'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
+    this.router.navigate(['/Income'], { queryParams: {page: page}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
   }
 
