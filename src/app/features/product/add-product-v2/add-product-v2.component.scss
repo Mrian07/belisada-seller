@@ -224,7 +224,7 @@ th, td {
     font-size: 20px;
     font-family: 'Roboto', sans-serif;
     .courierInfo {
-        font-size: 15
+        font-size: 15px;
     }
 }
 
@@ -242,6 +242,7 @@ th, td {
         position: absolute;
         top: 50%;
         line-height: 22px;
+        font-size: 17px;
         color: #000;
         transform: translate(0,-50%);
     }
@@ -374,6 +375,6 @@ th, td {
     left:0;
     top:50%;
     transform:translate(50%,-50%) rotate(-45deg);
-    background-color:#444444;
+    background-color:#323d42;
     box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }

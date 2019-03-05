@@ -51,6 +51,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public dadyStock: number;
   submitted: Boolean = false;
   showRequestVarian: boolean;
+  num: number;
 
   public displayImage: string;
 
@@ -178,6 +179,10 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  currencyFormat(num) {
+    return 'Rp' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, 'Rp1,');
   }
 
   toggleControl(variant: FormArray) {
@@ -365,6 +370,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         control.patchValue({
           discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
         });
+        // console.log('calculateDiscount', control.controls['discount'].value);
       });
   }
 
@@ -418,7 +424,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
         event.preventDefault();
     }
-
   }
 
   ngOnDestroy() {
