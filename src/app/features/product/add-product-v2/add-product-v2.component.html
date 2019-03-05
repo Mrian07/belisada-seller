@@ -112,11 +112,11 @@
                                 </label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" (change)="calculateDiscount()" placeholder="Harga Jual" formControlName="pricelist" class="form-control"
+                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga Jual" formControlName="pricelist" class="form-control"
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" (change)="calculateDiscount()" placeholder="Harga111 Promo" formControlName="specialPrice" class="form-control"
+                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga111 Promo" formControlName="specialPrice" class="form-control"
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-1">

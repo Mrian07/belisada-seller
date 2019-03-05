@@ -201,47 +201,87 @@
     display: table;
     margin-top: 15px;
 }
+@media screen and (min-width: 1367px) {
+    .btn-acc{
+        text-align: center;
+        width: #{46.3 * 2}px;
+        height: #{15.7 * 2}px;
+        border-radius: 5px;
+        background-color: #ff9e57;
+        color: #ffffff;
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        display: block;
+        font-size: 11pt;
+        font-weight: bold;
+        float: left;
 
-.btn-acc{
-    text-align: center;
-    width: #{46.3 * 2}px;
-    height: #{15.7 * 2}px;
-    border-radius: 5px;
-    background-color: #ff9e57;
-    color: #ffffff;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    display: block;
-    font-size: 11pt;
-    font-weight: bold;
-    float: left;
-
-    &:hover {
-        background-color: #ac5517;
+        &:hover {
+            background-color: #ac5517;
         }
+    }
+
+    .btn-dec{
+        text-align: center;
+        width: #{46.3 * 2}px;
+        height: #{15.7 * 2}px;
+        border-radius: 5px;
+        background-color: #919191;
+        color: #ffffff;
+        padding: 0.5rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        display: block;
+        font-size: 11pt;
+        font-weight: bold;
+        float: right;
+    
+        &:hover {
+            background-color: #4d4d4d;
+        }
+    }
 }
 
-.btn-dec{
-    text-align: center;
-    width: #{46.3 * 2}px;
-    height: #{15.7 * 2}px;
-    border-radius: 5px;
-    background-color: #919191;
-    color: #ffffff;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    display: block;
-    font-size: 11pt;
-    font-weight: bold;
-    float: right;
-
-    &:hover {
-        background-color: #4d4d4d;
+@media screen and (max-width: 1366px) {
+    .btn-acc {
+        text-align: center;
+        width: #{46.3 * 2}px;
+        height: #{15.7 * 2}px;
+        border-radius: 5px;
+        background-color: #ff9e57;
+        color: #ffffff;
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        display: block;
+        font-size: 11pt;
+        font-weight: bold;
+        margin: 10px auto;
+        &:hover {
+            background-color: #ac5517;
         }
+    }
+    .btn-dec {
+        text-align: center;
+        width: #{46.3 * 2}px;
+        height: #{15.7 * 2}px;
+        border-radius: 5px;
+        background-color: #919191;
+        color: #ffffff;
+        padding: 0.5rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        display: block;
+        font-size: 11pt;
+        font-weight: bold;
+        margin: 10px auto;
+        &:hover {
+            background-color: #4d4d4d;
+        }
+    }
 }
 
 // .cart{

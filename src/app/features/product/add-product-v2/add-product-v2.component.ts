@@ -181,10 +181,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     });
   }
 
-  currencyFormat(num) {
-    return 'Rp' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, 'Rp1,');
-  }
-
   toggleControl(variant: FormArray) {
     const isUsed = variant.controls['isUsed'].value;
     if (isUsed === false) {
