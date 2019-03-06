@@ -20,8 +20,7 @@
 </div>
 <div class="table-container">
 	<div class="frame-contain" *ngFor="let item of listCart; let idx = index">
-		<div 
-		[ngClass]="item.statusOrderSellerCode === '187' ? 'trans-list__light' : 'trans-list'">
+		<div [ngClass]="item.statusOrderSellerCode === '187' ? 'trans-list__light' : 'trans-list'">
 			<div class="order-data">
 				<div class="center">
 					#{{item.invoiceNumber}}

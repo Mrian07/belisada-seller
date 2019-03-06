@@ -358,6 +358,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       this.loadingService.hide();
     }
   }
+
   calculateDiscount() {
       const controls = this.getVariants(this.addProductForm);
       controls.forEach(control => {

@@ -272,8 +272,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     const _data: AddReason = new AddReason();
     _data.orderNumber = this.cancelForm.controls['orderNumber'].value;
     _data.reason = this.cancelForm.controls['reason'].value;
-    this.reasonService.addReason(_data).subscribe(data => {
-      this.loadingService.hide();
       swal({
         title: 'belisada.co.id',
         text: 'Anda yakin akan menolak pesanan?',
@@ -293,6 +291,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
           ).then(() => {
             this.reasonService.addReason(_data).subscribe(response => {
               console.log(response);
+              this.loadingService.hide();
               this.orderList(this.status);
             });
             });
@@ -300,7 +299,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     });
     this.cancelForm.reset();
     this.cancelOrderModal = false;
-  });
 }
 
 }
