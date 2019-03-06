@@ -19,7 +19,7 @@
 	</div>
 </div>
 <div class="table-container">
-	<div class="frame-contain" *ngFor="let item of listCart; let idx = index">
+	<div class="frame-contain" *ngFor="let item of listCart| orderBy: createdOrder; let idx = index">
 		<div 
 		[ngClass]="item.statusOrderSellerCode === '187' ? 'trans-list__light' : 'trans-list'">
 			<div class="order-data">
@@ -192,6 +192,9 @@
 		<h2 class="text-center">Anda Yakin menolak Order Ini?</h2>
 		<div>
 			<textarea formControlName="reason" class="sn-form-control tolak" type="text" placeholder="Tulis alasan penolakan anda"></textarea>
+			<!-- <div *ngIf="(submitted === true || form.reason.touched) && form.reason.invalid">
+				<bss-field-error [displayError]="form.reason.errors.required" errorMsg="Silahkan masukan alasan penolakan order"></bss-field-error>
+			</div> -->
 		</div>
 		<div>
 			<p class="text-center">Melakukan tolak order akan mempengaruhi performa toko anda!</p>
