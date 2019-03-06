@@ -33,12 +33,15 @@ export class DiscussionComponent implements OnInit {
 
   isLoading: boolean;
 
+  listLength: number;
+
   constructor(
     public discussionService: DiscussionService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {
+    this.listLength = 0;
     this.inputFormGroup = [];
     this.list = [];
     this.listChild = [];
@@ -73,17 +76,23 @@ export class DiscussionComponent implements OnInit {
     };
 
     this.discussionService.getDiscussion(queryParams).subscribe(response => {
-      this.list = response.content;
-      this.createFormControl(response.content);
-      this.proddetail = response;
-      this.a = response.totalElements;
-      this.pages = [];
-      this.lastPage = this.proddetail.totalPages;
-      for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
-        if (r > 0 && r <= this.proddetail.totalPages) {
-          this.pages.push(r);
+      if (response.content) {
+        this.list = response.content;
+        this.listLength = response.content.length;
+
+        this.createFormControl(response.content);
+        this.proddetail = response;
+        this.a = response.totalElements;
+        this.pages = [];
+        this.lastPage = this.proddetail.totalPages;
+        for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
+          if (r > 0 && r <= this.proddetail.totalPages) {
+            this.pages.push(r);
+          }
         }
+
       }
+
 
     });
   });
