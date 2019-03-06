@@ -33,13 +33,25 @@
     }
 }
 
+.upTo {
+    padding: 0;
+    text-align: center;
+}
+
+.zeroPaddingRight{
+    padding-right: 0;
+}
+
+.zeroPaddingLeft{
+    padding-left: 0;
+}
+
 .header--datetimepicker {
     padding-top: 10px;
     
     .wrapper__header--datetimepicker{
         border: 1px solid;
-        padding-left: 5px;
-        padding-top: 6px;
+        padding: 10px;
         .btn--wrapper {
             margin: 19px;
             margin-left: 13%;

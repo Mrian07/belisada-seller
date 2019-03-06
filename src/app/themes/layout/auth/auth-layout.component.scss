@@ -4,6 +4,10 @@
     height: 100vh;
 }
 
+.logo {
+    max-width: 70% !important;
+}
+
 @media screen and (min-width: 1101px) {
     .verticalMiddleInside {
         vertical-align: middle;
@@ -22,15 +26,15 @@
         left: 25%;
         transform: translate(-50%,-50%);
         max-width: 500px;
-        zoom: 0.8;
-        -moz-transform: scale(0.8);
+        // zoom: 0.7;
+        // -moz-transform: scale(0.7);
     }
 }
 
 .copyright {
     width: 100%;
     display: inline-block;
-    margin-top: 30px;
+    margin-top: 20px;
     h1 {
         font-size: 14px;
         text-align: center;
