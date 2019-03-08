@@ -51,6 +51,8 @@ import { ListingProductManageComponent } from './features/product/listing-produc
 import { ChatComponent } from './features/chat/chat.component';
 import { MessagingService } from './shared/messaging.service';
 import { AsyncPipe } from '../../node_modules/@angular/common';
+
+import { OrderModule } from 'ngx-order-pipe';
 // import { reducer } from './core/store/reducer/product-detail.reducer';
 library.add(fas, far, fab);
 
@@ -93,6 +95,7 @@ registerLocaleData(localeId, 'id');
     CoreModule,
     SharedModule,
     HttpClientModule,
+    OrderModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([ProductsEffects]),
     ReactiveFormsModule,
