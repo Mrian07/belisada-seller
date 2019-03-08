@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    console.log('aaaaaa');
     swal({
       title: 'belisada.co.id',
       text: 'Anda yakin akan logout?',

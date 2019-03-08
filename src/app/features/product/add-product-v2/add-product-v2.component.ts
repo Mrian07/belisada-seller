@@ -51,6 +51,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   public dadyStock: number;
   submitted: Boolean = false;
   showRequestVarian: boolean;
+  num: number;
 
   public displayImage: string;
 
@@ -197,7 +198,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     return this.fb.group({
       masterVarianId: [''],
       pricelist: ['', [Validators.required, Validators.min(100)]],
-      qty: ['', [Validators.required, Validators.max(5)]],
+      qty: ['', [Validators.required]],
       specialPrice: [''],
       isUsed: [true],
       discount: [''],
@@ -357,6 +358,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       this.loadingService.hide();
     }
   }
+
   calculateDiscount() {
       const controls = this.getVariants(this.addProductForm);
       controls.forEach(control => {
@@ -365,6 +367,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
         control.patchValue({
           discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
         });
+        // console.log('calculateDiscount', control.controls['discount'].value);
       });
   }
 
@@ -418,7 +421,6 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
         event.preventDefault();
     }
-
   }
 
   ngOnDestroy() {

@@ -75,7 +75,7 @@
                         <div class="col-md-4">
                             Pilih Varian sesuai dengan yang anda miliki
                         </div>
-                        <div class="col-md-1"></div>
+                        <!-- <div class="col-md-1"></div>
                         <div class="col-md-2">
                             <input [(ngModel)]="daddyPrice" [ngModelOptions]="{standalone: true}" type="text" class="f-control" placeholder="Harga Jual" maxlength="10" (keypress)="numberCheck($event)" />
                         </div>
@@ -96,7 +96,7 @@
                                     <i></i>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div formArrayName="varians">
@@ -112,15 +112,15 @@
                                 </label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" (change)="calculateDiscount()" placeholder="Harga Jual" formControlName="pricelist" class="form-control"
+                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga Jual" formControlName="pricelist" class="form-control"
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" (change)="calculateDiscount()" placeholder="Harga Promo" formControlName="specialPrice" class="form-control"
+                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga Promo" formControlName="specialPrice" class="form-control"
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-1">
-                                <input type="text" placeholder="Stok" formControlName="qty" class="form-control" (keypress)="numberCheck($event)">
+                                <input type="text" placeholder="Stok" formControlName="qty" class="form-control text-center" (keypress)="numberCheck($event)">
                             </div>
                             <div class="offset-md-5 col-md-5">
                                 <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid && variant.controls.isUsed.value == true">

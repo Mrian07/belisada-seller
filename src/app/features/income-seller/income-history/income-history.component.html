@@ -11,19 +11,18 @@
           <div class="wrapper__header--datetimepicker">
               <form [formGroup]="fGroup" >
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4 zeroPaddingRight">
                         <my-date-picker class="frame-date" name="mydate" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
                       </div>
-                      <div class="col-1">-</div>
+                      <div class="col-1 upTo">-</div>
                   
-                    <div class="col-3">
+                    <div class="col-4 zeroPaddingLeft">
                       <my-date-picker class="frame-date" name="mydate" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
                     </div>
-                    <div class="col-4">
-                        <button class="btn btn--orange" (click)="testing()">Cari tanggal</button>
+                    <div class="col-3">
+                        <button class="btn btn--orange" (click)="testing()">Cari</button>
                       </div>
                 </div>
-                
               </form>
               <div class="row">
                   <div class="col-12">

@@ -30,6 +30,8 @@ export class ReviewComponent implements OnInit {
 
   isLoading: boolean;
 
+  listLength: number;
+
   public Arr = Array;
 
   constructor(
@@ -41,6 +43,7 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.listLength = 0;
     this.isLoading = true;
     this.loadRev();
   }
@@ -54,14 +57,18 @@ export class ReviewComponent implements OnInit {
     };
 
     this.reviewService.getReview(queryParams).subscribe(response => {
-      this.list = response.content;
-      this.proddetail = response;
-      this.a = response.totalElements;
-      this.pages = [];
-      this.lastPage = this.proddetail.totalPages;
-      for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
-        if (r > 0 && r <= this.proddetail.totalPages) {
-          this.pages.push(r);
+
+      if (response.content) {
+        this.list = response.content;
+        this.listLength = response.content.length;
+        this.proddetail = response;
+        this.a = response.totalElements;
+        this.pages = [];
+        this.lastPage = this.proddetail.totalPages;
+        for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
+          if (r > 0 && r <= this.proddetail.totalPages) {
+            this.pages.push(r);
+          }
         }
       }
 

@@ -203,14 +203,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   }
 
-  setPage(page: number, increment?: number) {
-    if (increment) { page = +page + increment; }
-    if (page < 1 || page > this.proddetail.totalPages) { return false; }
-    // tslint:disable-next-line:max-line-length
-    this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
-    window.scrollTo(0, 0);
-  }
-
   disableControl(condition: Boolean) {
     this.disabled = condition;
     const action = condition ? 'disable' : 'enable';
@@ -272,8 +264,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
     const _data: AddReason = new AddReason();
     _data.orderNumber = this.cancelForm.controls['orderNumber'].value;
     _data.reason = this.cancelForm.controls['reason'].value;
-    this.reasonService.addReason(_data).subscribe(data => {
-      this.loadingService.hide();
       swal({
         title: 'belisada.co.id',
         text: 'Anda yakin akan menolak pesanan?',
@@ -293,6 +283,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
           ).then(() => {
             this.reasonService.addReason(_data).subscribe(response => {
               console.log(response);
+              this.loadingService.hide();
               this.orderList(this.status);
             });
             });
@@ -300,7 +291,14 @@ export class OrderListComponent implements OnInit, OnDestroy {
     });
     this.cancelForm.reset();
     this.cancelOrderModal = false;
-  });
+}
+
+setPage(page: number, increment?: number) {
+  if (increment) { page = +page + increment; }
+  if (page < 1 || page > this.proddetail.totalPages) { return false; }
+  // tslint:disable-next-line:max-line-length
+  this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
+  window.scrollTo(0, 0);
 }
 
 }
