@@ -191,9 +191,9 @@
 		<h2 class="text-center">Anda Yakin menolak Order Ini?</h2>
 		<div>
 			<textarea formControlName="reason" class="sn-form-control tolak" type="text" placeholder="Tulis alasan penolakan anda"></textarea>
-			<!-- <div *ngIf="(submitted === true || form.reason.touched) && form.reason.invalid">
-				<bss-field-error [displayError]="form.reason.errors.required" errorMsg="Silahkan masukan alasan penolakan order"></bss-field-error>
-			</div> -->
+			<div *ngIf="(submitted === true || cform.reason.touched) && cform.reason.invalid">
+				<bss-field-error [displayError]="cform.reason.errors.required" errorMsg="Alasan penolakan order harus diisi"></bss-field-error>
+			</div>
 		</div>
 		<div>
 			<p class="text-center">Melakukan tolak order akan mempengaruhi performa toko anda!</p>
