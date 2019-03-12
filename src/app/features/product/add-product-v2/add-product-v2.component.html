@@ -116,7 +116,7 @@
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga111 Promo" formControlName="specialPrice" class="form-control"
+                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga Promo" formControlName="specialPrice" class="form-control"
                                     [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-1">
@@ -137,9 +137,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wrapper--image__btn">
+                    <!-- <div class="wrapper--image__btn">
                         <button class="btn wrapper--image__btn--btn-color" (click)="addVarian()" >Tambah Varian</button>
-                    </div>
+                    </div> -->
 
                     <!-- <app-modal [(visible)]="showRequestVarian" class="frameDialog">
                         <div class="wrapper--modal">
@@ -231,7 +231,7 @@
                                     <tr *ngFor="let courier of product?.couriers">
                                         <td>{{ courier.name }}</td>
                                         <td class="right">
-                                            <label class="switch small">
+                                            <label class="switch small toTheRight">
                                                 <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
                                                 <span class="slider round"></span>
                                             </label>
@@ -244,7 +244,7 @@
                                     <tr *ngFor="let courier of  productsSandbox.coruerir$ | async">
                                         <td>{{ courier.name }}</td>
                                         <td class="right">
-                                            <label class="switch small">
+                                            <label class="switch small toTheRight">
                                                 <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
                                                 <span class="slider round"></span>
                                             </label>
