@@ -59,6 +59,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   x;
   c;
   get form() { return this.createComForm.controls; }
+  get cform() { return this.cancelForm.controls; }
 
   constructor(
     private transactionService: TransactionService,
@@ -258,12 +259,14 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(orderNumber) {
+    this.submitted = true;
     this.cancelForm.patchValue({
       orderNumber: orderNumber
     });
     const _data: AddReason = new AddReason();
     _data.orderNumber = this.cancelForm.controls['orderNumber'].value;
     _data.reason = this.cancelForm.controls['reason'].value;
+    if (this.cancelForm.valid) {
       swal({
         title: 'belisada.co.id',
         text: 'Anda yakin akan menolak pesanan?',
@@ -276,21 +279,22 @@ export class OrderListComponent implements OnInit, OnDestroy {
         reverseButtons: true
       }).then((result) => {
         if (result.value) {
-          swal(
-            'Success!',
-            'Anda telah menolak pesanan.',
-            'success'
-          ).then(() => {
-            this.reasonService.addReason(_data).subscribe(response => {
-              console.log(response);
-              this.loadingService.hide();
-              this.orderList(this.status);
-            });
-            });
-            }
+            swal(
+              'Success!',
+              'Anda telah menolak pesanan.',
+              'success'
+            ).then(() => {
+              this.reasonService.addReason(_data).subscribe(response => {
+                console.log(response);
+                this.loadingService.hide();
+                this.orderList(this.status);
+              });
+              });
+        }
     });
     this.cancelForm.reset();
     this.cancelOrderModal = false;
+    }
 }
 
 setPage(page: number, increment?: number) {

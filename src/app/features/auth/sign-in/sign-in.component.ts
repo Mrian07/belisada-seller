@@ -235,6 +235,7 @@ export class SignInComponent implements OnInit {
   }
 
   isFieldValid(field: string) {
+    console.log('get:', field);
     return !this.regFromGroup.get(field).valid && this.regFromGroup.get(field).touched;
   }
 

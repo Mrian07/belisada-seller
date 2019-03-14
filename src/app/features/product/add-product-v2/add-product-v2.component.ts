@@ -198,7 +198,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
     return this.fb.group({
       masterVarianId: [''],
       pricelist: ['', [Validators.required, Validators.min(100)]],
-      qty: ['', [Validators.required, Validators.max(5)]],
+      qty: ['', [Validators.required]],
       specialPrice: [''],
       isUsed: [true],
       discount: [''],
