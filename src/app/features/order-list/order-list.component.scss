@@ -24,6 +24,10 @@
     color:black;
 }
 
+.asuransiLabel {
+    font-size: 1.6rem;
+}
+
 .frame-contain{
     margin-top: 1rem;
     background: #ffffff;
@@ -148,6 +152,9 @@
     font-size: 1.2rem;
     display: block;
     padding-bottom: 2rem;
+    .nm-item-courierType {
+        text-transform: capitalize;
+    }
 }
 
 .sku-item{
