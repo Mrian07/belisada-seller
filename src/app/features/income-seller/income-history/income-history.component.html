@@ -1,12 +1,8 @@
 <div class="row wrapper--income-seler">
-  <div class="col-12 header--datetimepicker">
-    <!-- <div class="wrapper-two__row--dtp">
-      <div>1</div>
-      <div>2</div>
-    </div> -->
+  <!-- <div class="col-12 header--datetimepicker">
     <div class="row" >
       <div class="col-6 ">
-        <!-- <div class="row"> -->
+
         
           <div class="wrapper__header--datetimepicker">
               <form [formGroup]="fGroup" >
@@ -30,10 +26,9 @@
                   </div>
               </div>
           </div>
-        <!-- </div> -->
+
       </div>
       <div class="col-6 ">
-          <!-- <div class="row"> -->
             <div class="col-12 wrapper__header--datetimepicker">
               <div class="row btn--wrapper">
                 <div class="col-5">
@@ -47,16 +42,15 @@
                 </div>
               </div>
             </div>
-          <!-- </div> -->
         </div> 
     </div>
-  </div>
+  </div> -->
 
 <!-- <div class="row"> -->
   <div class="col-12 wrapper--body">
     <div class="outerBorder">
       <div *ngFor="let item of getData">
-        <div class="four-grid" *ngIf="item.statusWithdrawCode==225">
+        <div class="four-grid" *ngIf="item.statusWithdrawCode==225 || item.statusWithdrawCode==222">
           <div class="insideGrid">
             <input type="checkbox" [checked]=item.selected (change)="onChange(item, $event.target.checked)" *ngIf="item.statusWithdrawCode==221"/>
           </div>
