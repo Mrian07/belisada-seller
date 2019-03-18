@@ -55,7 +55,7 @@ export class ProductService {
     Object.keys(queryParams).forEach(function(k) {
       params = params.append(k, queryParams[k]);
     });
-    return this.http.get(this.configuration.apiURL + '/seller/product/v2', {params: params})
+    return this.http.get(this.configuration.apiURL + '/seller/product/list', {params: params})
       .pipe(
         map(response => response as ProductListing)
       );

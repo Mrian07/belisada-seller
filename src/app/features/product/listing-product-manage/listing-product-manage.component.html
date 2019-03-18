@@ -51,16 +51,16 @@
             </div>
             <div class="col-7 verticalMiddle sub">
                 <div class="verticalMiddleInside">
-                    <div class="tableDetail">
-                        <div class="subColumn">-</div>
-                        <div class="subColumn">{{item.pricelist | currency:'Rp ':'symbol':'1.0'}}</div>
-                        <div class="subColumn">{{item.qty}}</div>
-                        <div class="subColumn">-</div>
+                    <div class="tableDetail" *ngFor="let detail of item.products">
+                        <div class="subColumn">{{detail.variants}}</div>
+                        <div class="subColumn">{{detail.normalPrice | currency:'Rp ':'symbol':'1.0'}}</div>
+                        <div class="subColumn">{{detail.qty}}</div>
+                        <div class="subColumn">{{detail.sold}}</div>
                     </div>
                 </div>
             </div>
             <div class="col-2 pull-right">
-                <div class="verticalMiddleInside cursor-pointer" (click)="goToEdit(item.productId)">
+                <div class="verticalMiddleInside cursor-pointer" (click)="goToEdit(item.products[0].productId)">
                     <button class="btn btnWhiteBorder">Edit</button>
                 </div>
             </div>

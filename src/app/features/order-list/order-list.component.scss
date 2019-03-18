@@ -75,6 +75,24 @@
     }
 }
 
+.info{
+    &__active{
+        text-align: center;
+        border: 1px solid #f27138;
+        border-radius: 8px;
+        color: #e24400;
+        background-color: #f7f2ce;
+        padding: 1rem 1.5rem;
+        margin-right: 0.5rem;
+        text-align: justify;
+        cursor: pointer;
+    }
+
+    &__noActive{
+        display: none;
+    }
+}
+
 .order-data {
     display:grid;
     grid-template-columns: 18.28% 14.28% 14.28% 14.28% 14.28% 14.28% 10.28%;

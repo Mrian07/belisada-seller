@@ -14,6 +14,24 @@
     color: black;
 }
 
+.info{
+    &__active{
+        text-align: center;
+        border: 1px solid #f27138;
+        border-radius: 8px;
+        color: #e24400;
+        background-color: #f7f2ce;
+        padding: 1rem 1.5rem;
+        margin: 0 15px 15px;
+        text-align: justify;
+        cursor: pointer;
+    }
+
+    &__noActive{
+        display: none;
+    }
+}
+
 .text__header--title {
     font-size: 3rem;
     color: black;
