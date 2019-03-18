@@ -71,6 +71,7 @@ export class MyIncomeComponent implements OnInit {
       const queryParams = {
         page: this.currentPage,
         itemperpage: 10,
+        history: 'N'
       };
       this.loadingService.show();
       this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
