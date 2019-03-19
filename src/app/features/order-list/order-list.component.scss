@@ -354,9 +354,7 @@
 }
 
 .foot-resi{
-    margin-top: 2rem;
-    border-top: 1px solid #dddddd;
-    background: #f7f7f7;
+    margin-top: 1rem;
     padding: 0.5rem;
     text-align: right;
 }
@@ -364,6 +362,7 @@
 .field-r{
     width: 100%;
     padding: 0.8rem;
+    margin-bottom: 1rem;
 }
 
 .no-resi{
@@ -459,7 +458,7 @@
 
 :host ::ng-deep .dialog {
     padding: 35px;
-    top: 20%;
+    // top: 20%;
 }
 
 .red {

@@ -225,7 +225,7 @@
 		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
 			Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
 		<form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit(orderNumber)" novalidate>
-			<input class="field-r" type="text" formControlName="orderNumber">
+			<input class="field-r" type="text" formControlName="orderNumber" disabled>
 			<div class="modal-body">
 				<span class="line-resi"><b>Alamat Pengiriman</b></span>
 				<span class="line-resi tr-black">{{info.namaPenerima}}</span>
@@ -236,7 +236,7 @@
 					<div><b>Estimated Shipping Fee</b></div>
 					<div><b>Actual Shipping Fee*</b></div>
 
-					<div class="tr-black">{{ info.courierCode }}</div>
+					<div class="tr-black">{{ info.courierCode }} - {{info.courierService}}</div>
 					<div class="tr-black">{{ info.courierPrice | currency:'Rp ':'symbol':'1.0' }}</div>
 					<div><input class="field-r" type="text" formControlName="actualCourierPrice"><br>
 						<span class="text-small">*Biaya pengiriman yang dikeluarkan.</span>
