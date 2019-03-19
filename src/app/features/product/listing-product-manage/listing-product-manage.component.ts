@@ -57,7 +57,7 @@ export class ListingProductManageComponent implements OnInit {
     this.toggleArrBol = [];
     this.productDetail.description = '';
     this.rowSelected = -1;
-    this.prodImg = environment.thumborUrl + 'unsafe/fit-in/80x80/';
+    this.prodImg = environment.thumborUrl + 'unsafe/400x400/';
   }
 
   ngOnInit() {
