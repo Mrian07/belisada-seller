@@ -115,7 +115,8 @@
                 </a>
                 <a *ngIf="isLogin === true" class="account-menu--trigger" (click)="toggleAccountMenu()" (clickOutside)="onClickOutside($event)">
                     <div class="profile-wrapper">
-                        <img class="u-display-block centered-block-element img-circle pull-left thumb-header" src="/assets/img/avatarbackup.png" alt="">
+                        <!-- <img class="u-display-block centered-block-element img-circle pull-left thumb-header" src="/assets/img/avatarbackup.png" alt=""> -->
+                        <img class="u-display-block centered-block-element img-circle pull-left thumb-header" src="{{ userData.avatar }}" alt="">
                         <span class="u-display-block text-profile pull-right">{{ userData.name.split(' ')[0] }}</span>
                     </div>
                 </a>
