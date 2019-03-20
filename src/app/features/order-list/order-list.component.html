@@ -89,7 +89,7 @@
 		</div>
 		<div class="cont-buyer" *ngIf="toggleArrBol[idx]">
 			<div class="frame-cont">
-				<div>
+				<div [ngClass]="{'itemCartScroll': item.cartItems.length>=2}">
 					<div class="row small-gutters" *ngFor="let itemChild of item.cartItems">
 						<div class="col-8 product-set">
 							<span class="nm-item">{{itemChild.name}}</span>
