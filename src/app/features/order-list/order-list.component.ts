@@ -100,7 +100,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
       actualCourierPrice: [''],
       orderNumber: ['', [Validators.required]],
-      noResi: ['', [Validators.required]]
+      noResi: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -180,19 +180,26 @@ export class OrderListComponent implements OnInit, OnDestroy {
       resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
       resi.noResi = this.createComForm.controls['noResi'].value;
       resi.orderNumber = this.createComForm.controls['orderNumber'].value;
+      resi.courierCode = this.info.courierCode;
 
       const data = {
         actualCourierPrice: resi.actualCourierPrice,
         noResi: resi.noResi,
         orderNumber: resi.orderNumber,
+        courierCode: resi.courierCode,
         status: null
       };
 
       this.transactionService.addResi(data).subscribe(response => {
-        this.isStatus();
         if (response.status === 0) {
-          this.isErrorResi = true;
+          // this.isErrorResi = true;
+          swal({
+            type: 'error',
+            title: 'Oops...',
+            text: response.message,
+          });
         } else {
+          this.isStatus();
           this.isProsesResi = true;
           this.orderList(this.status);
         }
