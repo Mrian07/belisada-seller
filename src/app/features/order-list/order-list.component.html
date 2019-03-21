@@ -89,7 +89,7 @@
 		</div>
 		<div class="cont-buyer" *ngIf="toggleArrBol[idx]">
 			<div class="frame-cont">
-				<div>
+				<div [ngClass]="{'itemCartScroll': item.cartItems.length>=2}">
 					<div class="row small-gutters" *ngFor="let itemChild of item.cartItems">
 						<div class="col-8 product-set">
 							<span class="nm-item">{{itemChild.name}}</span>
@@ -215,11 +215,11 @@
 </app-modal>
 
 <app-modal [(visible)]="btnResi" class="frameDialog">
-	<div *ngIf="isErrorResi == true">
+	<!-- <div *ngIf="isErrorResi == true">
 		<div class="error-body">
 			Maaf nomor resi yang Anda masukan tidak terdaftar<br> atau sudah tidak berlaku.
 		</div>
-	</div>
+	</div> -->
 	<div *ngIf="isForm==true">
 		<div class="no-resi tr-black">No Pesanan: #{{info.paymentNumber}}</div>
 		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
@@ -243,11 +243,12 @@
 					</div>
 				</div>
 
-				<div class="no-resi">No. Resi</div>
+				<div class="no-resi">Nomor Resi</div>
 				<div>
 				<input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
 				<div *ngIf="(submitted === true || form.noResi.touched) && form.noResi.invalid">
 					<bss-field-error [displayError]="form.noResi.errors.required" errorMsg="Silahkan masukan no resi"></bss-field-error>
+					<bss-field-error [displayError]="form.noResi.errors.minlength" errorMsg="Nomor resi anda belum lengkap"></bss-field-error>
 				</div>
 				</div>
 			</div>
