@@ -222,8 +222,9 @@
 	</div> -->
 	<div *ngIf="isForm==true">
 		<div class="no-resi tr-black">No Pesanan: #{{info.paymentNumber}}</div>
-		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
+		<div class="con-resi">Masukan Nomor Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
 			Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
+		<div class="info__active margin-bottom infoResi">Mohon input resi satu hari setelah (menaruh) drop off order ke pihak logistik</div>
 		<form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit(orderNumber)" novalidate>
 			<input class="field-r" type="text" formControlName="orderNumber" disabled>
 			<div class="modal-body">

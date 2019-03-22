@@ -138,6 +138,12 @@
     margin-bottom: 10px;
 }
 
+.infoResi {
+    line-height: 1.3;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
 .name {
     font-weight: bold;
 }
@@ -457,7 +463,7 @@
 }
 
 :host ::ng-deep .dialog {
-    padding: 35px;
+    padding: 10px 25px 20px;
     // top: 20%;
 }
 
