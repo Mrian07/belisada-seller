@@ -50,19 +50,19 @@
   <div class="col-12 wrapper--body">
     <div class="outerBorder">
       <div *ngFor="let item of getData">
-        <div class="four-grid" *ngIf="item.statusWithdrawCode==225 || item.statusWithdrawCode==222">
+        <div class="four-grid">
           <div class="insideGrid">
             <input type="checkbox" [checked]=item.selected (change)="onChange(item, $event.target.checked)" *ngIf="item.statusWithdrawCode==221"/>
           </div>
           <div class="insideGrid">
-            <span class="createdTime"> {{  item.createdTime }} </span>
-            <span class="text-collor__black text-bold"> {{ item.status }} {{ item.invoiceNumber }}</span>
+            <span class="createdTime"> {{  item.createDate }} </span>
+            <span class="text-collor__black text-bold">{{ item.invoiceNumber }}</span>
             <!-- <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook</a> -->
-            <fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon>
+            <!-- <fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon> -->
           </div>
           <div class="insideGrid">
             <span class="text-collor__black text-center text-display__block">Status</span>
-            <span class="text-collor__black text-center text-display__block"> {{ item.statusWithdraw }}</span>
+            <span class="text-collor__black text-center text-display__block"> {{ item.status }}</span>
           </div>
           <div class="insideGrid">
               <span class="text-collor__black text-center text-display__block">Nominal</span>

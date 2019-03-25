@@ -25,7 +25,7 @@
 	</div>
 </div>
 <div class="table-container">
-	<div class="frame-contain" *ngFor="let item of listCart| orderBy: createdOrder; let idx = index">
+	<div class="frame-contain" *ngFor="let item of listCart| orderBy: 'createdOrder'; let idx = index">
 		<div [ngClass]="item.statusOrderSellerCode === '187' ? 'trans-list__light' : 'trans-list'">
 			<div class="order-data">
 				<div class="center">
@@ -215,11 +215,11 @@
 </app-modal>
 
 <app-modal [(visible)]="btnResi" class="frameDialog">
-	<!-- <div *ngIf="isErrorResi == true">
+	<div *ngIf="isErrorResi == true">
 		<div class="error-body">
 			Maaf nomor resi yang Anda masukan tidak terdaftar<br> atau sudah tidak berlaku.
 		</div>
-	</div> -->
+	</div>
 	<div *ngIf="isForm==true">
 		<div class="no-resi tr-black">No Pesanan: #{{info.paymentNumber}}</div>
 		<div class="con-resi">Masukan Nomor Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
@@ -248,8 +248,7 @@
 				<div>
 				<input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
 				<div *ngIf="(submitted === true || form.noResi.touched) && form.noResi.invalid">
-					<bss-field-error [displayError]="form.noResi.errors.required" errorMsg="Silahkan masukan no resi"></bss-field-error>
-					<bss-field-error [displayError]="form.noResi.errors.minlength" errorMsg="Nomor resi anda belum lengkap"></bss-field-error>
+					<bss-field-error [displayError]="form.noResi.errors.required" errorMsg="Silahkan masukan nomor resi"></bss-field-error>
 				</div>
 				</div>
 			</div>
