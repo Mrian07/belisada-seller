@@ -35,6 +35,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   // @Input() status: string;
   visible: boolean;
   status = 'ALL';
+  ot = 'desc';
   toggleArrBol: boolean[];
   listCart: Cart[];
   btnResi: boolean;
@@ -110,7 +111,8 @@ export class OrderListComponent implements OnInit, OnDestroy {
     const queryParams = {
       itemperpage: 10,
       page: this.currentPage,
-      status_order: statusOrder
+      status_order: statusOrder,
+      ot: (statusOrder === '187') ? 'asc' : 'desc'
     };
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
