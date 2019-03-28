@@ -19,6 +19,7 @@ export class RekeningComponent implements OnInit {
   rekeningList: RekeningRespon[];
   rekList: RekeningUser[];
   formSubmited: Boolean = false;
+  account: boolean;
 
   constructor(
     private rekeningService: RekeningService,
@@ -123,20 +124,27 @@ export class RekeningComponent implements OnInit {
     data.accountName = this.createComForm.value.accountName;
     data.bankId = this.createComForm.value.bankId;
     data.bankName = this.createComForm.value.bankName;
-    if (form.valid) {
+    // if (form.valid) {
+    //   const type = 2;
+    //   this.rekeningService.getRekening(type).subscribe(respon => {
+    //     this.rekeningList = respon;
+    //     const account = respon.find(x => x.accountNumber === this.createComForm.value.accountNumber);
+    //     console.log('account number', account);
+    //   });
+    // return;
       if (this.createComForm.value.bankAccountId) {
         this.rekeningService.editRekening(data).subscribe(respon => {
           this.loadData();
           this.popRek = false;
         });
       } else {
-        this.rekeningService.addRekening(data).subscribe(respon => {
+          this.rekeningService.addRekening(data).subscribe(respon => {
           this.loadData();
           this.popRek = false;
         });
       }
       this.formSubmited = false;
-    }
+    // }
   }
 
   numberOnly(event): boolean {
@@ -145,6 +153,5 @@ export class RekeningComponent implements OnInit {
       return false;
     }
     return true;
-
   }
 }

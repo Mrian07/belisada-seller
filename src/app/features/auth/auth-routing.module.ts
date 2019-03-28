@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from '@belisada-seller/features/auth/auth.component';
 import { SignInComponent } from '@belisada-seller/features/auth/sign-in/sign-in.component';
 import { ForgotPasswordComponent } from '@belisada-seller/features/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,13 @@ const routes: Routes = [
         component: ForgotPasswordComponent,
         data: {
           title: 'Forgot Password'
+        }
+      },
+      {
+        path: 'reset-password',
+        component: ResetPasswordComponent,
+        data: {
+          title: 'Reset Password'
         }
       }
     ]
