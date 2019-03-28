@@ -8,7 +8,7 @@ import { MessagingService } from './shared/messaging.service';
   selector: 'app-root',
   template: `
     <router-outlet></router-outlet>
-    <div class="loading" *ngIf="globals.isLoading === true"></div>
+    <div class="loading" *ngIf="globals.isLoading == true"></div>
     <div class="chat-wrapper" *ngIf="globals.showChat === true">
       <app-chat></app-chat>
     <div>`,
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     router: Router,
     activatedRoute: ActivatedRoute,
     _chatService: ChatService,
-    private messagingService: MessagingService
+    private messagingService: MessagingService,
     ) {
     globals.socket = _chatService.connectSocket();
     router.events.subscribe(event => {

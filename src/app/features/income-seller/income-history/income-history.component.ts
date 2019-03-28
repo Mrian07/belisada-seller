@@ -7,8 +7,7 @@ import { IncomeServiceService } from '@belisada-seller/core/services';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DateUtil } from '@belisada-seller/core/util';
 import swal from 'sweetalert2';
-import { LoadingService } from '@belisada-seller/core/services/globals/loading.service';
-
+import { LoadingService } from '@belisada-seller/core/services/global/loading.service';
 @Component({
   selector: 'bss-income-history',
   templateUrl: './income-history.component.html',
@@ -74,8 +73,8 @@ export class IncomeHistoryComponent implements OnInit {
         history: 'Y'
       };
       this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
+        this.loadingService.hide();
         this.getData = response.content;
-console.log('apa ini', this.getData);
         this.lastPage = response.totalPages;
         for (let r = (this.currentPage - 3); r < (this.currentPage - (-4)); r++) {
           if (r > 0 && r <= this.lastPage) {
@@ -84,9 +83,7 @@ console.log('apa ini', this.getData);
         }
         for (let i = 0; i < this.getData.length; i++) {
           this.getData[i].selected = this.xx;
-          console.log('this.selectedAll', this.getData[i].status);
         }
-        this.loadingService.hide();
       });
     });
   }
@@ -126,10 +123,6 @@ console.log('apa ini', this.getData);
           this.btn_withrawal = false;
         }
       }
-      console.log(this.invNumPart2);
-    //  const a = JSON.stringify(this.invNumPart2);
-      // console.log(a)
-      // console.log('res',response);
     }
   }
 
@@ -138,11 +131,9 @@ console.log('apa ini', this.getData);
     if (isChecked === true) {
 
       this.invNumPart2.push(item.invoiceNumber);
-      console.log('isi A:',  this.invNumPart2);
       item.selected = true;
     } else {
       this.invNumPart2.splice(item.invoiceNumber, 1);
-        console.log('isi A:',   this.invNumPart2);
         item.selected = false;
     }
 
@@ -187,7 +178,6 @@ console.log('apa ini', this.getData);
       this.dateUtil.formatMyDate(this.fGroup.controls['date1'].value.date, this.defaultDateFormat);
       const dateend =  editProfileRequest.dateend =
       this.dateUtil.formatMyDate(this.fGroup.controls['date2'].value.date, this.defaultDateFormat);
-      console.log(editProfileRequest);
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         this.pages = [];
         this.currentPage = (params['page'] === undefined) ? 1 : +params['page'];
@@ -199,7 +189,6 @@ console.log('apa ini', this.getData);
         };
         this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
           this.getData = response.content;
-          console.log(response.content);
           });
       });
     } else {

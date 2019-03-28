@@ -54,6 +54,7 @@ export class MyIncomeComponent implements OnInit {
     private dateUtil: DateUtil,
     private loadingService: LoadingService,
     private activatedRoute: ActivatedRoute) {
+      this.loadingService.hide();
   }
 
   ngOnInit() {
