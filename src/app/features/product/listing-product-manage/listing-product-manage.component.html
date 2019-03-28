@@ -32,7 +32,7 @@
     <div class="tableHeader">
         <div>Nama Produk</div>
         <div>Variasi</div>
-        <div>Harga</div>
+        <div>Harga Promosi</div>
         <div>Stok</div>
         <div>Penjualan</div>
         <div>Action</div>
@@ -53,15 +53,23 @@
                 <div class="verticalMiddleInside" [ngClass]="{'itemCartScroll': item.products.length>=4}">
                     <div class="tableDetail" *ngFor="let detail of item.products">
                         <div class="subColumn"><span *ngFor="let variant of detail.variants; let i = index">{{variant}}{{(i === (detail.variants.length - 1) ? '' : ' - ')}}</span></div>
-                        <div class="subColumn">{{detail.normalPrice | currency:'Rp ':'symbol':'1.0'}}</div>
+                        <!-- <div class="subColumn">{{detail.normalPrice | currency:'Rp ':'symbol':'1.0'}}</div> -->
+                        <div class="subColumn">{{detail.specialPrice | currency:'Rp ':'symbol':'1.0'}}</div>
                         <div class="subColumn">{{detail.qty}}</div>
                         <div class="subColumn">{{detail.sold}}</div>
                     </div>
                 </div>
             </div>
             <div class="col-2 pull-right">
-                <div class="verticalMiddleInside cursor-pointer" (click)="goToEdit(item.products[0].productId)">
-                    <button class="btn btnWhiteBorder">Edit</button>
+                <div class="verticalMiddleInside cursor-pointer">
+                    <button (click)="goToEdit(item.products[0].productId)" class="btn btnWhiteBorder">Edit</button>
+                    <span class="w__kosongkan_stok">Visibility</span>
+                    <div>
+                        <label class="switch small w__margin--switch">
+                            <input type="checkbox" (click)="bSlider(item.productId, true)" [checked]=true>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
