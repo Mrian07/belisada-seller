@@ -19,6 +19,7 @@ import { SearchProductMasterComponent } from './features/product/search-product-
 import { AddProductV2Component } from './features/product/add-product-v2/add-product-v2.component';
 import { ProductsResolver } from './features/product/product.resolver';
 import { ListingProductManageComponent } from './features/product/listing-product-manage/listing-product-manage.component';
+import { EventComponent } from './features/event/event.component';
 
 const routes: Routes = [
   {
@@ -130,6 +131,13 @@ const routes: Routes = [
         component: ProductAssistComponent,
         data: {
           title: 'product-assist'
+        },
+      },
+      {
+        path: 'event',
+        component: EventComponent,
+        data: {
+          title: 'Event'
         },
       },
     ],
