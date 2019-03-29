@@ -10,6 +10,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatComponent } from './chat/chat.component';
 import { MyIncomeComponent } from './income-seller/my-income/my-income.component';
 import { IncomeHistoryComponent } from './income-seller/income-history/income-history.component';
+import { EventComponent } from './event/event.component';
+import { EventMyComponent } from './event/event-my/event-my.component';
+import { EventActiveComponent } from './event/event-active/event-active.component';
+import { EventJoinComponent } from './event/event-join/event-join.component';
 
 @NgModule({
   imports: [
@@ -19,6 +23,6 @@ import { IncomeHistoryComponent } from './income-seller/income-history/income-hi
     FontAwesomeModule,
     ReactiveFormsModule,
   ],
-  declarations: [OrderPrintComponent, InvoiceNumberComponent, IncomeSellerComponent, MyIncomeComponent, IncomeHistoryComponent]
+  declarations: [OrderPrintComponent, InvoiceNumberComponent, IncomeSellerComponent, MyIncomeComponent, IncomeHistoryComponent, EventComponent, EventMyComponent, EventActiveComponent, EventJoinComponent]
 })
 export class FeaturesModule { }
