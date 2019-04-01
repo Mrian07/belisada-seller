@@ -205,14 +205,11 @@ export class OrderListComponent implements OnInit, OnDestroy {
           this.isProsesResi = true;
           this.orderList(this.status);
         }
-
       });
     } else {
       console.log('xxxx');
     }
-
   }
-
   disableControl(condition: Boolean) {
     this.disabled = condition;
     const action = condition ? 'disable' : 'enable';
@@ -222,7 +219,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   //  this.ngOnInit();
-  this.orderList();
+    this.orderList();
   }
 
   acceptTransaction(orderNumber) {
@@ -304,14 +301,14 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.cancelForm.reset();
     this.cancelOrderModal = false;
     }
-}
+  }
 
-setPage(page: number, increment?: number) {
-  if (increment) { page = +page + increment; }
-  if (page < 1 || page > this.proddetail.totalPages) { return false; }
-  // tslint:disable-next-line:max-line-length
-  this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
-  window.scrollTo(0, 0);
-}
+  setPage(page: number, increment?: number) {
+    if (increment) { page = +page + increment; }
+    if (page < 1 || page > this.proddetail.totalPages) { return false; }
+    // tslint:disable-next-line:max-line-length
+    this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
+    window.scrollTo(0, 0);
+  }
 
 }
