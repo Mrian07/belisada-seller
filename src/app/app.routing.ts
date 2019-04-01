@@ -133,13 +133,13 @@ const routes: Routes = [
           title: 'product-assist'
         },
       },
-      {
-        path: 'event',
-        component: EventComponent,
-        data: {
-          title: 'Event'
-        },
-      },
+      // {
+      //   path: 'Event',
+      //   component: EventComponent,
+      //   data: {
+      //     title: 'Event'
+      //   },
+      // },
     ],
   },
   { path: 'activation',
@@ -163,6 +163,7 @@ const routes: Routes = [
     },
   },
   { path: 'auth', loadChildren: 'app/features/auth/auth.module#AuthModule' },
+  { path: 'event', loadChildren: 'app/features/event/event.module#EventModule' },
   // { path: 'account', loadChildren: 'app/features/auth/auth.module#AuthModule' },
   // { path: 'buyer', loadChildren: 'app/features/buyer/buyer.module#BuyerModule' },
   // { path: 'seller', loadChildren: 'app/features/seller/seller.module#SellerModule' },

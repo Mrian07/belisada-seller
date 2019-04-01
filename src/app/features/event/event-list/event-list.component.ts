@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'bss-event-my',
-  templateUrl: './event-my.component.html',
-  styleUrls: ['./event-my.component.scss']
+  selector: 'bss-event-list',
+  templateUrl: './event-list.component.html',
+  styleUrls: ['./event-list.component.scss']
 })
-export class EventMyComponent implements OnInit {
+export class EventListComponent implements OnInit {
 
   isList: boolean;
   isForm: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.isList = true;
@@ -22,8 +22,8 @@ export class EventMyComponent implements OnInit {
     this.isForm = false;
   }
 
-  viewEvent() {
-    this.router.navigate(['/event/view']);
+  joinEvent() {
+    this.router.navigate(['/event/join']);
   }
 
 }
