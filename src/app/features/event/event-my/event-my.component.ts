@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'bss-event-my',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventMyComponent implements OnInit {
 
-  constructor() { }
+  isList: boolean;
+  isForm: boolean;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
+    this.isList = true;
+  }
+
+  isFlag() {
+    this.isList = false;
+    this.isForm = false;
+  }
+
+  viewEvent() {
+    this.router.navigate(['/event/view']);
   }
 
 }

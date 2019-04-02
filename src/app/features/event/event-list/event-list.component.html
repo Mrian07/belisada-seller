@@ -1,0 +1,53 @@
+<div class="container">
+    <div *ngIf="isList===true">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="frame-event">
+            <div>
+              <div class="frame-event__date">
+                April<br><span class="frame-event__valDate">15</span>
+              </div>
+              <div class="frame-event__until-date">
+                15 april - 20 april
+              </div>
+            </div>
+            <div class="frame-event__contain">
+              <div class="frame-event__title">Samsung</div>
+              <div>Samsung Group merupakan salah satu perusahaan elektronik terbesar di dunia. Didirikan oleh Lee Byung-chull pada tanggal 1 Maret 1938 di Daegu, Korea Selatan, perusahaan ini beroperasi di 58 negara dan memiliki lebih dari 208.000 pekerja.</div>
+            
+              <div class="frame-event__btn">
+                <div class="frame-event__btn-join" (click)="joinEvent()">Join Event</div>
+              </div>
+            </div>
+  
+          </div>
+          
+        </div>
+        <div class="col-sm-6">
+          <div class="frame-event">
+            <div>
+              <div class="frame-event__date">
+                April<br><span class="frame-event__valDate">15</span>
+              </div>
+              <div class="frame-event__until-date">
+                15 april - 20 april
+              </div>
+            </div>
+            <div class="frame-event__contain">
+              <div class="frame-event__title">Samsung S10</div>
+              <div>Samsung Group merupakan salah satu perusahaan elektronik terbesar di dunia. Didirikan oleh Lee Byung-chull pada tanggal 1 Maret 1938 di Daegu, Korea Selatan, perusahaan ini beroperasi di 58 negara dan memiliki lebih dari 208.000 pekerja.</div>
+            
+              <div class="frame-event__btn">
+                <div class="frame-event__btn-join" (click)="joinEvent()">Join Event</div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isForm===true">
+      <bss-event-join></bss-event-join>
+    </div>
+  </div>
+  

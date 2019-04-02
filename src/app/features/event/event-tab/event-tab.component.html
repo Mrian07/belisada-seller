@@ -1,0 +1,17 @@
+<div class="tab-container">
+    <div class="tabWrapper">
+      <div [ngClass]="(tabPage=='list')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('list', tabPage)">
+        Active Event
+      </div>
+      <div [ngClass]="(tabPage=='myevent')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('myevent', tabPage)">
+        My Event
+      </div>
+    </div>
+  </div>
+  <div class="frame-menu-contain">
+    <div class="wrapper-top">
+      <bss-event-list *ngIf="tabPage=='list'"></bss-event-list>
+      <bss-event-my *ngIf="tabPage=='myevent'"></bss-event-my>
+      <!-- <router-outlet></router-outlet> -->
+    </div>
+  </div>

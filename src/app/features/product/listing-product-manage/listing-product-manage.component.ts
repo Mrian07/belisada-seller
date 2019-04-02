@@ -41,6 +41,7 @@ export class ListingProductManageComponent implements OnInit {
 
 
   status = 'AP';
+  tabOrder: 'Y';
 
   hasAddress: Boolean = true;
   // private subscriptions: Array<Subscription> = [];
@@ -84,7 +85,8 @@ export class ListingProductManageComponent implements OnInit {
     });
     this.activatedRoute.queryParams.subscribe((queryParam) => {
       this.currentPage = (queryParam.page) ? queryParam.page : 1;
-      this.status = (queryParam.status) ? queryParam.status : 'AP';
+      // this.status = (queryParam.status) ? queryParam.status : 'AP';
+      this.tabOrder = (queryParam.stocked) ? queryParam.stocked : 'Y';
       this.prodList();
     });
   }
@@ -93,7 +95,8 @@ export class ListingProductManageComponent implements OnInit {
     const queryParams = {
       itemperpage: 10,
       page: this.currentPage,
-      status: this.status
+      // status: this.status
+      stocked: this.tabOrder
     };
 
     if (q) queryParams['name'] = q;
@@ -132,7 +135,7 @@ export class ListingProductManageComponent implements OnInit {
     if (increment) { page = +page + increment; }
     if (page < 1 || page > this.proddetail.pageCount) { return false; }
     // tslint:disable-next-line:max-line-length
-    this.router.navigate(['/listing-product'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
+    this.router.navigate(['/listing-product'], { queryParams: {page: page, stocked: this.tabOrder}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
   }
 
