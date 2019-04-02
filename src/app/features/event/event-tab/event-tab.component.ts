@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { ExecOptionsWithStringEncoding } from 'child_process';
 
 @Component({
   selector: 'bss-event-tab',
