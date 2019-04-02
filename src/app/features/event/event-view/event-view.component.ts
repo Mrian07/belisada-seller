@@ -14,6 +14,6 @@ export class EventViewComponent implements OnInit {
   }
 
   backEvent() {
-    this.router.navigate(['/event/myevent']);
+    this.router.navigate(['/event/tab'],  {queryParams: {type: 'myevent'}});
   }
 }

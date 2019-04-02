@@ -10,8 +10,10 @@ export class EventListComponent implements OnInit {
 
   isList: boolean;
   isForm: boolean;
+  tabPage: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
     this.isList = true;

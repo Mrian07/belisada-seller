@@ -7,28 +7,19 @@ import { EventJoinComponent } from './event-join/event-join.component';
 import { EventMyComponent } from './event-my/event-my.component';
 import { EventViewComponent } from './event-view/event-view.component';
 
+
 const routes: Routes = [{
   path: '',
   component: EventComponent,
-  children: [{
-    path: '',
+  children: [
+  {
+    path: 'tab',
     component: EventTabComponent,
-    children: [{
-      path: 'list',
-      // pathMatch: 'full',
-      component: EventListComponent,
-      data: {
-        title: 'Active Event'
-      }
-    }, {
-      path: 'myevent',
-      // pathMatch: 'full',
-      component: EventMyComponent,
-      data: {
-        title: 'My Event'
-      }
-    }]
-  }, {
+    data: {
+      title: 'List Event'
+    }
+  },
+  {
     path: 'join',
     pathMatch: 'full',
     component: EventJoinComponent,
