@@ -16,6 +16,6 @@ export class EventJoinComponent implements OnInit {
   }
 
   backEvent() {
-    this.router.navigate(['/event/list']);
+    this.router.navigate(['/event/tab'],  {queryParams: {type: 'list'}});
   }
 }
