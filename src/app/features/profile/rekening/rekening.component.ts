@@ -12,7 +12,6 @@ import swal from 'sweetalert2';
   styleUrls: ['./rekening.component.scss']
 })
 export class RekeningComponent implements OnInit {
-
   createComForm: FormGroup;
   popRek: Boolean = false;
   onBankFocus: Boolean = false;
@@ -40,7 +39,6 @@ export class RekeningComponent implements OnInit {
     const type = 2;
     this.rekeningService.getRekening(type).subscribe(respon => {
       this.rekeningList = respon;
-      console.log('hasilnya', respon);
     });
   }
 
@@ -115,6 +113,7 @@ export class RekeningComponent implements OnInit {
 
 
   onSubmit() {
+    console.log('asdasd');
     const form = this.createComForm;
     this.formSubmited = true;
     const data: AddRekeningRequest = new AddRekeningRequest();
@@ -124,27 +123,64 @@ export class RekeningComponent implements OnInit {
     data.accountName = this.createComForm.value.accountName;
     data.bankId = this.createComForm.value.bankId;
     data.bankName = this.createComForm.value.bankName;
-    // if (form.valid) {
-    //   const type = 2;
-    //   this.rekeningService.getRekening(type).subscribe(respon => {
-    //     this.rekeningList = respon;
-    //     const account = respon.find(x => x.accountNumber === this.createComForm.value.accountNumber);
-    //     console.log('account number', account);
-    //   });
-    // return;
+    if (form.valid) {
+      const type = 2;
+      // this.rekeningService.getRekening(type).subscribe(respon => {
+      //   this.rekeningList = respon;
+      //   const account = respon.find(x => x.bankName === this.createComForm.value.bankName
+      //     && x.accountNumber === this.createComForm.value.accountNumber);
+      //   if (account) {
+      //     swal({
+      //       title: 'Alert',
+      //       text: 'Nomor rekening sudah terdaftar dalam rekening anda!',
+      //       type: 'warning',
+      //       showCancelButton: false,
+      //       confirmButtonText: 'OK',
+      //       confirmButtonColor: '#3085d6',
+      //       cancelButtonColor: '#d33'
+      //     });
+      //     return;
+      //   }
+      //   this.formSubmited = false;
+      // });
+
       if (this.createComForm.value.bankAccountId) {
-        this.rekeningService.editRekening(data).subscribe(respon => {
+        this.rekeningService.editRekening(data).subscribe(respon2 => {
+          if (respon2.status === 0) {
+            swal({
+              title: 'Alert',
+              text: 'Nomor rekening yang sama sudah ada dalam rekening anda!',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33'
+            });
+            return;
+          }
           this.loadData();
           this.popRek = false;
         });
       } else {
-          this.rekeningService.addRekening(data).subscribe(respon => {
+        // console.log('Respon atas: ', respon);
+        this.rekeningService.addRekening(data).subscribe(respon2 => {
+          if (respon2.status === 0) {
+            swal({
+              title: 'Alert',
+              text: 'Nomor rekening yang sama sudah ada dalam rekening anda!',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33'
+            });
+            return;
+          }
           this.loadData();
           this.popRek = false;
         });
       }
-      this.formSubmited = false;
-    // }
+    }
   }
 
   numberOnly(event): boolean {

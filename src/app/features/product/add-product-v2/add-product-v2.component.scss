@@ -380,6 +380,29 @@ th, td {
 }
 
 .toTheRight {
-    float: right;
+    // float: right;
     margin-right: 4vw;
+}
+
+.frame-couriers{
+    padding: 1rem;
+
+    &__sub{
+        display: grid;
+        grid-template-columns: 90% 10%;
+        padding: 0.5rem;
+    }
+
+    &__right{
+        text-align: right;
+    }
+}
+
+.itemScroll{
+    overflow:scroll; 
+    height:270px;
+}
+
+.change-img{
+    cursor: pointer;
 }

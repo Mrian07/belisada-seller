@@ -23,16 +23,8 @@ export class EventTabComponent implements OnInit {
 
   }
 
-  tab(data, tabPage) {
-
-    // if (tabPage === data) {
-    //   this.tabPage = data;
-    // } else {
-    //   this.tabPage = data;
-    // }
-
+  tab(data) {
     this.router.navigate(['/event/tab'],  {queryParams: {type: data}});
-
   }
 
 }

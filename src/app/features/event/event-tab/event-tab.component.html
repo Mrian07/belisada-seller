@@ -1,9 +1,9 @@
 <div class="tab-container">
     <div class="tabWrapper">
-      <div [ngClass]="(tabPage=='list')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('list', tabPage)">
+      <div [ngClass]="(tabPage=='list')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('list')">
         Active Event
       </div>
-      <div [ngClass]="(tabPage=='myevent')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('myevent', tabPage)">
+      <div [ngClass]="(tabPage=='myevent')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('myevent')">
         My Event
       </div>
     </div>
