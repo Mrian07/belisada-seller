@@ -257,7 +257,21 @@
                                 </table> -->
                             </div>
                             <div class="selectCourier" *ngIf="routeUrl">
-                                <table class="table" *ngIf="isFlase === true">
+
+                                <div class="frame-couriers" *ngIf="isFlase === true" [ngClass]="{'itemScroll': (productsSandbox.coruerir$ | async).length>=4}">
+                                    <div class="frame-couriers__sub" *ngFor="let courier of productsSandbox.coruerir$ | async">
+                                        <div>{{ courier.name }}</div>
+                                        <div class="frame-couriers__right">
+                                            <label class="switch small toTheRight">
+                                                <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- <table class="table" *ngIf="isFlase === true">
                                     <tr *ngFor="let courier of  productsSandbox.coruerir$ | async">
                                         <td>{{ courier.name }}</td>
                                         <td class="right">
@@ -267,7 +281,7 @@
                                             </label>
                                         </td>
                                     </tr>
-                                </table>
+                                </table> -->
                             </div>
                         </div>
                         <div class="col-3">
