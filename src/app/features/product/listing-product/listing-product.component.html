@@ -1,19 +1,19 @@
 <div class="frame-menu">
-    <div [ngClass]="(tabOrder=='aktif')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('aktif')">
+    <div [ngClass]="(tabOrder=='Y')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Y')">
         Produk Aktif
     </div>
-    <div [ngClass]="(tabOrder=='habis')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('habis')">
+    <div [ngClass]="(tabOrder=='N')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('N')">
         Stok Habis
     </div>
     <div [ngClass]="(tabOrder=='nonaktif')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('nonaktif')">
         Produk Non Aktif
     </div>
-    <div [ngClass]="(tabOrder=='all')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('all')">
+    <div [ngClass]="(tabOrder=='Y')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Y')">
         Semua
     </div>
 </div>
 <div class="frame-menu-contain">
-    <bss-listing-product-manage *ngIf="tabOrder=='all'"></bss-listing-product-manage>
+    <bss-listing-product-manage></bss-listing-product-manage>
     <div class="frame-dis-contain" *ngIf="a === 0">
         <div class="verticalMiddle">
             <div class="noDiscussion">
