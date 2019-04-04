@@ -52,7 +52,7 @@ export class AddProductV2Component implements OnInit, OnDestroy {
   submitted: Boolean = false;
   showRequestVarian: boolean;
   num: number;
-
+  otherimg: string;
   public displayImage: string;
 
   constructor(
@@ -438,5 +438,9 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       }
     }
     return invalid;
+  }
+
+  changeImg(img) {
+    this.otherimg = img;
   }
 }
