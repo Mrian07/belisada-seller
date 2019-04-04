@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { ExecOptionsWithStringEncoding } from 'child_process';
 
 @Component({
   selector: 'bss-event-tab',
@@ -24,16 +23,8 @@ export class EventTabComponent implements OnInit {
 
   }
 
-  tab(data, tabPage) {
-
-    // if (tabPage === data) {
-    //   this.tabPage = data;
-    // } else {
-    //   this.tabPage = data;
-    // }
-
+  tab(data) {
     this.router.navigate(['/event/tab'],  {queryParams: {type: data}});
-
   }
 
 }
