@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatComponent } from './chat/chat.component';
 import { MyIncomeComponent } from './income-seller/my-income/my-income.component';
 import { IncomeHistoryComponent } from './income-seller/income-history/income-history.component';
+import { ThemesModule } from '@belisada-seller/themes/themes.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { IncomeHistoryComponent } from './income-seller/income-history/income-hi
     FormsModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    ThemesModule
   ],
   declarations: [OrderPrintComponent, InvoiceNumberComponent, IncomeSellerComponent, MyIncomeComponent, IncomeHistoryComponent]
 })

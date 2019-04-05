@@ -37,7 +37,7 @@ export class ListingProductComponent implements OnInit {
   checkIfLength: Boolean = false;
   a: any;
   b;
-  tabOrder: 'Y';
+  tabOrder = 'Y';
   toggleArrBol: boolean[];
 
 

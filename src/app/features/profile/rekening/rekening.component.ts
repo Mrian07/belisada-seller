@@ -1,9 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { RekeningService } from '@belisada-seller/core/services';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import {
-  RekeningRespon, AddRekeningRequest, RekeningUser
-} from '@belisada-seller/core/models';
+import { RekeningRespon, AddRekeningRequest, RekeningUser } from '@belisada-seller/core/models';
 import swal from 'sweetalert2';
 
 @Component({
@@ -162,7 +160,6 @@ export class RekeningComponent implements OnInit {
           this.popRek = false;
         });
       } else {
-        // console.log('Respon atas: ', respon);
         this.rekeningService.addRekening(data).subscribe(respon2 => {
           if (respon2.status === 0) {
             swal({
