@@ -12,6 +12,7 @@ import { RoomTypeEnum } from '@belisada-seller/core/enum/room-type.enum';
 import { JoinRoom } from '@belisada-seller/core/interfaces/join-room.interface';
 import { Globals } from '@belisada-seller/core/services/globals/globals';
 import { LocalStorageEnum } from '@belisada-seller/core/enum';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-chat',
@@ -33,6 +34,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   // _id: string;
   selectedRoom: any;
 
+  thumborUrl: string;
+
   // storeId: number;
 
   constructor(
@@ -41,7 +44,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     private fb: FormBuilder,
     private userService: UserService,
     // private storeService: StoreService,
-  ) { }
+  ) {
+    this.thumborUrl = environment.thumborUrl + 'unsafe/fit-in/400x400/center/filters:fill(fff)/';
+  }
 
   ngOnInit() {
     this.userData = this.userService.getUserData(localStorage.getItem(LocalStorageEnum.TOKEN_KEY));
