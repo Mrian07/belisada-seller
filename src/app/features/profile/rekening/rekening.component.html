@@ -1,6 +1,6 @@
 <div class="list-rek" *ngFor="let item of rekeningList">
   <div class="verticalMiddle">
-    <img [src]="'https://img.belisada.id/unsafe/234x76/center/filters:fill(fff)/' + item.imageUrl">
+    <img [src]="thumborUrl + item.imageUrl">
   </div>
   <div>{{item.bankName}}<br>{{item.accountNumber}}<br>{{item.accountName}}</div>
   <div class="b-btn">
