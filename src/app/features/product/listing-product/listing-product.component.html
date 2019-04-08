@@ -1,14 +1,14 @@
 <div class="frame-menu">
-    <div [ngClass]="(tabOrder=='Y')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Y')">
+    <div [ngClass]="(active=='true' && tabs=='active')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP', '', 'true' , 'active')">
         Produk Aktif
     </div>
-    <div [ngClass]="(tabOrder=='N')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('N')">
+    <div [ngClass]="(tabOrder=='N' && tabs=='habis')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP', 'N' , '', 'habis')">
         Stok Habis
     </div>
-    <div [ngClass]="(tabOrder=='nonaktif')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('nonaktif')">
+    <div [ngClass]="(active=='false' && tabs=='non')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP', '', 'false' , 'non')">
         Produk Non Aktif
     </div>
-    <div [ngClass]="(tabOrder=='Y')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('Y')">
+    <div [ngClass]="(status=='AP' && tabs=='all')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP' , '', '', 'all')">
         Semua
     </div>
 </div>
