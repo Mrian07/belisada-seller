@@ -90,7 +90,7 @@
           <div><span class="createdTime"> {{ item.createdTime }} </span>
             <span class="text-collor__black text-bold"> {{ item.status }} {{ item.invoiceNumber }}</span>
             <!-- <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook</a> -->
-            <a (click)="openDetail(item)"><fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon></a>
+            <a class="iconDetail" (click)="openDetail(item)"><fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon></a>
           </div>
           <div>
             <span class="text-collor__black text-center text-display__block">Status</span>
@@ -128,7 +128,7 @@
 <app-modal [(visible)]="withdrawDetail" maxwidth="850">
   <div class="col-12 mutasi-wrapper">
     <div class="col-12 mutasi-head">
-      <div class="mutasi-icon" src=""></div>
+      <img class="mutasi-icon" src="assets/img/check-icon.png">
       <h2>Detail Mutasi</h2>
     </div>
     <div class="col-12 mutasi-contentDetail">
@@ -146,10 +146,26 @@
           <div class="col-3 mutasi-tableHeaderRight">Price</div>
         </div>
         <div class="row removeMargin contentTable">
-          <div class="col-6 mutasi-tableContent">VGA MSI Nvidia GeForce GTX 1080 Ti GAMING X 11GB</div>
-          <div class="col-1 mutasi-tableContentCenter">X1</div>
-          <div class="col-2 mutasi-tableContentCenter">1 Kg</div>
-          <div class="col-3 mutasi-tablePrice">Rp. 3.000.000</div>
+          <div class="col-12 removeMargin">
+            <div class="row mutasi-lineProduct">
+              <div class="col-6 mutasi-tableContent">VGA MSI Nvidia GeForce GTX 1080 Ti GAMING X 11GB</div>
+              <div class="col-1 mutasi-tableContentCenter">X1</div>
+              <div class="col-2 mutasi-tableContentCenter">1 Kg</div>
+              <div class="col-3 mutasi-tablePrice">Rp. 3.000.000</div>
+            </div>
+            <div class="row mutasi-lineProduct">
+              <div class="col-6 mutasi-tableContent">Sound Card MSI Nvidia GeForce Ti</div>
+              <div class="col-1 mutasi-tableContentCenter">X1</div>
+              <div class="col-2 mutasi-tableContentCenter">1 Kg</div>
+              <div class="col-3 mutasi-tablePrice">Rp. 1.300.000</div>
+            </div>
+            <div class="row mutasi-lineProduct">
+              <div class="col-6 mutasi-tableContent">Mouse Logitech Optical</div>
+              <div class="col-1 mutasi-tableContentCenter">X1</div>
+              <div class="col-2 mutasi-tableContentCenter">1 Kg</div>
+              <div class="col-3 mutasi-tablePrice">Rp. 300.000</div>
+            </div>
+          </div>
         </div>
         <div class="row mutasi-doubleLine">
           <div class="col-7">
@@ -161,7 +177,7 @@
         </div>
         <div class="row removeMargin grandTotal">
           <div class="col-9 mutasi-total">Total:</div>
-          <div class="col-3 mutasi-tablePrice">Rp. 3.020.000</div>
+          <div class="col-3 mutasi-tablePrice">Rp. 4.620.000</div>
         </div>
       </div>
     </div>
