@@ -55,7 +55,7 @@
         <div class="messages">
             <article [ngClass]="{'sender': message.user.usr_user_id == userData.userId, 'receiver': message.user.usr_user_id != userData.userId}" *ngFor="let message of chatMessages">
                 <div class="avatar">
-                    <img [src]="'https://img.belisada.id/unsafe/50x50/center/filters:fill(fff)/' + message.user.basic_imageurl_avatar" alt="">
+                    <img [src]="thumborUrl + message.user.basic_imageurl_avatar" alt="">
                 </div>
                 <div class="message">
                     <div class="message__pointer"></div>

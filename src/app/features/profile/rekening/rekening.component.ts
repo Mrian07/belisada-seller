@@ -3,6 +3,7 @@ import { RekeningService } from '@belisada-seller/core/services';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { RekeningRespon, AddRekeningRequest, RekeningUser } from '@belisada-seller/core/models';
 import swal from 'sweetalert2';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'bss-rekening',
@@ -18,11 +19,15 @@ export class RekeningComponent implements OnInit {
   formSubmited: Boolean = false;
   account: boolean;
 
+  thumborUrl: string;
+
   constructor(
     private rekeningService: RekeningService,
     private fb: FormBuilder,
     private el: ElementRef,
-  ) { }
+  ) {
+    this.thumborUrl = environment.thumborUrl + '234x76/center/filters:fill(fff)/';
+  }
 
   ngOnInit() {
     this.loadData();
