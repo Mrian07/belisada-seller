@@ -142,6 +142,8 @@
 					<span><b>Asuransi:</b></span><br>
 					<label class="asuransiLabel" *ngIf="item.useAsuransi == false">Tidak</label>
 					<label class="asuransiLabel" *ngIf="item.useAsuransi == true">Ya</label>
+					<br><br><span>Metode Pembayaran:</span><br>
+					<label style="font-size: 1.6rem;">{{item.paymentMethod}}</label>
 				</div>
 				<div>
 					<span class="nm-item-courier w__edit--cetak-label" (click)="gotoCetakLabelPengiriman(item.orderNumber)"><img src="assets/img/printer.png" border="0" width="20"><span class="print-order">Cetak Label</span></span>

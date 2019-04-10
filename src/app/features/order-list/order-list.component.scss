@@ -531,6 +531,7 @@ h2 {
 }
 
 .itemCartScroll{
-    overflow:scroll; 
+    overflow-y:scroll;
+    scrollbar-width: thin;
     height:160px;
 }
