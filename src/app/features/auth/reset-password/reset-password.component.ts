@@ -63,6 +63,9 @@ export class ResetPasswordComponent implements OnInit {
         if (rsl.status === 1) {
           this.loadingService.hide();
           this.success = true;
+          setTimeout(() => {
+            this.router.navigateByUrl('/auth/sign-in');
+          }, 3000);
         }
         console.log('Message setelah submit:', this.msg);
       });
