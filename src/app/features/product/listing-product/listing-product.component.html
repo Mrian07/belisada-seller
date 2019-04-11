@@ -5,9 +5,9 @@
     <div [ngClass]="(tabOrder=='N' && tabs=='habis')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP', 'N' , '', 'habis')">
         Stok Habis
     </div>
-    <div [ngClass]="(active=='false' && tabs=='non')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP', '', 'false' , 'non')">
+    <!-- <div [ngClass]="(active=='false' && tabs=='non')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP', '', 'false' , 'non')">
         Produk Non Aktif
-    </div>
+    </div> -->
     <div [ngClass]="(status=='AP' && tabs=='all')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('AP' , '', '', 'all')">
         Semua
     </div>
