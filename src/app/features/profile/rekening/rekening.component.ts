@@ -26,7 +26,7 @@ export class RekeningComponent implements OnInit {
     private fb: FormBuilder,
     private el: ElementRef,
   ) {
-    this.thumborUrl = environment.thumborUrl + '234x76/center/filters:fill(fff)/';
+    this.thumborUrl = environment.thumborUrl + 'unsafe/234x76/center/filters:fill(fff)/';
   }
 
   ngOnInit() {

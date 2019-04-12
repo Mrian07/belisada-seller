@@ -20,7 +20,8 @@ export class ProductAssistComponent implements OnInit {
   rejectForm: FormGroup;
   acceptForm: FormGroup;
   orderNumber: number;
-
+  tabOrder: string;
+  listLength: number;
   proddetail: Complain = new Complain();
 
   lastPage: number;
@@ -33,7 +34,9 @@ export class ProductAssistComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) { 
+    this.listLength = 0;
+  }
 
   ngOnInit() {
     // this.activatedRoute.queryParams.subscribe((queryParam) => {
@@ -45,6 +48,16 @@ export class ProductAssistComponent implements OnInit {
     this.loadPDC();
     this.formReject();
     this.formAccept();
+    this.tabOrder = 'HelpList';
+  }
+
+  tab(data, tabOrder) {
+    if (tabOrder === data) {
+      this.tabOrder = data;
+    } else {
+      this.router.navigateByUrl('/help-list');
+      this.tabOrder = data;
+    }
   }
 
   loadPDC() {

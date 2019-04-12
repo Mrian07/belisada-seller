@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductAssistComponent } from './product-assist.component';
+import { HelpListComponent } from './help-list/help-list.component';
+import { HelpHistoryComponent } from './help-history/help-history.component';
 
 describe('ProductAssistComponent', () => {
   let component: ProductAssistComponent;
@@ -8,7 +10,7 @@ describe('ProductAssistComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductAssistComponent ]
+      declarations: [ ProductAssistComponent, HelpListComponent, HelpHistoryComponent ]
     })
     .compileComponents();
   }));
