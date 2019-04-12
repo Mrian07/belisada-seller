@@ -364,8 +364,11 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       controls.forEach(control => {
         const con: FormGroup = control;
         // console.log('control: ', control);
+        console.log('+con.controls[specialPrice].value: ', +con.controls['specialPrice'].value);
+        const discount = (+con.controls['specialPrice'].value === 0)
+          ? 0 : Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100));
         control.patchValue({
-          discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
+          discount: (Number.isNaN(discount)) ? 0 : discount
         });
         // console.log('calculateDiscount', control.controls['discount'].value);
       });
