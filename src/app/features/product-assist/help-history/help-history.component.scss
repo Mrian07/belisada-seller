@@ -1,0 +1,28 @@
+.noDiscussion {
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.noDiscussionLabel {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16pt;
+    color: #2e2e2e;
+    text-transform: capitalize;
+}
+
+.frame-dis-contain{
+    background: #fff;
+    padding: 1rem;
+    margin:0px auto;
+}
+
+.verticalMiddle {
+    vertical-align: middle;
+    position: relative;
+    min-height: 400px;
+}

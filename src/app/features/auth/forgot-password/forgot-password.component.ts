@@ -68,10 +68,11 @@ export class ForgotPasswordComponent implements OnInit {
 
     delete this.msg;
     const data: SendEmailRequest = this.fogotFormGroup.value;
-    data.type = SendEmailTypeEnum.RESET_PASSWORD;
+    data.type = SendEmailTypeEnum.RESET_PASSWORD_SELLER;
     this.userService.sendEmail(data).subscribe(
     result => {
       // Handle result
+      console.log('resulttttt: ', result);
       if (result.status === 1) {
         this.email = data.email;
         this.success = true;

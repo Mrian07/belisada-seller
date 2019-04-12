@@ -11,6 +11,10 @@ import { ChatComponent } from './chat/chat.component';
 import { MyIncomeComponent } from './income-seller/my-income/my-income.component';
 import { IncomeHistoryComponent } from './income-seller/income-history/income-history.component';
 import { ThemesModule } from '@belisada-seller/themes/themes.module';
+import { ProductAssistComponent } from './product-assist/product-assist.component';
+import { HelpListComponent } from './product-assist/help-list/help-list.component';
+import { HelpHistoryComponent } from './product-assist/help-history/help-history.component';
+import { HelpDetailComponent } from './product-assist/help-detail/help-detail.component';
 
 
 @NgModule({
@@ -22,6 +26,16 @@ import { ThemesModule } from '@belisada-seller/themes/themes.module';
     ReactiveFormsModule,
     ThemesModule
   ],
-  declarations: [OrderPrintComponent, InvoiceNumberComponent, IncomeSellerComponent, MyIncomeComponent, IncomeHistoryComponent]
+  declarations: [
+    OrderPrintComponent,
+    InvoiceNumberComponent,
+    IncomeSellerComponent,
+    MyIncomeComponent,
+    IncomeHistoryComponent,
+    ProductAssistComponent,
+    HelpListComponent,
+    HelpHistoryComponent,
+    HelpDetailComponent
+  ]
 })
 export class FeaturesModule { }

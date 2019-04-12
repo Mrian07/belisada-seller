@@ -20,6 +20,9 @@ import { AddProductV2Component } from './features/product/add-product-v2/add-pro
 import { ProductsResolver } from './features/product/product.resolver';
 import { ListingProductManageComponent } from './features/product/listing-product-manage/listing-product-manage.component';
 import { EventComponent } from './features/event/event.component';
+import { HelpListComponent } from './features/product-assist/help-list/help-list.component';
+import { HelpHistoryComponent } from './features/product-assist/help-history/help-history.component';
+import { HelpDetailComponent } from './features/product-assist/help-detail/help-detail.component';
 
 const routes: Routes = [
   {
@@ -129,10 +132,30 @@ const routes: Routes = [
       {
         path: 'product-assist',
         component: ProductAssistComponent,
-        data: {
-          title: 'product-assist'
-        },
-      },
+        children: [
+          {
+            path: 'product-assist/help-history',
+            component: HelpHistoryComponent,
+            data: {
+              title: 'Help History'
+            }
+          },
+          {
+            path: 'product-assist/help-list',
+            component: HelpListComponent,
+            data: {
+              title: 'Help List'
+            }
+          },
+          {
+            path: 'product-assist/help-detail',
+            component: HelpDetailComponent,
+            data: {
+              title: 'Help Detail'
+            }
+          },
+        ]
+      }
       // {
       //   path: 'Event',
       //   component: EventComponent,

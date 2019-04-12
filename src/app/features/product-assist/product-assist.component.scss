@@ -229,3 +229,69 @@
     color: #ccc;
     cursor: default;
 }
+
+//Style Baru
+
+.tab-container {
+    width: 100%;
+    display: inline-block;
+    height: 52px;
+    box-shadow: 0 2px 3px 0 rgba(255, 187, 64, 0.42);
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13pt;
+    border: 1px solid #ececec;
+}
+
+.tabWrapper {
+    display: block;
+    margin: 0 auto;
+    width: 500px;
+}
+
+.btn-tab{
+    &__active{
+        display:inline-block;
+        text-align: center;
+        color: #f27138;
+        width: 49%;
+        padding:10px;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 3px solid #f27138;
+        margin-right: 3px;
+    }
+
+    &__noActive{
+        display:inline-block;
+        text-align: center;
+        color: #222222;
+        width: 49%;
+        padding:10px;
+        cursor: pointer;
+        position: relative;
+        border-bottom: none;
+        margin-right: 3px;
+    }
+}
+
+.btn-tab__noActive:hover{
+    border-bottom: 0.3rem solid #f27138;
+    color: #f27138;
+}
+
+.wrapper-top {
+    margin-top: 15px;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+}
+
+.frame-menu-contain{
+    background-color: #f7f7f7;
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+    padding: 6px 20px 20px;
+    margin-bottom: 50px;
+}
