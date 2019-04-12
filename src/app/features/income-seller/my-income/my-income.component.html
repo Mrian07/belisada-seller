@@ -69,8 +69,7 @@
             
                 <div class="col-5">
                     <button [ngClass]="btn_withrawal === true ? 'btn btn--green btn--height72': 'btn btn--disabled btn--height72'"
-                    
-                    (click)="tarikDana()">Tarik Dana</button>
+                    (click)="tarikDana()">Tarik Dana <img *ngIf="spinner==true" class="loading" src="/assets/img/spinner.gif" alt=""></button>
                 </div>
               </div>
             </div>

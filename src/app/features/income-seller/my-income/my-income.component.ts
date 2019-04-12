@@ -37,6 +37,9 @@ export class MyIncomeComponent implements OnInit {
   orderID: string;
   pembeli: string;
   date: string;
+
+  spinner: Boolean = false;
+
   myDatePickerOptions: IMyDpOptions = {
     // other options... https://github.com/kekeh/mydatepicker#options-attribute
     dateFormat: this.defaultDateFormat,
@@ -229,6 +232,7 @@ export class MyIncomeComponent implements OnInit {
 
   tarikDana() {
 
+    this.spinner = true;
     this.totalTransfer = [];
     for (let i = 0; i < this.invNumPart2.length; i++) {
       const index = this.getData.findIndex(x => x.invoiceNumber === this.invNumPart2[i]);
@@ -239,8 +243,10 @@ export class MyIncomeComponent implements OnInit {
 
     if (valTotalTransfer <= 50000) {
       swal('Alert', 'Maaf minimal tarik dana Rp.50.000', 'error');
+      this.spinner = false;
     } else if (this.invNumPart2.length === 0) {
       swal('Alert', 'Anda belum memilih saldo yang akan ditarik', 'error');
+      this.spinner = false;
     } else {
 
       swal({
@@ -262,16 +268,22 @@ export class MyIncomeComponent implements OnInit {
 
             if (response.status === 3) {
               swal('Gagal', 'Silakan isi rekening bank Anda terlebih dulu pada halaman profile', 'error');
+              this.spinner = false;
             } else if (response.status === 4) {
               swal('Gagal', 'Maaf minimal tarik dana Rp.50.000', 'error');
+              this.spinner = false;
             } else {
               this.incomeS.getIncomeWithDate(queryParams).subscribe(x => {
                 this.getData = x.content;
                 });
+                this.spinner = false;
             }
 
           });
           console.log('invNumPart2', this.invNumPart2);
+          this.spinner = false;
+        } else {
+          this.spinner = false;
         }
 
 
