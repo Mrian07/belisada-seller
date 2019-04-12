@@ -118,26 +118,26 @@
                             </div>
                             <div class="col-md-2">
                                 <input type="text" (change)="calculateDiscount()" placeholder="Harga Jual" formControlName="pricelist" class="form-control"
-                                    [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-2">
                                 <input type="text" (change)="calculateDiscount()" placeholder="Harga Promo" formControlName="specialPrice" class="form-control"
-                                    [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-1">
                                 <input type="text" placeholder="Stok" formControlName="qty" class="form-control text-center" (keypress)="numberCheck($event)">
                             </div>
                             <div class="offset-md-5 col-md-5">
-                                <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid && variant.controls.isUsed.value == true">
+                                <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid">
                                     <bss-field-error [displayError]="variant.controls.qty.errors.max" errorMsg="Maksimal stok 5"></bss-field-error>
-                                    <bss-field-error [displayError]="variant.controls.qty.errors.required" errorMsg="Stok harus diisi"></bss-field-error>
+                                    <bss-field-error [displayError]="variant.controls.qty.errors.required && variant.controls.isUsed.value == true" errorMsg="Stok harus diisi"></bss-field-error>
                                 </div>
-                                <div *ngIf="(submitted || variant.touched) && variant.errors && variant.controls.isUsed.value == true">
+                                <div *ngIf="(submitted || variant.touched) && variant.errors">
                                     <bss-field-error [displayError]="variant.errors.invalidprice" errorMsg="Harga promo tidak boleh lebih besar dari harga jual"></bss-field-error>
                                 </div>
-                                <div *ngIf="(submitted || variant.controls.pricelist.touched) && variant.controls.pricelist.invalid && variant.controls.isUsed.value == true">
+                                <div *ngIf="(submitted || variant.controls.pricelist.touched) && variant.controls.pricelist.invalid">
                                     <bss-field-error [displayError]="variant.controls.pricelist.errors.min" errorMsg="Harga jual minimal Rp 100"></bss-field-error>
-                                    <bss-field-error [displayError]="variant.controls.pricelist.errors.required" errorMsg="Harga jual harus diisi"></bss-field-error>
+                                    <bss-field-error [displayError]="variant.controls.pricelist.errors.required && variant.controls.isUsed.value == true" errorMsg="Harga jual harus diisi"></bss-field-error>
                                 </div>
                             </div>
                         </div>

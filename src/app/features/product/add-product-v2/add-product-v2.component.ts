@@ -285,30 +285,30 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     const control = <FormArray>this.addProductForm.get('varians');
     const variantsOnlyChecked = control.value.filter(item => item.isUsed !== false);
-
+    const variants = control.value;
     // console.log('control: ', control);
 
     const variantsControls = <FormArray>this.getVariants(this.addProductForm);
 
     // return;
     const productFormModified = this.addProductForm.value;
-    productFormModified.varians = variantsOnlyChecked;
+    productFormModified.varians = variants;
 
     console.log('productFormModified: ', productFormModified);
 
 
-    const c = variantsOnlyChecked;
-    const xx = variantsOnlyChecked.forEach(element => {
-      if (element.pricelist < 100) {
-      swal(
-        'Warning',
-        'harga tidak boleh dibawah 100',
-        'warning'
-      );
-      this.loadingService.hide();
-      return;
-      }
-    });
+    // const c = variantsOnlyChecked;
+    // const xx = variantsOnlyChecked.forEach(element => {
+    //   if (element.pricelist < 100) {
+    //   swal(
+    //     'Warning',
+    //     'harga tidak boleh dibawah 100',
+    //     'warning'
+    //   );
+    //   this.loadingService.hide();
+    //   return;
+    //   }
+    // });
 
     if (this.addProductForm.get('couriers').value.length <= 0) {
       swal(
