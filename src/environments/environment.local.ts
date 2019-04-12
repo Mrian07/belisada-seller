@@ -3,7 +3,7 @@ export const environment = {
   apiUrl: 'https://api0.belisada.id/belisada',
   baseUrlSeller: 'http://localhost:4300',
   baseUrlBuyer: 'http://localhost:4200',
-  thumborUrl: 'http://img.belisada.id/',
+  thumborUrl: 'https://img.belisada.id/',
   // chatUrl: 'http://192.168.3.20',
   // chatServerPort: '3000',
   // socketServerPort: '1080',
