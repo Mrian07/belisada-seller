@@ -1,3 +1,9 @@
+<div [ngClass]="(status=='187')?'info__active':'info__noActive'">
+	Jika buyer melakukan pembayaran menggunakan Debit Card, Credit Card atau Virtual Account, ada biaya layanan yang dibebankan ke seller per transaksi.
+</div>
+<div [ngClass]="(status=='196')?'info__active':'info__noActive'">
+	Pastikan kepada pihak Buyer untuk melakukan konfirmasi penerimaan barang agar dana dapat segera dicairkan ke toko Anda.
+</div>
 <div class="frame-title">
 	<div class="table-header">
 		No
@@ -19,7 +25,7 @@
 	</div>
 </div>
 <div class="table-container">
-	<div class="frame-contain" *ngFor="let item of listCart | orderBy: 'createdOrder'; let idx = index">
+	<div class="frame-contain" *ngFor="let item of listCart; let idx = index">
 		<div [ngClass]="item.statusOrderSellerCode === '187' ? 'trans-list__light' : 'trans-list'">
 			<div class="order-data">
 				<div class="center">
@@ -35,7 +41,7 @@
 					{{item.totalQty}}
 				</div>
 				<div class="center bold">
-					{{item.subTotal - item.asuransi | currency:'Rp ':'symbol':'1.0'}}
+					{{item.subTotal | currency:'Rp ':'symbol':'1.0'}}
 				</div>
 				<div class="center bold">
 					<!-- <span class="red-font" *ngIf="item.countdown && item.statusOrderSellerCode !== '183'; else elseTemplate">
@@ -83,7 +89,7 @@
 		</div>
 		<div class="cont-buyer" *ngIf="toggleArrBol[idx]">
 			<div class="frame-cont">
-				<div>
+				<div [ngClass]="{'itemCartScroll': item.cartItems.length>=2}">
 					<div class="row small-gutters" *ngFor="let itemChild of item.cartItems">
 						<div class="col-8 product-set">
 							<span class="nm-item">{{itemChild.name}}</span>
@@ -128,11 +134,16 @@
 				<div>
 					<div class="margin-bottom">Alamat Pengiriman</div>
 					<div class="name">{{item.namaPenerima}}, {{item.phonePenerima}}</div>
-					<div>{{item.alamatPenerima}}</div>
+					<div>{{item.alamatPenerima}} </div>
 				</div>
-				<div>
-					<span class="nm-item-courier">{{item.noResi}} (&nbsp;{{item.courierCode}}&nbsp;)</span>
-					<span> {{ item.courierPrice | currency:'Rp ':'symbol':'1.0'}}  </span>
+				<div style="text-align: center;">
+					<span class="nm-item-courier">{{item.noResi}} (&nbsp;{{item.courierName}} - <span class="nm-item-courierType">{{ item.courierService }}</span>&nbsp;)</span>
+					<span> {{ item.courierPrice | currency:'Rp ':'symbol':'1.0'}}  <br></span>
+					<span><b>Asuransi:</b></span><br>
+					<label class="asuransiLabel" *ngIf="item.useAsuransi == false">Tidak</label>
+					<label class="asuransiLabel" *ngIf="item.useAsuransi == true">Ya</label>
+					<br><br><span>Metode Pembayaran:</span><br>
+					<label style="font-size: 1.6rem;">{{item.paymentMethod}}</label>
 				</div>
 				<div>
 					<span class="nm-item-courier w__edit--cetak-label" (click)="gotoCetakLabelPengiriman(item.orderNumber)"><img src="assets/img/printer.png" border="0" width="20"><span class="print-order">Cetak Label</span></span>
@@ -152,13 +163,13 @@
 						<p>Transaksi Selesai</p>
 					</div>
 					<div class="w-wrapper__for--cetak_invoice">
-							<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190' && item.statusOrderSellerCode !== '196'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
-								{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
-							</div>
-							<!--<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
-								Cetak Invoice
-							</div>-->
-							<div></div>
+						<div class="btn-order" *ngIf="item.statusOrderSellerCode === '190' && item.statusOrderSellerCode !== '196'" (click)="btnResi = !btnResi" (click)="getOrderNumber(item.orderNumber)">
+							{{ (item.noResi !== '') ? 'Lihat No Resi' : 'Input No Resi' }}
+						</div>
+						<!--<div class="btn-order" (click)="goToInvoice(item.orderNumber)">
+							Cetak Invoice
+						</div>-->
+						<div></div>
 					</div>
 				</div>
 			</div>
@@ -191,9 +202,9 @@
 		<h2 class="text-center">Anda Yakin menolak Order Ini?</h2>
 		<div>
 			<textarea formControlName="reason" class="sn-form-control tolak" type="text" placeholder="Tulis alasan penolakan anda"></textarea>
-			<!-- <div *ngIf="(submitted === true || form.reason.touched) && form.reason.invalid">
-				<bss-field-error [displayError]="form.reason.errors.required" errorMsg="Silahkan masukan alasan penolakan order"></bss-field-error>
-			</div> -->
+			<div *ngIf="(submitted === true || cform.reason.touched) && cform.reason.invalid">
+				<bss-field-error [displayError]="cform.reason.errors.required" errorMsg="Alasan penolakan order harus diisi"></bss-field-error>
+			</div>
 		</div>
 		<div>
 			<p class="text-center">Melakukan tolak order akan mempengaruhi performa toko anda!</p>
@@ -213,10 +224,11 @@
 	</div>
 	<div *ngIf="isForm==true">
 		<div class="no-resi tr-black">No Pesanan: #{{info.paymentNumber}}</div>
-		<div class="con-resi">Masukan No. Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
+		<div class="con-resi">Masukan Nomor Resi anda untuk melakukan pelacakan pada paket yang anda kirimkan.
 			Pesanan akan berubah status menjadi "Sedang Dikirim" jika Pihak Pengiriman sudah memverifikasi pengiriman anda.</div>
+		<div class="info__active margin-bottom infoResi">Mohon input resi satu hari setelah menaruh (drop off) order ke pihak logistik</div>
 		<form class="ui form" [formGroup]="createComForm" (ngSubmit)="onSubmit(orderNumber)" novalidate>
-			<input class="field-r" type="text" formControlName="orderNumber">
+			<input class="field-r" type="text" formControlName="orderNumber" disabled>
 			<div class="modal-body">
 				<span class="line-resi"><b>Alamat Pengiriman</b></span>
 				<span class="line-resi tr-black">{{info.namaPenerima}}</span>
@@ -227,18 +239,18 @@
 					<div><b>Estimated Shipping Fee</b></div>
 					<div><b>Actual Shipping Fee*</b></div>
 
-					<div class="tr-black">{{ info.courierCode }}</div>
+					<div class="tr-black">{{ info.courierCode }} - {{info.courierService}}</div>
 					<div class="tr-black">{{ info.courierPrice | currency:'Rp ':'symbol':'1.0' }}</div>
 					<div><input class="field-r" type="text" formControlName="actualCourierPrice"><br>
 						<span class="text-small">*Biaya pengiriman yang dikeluarkan.</span>
 					</div>
 				</div>
 
-				<div class="no-resi">No. Resi</div>
+				<div class="no-resi">Nomor Resi</div>
 				<div>
 				<input class="field-r" type="text" formControlName="noResi" placeholder="Masukan nomor resi">
 				<div *ngIf="(submitted === true || form.noResi.touched) && form.noResi.invalid">
-					<bss-field-error [displayError]="form.noResi.errors.required" errorMsg="Silahkan masukan no resi"></bss-field-error>
+					<bss-field-error [displayError]="form.noResi.errors.required" errorMsg="Silahkan masukan nomor resi"></bss-field-error>
 				</div>
 				</div>
 			</div>
@@ -251,8 +263,7 @@
 	</div>
 	<div *ngIf="isProsesResi==true">
 		<div class="success-body">
-			Proses kirim Resi berhasil
+			Proses Kirim Resi Berhasil
 		</div>
 	</div>
-
 </app-modal>

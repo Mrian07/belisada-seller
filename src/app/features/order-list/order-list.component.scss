@@ -24,6 +24,10 @@
     color:black;
 }
 
+.asuransiLabel {
+    font-size: 1.6rem;
+}
+
 .frame-contain{
     margin-top: 1rem;
     background: #ffffff;
@@ -68,6 +72,24 @@
         background: #c8fab5;
         padding: 1rem;
         color: #000000;
+    }
+}
+
+.info{
+    &__active{
+        text-align: center;
+        border: 1px solid #f27138;
+        border-radius: 8px;
+        color: #e24400;
+        background-color: #f7f2ce;
+        padding: 1rem 1.5rem;
+        margin-right: 0.5rem;
+        text-align: justify;
+        cursor: pointer;
+    }
+
+    &__noActive{
+        display: none;
     }
 }
 
@@ -116,6 +138,12 @@
     margin-bottom: 10px;
 }
 
+.infoResi {
+    line-height: 1.3;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
 .name {
     font-weight: bold;
 }
@@ -148,6 +176,9 @@
     font-size: 1.2rem;
     display: block;
     padding-bottom: 2rem;
+    .nm-item-courierType {
+        text-transform: capitalize;
+    }
 }
 
 .sku-item{
@@ -205,7 +236,7 @@
     .btn-acc{
         text-align: center;
         width: #{46.3 * 2}px;
-        height: #{15.7 * 2}px;
+        height: #{18 * 2}px;
         border-radius: 5px;
         background-color: #ff9e57;
         color: #ffffff;
@@ -226,7 +257,7 @@
     .btn-dec{
         text-align: center;
         width: #{46.3 * 2}px;
-        height: #{15.7 * 2}px;
+        height: #{18 * 2}px;
         border-radius: 5px;
         background-color: #919191;
         color: #ffffff;
@@ -329,9 +360,7 @@
 }
 
 .foot-resi{
-    margin-top: 2rem;
-    border-top: 1px solid #dddddd;
-    background: #f7f7f7;
+    margin-top: 1rem;
     padding: 0.5rem;
     text-align: right;
 }
@@ -339,6 +368,7 @@
 .field-r{
     width: 100%;
     padding: 0.8rem;
+    margin-bottom: 1rem;
 }
 
 .no-resi{
@@ -433,8 +463,8 @@
 }
 
 :host ::ng-deep .dialog {
-    padding: 35px;
-    top: 20%;
+    padding: 10px 25px 20px;
+    // top: 20%;
 }
 
 .red {
@@ -498,4 +528,10 @@ h2 {
         font-weight: 500;
         text-align: center;
     }
+}
+
+.itemCartScroll{
+    overflow-y:scroll;
+    scrollbar-width: thin;
+    height:160px;
 }

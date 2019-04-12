@@ -37,11 +37,12 @@ export class ListingProductComponent implements OnInit {
   checkIfLength: Boolean = false;
   a: any;
   b;
-  tabOrder: string;
+  tabOrder = 'Y';
   toggleArrBol: boolean[];
 
-
   status = 'AP';
+  active = 'true';
+  tabs = 'all';
 
   hasAddress: Boolean = true;
   // private subscriptions: Array<Subscription> = [];
@@ -59,46 +60,48 @@ export class ListingProductComponent implements OnInit {
     this.productDetail.description = '';
     this.rowSelected = -1;
     this.prodImg = environment.thumborUrl + 'unsafe/fit-in/80x80/';
-  }
-
-  ngOnInit() {
-    this.tabOrder = 'all';
-    // this.subscriptions.push(this.productsSandbox.products$.subscribe((product: any) => {
-    //   if (!product) {
-    //     this.productsSandbox.loadProducts({
-    //       page: 1,
-    //       itemperpage: 10,
-    //       status : 'ALL'
-    //     });
-    //   }
-    // }));
-    // this.subscriptions.push(this.productsSandbox.productSearch$.subscribe((res: any) => {
-    //   if (!res) {
-    //     this.productsSandbox.getProductSearch({
-    //       q: 'samsung'
-    //     });
-    //     console.log(res);
-    //   }
-    // }));
-    this.getProfile();
-    this.myForm = this.fb.group({
-      useremail: this.fb.array([]),
-    });
     this.activatedRoute.queryParams.subscribe((queryParam) => {
       this.currentPage = (queryParam.page) ? queryParam.page : 1;
       this.status = (queryParam.status) ? queryParam.status : 'AP';
+      this.tabOrder = (queryParam.stocked) ? queryParam.stocked : 'Y';
+      this.active = (queryParam.isactive) ? queryParam.isactive : 'true';
+      this.tabs = (queryParam.tabs) ? queryParam.tabs : 'all';
       this.prodList();
     });
   }
 
-  tab(tab?) {
+  ngOnInit() {
+    this.getProfile();
+    this.myForm = this.fb.group({
+      useremail: this.fb.array([]),
+    });
+  }
+
+  tab(status, stock, isactive, tabs) {
+    this.router.navigate(['/listing-product'], { queryParams: {page: 1, status: status, stocked: stock, isactive: isactive, tabs},
+    queryParamsHandling: 'merge' });
+  }
+
+  stat(data) {
+    this.stat = data;
+    this.router.navigate(['/listing-product'], { queryParams: {page: 1, isactive: data},
+    queryParamsHandling: 'merge' });
+  }
+
+  all(data) {
+    this.status = data;
+    this.router.navigate(['/listing-product'], { queryParams: {page: 1, status: data},
+    queryParamsHandling: 'merge' });
   }
 
   prodList(q?: string) {
     const queryParams = {
       itemperpage: 10,
       page: this.currentPage,
-      status: this.status
+      status: this.status,
+      stocked: this.tabOrder,
+      isactive: this.active,
+      tabs: this.tabs
     };
 
     if (q) queryParams['name'] = q;
@@ -136,7 +139,7 @@ export class ListingProductComponent implements OnInit {
     if (increment) { page = +page + increment; }
     if (page < 1 || page > this.proddetail.pageCount) { return false; }
     // tslint:disable-next-line:max-line-length
-    this.router.navigate(['/listing-product'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
+    this.router.navigate(['/listing-product'], { queryParams: {page: page, status: this.status, stocked: this.tabOrder, isactive: this.active, tabs: this.tabs}, queryParamsHandling: 'merge' });
     window.scrollTo(0, 0);
   }
 
@@ -168,7 +171,7 @@ export class ListingProductComponent implements OnInit {
     const queryParams = {
       page: 1,
       itemperpage: 10,
-      status : 'ALL'
+      status: 'AP'
     };
     this.prodSe.editHide(paramS).subscribe(res => {
       console.log('aaaa', res);
@@ -214,7 +217,7 @@ export class ListingProductComponent implements OnInit {
         const queryParams = {
           page: 1,
           itemperpage: 10,
-          status : 'ALL'
+          status : 'AP'
         };
         this.prodSe.getProdListing(queryParams).subscribe(response => {
         this.proddetail = response;

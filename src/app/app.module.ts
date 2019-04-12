@@ -37,7 +37,6 @@ import { environment } from '@env/environment';
 import { SharedModule } from '@belisada-seller/shared/shared.module';
 import { ProfileInformationComponent } from '@belisada-seller/features/profile/profile-information/profile-information.component';
 import { RekeningComponent } from '@belisada-seller/features/profile/rekening/rekening.component';
-import { ProductAssistComponent } from './features/product-assist/product-assist.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './core/store';
 import { ProductsSandbox } from './features/product/products.sandbox';
@@ -74,7 +73,6 @@ registerLocaleData(localeId, 'id');
     ReviewComponent,
     ProfileInformationComponent,
     RekeningComponent,
-    ProductAssistComponent,
     SearchProductMasterComponent,
     AddProductV2Component,
     ChatComponent

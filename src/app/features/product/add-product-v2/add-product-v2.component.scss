@@ -72,29 +72,29 @@ form {
 
 .wrapper-btm {
     position: relative;
+    padding: 4rem;
     &__btn {
         position: absolute;
         // position: relative;
         top: 34px;
         right: 0;
-        left: 90%;
+        left: 100%;
         transform: translate(-50%, -50%);
-
     }
 }
 
 /*  SECTIONS  */
 .section {
-	clear: both;
-	padding: 0px;
-	margin: 0px;
+        clear: both;
+        padding: 0px;
+        margin: 0px;
 }
 
 /*  COLUMN SETUP  */
 .col {
-	display: block;
-	float:left;
-	margin: 1% 0 1% 1.6%;
+        display: block;
+        float:left;
+        margin: 1% 0 1% 1.6%;
 }
 .col:first-child { margin-left: 0; }
 
@@ -380,6 +380,29 @@ th, td {
 }
 
 .toTheRight {
-    float: right;
+    // float: right;
     margin-right: 4vw;
+}
+
+.frame-couriers{
+    padding: 1rem;
+
+    &__sub{
+        display: grid;
+        grid-template-columns: 90% 10%;
+        padding: 0.5rem;
+    }
+
+    &__right{
+        text-align: right;
+    }
+}
+
+.itemScroll{
+    overflow:scroll; 
+    height:270px;
+}
+
+.change-img{
+    cursor: pointer;
 }

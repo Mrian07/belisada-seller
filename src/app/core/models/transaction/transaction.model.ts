@@ -157,7 +157,10 @@ export class Resi {
     noResi: string;
     orderNumber: string;
     status: number;
+    courierCode: string;
 }
+
+export class ResiResponse extends BaseResponseModel {}
 
 
 export class ShippingData {

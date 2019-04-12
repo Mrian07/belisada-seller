@@ -3,11 +3,15 @@ import { Globals } from '@belisada-seller/core/services/globals/globals';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MessagingService } from './shared/messaging.service';
+import { ChatService } from './core/services/globals/chat.service';
 @Component({
   selector: 'app-root',
   template: `
     <router-outlet></router-outlet>
-    <div class="loading" *ngIf="globals.isLoading === true"></div>`,
+    <div class="loading" *ngIf="globals.isLoading == true"></div>
+    <div class="chat-wrapper" *ngIf="globals.showChat === true">
+      <app-chat></app-chat>
+    <div>`,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
@@ -19,7 +23,8 @@ export class AppComponent implements OnInit {
     titleService: Title,
     router: Router,
     activatedRoute: ActivatedRoute,
-    private messagingService: MessagingService
+    _chatService: ChatService,
+    private messagingService: MessagingService,
     ) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

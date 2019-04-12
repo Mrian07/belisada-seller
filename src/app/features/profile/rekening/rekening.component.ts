@@ -1,10 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { RekeningService } from '@belisada-seller/core/services';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import {
-  RekeningRespon, AddRekeningRequest, RekeningUser
-} from '@belisada-seller/core/models';
+import { RekeningRespon, AddRekeningRequest, RekeningUser } from '@belisada-seller/core/models';
 import swal from 'sweetalert2';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'bss-rekening',
@@ -12,19 +11,23 @@ import swal from 'sweetalert2';
   styleUrls: ['./rekening.component.scss']
 })
 export class RekeningComponent implements OnInit {
-
   createComForm: FormGroup;
   popRek: Boolean = false;
   onBankFocus: Boolean = false;
   rekeningList: RekeningRespon[];
   rekList: RekeningUser[];
   formSubmited: Boolean = false;
+  account: boolean;
+
+  thumborUrl: string;
 
   constructor(
     private rekeningService: RekeningService,
     private fb: FormBuilder,
     private el: ElementRef,
-  ) { }
+  ) {
+    this.thumborUrl = environment.thumborUrl + '234x76/center/filters:fill(fff)/';
+  }
 
   ngOnInit() {
     this.loadData();
@@ -39,7 +42,6 @@ export class RekeningComponent implements OnInit {
     const type = 2;
     this.rekeningService.getRekening(type).subscribe(respon => {
       this.rekeningList = respon;
-      console.log('hasilnya', respon);
     });
   }
 
@@ -114,6 +116,7 @@ export class RekeningComponent implements OnInit {
 
 
   onSubmit() {
+    console.log('asdasd');
     const form = this.createComForm;
     this.formSubmited = true;
     const data: AddRekeningRequest = new AddRekeningRequest();
@@ -124,18 +127,61 @@ export class RekeningComponent implements OnInit {
     data.bankId = this.createComForm.value.bankId;
     data.bankName = this.createComForm.value.bankName;
     if (form.valid) {
+      const type = 2;
+      // this.rekeningService.getRekening(type).subscribe(respon => {
+      //   this.rekeningList = respon;
+      //   const account = respon.find(x => x.bankName === this.createComForm.value.bankName
+      //     && x.accountNumber === this.createComForm.value.accountNumber);
+      //   if (account) {
+      //     swal({
+      //       title: 'Alert',
+      //       text: 'Nomor rekening sudah terdaftar dalam rekening anda!',
+      //       type: 'warning',
+      //       showCancelButton: false,
+      //       confirmButtonText: 'OK',
+      //       confirmButtonColor: '#3085d6',
+      //       cancelButtonColor: '#d33'
+      //     });
+      //     return;
+      //   }
+      //   this.formSubmited = false;
+      // });
+
       if (this.createComForm.value.bankAccountId) {
-        this.rekeningService.editRekening(data).subscribe(respon => {
+        this.rekeningService.editRekening(data).subscribe(respon2 => {
+          if (respon2.status === 0) {
+            swal({
+              title: 'Alert',
+              text: 'Nomor rekening yang sama sudah ada dalam rekening anda!',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33'
+            });
+            return;
+          }
           this.loadData();
           this.popRek = false;
         });
       } else {
-        this.rekeningService.addRekening(data).subscribe(respon => {
+        this.rekeningService.addRekening(data).subscribe(respon2 => {
+          if (respon2.status === 0) {
+            swal({
+              title: 'Alert',
+              text: 'Nomor rekening yang sama sudah ada dalam rekening anda!',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33'
+            });
+            return;
+          }
           this.loadData();
           this.popRek = false;
         });
       }
-      this.formSubmited = false;
     }
   }
 
@@ -145,6 +191,5 @@ export class RekeningComponent implements OnInit {
       return false;
     }
     return true;
-
   }
 }

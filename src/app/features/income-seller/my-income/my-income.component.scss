@@ -14,6 +14,25 @@
     color: black;
 }
 
+.info{
+    &__active{
+        text-align: center;
+        border: 1px solid #f27138;
+        border-radius: 8px;
+        color: #e24400;
+        background-color: #f7f2ce;
+        padding: 1rem 1.5rem;
+        margin: 0 15px 15px;
+        text-align: justify;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    &__noActive{
+        display: none;
+    }
+}
+
 .text__header--title {
     font-size: 3rem;
     color: black;
@@ -145,3 +164,147 @@
     color: #ccc;
     cursor: default;
 }
+
+.iconDetail {
+    font-size: 24px;
+    &:hover {
+        color: #f57b2a;
+    }
+    &:active {
+        color: #db6a1e;
+    }
+}
+
+.mutasi {
+    &-wrapper {
+        padding: 0;
+        border: 1px solid #ff6b65
+    }
+    &-icon {
+        float: left;
+        height: 70px;
+        width: 70px;
+        position: absolute;
+        top: 50%;
+        left: 1%;
+        -webkit-transform: translate(0%, -50%);
+        transform: translate(0%, -50%);
+    }
+
+    &-head {
+        background-color: #ff6b65;
+        padding: 15px 0;
+        h2 {
+            font-size: 35px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 0;
+        }
+    }
+    &-contentDetail {
+        padding: 15px 10px;
+        h1 {
+            font-size: 18px;
+            margin-bottom: 0;
+            color: #2b2b2b;
+            padding-left: 15px;
+        }
+        p {
+            font-size: 17px;
+            margin-bottom: 10px;
+            padding-left: 15px;
+        }
+    }
+
+    &-table {
+        margin: 10px 0 0;
+        & .contentTable {
+            padding: 10px 0;
+            overflow-y: scroll;
+            height: 100px;
+        }
+    }
+
+    &-underline {
+        border-bottom: 1px solid #bebebe;
+        margin: 0px;
+    }
+
+    &-doubleLine {
+        border-top: 1px solid #bebebe;
+        border-bottom: 1px solid #bebebe;
+        margin: 0px;
+        padding: 10px 0;
+    }
+
+    &-tableHeader {
+        color: #2b2b2b;
+        font-weight: bold;
+    }
+
+    &-tableHeaderCenter {
+        color: #2b2b2b;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &-tableHeaderRight {
+        color: #2b2b2b;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    &-tableContent {
+        color: #2b2b2b;
+        line-height: 24px;
+    }
+
+    &-lineProduct {
+        margin: 0 -15px 10px;
+    }
+
+    &-tableContentCenter {
+        color: #2b2b2b;
+        line-height: 24px;
+        text-align: center;
+    }
+
+    &-tablePrice {
+        color: #009dff;
+        line-height: 24px;
+        text-align: right;
+    }
+
+    &-total {
+        text-align: right;
+        color: #2b2b2b;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+
+.removeMargin {
+    margin: 0;
+}
+
+.grandTotal {
+    padding: 10px 0 0;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    background:lightgray;
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgb(66, 66, 66); 
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background: #8f8f8f;
+} 

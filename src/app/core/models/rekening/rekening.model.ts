@@ -1,3 +1,5 @@
+import { BaseResponseModel } from '../base-response.model';
+
 export class AddRekeningRequest {
     accountName: string;
     accountNumber: string;
@@ -8,7 +10,7 @@ export class AddRekeningRequest {
     bankAccountId: string;
 }
 
-export class RekeningRespon {
+export class RekeningRespon extends BaseResponseModel {
     bankId: number;
     bankName: string;
     accountNumber: string;

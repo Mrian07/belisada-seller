@@ -4,11 +4,16 @@
         <div class="row wrapper--product-detail">
             <div class="col-3">
                 <div>
-                    <div>
-                        <img [src]="productImage + displayImage">
+                    <div *ngIf="this.otherimg; else mainImage">
+                        <img [src]="this.otherimg">
                     </div>
-                    <div class="row small-gutters">
-                        <div class="col-md-5r" *ngFor="let item of product?.imageUrl">
+                    <div>
+                        <ng-template #mainImage>
+                            <img [src]="productImage + displayImage">
+                        </ng-template>
+                    </div>
+                    <div class="row small-gutters change-img">
+                        <div class="col-md-5r" *ngFor="let item of product?.imageUrl" (click)="changeImg(productImage + item)">
                             <img [src]="productImage + item">
                         </div>
                     </div>
@@ -112,27 +117,27 @@
                                 </label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga Jual" formControlName="pricelist" class="form-control"
-                                    [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                                <input type="text" (change)="calculateDiscount()" placeholder="Harga Jual" formControlName="pricelist" class="form-control"
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.pricelist.invalid) && (submitted || variant.controls.pricelist.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" (change)="calculateDiscount()" (input)="price = format(price)" placeholder="Harga Promo" formControlName="specialPrice" class="form-control"
-                                    [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched) && variant.controls.isUsed.value == true}" maxlength="10" (keypress)="numberCheck($event, variant)">
+                                <input type="text" (change)="calculateDiscount()" placeholder="Harga Promo" formControlName="specialPrice" class="form-control"
+                                    [ngClass]="{'form-error': (variant.errors || variant.controls.specialPrice.invalid) && (submitted || variant.controls.specialPrice.touched)}" maxlength="10" (keypress)="numberCheck($event, variant)">
                             </div>
                             <div class="col-md-1">
                                 <input type="text" placeholder="Stok" formControlName="qty" class="form-control text-center" (keypress)="numberCheck($event)">
                             </div>
                             <div class="offset-md-5 col-md-5">
-                                <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid && variant.controls.isUsed.value == true">
+                                <div *ngIf="(submitted || variant.controls.qty.touched) && variant.controls.qty.invalid">
                                     <bss-field-error [displayError]="variant.controls.qty.errors.max" errorMsg="Maksimal stok 5"></bss-field-error>
-                                    <bss-field-error [displayError]="variant.controls.qty.errors.required" errorMsg="Stok harus diisi"></bss-field-error>
+                                    <bss-field-error [displayError]="variant.controls.qty.errors.required && variant.controls.isUsed.value == true" errorMsg="Stok harus diisi"></bss-field-error>
                                 </div>
-                                <div *ngIf="(submitted || variant.touched) && variant.errors && variant.controls.isUsed.value == true">
+                                <div *ngIf="(submitted || variant.touched) && variant.errors">
                                     <bss-field-error [displayError]="variant.errors.invalidprice" errorMsg="Harga promo tidak boleh lebih besar dari harga jual"></bss-field-error>
                                 </div>
-                                <div *ngIf="(submitted || variant.controls.pricelist.touched) && variant.controls.pricelist.invalid && variant.controls.isUsed.value == true">
+                                <div *ngIf="(submitted || variant.controls.pricelist.touched) && variant.controls.pricelist.invalid">
                                     <bss-field-error [displayError]="variant.controls.pricelist.errors.min" errorMsg="Harga jual minimal Rp 100"></bss-field-error>
-                                    <bss-field-error [displayError]="variant.controls.pricelist.errors.required" errorMsg="Harga jual harus diisi"></bss-field-error>
+                                    <bss-field-error [displayError]="variant.controls.pricelist.errors.required && variant.controls.isUsed.value == true" errorMsg="Harga jual harus diisi"></bss-field-error>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +197,7 @@
                     <h4 style="margin-top: 50px;">Jasa Pengiriman</h4>
                     <!-- <div class="row"> -->
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-10">
                             <div class="row" style="border: 1px solid #fd9426;">
                                 <div class="col-12 courier">
                                     <div class="row">
@@ -227,7 +232,19 @@
                                 </div>
                             </div>
                             <div class="selectCourier" *ngIf="!routeUrl">
-                                <table class="table" *ngIf="isFlase === true">
+                                <div class="frame-couriers" *ngIf="isFlase === true" [ngClass]="{'itemScroll': product?.couriers.length>=4}">
+                                    <div class="frame-couriers__sub" *ngFor="let courier of product?.couriers">
+                                        <div>{{ courier.name }}</div>
+                                        <div class="frame-couriers__right">
+                                            <label class="switch small toTheRight">
+                                                <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <table class="table" *ngIf="isFlase === true">
                                     <tr *ngFor="let courier of product?.couriers">
                                         <td>{{ courier.name }}</td>
                                         <td class="right">
@@ -237,10 +254,24 @@
                                             </label>
                                         </td>
                                     </tr>
-                                </table>
+                                </table> -->
                             </div>
                             <div class="selectCourier" *ngIf="routeUrl">
-                                <table class="table" *ngIf="isFlase === true">
+
+                                <div class="frame-couriers" *ngIf="isFlase === true" [ngClass]="{'itemScroll': (productsSandbox.coruerir$ | async).length>=4}">
+                                    <div class="frame-couriers__sub" *ngFor="let courier of productsSandbox.coruerir$ | async">
+                                        <div>{{ courier.name }}</div>
+                                        <div class="frame-couriers__right">
+                                            <label class="switch small toTheRight">
+                                                <input (change)="onChangeCourier(courier.code, $event.target.checked)" [value]="courier.code" [checked]="courier.isUse" type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- <table class="table" *ngIf="isFlase === true">
                                     <tr *ngFor="let courier of  productsSandbox.coruerir$ | async">
                                         <td>{{ courier.name }}</td>
                                         <td class="right">
@@ -250,7 +281,7 @@
                                             </label>
                                         </td>
                                     </tr>
-                                </table>
+                                </table> -->
                             </div>
                         </div>
                         <div class="col-3">
@@ -268,7 +299,7 @@
 
 </div>
 <div class="row">
-    <div class="col-12 wrapper-btm text-right">
+    <div class="col-12 wrapper-btm text-center">
         <button (click)="postProductV2()" class="btn btn--orange">Save Product</button>
     </div>
 </div>

@@ -19,6 +19,10 @@ import { SearchProductMasterComponent } from './features/product/search-product-
 import { AddProductV2Component } from './features/product/add-product-v2/add-product-v2.component';
 import { ProductsResolver } from './features/product/product.resolver';
 import { ListingProductManageComponent } from './features/product/listing-product-manage/listing-product-manage.component';
+import { EventComponent } from './features/event/event.component';
+import { HelpListComponent } from './features/product-assist/help-list/help-list.component';
+import { HelpHistoryComponent } from './features/product-assist/help-history/help-history.component';
+import { HelpDetailComponent } from './features/product-assist/help-detail/help-detail.component';
 
 const routes: Routes = [
   {
@@ -128,10 +132,37 @@ const routes: Routes = [
       {
         path: 'product-assist',
         component: ProductAssistComponent,
-        data: {
-          title: 'product-assist'
-        },
-      },
+        children: [
+          {
+            path: 'product-assist/help-history',
+            component: HelpHistoryComponent,
+            data: {
+              title: 'Help History'
+            }
+          },
+          {
+            path: 'product-assist/help-list',
+            component: HelpListComponent,
+            data: {
+              title: 'Help List'
+            }
+          },
+          {
+            path: 'product-assist/help-detail',
+            component: HelpDetailComponent,
+            data: {
+              title: 'Help Detail'
+            }
+          },
+        ]
+      }
+      // {
+      //   path: 'Event',
+      //   component: EventComponent,
+      //   data: {
+      //     title: 'Event'
+      //   },
+      // },
     ],
   },
   { path: 'activation',
@@ -155,6 +186,7 @@ const routes: Routes = [
     },
   },
   { path: 'auth', loadChildren: 'app/features/auth/auth.module#AuthModule' },
+  { path: 'event', loadChildren: 'app/features/event/event.module#EventModule' },
   // { path: 'account', loadChildren: 'app/features/auth/auth.module#AuthModule' },
   // { path: 'buyer', loadChildren: 'app/features/buyer/buyer.module#BuyerModule' },
   // { path: 'seller', loadChildren: 'app/features/seller/seller.module#SellerModule' },

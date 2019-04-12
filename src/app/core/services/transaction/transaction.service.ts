@@ -1,4 +1,4 @@
-import { ShippingData, AcceptTransactionResponse, DeclineTransactionResponse } from './../../models/transaction/transaction.model';
+import { ShippingData, AcceptTransactionResponse, DeclineTransactionResponse, ResiResponse } from './../../models/transaction/transaction.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Configuration } from '@belisada-seller/core/config';
@@ -29,10 +29,10 @@ export class TransactionService {
     );
   }
 
-  addResi(data: Resi): Observable<Resi> {
+  addResi(data: Resi): Observable<ResiResponse> {
     return this.http.post(this.configuration.apiURL + '/seller/order/confirmation/resi', data)
       .pipe(
-        map(response => response as Resi)
+        map(response => response as ResiResponse)
       );
   }
 

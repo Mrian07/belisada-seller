@@ -1,0 +1,101 @@
+.frame-event{
+    padding: 10px;
+    margin:10px;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    color: #000000;
+
+    &__valDate{
+        color: #f0832a;
+        font-size: 30px;
+    }
+
+    &__date{
+        text-align: center;
+        font-weight: bold;
+        font-size: 2rem;
+        border:1px solid #dddddd;
+    }
+
+    &__until-date{
+        text-align: center;
+        font-size: 1.2rem;
+        border-left:1px solid #dddddd;
+        border-right:1px solid #dddddd;
+        border-bottom:1px solid #dddddd;
+        padding: 1rem;
+    }
+
+    &__contain{
+        margin-left:8px;  
+    }
+
+    &__title{
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+}
+
+.frame-join{
+    padding: 10px;
+    margin:0px 10px 10px 10px;
+    color: #000000;
+
+    &__head{
+        display: grid;
+        grid-template-columns: 85% 15%;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+        &__title{
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        &__btn{
+            text-align: center;
+            background: #f0832a;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+    }
+
+    &__val{
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+    }
+
+    &__line{
+        padding:10px;
+        box-shadow: 2px 2px 4px #c9c9c9;
+    }
+
+    &__border-btn{
+        text-align: center;
+        margin-top:20px;
+
+        &__back{
+            cursor: pointer;
+            padding:10px;
+            border-radius: 5px;
+            background: #dddddd;
+            color:#000000;
+        }
+
+        &__back:hover{
+            background: #f0eeee;
+        }
+
+        &__submit{
+            margin-left:10px;
+            cursor: pointer;
+            padding:10px;
+            border-radius: 5px;
+            background: #e4a53c;
+            color:#ffffff;
+        }
+
+        &__submit:hover{
+            background: #efb75b;
+        }
+    }
+}

@@ -29,10 +29,14 @@ export class MyIncomeComponent implements OnInit {
   invNumPart2: any = [];
   selectedAll: any;
   xx: false;
+  withdrawDetail: Boolean = false;
 
   btn_withrawal: Boolean = false;
-
   totalTransfer: any = [];
+  invoiceDetail: string;
+  orderID: string;
+  pembeli: string;
+  date: string;
   myDatePickerOptions: IMyDpOptions = {
     // other options... https://github.com/kekeh/mydatepicker#options-attribute
     dateFormat: this.defaultDateFormat,
@@ -54,6 +58,7 @@ export class MyIncomeComponent implements OnInit {
     private dateUtil: DateUtil,
     private loadingService: LoadingService,
     private activatedRoute: ActivatedRoute) {
+      this.loadingService.hide();
   }
 
   ngOnInit() {
@@ -71,6 +76,7 @@ export class MyIncomeComponent implements OnInit {
       const queryParams = {
         page: this.currentPage,
         itemperpage: 10,
+        history: 'N'
       };
       this.loadingService.show();
       this.incomeS.getIncomeWithDate(queryParams).subscribe(response => {
@@ -111,6 +117,17 @@ export class MyIncomeComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  openDetail(data) {
+    this.withdrawDetail = true;
+    this.orderID = data.invoiceNumber;
+    this.date = data.createdTime;
+    const queryParams = {
+      itemperpage: 10,
+      page: this.currentPage,
+      status_order: 221,
+      ot: 'asc'
+    };
+  }
 
   selectAll() {
     for (let i = 0; i < this.getData.length; i++) {

@@ -35,6 +35,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   // @Input() status: string;
   visible: boolean;
   status = 'ALL';
+  ot = 'desc';
   toggleArrBol: boolean[];
   listCart: Cart[];
   btnResi: boolean;
@@ -59,6 +60,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   x;
   c;
   get form() { return this.createComForm.controls; }
+  get cform() { return this.cancelForm.controls; }
 
   constructor(
     private transactionService: TransactionService,
@@ -99,7 +101,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
       actualCourierPrice: [''],
       orderNumber: ['', [Validators.required]],
-      noResi: ['', [Validators.required]]
+      noResi: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -109,10 +111,12 @@ export class OrderListComponent implements OnInit, OnDestroy {
     const queryParams = {
       itemperpage: 10,
       page: this.currentPage,
-      status_order: statusOrder
+      status_order: statusOrder,
+      ot: (statusOrder === '187') ? 'asc' : 'desc'
     };
 
     this.transactionService.getListOrder(queryParams).subscribe(response => {
+      console.log('Response: .......', response);
       this.loadingService.hide();
       const a = response.content.findIndex(x => x.expiredSellerProcessDate !== '');
       const b =  response.content.filter(x => x.expiredSellerProcessDate !== '');
@@ -179,30 +183,34 @@ export class OrderListComponent implements OnInit, OnDestroy {
       resi.actualCourierPrice = this.createComForm.controls['actualCourierPrice'].value;
       resi.noResi = this.createComForm.controls['noResi'].value;
       resi.orderNumber = this.createComForm.controls['orderNumber'].value;
+      resi.courierCode = this.info.courierCode;
 
       const data = {
         actualCourierPrice: resi.actualCourierPrice,
         noResi: resi.noResi,
         orderNumber: resi.orderNumber,
+        courierCode: resi.courierCode,
         status: null
       };
 
       this.transactionService.addResi(data).subscribe(response => {
-        this.isStatus();
         if (response.status === 0) {
-          this.isErrorResi = true;
+          // this.isErrorResi = true;
+          swal({
+            type: 'error',
+            title: 'Oops...',
+            text: response.message,
+          });
         } else {
+          this.isStatus();
           this.isProsesResi = true;
           this.orderList(this.status);
         }
-
       });
     } else {
       console.log('xxxx');
     }
-
   }
-
   disableControl(condition: Boolean) {
     this.disabled = condition;
     const action = condition ? 'disable' : 'enable';
@@ -212,7 +220,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   //  this.ngOnInit();
-  this.orderList();
+    this.orderList();
   }
 
   acceptTransaction(orderNumber) {
@@ -258,12 +266,14 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(orderNumber) {
+    this.submitted = true;
     this.cancelForm.patchValue({
       orderNumber: orderNumber
     });
     const _data: AddReason = new AddReason();
     _data.orderNumber = this.cancelForm.controls['orderNumber'].value;
     _data.reason = this.cancelForm.controls['reason'].value;
+    if (this.cancelForm.valid) {
       swal({
         title: 'belisada.co.id',
         text: 'Anda yakin akan menolak pesanan?',
@@ -276,29 +286,30 @@ export class OrderListComponent implements OnInit, OnDestroy {
         reverseButtons: true
       }).then((result) => {
         if (result.value) {
-          swal(
-            'Success!',
-            'Anda telah menolak pesanan.',
-            'success'
-          ).then(() => {
-            this.reasonService.addReason(_data).subscribe(response => {
-              console.log(response);
-              this.loadingService.hide();
-              this.orderList(this.status);
-            });
-            });
-            }
+            swal(
+              'Success!',
+              'Anda telah menolak pesanan.',
+              'success'
+            ).then(() => {
+              this.reasonService.addReason(_data).subscribe(response => {
+                console.log(response);
+                this.loadingService.hide();
+                this.orderList(this.status);
+              });
+              });
+        }
     });
     this.cancelForm.reset();
     this.cancelOrderModal = false;
-}
+    }
+  }
 
-setPage(page: number, increment?: number) {
-  if (increment) { page = +page + increment; }
-  if (page < 1 || page > this.proddetail.totalPages) { return false; }
-  // tslint:disable-next-line:max-line-length
-  this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
-  window.scrollTo(0, 0);
-}
+  setPage(page: number, increment?: number) {
+    if (increment) { page = +page + increment; }
+    if (page < 1 || page > this.proddetail.totalPages) { return false; }
+    // tslint:disable-next-line:max-line-length
+    this.router.navigate(['/listing-order'], { queryParams: {page: page, status: this.status}, queryParamsHandling: 'merge' });
+    window.scrollTo(0, 0);
+  }
 
 }

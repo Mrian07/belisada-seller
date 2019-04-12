@@ -1,74 +1,19 @@
 <div class="row wrapper--income-seler">
-  <div class="col-12 header--datetimepicker">
-    <!-- <div class="wrapper-two__row--dtp">
-      <div>1</div>
-      <div>2</div>
-    </div> -->
-    <div class="row" >
-      <div class="col-6 ">
-        <!-- <div class="row"> -->
-        
-          <div class="wrapper__header--datetimepicker">
-              <form [formGroup]="fGroup" >
-                <div class="row">
-                    <div class="col-4 zeroPaddingRight">
-                        <my-date-picker class="frame-date" name="mydate" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
-                      </div>
-                      <div class="col-1 upTo">-</div>
-                  
-                    <div class="col-4 zeroPaddingLeft">
-                      <my-date-picker class="frame-date" name="mydate" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
-                    </div>
-                    <div class="col-3">
-                        <button class="btn btn--orange" (click)="testing()">Cari</button>
-                      </div>
-                </div>
-              </form>
-              <div class="row">
-                  <div class="col-12">
-                    <span class="text--saldo">Saldo dari tanggal dd/mm/yy - dd/mm/yy</span>
-                  </div>
-              </div>
-          </div>
-        <!-- </div> -->
-      </div>
-      <div class="col-6 ">
-          <!-- <div class="row"> -->
-            <div class="col-12 wrapper__header--datetimepicker">
-              <div class="row btn--wrapper">
-                <div class="col-5">
-                  <button class="btn btn--peach btn--height72"  (click)="selectAll()"> Pilih Semua </button>
-                </div>
-            
-                <div class="col-5">
-                    <button [ngClass]="btn_withrawal === true ? 'btn btn--green btn--height72': 'btn btn--disabled btn--height72'"
-                    
-                    (click)="tarikDana()">Tarik Dana</button>
-                </div>
-              </div>
-            </div>
-          <!-- </div> -->
-        </div> 
-    </div>
-  </div>
-
 <!-- <div class="row"> -->
   <div class="col-12 wrapper--body">
     <div class="outerBorder">
       <div *ngFor="let item of getData">
-        <div class="four-grid" *ngIf="item.statusWithdrawCode==225">
+        <div class="four-grid">
           <div class="insideGrid">
             <input type="checkbox" [checked]=item.selected (change)="onChange(item, $event.target.checked)" *ngIf="item.statusWithdrawCode==221"/>
           </div>
           <div class="insideGrid">
-            <span class="createdTime"> {{  item.createdTime }} </span>
-            <span class="text-collor__black text-bold"> {{ item.status }} {{ item.invoiceNumber }}</span>
-            <!-- <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook</a> -->
-            <fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon>
+            <span class="createdTime"> {{  item.createDate }} </span>
+            <span class="text-collor__black text-bold">{{ item.invoiceNumber }}</span>
           </div>
           <div class="insideGrid">
             <span class="text-collor__black text-center text-display__block">Status</span>
-            <span class="text-collor__black text-center text-display__block"> {{ item.statusWithdraw }}</span>
+            <span class="text-collor__black text-center text-display__block"> {{ item.status }}</span>
           </div>
           <div class="insideGrid">
               <span class="text-collor__black text-center text-display__block">Nominal</span>

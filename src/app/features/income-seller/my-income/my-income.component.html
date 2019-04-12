@@ -1,4 +1,13 @@
 <div class="row wrapper--income-seler">
+  <div class="info__active">
+    Pastikan kepada pihak Buyer untuk melakukan konfirmasi penerimaan barang agar dana dapat dicairkan ke toko Anda.
+  </div>
+  <div class="info__active">
+    Jika buyer melakukan pembayaran menggunakan Debit Card, Credit Card atau Virtual Account, ada biaya layanan yang dibebankan ke seller per transaksi.
+  </div>
+  <div class="info__active">
+    Untuk pencairan dana ke rekening selain BCA, biaya transfer ditanggung oleh seller dan akan dipotong saat pencairan dana.
+  </div>
   <div class="col-12">
     <!-- <span class="text__header--title">My Income</span> -->
     <div class="background__header--title">
@@ -78,10 +87,10 @@
           <div>
             <input type="checkbox" [checked]=item.selected (change)="onChange(item, $event.target.checked)"/>
           </div>
-          <div><span class="createdTime"> {{  item.createdTime }} </span>
+          <div><span class="createdTime"> {{ item.createdTime }} </span>
             <span class="text-collor__black text-bold"> {{ item.status }} {{ item.invoiceNumber }}</span>
             <!-- <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook</a> -->
-            <fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon>
+            <a class="iconDetail" (click)="openDetail(item)"><fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon></a>
           </div>
           <div>
             <span class="text-collor__black text-center text-display__block">Status</span>
@@ -116,3 +125,61 @@
     </ul>
   </div>
 </div>
+<app-modal [(visible)]="withdrawDetail" maxwidth="850">
+  <div class="col-12 mutasi-wrapper">
+    <div class="col-12 mutasi-head">
+      <img class="mutasi-icon" src="assets/img/check-icon.png">
+      <h2>Detail Mutasi</h2>
+    </div>
+    <div class="col-12 mutasi-contentDetail">
+      <h1>Order ID</h1>
+      <p>{{ orderID }}</p>
+      <h1>Tanggal Selesai Transaksi</h1>
+      <p>{{ date }}</p>
+      <h1>Pembeli</h1>
+      <p>Nama Pembeli</p>
+      <div class="mutasi-table">
+        <div class="row mutasi-underline"> 
+          <div class="col-6 mutasi-tableHeader">Item Details</div>
+          <div class="col-1 mutasi-tableHeaderCenter">Qty</div>
+          <div class="col-2 mutasi-tableHeaderCenter">Berat</div>
+          <div class="col-3 mutasi-tableHeaderRight">Price</div>
+        </div>
+        <div class="row removeMargin contentTable">
+          <div class="col-12 removeMargin">
+            <div class="row mutasi-lineProduct">
+              <div class="col-6 mutasi-tableContent">VGA MSI Nvidia GeForce GTX 1080 Ti GAMING X 11GB</div>
+              <div class="col-1 mutasi-tableContentCenter">X1</div>
+              <div class="col-2 mutasi-tableContentCenter">1 Kg</div>
+              <div class="col-3 mutasi-tablePrice">Rp. 3.000.000</div>
+            </div>
+            <div class="row mutasi-lineProduct">
+              <div class="col-6 mutasi-tableContent">Sound Card MSI Nvidia GeForce Ti</div>
+              <div class="col-1 mutasi-tableContentCenter">X1</div>
+              <div class="col-2 mutasi-tableContentCenter">1 Kg</div>
+              <div class="col-3 mutasi-tablePrice">Rp. 1.300.000</div>
+            </div>
+            <div class="row mutasi-lineProduct">
+              <div class="col-6 mutasi-tableContent">Mouse Logitech Optical</div>
+              <div class="col-1 mutasi-tableContentCenter">X1</div>
+              <div class="col-2 mutasi-tableContentCenter">1 Kg</div>
+              <div class="col-3 mutasi-tablePrice">Rp. 300.000</div>
+            </div>
+          </div>
+        </div>
+        <div class="row mutasi-doubleLine">
+          <div class="col-7">
+            <div class="mutasi-tableHeader">Metode Pengiriman</div>
+            <div class="mutasi-pengiriman">JNE Reguler</div>
+          </div>
+          <div class="col-2 mutasi-tableContentCenter">4 Kg</div>
+          <div class="col-3 mutasi-tablePrice">Rp. 20.000</div>
+        </div>
+        <div class="row removeMargin grandTotal">
+          <div class="col-9 mutasi-total">Total:</div>
+          <div class="col-3 mutasi-tablePrice">Rp. 4.620.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-modal>

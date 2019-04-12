@@ -1,6 +1,6 @@
 <div class="list-rek" *ngFor="let item of rekeningList">
   <div class="verticalMiddle">
-    <img [src]="'https://img.belisada.id/unsafe/234x76/center/filters:fill(fff)/' + item.imageUrl">
+    <img [src]="thumborUrl + item.imageUrl">
   </div>
   <div>{{item.bankName}}<br>{{item.accountNumber}}<br>{{item.accountName}}</div>
   <div class="b-btn">
@@ -37,9 +37,7 @@
                       (focusout)="onBankBlur()" placeholder="Pilih Bank">
                   <i class="drick-select__icon caret down icon"></i>
               </div>
-              <div class="drick-select-container--toggle" [ngClass]="{'active':onBankFocus}"
-                  id="drick-scroll-container--brand"
-                  >
+              <div class="drick-select-container--toggle" [ngClass]="{'active':onBankFocus}" id="drick-scroll-container--brand">
                   <ul class="drick-select-list">
                       <li *ngFor="let i of rekList" (click)="selectBank(i)">
                           {{i.name}}
@@ -49,7 +47,7 @@
 
               <i class="inverted circular search link icon"></i>
               <div *ngIf="createComForm.controls.bankName.invalid && (createComForm.controls.bankName.dirty || formSubmited)" class="alert alert-danger toll tooltip testing">
-                  <span class="tooltiptext">Nomor Bank Tidak Boleh Kosong</span>
+                  <span class="tooltiptext">Pilih Nama Bank</span>
               </div> 
           </div>
 
@@ -85,10 +83,7 @@
             <input type="submit" class="btn-rek-save" value="Simpan">
             <!-- <div class="btn-rek-save">Simpan</div> -->
           </div>
-          
-          
         </div>
       </form>
     </div>
-  
   </app-modal>

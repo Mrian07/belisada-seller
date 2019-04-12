@@ -1,0 +1,61 @@
+.frame-event{
+    border: 1px solid #dddddd;
+    padding: 10px;
+    margin:10px;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    color: #000000;
+    box-shadow: 2px 2px 4px #c9c9c9;
+
+    &__valDate{
+        color: #f0832a;
+        font-size: 30px;
+    }
+
+    &__date{
+        text-align: center;
+        font-weight: bold;
+        font-size: 2rem;
+        border:1px solid #dddddd;
+    }
+
+    &__until-date{
+        text-align: center;
+        font-size: 1.2rem;
+        border-left:1px solid #dddddd;
+        border-right:1px solid #dddddd;
+        border-bottom:1px solid #dddddd;
+        padding: 1rem;
+    }
+
+    &__contain{
+        margin-left:8px;  
+    }
+
+    &__title{
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    &__btn{
+        display: flex; justify-content: flex-end;
+        margin-right: 100px;
+    }
+
+    &__btn-join{
+        background: #e4a53c;
+        color: #ffffff;
+        width: 160px;
+        padding:5px;
+        text-align: center;
+        margin-right:-100px;
+        margin-top:1rem;
+        cursor: pointer;
+    }
+
+    &__btn-join:hover{
+        background: #fcc262;
+    }
+    
+}
+
