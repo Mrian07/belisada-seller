@@ -285,30 +285,30 @@ export class AddProductV2Component implements OnInit, OnDestroy {
 
     const control = <FormArray>this.addProductForm.get('varians');
     const variantsOnlyChecked = control.value.filter(item => item.isUsed !== false);
-
+    const variants = control.value;
     // console.log('control: ', control);
 
     const variantsControls = <FormArray>this.getVariants(this.addProductForm);
 
     // return;
     const productFormModified = this.addProductForm.value;
-    productFormModified.varians = variantsOnlyChecked;
+    productFormModified.varians = variants;
 
     console.log('productFormModified: ', productFormModified);
 
 
-    const c = variantsOnlyChecked;
-    const xx = variantsOnlyChecked.forEach(element => {
-      if (element.pricelist < 100) {
-      swal(
-        'Warning',
-        'harga tidak boleh dibawah 100',
-        'warning'
-      );
-      this.loadingService.hide();
-      return;
-      }
-    });
+    // const c = variantsOnlyChecked;
+    // const xx = variantsOnlyChecked.forEach(element => {
+    //   if (element.pricelist < 100) {
+    //   swal(
+    //     'Warning',
+    //     'harga tidak boleh dibawah 100',
+    //     'warning'
+    //   );
+    //   this.loadingService.hide();
+    //   return;
+    //   }
+    // });
 
     if (this.addProductForm.get('couriers').value.length <= 0) {
       swal(
@@ -364,8 +364,11 @@ export class AddProductV2Component implements OnInit, OnDestroy {
       controls.forEach(control => {
         const con: FormGroup = control;
         // console.log('control: ', control);
+        console.log('+con.controls[specialPrice].value: ', +con.controls['specialPrice'].value);
+        const discount = (+con.controls['specialPrice'].value === 0)
+          ? 0 : Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100));
         control.patchValue({
-          discount: Math.round(100 - ((+con.controls['specialPrice'].value / +con.controls['pricelist'].value) * 100))
+          discount: (Number.isNaN(discount)) ? 0 : discount
         });
         // console.log('calculateDiscount', control.controls['discount'].value);
       });
