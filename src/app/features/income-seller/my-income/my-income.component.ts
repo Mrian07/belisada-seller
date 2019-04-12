@@ -281,7 +281,6 @@ export class MyIncomeComponent implements OnInit {
 
           });
           console.log('invNumPart2', this.invNumPart2);
-          this.spinner = false;
         } else {
           this.spinner = false;
         }
