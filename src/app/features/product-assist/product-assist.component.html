@@ -1,4 +1,4 @@
-<span class="title">Bantuan Produk</span>
+<!-- <span class="title">Bantuan Produk</span>
 <div class="pa-contain">
   <div *ngFor="let item of list">
     <div class="pa-head">
@@ -12,7 +12,6 @@
       <div class="pa-status">Status: <span class="pa-status--color">{{item.status}}</span></div>
       <div class="pa-btn-detail" (click)="viewDetail(detail, item.orderNumber)">Liat Komplain</div>
     </div>
-    <!-- <div class="pa-detail"> -->
     <div class="pa-detail" *ngIf="detail==true && orderNumber==item.orderNumber">
       <div class="pa-colm">
         <div class="pa-sub-colm">
@@ -32,7 +31,7 @@
           </div>
         </div>
         <div class="pa-sub-colm">
-          <div><b>Lanpiran Foto</b></div>
+          <div><b>Lampiran Foto</b></div>
           <div>Image</div>
           <div class="pa-sell-btn">
             <div class="pa-btn-tolak" (click)="btnTolak(item.orderNumber)" *ngIf="item.statusCode!='208' && item.statusCode!='206'">Tolak Komplain</div>
@@ -41,6 +40,23 @@
         </div>
       </div>
     </div>
+  </div>
+</div> -->
+
+<div class="tab-container">
+  <div class="tabWrapper">
+    <div [ngClass]="(tabOrder=='HelpList')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('HelpList', tabOrder)">
+      Daftar Komplain
+    </div>
+    <div [ngClass]="(tabOrder=='HelpHistory')?'btn-tab__active':'btn-tab__noActive'" (click)="tab('HelpHistory', tabOrder)">
+      Riwayat Komplain
+    </div>
+  </div>
+</div>
+<div class="frame-menu-contain">
+  <div class="wrapper-top">
+    <bss-help-list *ngIf="tabOrder=='HelpList'"></bss-help-list>
+    <bss-help-history *ngIf="tabOrder=='HelpHistory'"></bss-help-history>
   </div>
 </div>
 
@@ -65,7 +81,7 @@
   </ul>
 </div>
 
-<app-modal [(visible)]="popUpTolak" class="frameDialog"> 
+<!-- <app-modal [(visible)]="popUpTolak" class="frameDialog"> 
   <form class="ui form" [formGroup]="rejectForm" (ngSubmit)="submitReject()" novalidate>
     <input type="hidden" formControlName="orderNumber">
     <div class="pop-title">Tolak Komplain</div>
@@ -97,4 +113,4 @@
       <button type="submit" class="btn-submit">SUBMIT</button>
     </div>
   </form>
-</app-modal>
+</app-modal> -->
