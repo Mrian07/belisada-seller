@@ -69,8 +69,7 @@
             
                 <div class="col-5">
                     <button [ngClass]="btn_withrawal === true ? 'btn btn--green btn--height72': 'btn btn--disabled btn--height72'"
-                    
-                    (click)="tarikDana()">Tarik Dana</button>
+                    (click)="tarikDana()">Tarik Dana <img *ngIf="spinner==true" class="loading" src="/assets/img/spinner.gif" alt=""></button>
                 </div>
               </div>
             </div>
@@ -90,7 +89,7 @@
           <div><span class="createdTime"> {{ item.createdTime }} </span>
             <span class="text-collor__black text-bold"> {{ item.status }} {{ item.invoiceNumber }}</span>
             <!-- <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook</a> -->
-            <a class="iconDetail" (click)="openDetail(item)"><fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon></a>
+            <!-- <a class="iconDetail" (click)="openDetail(item)"><fa-icon [icon]="['fas', 'search']" style="padding-top: 4%;" pull="right"></fa-icon></a> -->
           </div>
           <div>
             <span class="text-collor__black text-center text-display__block">Status</span>

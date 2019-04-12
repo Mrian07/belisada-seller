@@ -48,7 +48,7 @@
 						{{ item.countdown?.days }} : {{ item.countdown?.hours }} : {{ item.countdown?.minutes }}
 					</span> -->
 					<span class="red-font" *ngIf="item.statusOrderSellerCode == '187' || item.statusOrderSellerCode == '190'; else elseTemplate">
-						{{ item.countdown?.days }} : {{ item.countdown?.hours }} : {{ item.countdown?.minutes }}
+						{{ item.countdown?.days }} Hari : {{ item.countdown?.hours }} Menit : {{ item.countdown?.minutes }} Detik
 					</span>
 					<ng-template #elseTemplate>
 							<span>-</span>

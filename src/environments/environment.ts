@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: 'https://api0.belisada.id/belisada',
   baseUrlSeller: 'https://seller0.belisada.id',
   baseUrlBuyer: 'https://dev.belisada.id',
-  thumborUrl: 'http://img.belisada.id/',
+  thumborUrl: 'https://img.belisada.id/',
   // chatUrl: '',
   // chatServerPort: '',
   // socketServerPort: '',
